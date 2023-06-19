@@ -2,6 +2,7 @@ import cli from '@battis/cli';
 import fs from 'node:fs';
 import invoke from './invoke';
 import * as project from './project';
+import * as services from './services';
 
 type CreateOptions = {
   region: string;
@@ -39,7 +40,7 @@ export async function create({
   region,
   writeDotEnvFile = true
 }: Partial<CreateOptions>) {
-  await invoke('services enable appengine.googleapis.com');
+  services.enable({ service: services.API.AppEngineAdminAPI });
   let instance = await describe();
   if (instance == null) {
     const response = await invoke(`app regions list`);

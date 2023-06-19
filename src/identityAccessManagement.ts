@@ -67,6 +67,15 @@ type Key = {
   validBeforeTime: string;
 };
 
+/*
+ * FIXME use Workload Identity Federation
+ *  Service account keys could pose a security risk if compromised. We
+ *  recommend you avoid downloading service account keys and instead use the
+ *  Workload Identity Federation . You can learn more about the best way to
+ *  authenticate service accounts on Google Cloud here.
+ *  https://cloud.google.com/iam/docs/workload-identity-federation
+ *  https://cloud.google.com/blog/products/identity-security/how-to-authenticate-service-accounts-to-help-keep-applications-secure
+ */
 export async function getServiceAccountCredentials({
   email,
   path,

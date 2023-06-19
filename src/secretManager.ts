@@ -2,6 +2,7 @@ import cli from '@battis/cli';
 import * as appEngine from './appEngine';
 import invoke from './invoke';
 import * as project from './project';
+import * as services from './services';
 
 type BaseSetOptions = {
   name: string;
@@ -50,7 +51,7 @@ export async function set({ name, value, path }: Partial<SetOptions>) {
     }
   }
   if (!apiEnabled) {
-    await invoke(`services enable secretmanager.googleapis.com`);
+    await services.enable({ service: services.API.SecretManagerAPI });
     apiEnabled = true;
   }
   let [secret] = await invoke<Secret[]>(`secrets list --filter=name:${name}`);

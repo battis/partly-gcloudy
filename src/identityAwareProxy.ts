@@ -2,6 +2,7 @@ import cli from '@battis/cli';
 import path from 'node:path';
 import invoke from './invoke';
 import * as project from './project';
+import * as services from './services';
 
 type OAuthBrand = {
   applicationTitle: string;
@@ -30,7 +31,7 @@ export default async function enable({
   supportEmail,
   users = [] // defaults to supportEmail if empty
 }: Partial<EnableOptions>) {
-  await invoke(`services enable iap.googleapis.com`);
+  await services.enable({ service: services.API.IdentityAwareProxyAPI });
   const proj = await project.describe();
   let [brand] = await invoke<OAuthBrand[]>(
     `iap oauth-brands list --filter=name=projects/${proj.projectNumber}/brands/${proj.projectNumber}`

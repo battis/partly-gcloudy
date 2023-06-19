@@ -10,6 +10,7 @@ export * as beta from './beta';
 export * as billing from './billing';
 export * as flags from './flags';
 export * as scheduler from './scheduler';
+export * as services from "./services";
 
 export default {
   invoke,
