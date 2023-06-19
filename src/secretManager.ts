@@ -1,7 +1,7 @@
 import cli from '@battis/cli';
 import * as appEngine from './appEngine';
+import * as iam from './identityAccessManagement';
 import invoke from './invoke';
-import * as project from './project';
 import * as services from './services';
 
 type BaseSetOptions = {
@@ -72,10 +72,8 @@ export async function set({ name, value, path }: Partial<SetOptions>) {
 }
 
 export async function enableAppEngineAccess() {
-  await invoke(
-    `projects add-iam-policy-binding ${project.getId()} --member="serviceAccount:${(
-      await appEngine.describe()
-    ).serviceAccount
-    }" --role="roles/secretmanager.secretAccessor"`
-  );
+  await iam.addPolicyBinding({
+    serviceAccount: (await appEngine.describe()).serviceAccount,
+    role: 'roles/secretmanager.secretAccessor'
+  });
 }

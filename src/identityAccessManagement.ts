@@ -146,10 +146,25 @@ export async function getServiceAccountCredentials({
   return key;
 }
 
-type AddPolicyBindingOptions = {
-  user: string;
+type BaseAddPolicyBindingOptions = {
   role: string;
 };
+
+type UserAddPolicyBindingsOptions = BaseAddPolicyBindingOptions & {
+  user: string;
+  userType: 'user' | 'serviceAccount';
+  serviceAccount: never;
+};
+
+type ServiceAccountAddPolicyBindingsOptions = BaseAddPolicyBindingOptions & {
+  user: never;
+  userType?: 'serviceAccount';
+  serviceAccount: string;
+};
+
+type AddPolicyBindingOptions =
+  | UserAddPolicyBindingsOptions
+  | ServiceAccountAddPolicyBindingsOptions;
 
 type IAMPolicyBinding = {
   members: string[];
@@ -164,8 +179,22 @@ type IAMPolicy = {
 
 export async function addPolicyBinding({
   user,
+  userType,
+  serviceAccount,
   role
 }: Partial<AddPolicyBindingOptions>) {
+  if (user && serviceAccount === undefined && userType === undefined) {
+    userType = await cli.io.prompts.select({
+      message: 'Choose user type',
+      choices: [
+        { name: 'User', value: 'user' },
+        { name: 'Service Account', value: 'serviceAccount' }
+      ]
+    });
+  }
+  if (serviceAccount) {
+    (userType = 'serviceAccount'), (user = serviceAccount);
+  }
   user =
     user ||
     (await cli.io.prompts.input({
@@ -178,7 +207,8 @@ export async function addPolicyBinding({
       message: `Role to bind to ${user}`,
       validate: cli.io.validators.notEmpty
     }));
+
   return await invoke<IAMPolicy>(
-    `projects add-iam-policy-binding ${project.getId()} --member="user:${user}" --role="${role}"`
+    `projects add-iam-policy-binding ${project.getId()} --member="${userType}:${user}" --role="${role}"`
   );
 }

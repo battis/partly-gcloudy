@@ -1,12 +1,9 @@
 import cli from '@battis/cli';
-import fs from 'node:fs';
 import invoke from './invoke';
-import * as project from './project';
 import * as services from './services';
 
 type CreateOptions = {
   region: string;
-  writeDotEnvFile: boolean;
 };
 
 type Instance = {
@@ -36,10 +33,7 @@ export async function describe() {
   return await invoke<Instance>('app describe');
 }
 
-export async function create({
-  region,
-  writeDotEnvFile = true
-}: Partial<CreateOptions>) {
+export async function create({ region }: Partial<CreateOptions>) {
   services.enable({ service: services.API.AppEngineAdminAPI });
   let instance = await describe();
   if (instance == null) {
@@ -60,15 +54,6 @@ export async function create({
       }));
     await invoke(`app create --region=${region}`);
     instance = await describe();
-  }
-
-  if (writeDotEnvFile) {
-    const url = `https://${instance.defaultHostname}`;
-    fs.writeFileSync(
-      '.env',
-      `PROJECT=${project.getId()}
-URL=${url}`
-    );
   }
 
   return instance;
