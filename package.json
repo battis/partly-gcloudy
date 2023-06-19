@@ -1,0 +1,40 @@
+{
+  "name": "@battis/gcloud",
+  "version": "0.1.0",
+  "description": "Idiosyncratic collection of interactions with `gcloud` CLI tool",
+  "main": "lib/index.js",
+  "engines": {
+    "node": "*"
+  },
+  "author": {
+    "name": "Seth Battis",
+    "url": "https://github.com/battis"
+  },
+  "license": "GPL-3.0",
+  "scripts": {
+    "clean": "shx rm -rf lib",
+    "build": "npm run clean && npx tsc",
+    "deploy": "npm run build && npx np --omit=dev"
+  },
+  "dependencies": {
+    "@battis/cli": "^0.1.5",
+    "rword": "^3.2.1"
+  },
+  "devDependencies": {
+    "@battis/eslint-config": "^1.0.1",
+    "@battis/prettier-config": "^1.1.1",
+    "@tsconfig/recommended": "^1.0.2",
+    "@types/node": "^20.3.1",
+    "np": "^8.0.4",
+    "shx": "^0.3.4",
+    "typescript": "^5.1.3"
+  },
+  "prettier": "@battis/prettier-config",
+  "eslintConfig": {
+    "extends": "@battis/eslint-config"
+  },
+  "np": {
+    "cleanup": false,
+    "tests": false
+  }
+}
