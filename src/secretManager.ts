@@ -1,8 +1,8 @@
-import cli from '@battis/cli';
-import * as appEngine from './appEngine';
-import * as iam from './identityAccessManagement';
-import invoke from './invoke';
-import * as services from './services';
+import cli from '@battis/qui-cli';
+import app from './app';
+import iam from './iam';
+import services from './services';
+import shell from './shell';
 
 type BaseSetOptions = {
   name: string;
@@ -29,51 +29,54 @@ type Secret = {
 
 let apiEnabled = false;
 
-export async function set({ name, value, path }: Partial<SetOptions>) {
-  name =
-    name ||
-    (await cli.io.prompts.input({
-      message: 'Secret name',
-      validate: cli.io.validators.notEmpty
-    }));
-  if (value == undefined && path == undefined) {
-    if (
-      await cli.io.prompts.confirm({
-        message: 'Is this secret value stored in a file?',
-        default: true
-      })
-    ) {
-      path = await cli.io.prompts.input({
-        message: 'Path to secret value',
-        validate: cli.io.validators.pathExists,
-        default: cli.appRoot()
-      });
+export default {
+  set: async function({ name, value, path }: Partial<SetOptions>) {
+    name =
+      name ||
+      (await cli.prompts.input({
+        message: 'Secret name',
+        validate: cli.validators.notEmpty
+      }));
+    if (value == undefined && path == undefined) {
+      if (
+        await cli.prompts.confirm({
+          message: 'Is this secret value stored in a file?',
+          default: true
+        })
+      ) {
+        path = await cli.prompts.input({
+          message: 'Path to secret value',
+          validate: cli.validators.pathExists,
+          default: cli.appRoot()
+        });
+      }
     }
-  }
-  if (!apiEnabled) {
-    await services.enable({ service: services.API.SecretManagerAPI });
-    apiEnabled = true;
-  }
-  let [secret] = await invoke<Secret[]>(`secrets list --filter=name:${name}`);
-  if (secret) {
-    await invoke(
-      `secrets versions add ${secret.name} --data-file=${path !== undefined ? `"${path}"` : '-'
-      }`,
-      { pipe: { in: value !== undefined ? `printf "${value}"}` : undefined } }
-    );
-  } else {
-    secret = await invoke<Secret>(
-      `secrets create ${name} --data-file=${path !== undefined ? `"${path}"` : '-'
-      }`,
-      { pipe: { in: value !== undefined ? `printf "${value}"}` : undefined } }
-    );
-  }
-  return secret;
-}
+    if (!apiEnabled) {
+      await services.enable({ service: services.API.SecretManagerAPI });
+      apiEnabled = true;
+    }
+    let [secret] = shell.gcloud<Secret[]>(`secrets list --filter=name:${name}`);
+    if (secret) {
+      shell.gcloud(
+        `secrets versions add ${secret.name} --data-file=${path !== undefined ? `"${path}"` : '-'
+        }`,
+        { pipe: { in: value !== undefined ? `printf "${value}"}` : undefined } }
+      );
+    } else {
+      secret = shell.gcloud<Secret>(
+        `secrets create ${name} --data-file=${path !== undefined ? `"${path}"` : '-'
+        }`,
+        { pipe: { in: value !== undefined ? `printf "${value}"` : undefined } }
+      );
+    }
+    return secret;
+  },
 
-export async function enableAppEngineAccess() {
-  await iam.addPolicyBinding({
-    serviceAccount: (await appEngine.describe()).serviceAccount,
-    role: 'roles/secretmanager.secretAccessor'
-  });
-}
+  enableAppEngineAccess: async function() {
+    await iam.addPolicyBinding({
+      user: (await app.describe()).serviceAccount,
+      userType: 'serviceAccount',
+      role: 'roles/secretmanager.secretAccessor'
+    });
+  }
+};

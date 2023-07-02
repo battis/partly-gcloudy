@@ -1,12 +1,5 @@
-import cli from '@battis/cli';
-import invoke from './invoke';
-
-export const API = {
-  AdminSDKAPI: 'admin.googleapis.com',
-  IdentityAwareProxyAPI: 'iap.googleapis.com',
-  AppEngineAdminAPI: 'appengine.googleapis.com',
-  SecretManagerAPI: 'secretmanager.googleapis.com'
-};
+import cli from '@battis/qui-cli';
+import shell from './shell';
 
 type EnableOptions = {
   service: string;
@@ -32,22 +25,28 @@ type Service = {
   state: string;
 };
 
-export async function enable({
-  service,
-  pageSize = 20
-}: Partial<EnableOptions>) {
-  pageSize = Math.max(7, pageSize);
-  service =
-    service ||
-    (await cli.io.prompts.select({
-      message: 'Service to enable',
-      choices: (
-        await invoke<Service[]>('services list --available')
-      ).map((service) => ({
-        name: service.config.title,
-        value: service.config.name
-      })),
-      pageSize
-    }));
-  await invoke(`services enable ${service}`);
-}
+export default {
+  API: {
+    AdminSDKAPI: 'admin.googleapis.com',
+    IdentityAwareProxyAPI: 'iap.googleapis.com',
+    AppEngineAdminAPI: 'appengine.googleapis.com',
+    SecretManagerAPI: 'secretmanager.googleapis.com'
+  },
+
+  enable: async function({ service, pageSize = 20 }: Partial<EnableOptions>) {
+    pageSize = Math.max(7, pageSize);
+    service =
+      service ||
+      (await cli.prompts.select({
+        message: 'Service to enable',
+        choices: shell
+          .gcloud<Service[]>('services list --available')
+          .map((service) => ({
+            name: service.config.title,
+            value: service.config.name
+          })),
+        pageSize
+      }));
+    shell.gcloud(`services enable ${service}`);
+  }
+};

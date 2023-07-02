@@ -1,6 +1,6 @@
-import cli from '@battis/cli';
-import * as appEngine from './appEngine';
-import invoke from './invoke';
+import cli from '@battis/qui-cli';
+import app from './app';
+import shell from './shell/index';
 
 type AppEngineHttpTarget = {
   appEngineRouting: {
@@ -40,43 +40,45 @@ type SetOptions = {
   relativeUrl: string;
 };
 
-export async function setAppEngineJob({
-  name,
-  cron,
-  location,
-  relativeUrl
-}: Partial<SetOptions>) {
-  name =
-    name ||
-    (await cli.io.prompts.input({
-      message: 'Scheduled job name',
-      validate: cli.io.validators.notEmpty
-    }));
-  cron =
-    cron ||
-    (await cli.io.prompts.input({
-      message: 'Cron schedule for job',
-      validate: cli.io.validators.cron
-    }));
-  relativeUrl =
-    relativeUrl ||
-    (await cli.io.prompts.input({
-      message: 'URL to call, relative to App Engine instance root',
-      default: '/',
-      validate: cli.io.validators.isPath
-    }));
-  location = location || (await appEngine.describe()).locationid;
-  let [schedule] = await invoke<Job[]>(
-    `scheduler jobs list --filter=appEngineHttpTarget.relativeUri=/sync --location=${location}`
-  );
-  if (schedule) {
-    await invoke(
-      `scheduler jobs update app-engine ${schedule.name} --schedule="${cron}"`
+export default {
+  setAppEngineJob: async function({
+    name,
+    cron,
+    location,
+    relativeUrl
+  }: Partial<SetOptions>) {
+    name =
+      name ||
+      (await cli.prompts.input({
+        message: 'Scheduled job name',
+        validate: cli.validators.notEmpty
+      }));
+    cron =
+      cron ||
+      (await cli.prompts.input({
+        message: 'Cron schedule for job',
+        validate: cli.validators.cron
+      }));
+    relativeUrl =
+      relativeUrl ||
+      (await cli.prompts.input({
+        message: 'URL to call, relative to App Engine instance root',
+        default: '/',
+        validate: cli.validators.isPath
+      }));
+    location = location || (await app.describe()).locationid;
+    let [schedule] = shell.gcloud<Job[]>(
+      `scheduler jobs list --filter=appEngineHttpTarget.relativeUri=/sync --location=${location}`
     );
-  } else {
-    schedule = await invoke<Job>(
-      `scheduler jobs create app-engine ${name} --schedule="${cron}" --relative-url="${relativeUrl}"`
-    );
+    if (schedule) {
+      shell.gcloud(
+        `scheduler jobs update app-engine ${schedule.name} --schedule="${cron}"`
+      );
+    } else {
+      schedule = shell.gcloud<Job>(
+        `scheduler jobs create app-engine ${name} --schedule="${cron}" --relative-url="${relativeUrl}"`
+      );
+    }
+    return schedule;
   }
-  return schedule;
-}
+};
