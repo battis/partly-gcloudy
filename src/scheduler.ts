@@ -1,6 +1,6 @@
 import cli from '@battis/qui-cli';
 import app from './app';
-import shell from './shell/index';
+import shell from './shell';
 
 type AppEngineHttpTarget = {
   appEngineRouting: {

@@ -2,7 +2,7 @@ import cli from '@battis/qui-cli';
 import path from 'path';
 import project from './project';
 import services from './services';
-import shell from './shell/index';
+import shell from './shell';
 
 type OAuthBrand = {
   applicationTitle: string;
