@@ -21,7 +21,7 @@
     "build:esm": "./bin/transform-node-to-esm-imports.cjs src lib/esm",
     "release": "run-s release:*",
     "release:build": "npm run build",
-    "release:publish": "npx np --omit=dev"
+    "release:publish": "npx np --yolo --omit=dev"
   },
   "dependencies": {
     "@battis/qui-cli": "^0.1.7",
@@ -41,9 +41,5 @@
   "prettier": "@battis/prettier-config",
   "eslintConfig": {
     "extends": "@battis/eslint-config"
-  },
-  "np": {
-    "cleanup": false,
-    "tests": false
   }
 }
