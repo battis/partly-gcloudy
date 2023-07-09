@@ -3,9 +3,14 @@
   "version": "0.2.1",
   "description": "Idiosyncratic collection of interactions with `gcloud` CLI tool",
   "target": "node",
-  "main": "./lib/esm/index.mjs",
-  "types": "./lib/esm/index.d.ts",
-  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "require": "./lib/cjs/index.js",
+      "import": "./lib/esm/index.mjs",
+      "default": "./lib/esm/index.mjs"
+    }
+  },
   "engines": {
     "node": ">=12.17"
   },
@@ -17,8 +22,9 @@
   "scripts": {
     "build": "run-s build:*",
     "build:clean": "shx rm -rf lib",
-    "build:transpile": "tsc",
-    "build:esm": "./bin/transform-node-to-esm-imports.cjs src lib/esm",
+    "build:commonjs": "babel src --extensions .ts --out-dir lib/cjs --source-maps --config-file ./babel/cjs.json",
+    "build:esm": "babel src --extensions .ts --out-dir lib/esm --out-file-extension .mjs --source-maps --config-file ./babel/esm.json",
+    "build:types": "tsc",
     "release": "run-s release:*",
     "release:build": "npm run build",
     "release:publish": "npx np --yolo --omit=dev"
@@ -28,11 +34,17 @@
     "rword": "^3.2.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.22.6",
+    "@babel/core": "^7.22.8",
+    "@babel/preset-env": "^7.22.7",
+    "@babel/preset-typescript": "^7.22.5",
     "@battis/eslint-config": "latest",
     "@battis/prettier-config": "latest",
     "@battis/typescript-tricks": "^0.1.0",
     "@tsconfig/recommended": "^1.0.2",
     "@types/node": "^20.4.1",
+    "babel-plugin-add-import-extension": "^1.6.0",
+    "babel-plugin-add-module-exports": "^1.0.4",
     "np": "latest",
     "npm-run-all": "^4.1.5",
     "shx": "^0.3.4",

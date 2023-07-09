@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "./lib/esm",
+    "outDir": "./lib/types",
     "target": "es6",
     "moduleResolution": "node",
     "declaration": true,
-    "sourceMap": true,
+    "emitDeclarationOnly": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true
