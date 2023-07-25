@@ -43,7 +43,7 @@ export default {
 
     if (accountId) {
       shell.gcloudBeta(
-        `billing projects link ${project.id.get()} --billing - account="${accountId}"`
+        `billing projects link ${project.id.get()} --billing --account="${accountId}"`
       );
     } else {
       // FIXME this is kinda hack-tacular
