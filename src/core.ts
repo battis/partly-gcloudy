@@ -1,5 +1,4 @@
-import cli from '@battis/qui-cli';
-import { Options } from '@battis/qui-cli/lib/esm/options/types';
+import cli, { Options } from '@battis/qui-cli';
 import project from './project';
 
 export default {

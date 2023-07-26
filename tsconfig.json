@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./lib/types",
+    "outDir": "./dist/types",
     "target": "es6",
     "moduleResolution": "node",
     "declaration": true,

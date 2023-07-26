@@ -8,6 +8,7 @@ import scheduler from './scheduler';
 import secrets from './secretManager';
 import services from './services';
 import shell from './shell';
+import sql from './sql';
 
 export default {
   ...core,
@@ -28,5 +29,6 @@ export default {
   shell,
   project,
   scheduler,
-  services
+  services,
+  sql
 };

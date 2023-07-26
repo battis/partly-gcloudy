@@ -1,5 +1,6 @@
 import cli from '@battis/qui-cli';
 import { Nullable } from '@battis/typescript-tricks';
+import type { Choice } from './inquirer';
 import services from './services';
 import shell from './shell';
 
@@ -30,6 +31,21 @@ type Instance = {
   servingStatus: string;
 };
 
+type Region = {
+  flexible: boolean;
+  region: string;
+  search_api: boolean;
+  standard: boolean;
+};
+
+async function regionsList(): Promise<Region[] | { value: string }[]> {
+  return shell.gcloud<Region[]>('app regions list');
+}
+
+async function regionsListForCliPromptSelect(): Promise<Choice<string>[]> {
+  return (await regionsList()).map((region) => ({ value: region.region }));
+}
+
 async function describe() {
   return shell.gcloud<Instance>('app describe');
 }
@@ -38,20 +54,11 @@ async function create({ region }: Partial<CreateOptions>) {
   services.enable({ service: services.API.AppEngineAdminAPI });
   let instance = await describe();
   if (instance == null) {
-    const response = shell.gcloud(`app regions list`);
-    let choices;
-    if (Array.isArray(response)) {
-      choices = response.map((region) => ({
-        value: region.region
-      }));
-    } else {
-      throw new Error(`Unexpected response: ${response}`);
-    }
     region =
       region ||
       (await cli.prompts.select({
         message: 'Google Cloud region in which to create App Engine instance',
-        choices
+        choices: await regionsListForCliPromptSelect()
       }));
     shell.gcloud(`app create --region=${region}`);
     instance = await describe();
@@ -140,4 +147,10 @@ async function logs() {
   });
 }
 
-export default { create, describe, deploy, logs };
+export default {
+  regionsList,
+  regionsListForCliPromptSelect,
+  describe,
+  deploy,
+  logs
+};

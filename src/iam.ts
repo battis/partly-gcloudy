@@ -58,6 +58,13 @@ type IAMPolicy = {
 };
 
 export default {
+  Roles: {
+    Owner: 'roles/owner',
+    CloudSQL: {
+      Client: 'roles/cloudsql.client'
+    }
+  },
+
   createServiceAccount: async function({
     name,
     displayName
