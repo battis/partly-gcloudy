@@ -1,6 +1,6 @@
 {
   "name": "@battis/partly-gcloudy",
-  "version": "0.2.3",
+  "version": "0.3.0-0",
   "description": "Idiosyncratic collection of interactions with `gcloud` CLI tool",
   "target": "node",
   "main": "./dist/esm/index.mjs",
