@@ -66,7 +66,7 @@ export default {
         default: '/',
         validate: cli.validators.isPath
       }));
-    location = location || (await app.describe()).locationid;
+    location = location || (await app.describe()).locationId;
     let [schedule] = shell.gcloud<Job[]>(
       `scheduler jobs list --filter=appEngineHttpTarget.relativeUri=/sync --location=${location}`
     );

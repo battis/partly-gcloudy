@@ -1,4 +1,10 @@
-import { Flags } from './types';
+export type Flags = {
+  [flag: string]: string | true | undefined;
+  project?: string;
+  quiet?: true;
+  format?: string;
+};
+
 let base: Flags = { quiet: true, format: 'json' };
 
 export default {

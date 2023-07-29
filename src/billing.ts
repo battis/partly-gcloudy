@@ -1,6 +1,6 @@
 import cli from '@battis/qui-cli';
 import path from 'path';
-import project from './project';
+import projects from './projects';
 import shell from './shell';
 
 type EnableOptions = {
@@ -43,7 +43,7 @@ export default {
 
     if (accountId) {
       shell.gcloudBeta(
-        `billing projects link ${project.id.get()} --billing-account="${accountId}"`
+        `billing projects link ${projects.active.get()} --billing-account="${accountId}"`
       );
     } else {
       // FIXME this is kinda hack-tacular

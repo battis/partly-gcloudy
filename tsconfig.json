@@ -9,5 +9,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["./src"]
+  "include": ["./src"],
+  "typedocOptions": {
+    "entryPoints": ["./src/index.ts"],
+    "out": "docs/docs"
+  }
 }

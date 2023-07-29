@@ -1,7 +1,7 @@
 import cli from '@battis/qui-cli';
-import id from '../project/id';
-import flags from './flags';
-import { Flags } from './types';
+import { Descriptor } from '../lib/descriptor';
+import activeProject from '../projects/active';
+import flags, { Flags } from './flags';
 
 type InvokeOptions = {
   flags: Flags;
@@ -13,7 +13,10 @@ type InvokeOptions = {
   };
 };
 
-function gcloud<T>(command: string, options?: Partial<InvokeOptions>) {
+function gcloud<T extends Descriptor>(
+  command: string,
+  options?: Partial<InvokeOptions>
+) {
   const opt: InvokeOptions = {
     flags: { ...(options?.flags || {}) },
     overrideBaseFlags: options?.overrideBaseFlags || false,
@@ -22,7 +25,7 @@ function gcloud<T>(command: string, options?: Partial<InvokeOptions>) {
         ? false
         : options?.includeProjectIdFlag === true
           ? true
-          : !new RegExp(id.get()).test(command),
+          : !new RegExp(activeProject.get()).test(command),
     pipe: {
       in: options?.pipe?.in || undefined,
       out: options?.pipe?.out || undefined
@@ -32,7 +35,7 @@ function gcloud<T>(command: string, options?: Partial<InvokeOptions>) {
     opt.flags = { ...opt.flags, ...flags.getBase() };
   }
   if (opt.includeProjectIdFlag) {
-    opt.flags.project = id.get();
+    opt.flags.project = activeProject.get();
   }
   const result = cli.shell.exec(
     `${opt.pipe.in ? `${opt.pipe.in} |` : ''

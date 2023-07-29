@@ -1,7 +1,9 @@
 import cli from '@battis/qui-cli';
-import fs from 'fs';
-import project from './project';
-import shell from './shell';
+import lib from '../lib';
+import { InputConfig } from '../lib/prompts/input';
+import { SelectOptions } from '../lib/prompts/select';
+import projects from '../projects';
+import shell from '../shell';
 
 const MAX_KEYS = 10;
 
@@ -37,54 +39,66 @@ type Key = {
   validBeforeTime: string;
 };
 
-/** @see https://cloud.google.com/iam/docs/reference/rest/v1/Policy#Binding.FIELDS.members */
-type UserType = 'user' | 'serviceAccount' | 'group';
+type InputIdentifierOptions = Partial<InputConfig> & { name?: string };
 
-type AddPolicyBindingOptions = {
-  role: string;
-  user: string;
-  userType: UserType;
+async function inputIdentifier(options?: InputIdentifierOptions) {
+  const { name, ...rest } = options;
+  return (
+    name ||
+    (await cli.prompts.input({
+      message: 'Service account name',
+      validate: cli.validators.notEmpty,
+      default: lib.generate.projectId(),
+      ...rest
+    }))
+  );
+}
+
+type InputDisplayNameOptions = Partial<InputConfig> & { displayName?: string };
+
+async function inputDisplayName(options?: InputDisplayNameOptions) {
+  const { displayName, ...rest } = options;
+  return (
+    displayName ||
+    (await cli.prompts.input({
+      message: 'Service account display name',
+      validate: cli.validators.notEmpty,
+      ...rest
+    }))
+  );
+}
+
+const list = async () =>
+  shell.gcloud<ServiceAccount[]>('iam service-accounts list');
+
+type SelectIdentifierOptions = Partial<SelectOptions> & {
+  email?: string;
+  purpose?: string;
 };
 
-type IAMPolicyBinding = {
-  members: string[];
-  role: string;
-};
-
-type IAMPolicy = {
-  bindings: IAMPolicyBinding[];
-  etag: string;
-  version: number;
-};
+async function selectIdentifier(options?: SelectIdentifierOptions) {
+  const { email, purpose, ...rest } = options;
+  return lib.prompts.select({
+    arg: email,
+    message: `Service account${lib.prompts.pad(purpose)}`,
+    choices: list,
+    valueIn: 'email'
+  });
+}
 
 export default {
-  Roles: {
-    Owner: 'roles/owner',
-    CloudSQL: {
-      Client: 'roles/cloudsql.client'
-    }
-  },
+  inputIdentifier,
+  inputDisplayName,
+  selectIdentifier,
 
-  createServiceAccount: async function({
+  create: async function({
     name,
     displayName
   }: Partial<CreateServiceAccountOptions>) {
-    name =
-      name ||
-      (await cli.prompts.input({
-        message: 'Service account name',
-        validate: cli.validators.notEmpty,
-        default: project.id.generate()
-      }));
-    displayName =
-      displayName ||
-      (await cli.prompts.input({
-        message: 'Service account display name',
-        validate: cli.validators.notEmpty,
-        default: name
-      }));
+    name = await inputIdentifier({ name });
+    displayName = await inputDisplayName({ displayName, default: name });
     let [serviceAccount] = shell.gcloud<ServiceAccount[]>(
-      `iam service-accounts list --filter=email=${name}@${project.id.get()}.iam.gserviceaccount.com`,
+      `iam service-accounts list --filter=email=${name}@${projects.active.get()}.iam.gserviceaccount.com`,
       { includeProjectIdFlag: true }
     );
     if (!serviceAccount) {
@@ -105,26 +119,17 @@ export default {
    *  https://cloud.google.com/iam/docs/workload-identity-federation
    *  https://cloud.google.com/blog/products/identity-security/how-to-authenticate-service-accounts-to-help-keep-applications-secure
    */
-  getServiceAccountCredentials: async function({
+  keys: async function({
     email,
     path,
     cautiouslyDeleteExpiredKeysIfNecessary,
     dangerouslyDeleteAllKeysIfNecessary
   }: Partial<GetServiceAccountCredentials>) {
-    email =
-      email ||
-      (await cli.prompts.input({
-        message: 'Service account email address',
-        validate: cli.validators.email
-      }));
-    path =
-      path ||
-      (await cli.prompts.input({
-        message: 'Path to stored credentials file',
-        validate: (value: string) =>
-          fs.existsSync(value) || `${value} does not exist`,
-        default: cli.appRoot()
-      }));
+    email = await selectIdentifier({ email });
+    path = await lib.prompts.input.path({
+      path,
+      purpose: 'stored credentials file'
+    });
     let keys =
       shell.gcloud<Key[]>(
         `iam service-accounts keys list --iam-account=${email}`
@@ -175,28 +180,5 @@ export default {
       );
     }
     return key;
-  },
-
-  addPolicyBinding: async function({
-    user,
-    userType = 'user',
-    role
-  }: Partial<AddPolicyBindingOptions>) {
-    user =
-      user ||
-      (await cli.prompts.input({
-        message: 'User for whom to add policy binding',
-        validate: cli.validators.email
-      }));
-    role =
-      role ||
-      (await cli.prompts.input({
-        message: `Role to bind to ${user}`,
-        validate: cli.validators.notEmpty
-      }));
-
-    return shell.gcloud<IAMPolicy>(
-      `projects add-iam-policy-binding ${project.id.get()} --member="${userType}:${user}" --role="${role}"`
-    );
   }
 };

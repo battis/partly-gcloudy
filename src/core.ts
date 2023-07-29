@@ -1,5 +1,5 @@
 import cli, { Options } from '@battis/qui-cli';
-import project from './project';
+import projects from './projects';
 
 export default {
   init: function(options: Partial<Options> = {}) {
@@ -8,7 +8,7 @@ export default {
       env: { loadDotEnv: true, setRootAsCurrentWorkingDirectory: true, ...env },
       ...rest
     });
-    project.id.set(process.env.PROJECT);
+    projects.id.set(process.env.PROJECT);
     return args;
   },
 

@@ -3,7 +3,8 @@ import billing from './billing';
 import core from './core';
 import iam from './iam';
 import iap from './iap';
-import project from './project';
+import lib from './lib';
+import projects from './projects';
 import scheduler from './scheduler';
 import secrets from './secretManager';
 import services from './services';
@@ -12,6 +13,7 @@ import sql from './sql';
 
 export default {
   ...core,
+  lib,
 
   app,
   appEngine: app,
@@ -25,9 +27,13 @@ export default {
   secrets,
   secretManager: secrets,
 
+  projects,
+
+  /** @deprecated use {@link projects} */
+  project: projects,
+
   billing,
   shell,
-  project,
   scheduler,
   services,
   sql
