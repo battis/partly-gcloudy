@@ -3,13 +3,26 @@ import projects from './projects';
 
 export default {
   init: function(options: Partial<Options> = {}) {
-    const { env, ...rest } = options;
-    const args = cli.init({
+    const { env, args, ...rest } = options;
+    const { flags, ...argsRest } = args;
+    const { verbose, ...flagsRest } = flags;
+    const _args = cli.init({
       env: { loadDotEnv: true, setRootAsCurrentWorkingDirectory: true, ...env },
+      args: {
+        flags: {
+          verbose: {
+            short: 'v',
+            description: 'Show verbose output',
+            ...verbose
+          },
+          ...flagsRest
+        },
+        ...argsRest
+      },
       ...rest
     });
     projects.id.set(process.env.PROJECT);
-    return args;
+    return _args;
   },
 
   ready: function(fail = true) {

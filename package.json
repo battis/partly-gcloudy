@@ -26,12 +26,12 @@
     "release:build": "npm run build",
     "release:docs:build": "run-s docs:*",
     "release:docs:publish": "node ./bin/docs/publish.mjs",
-    "release:publish": "np --yolo --omit=dev"
+    "release:publish": "np --yolo --no-release-draft"
   },
   "dependencies": {
-    "@battis/qui-cli": "next",
+    "@battis/qui-cli": "^0.2.5",
     "@battis/typescript-tricks": "^0.2.1",
-    "@inquirer/core": "^3.0.0",
+    "@inquirer/core": "^3.1.0",
     "@inquirer/type": "^1.1.1",
     "rword": "^3.2.1"
   },
