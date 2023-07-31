@@ -1,4 +1,5 @@
 import app from './app';
+import batch from './batch';
 import billing from './billing';
 import core from './core';
 import iam from './iam';
@@ -14,6 +15,7 @@ import sql from './sql';
 export default {
   ...core,
   lib,
+  batch,
 
   app,
   appEngine: app,

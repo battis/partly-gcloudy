@@ -9,7 +9,9 @@ type Region = {
   standard: boolean;
 };
 
-type SelectIdentifierOptions = Partial<SelectOptions> & {
+type RegionIdentifier = string;
+
+type SelectIdentifierOptions = Partial<SelectOptions<RegionIdentifier>> & {
   region?: string;
   purpose?: string;
 };

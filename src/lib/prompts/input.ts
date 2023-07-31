@@ -1,38 +1,38 @@
 import cli from '@battis/qui-cli';
 import { AsyncPromptConfig } from '@inquirer/core';
-import fs from 'fs';
-import { pad } from './core';
+import { PromptConfig, pad } from './core';
 
 /** @see @inquirer/input/dist/cjs/types/index.d.ts */
-export type InputConfig = AsyncPromptConfig & {
-  default?: string;
-  transformer?: (
-    value: string,
-    {
-      isFinal
-    }: {
-      isFinal: boolean;
-    }
-  ) => string;
-};
+type InputConfig<T extends string> = AsyncPromptConfig &
+  PromptConfig & {
+    default?: string;
+    transformer?: (
+      value: string,
+      {
+        isFinal
+      }: {
+        isFinal: boolean;
+      }
+    ) => T;
+  };
 
-export type PathOptions = Partial<InputConfig> & {
-  path?: string;
-  purpose: string;
-};
+export type InputOptions<T extends string> = InputConfig<T> &
+  PromptConfig & {
+    arg: string;
+  };
 
-export default {
-  path: async function(options?: PathOptions) {
-    const { path, purpose, ...rest } = options;
-    return (
-      path ||
-      (await cli.prompts.input({
-        message: `Path to ${pad(purpose)}`,
-        validate: (value: string) =>
-          fs.existsSync(value) || `${value} does not exist`,
-        default: cli.appRoot(),
-        ...rest
-      }))
-    );
-  }
-};
+export default async function input<T extends string>({
+  arg,
+  message,
+  purpose,
+  validate,
+  ...rest
+}: InputOptions<T>) {
+  return ((validate && validate(arg) === true && arg) ||
+    (!validate && arg) ||
+    (await cli.prompts.input({
+      message: message && `${message}${pad(purpose)}`,
+      validate,
+      ...rest
+    }))) as T;
+}

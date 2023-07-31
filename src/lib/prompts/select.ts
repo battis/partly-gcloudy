@@ -2,7 +2,7 @@ import cli from '@battis/qui-cli';
 import { AsyncPromptConfig } from '@inquirer/core';
 import { Context } from '@inquirer/type';
 import { Descriptor } from '../descriptor';
-import { PromptConfig } from './core';
+import { PromptConfig, pad } from './core';
 
 /**
  * @see @inquirer/select/dist/cjs/types/index.d.ts
@@ -29,34 +29,60 @@ type ToChoiceOptions = {
   valueIn: string;
 };
 
-export type SelectOptions = SelectConfig &
+export type SelectOptions<T extends string> = SelectConfig &
   PromptConfig & {
+    arg: string;
     choices: () => Descriptor[] | Promise<Descriptor[]>;
     pageSize?: number | undefined;
     valueIn?: string;
     nameIn?: string;
+    validate?: boolean | ((arg: string) => boolean);
   };
 
 const toChoice =
-  ({ nameIn, valueIn }: ToChoiceOptions) =>
-    (descriptor: Descriptor): Choice<string> => ({
+  <T extends string>({ nameIn, valueIn }: ToChoiceOptions) =>
+    (descriptor: Descriptor): Choice<T> => ({
       name: descriptor[nameIn].toString(),
       value: descriptor[valueIn].toString()
     });
 
-const select = async (
-  { arg, choices, nameIn, valueIn = 'name', ...rest }: SelectOptions,
+export default async function select<T extends string>(
+  {
+    arg,
+    validate,
+    message,
+    purpose,
+    choices,
+    nameIn,
+    valueIn = 'name',
+    ...rest
+  }: SelectOptions<T>,
   context?: Context
-) =>
-  arg ||
-  (await cli.prompts.select(
-    {
-      choices: (
-        await choices()
-      ).map(toChoice({ nameIn: nameIn || valueIn, valueIn })),
-      ...rest
-    },
-    context
-  ));
-
-export default select;
+) {
+  let cachedChoices: Choice<T>[];
+  if (validate && arg) {
+    if (validate === true) {
+      cachedChoices = (await choices()).map(
+        toChoice<T>({ nameIn: nameIn || valueIn, valueIn })
+      );
+      if (cachedChoices.filter((choice) => choice.value === arg).length) {
+        return arg;
+      }
+    } else if (typeof validate === 'function' && validate(arg)) {
+      return arg;
+    }
+  }
+  return (arg ||
+    (await cli.prompts.select<T>(
+      {
+        message: `${message}${pad(purpose)}`,
+        choices:
+          cachedChoices ||
+          (
+            await choices()
+          ).map(toChoice<T>({ nameIn: nameIn || valueIn, valueIn })),
+        ...rest
+      },
+      context
+    ))) as T;
+}

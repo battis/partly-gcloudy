@@ -1,22 +1,19 @@
 import cli from '@battis/qui-cli';
-import lib from '../lib';
-import { InputConfig } from '../lib/prompts/input';
+import lib, { Email } from '../lib';
+import { InputOptions } from '../lib/prompts';
 
-type InputIdentifierOptions = Partial<InputConfig> & {
+type InputIdentifierOptions = Partial<InputOptions<Email>> & {
   member?: string;
-  purpose?: string;
 };
 
 export default {
   inputIdentifier: async function(options?: InputIdentifierOptions) {
-    const { member, purpose, ...rest } = options;
-    return (
-      member ||
-      (await cli.prompts.input({
-        message: `IAM Member${lib.prompts.pad(purpose)}`,
-        validate: cli.validators.email,
-        ...rest
-      }))
-    );
+    const { member, ...rest } = options;
+    return await lib.prompts.input({
+      arg: member,
+      message: `IAM Member`,
+      validate: cli.validators.email,
+      ...rest
+    });
   }
 };

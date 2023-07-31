@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@battis/qui-cli':
-    specifier: ^0.2.5
-    version: 0.2.5
+    specifier: ^0.3.2
+    version: 0.3.2
   '@battis/typescript-tricks':
-    specifier: ^0.2.1
-    version: 0.2.1
+    specifier: ^0.2.2
+    version: 0.2.2
   '@inquirer/core':
     specifier: ^3.1.0
     version: 3.1.0
@@ -177,7 +177,7 @@ packages:
       '@babel/compat-data': 7.22.9
       '@babel/core': 7.22.9
       '@babel/helper-validator-option': 7.22.5
-      browserslist: 4.21.9
+      browserslist: 4.21.10
       lru-cache: 5.1.1
       semver: 6.3.1
     dev: true
@@ -1350,8 +1350,8 @@ packages:
       prettier-plugin-sql: 0.13.0(prettier@2.8.8)
     dev: true
 
-  /@battis/qui-cli@0.2.5:
-    resolution: {integrity: sha512-kGNKD97CePVUUyu8EgAQu6yUTcYJJsRfPnQFBJ6xm6a4rcsyCIZXRLvUoNTxOljoi2hilflmGvqXBRNzy/p3+g==}
+  /@battis/qui-cli@0.3.2:
+    resolution: {integrity: sha512-J4nBU/di9o5WLM5VGMHSKC5ZDosfiI9nYwbS/RIOFIztCMf3/OSk/Pr8L+ls2NflZT3Ku/KapDYF/IOOGjNhkQ==}
     engines: {node: '>=12.17'}
     dependencies:
       '@inquirer/prompts': 2.3.1
@@ -1365,11 +1365,12 @@ packages:
       jackspeak: 2.2.2
       ora: 6.3.1
       shelljs: 0.8.5
+      strip-ansi: 7.1.0
       winston: 3.10.0
     dev: false
 
-  /@battis/typescript-tricks@0.2.1:
-    resolution: {integrity: sha512-Qta5925SnqytuBn9pzTTQcjDAPh6peZDljg1PQSgGrnYTrIV9e55m8XkjY2wT/uZ7AfXvJwzRaiOSO/Nmk/t/w==}
+  /@battis/typescript-tricks@0.2.2:
+    resolution: {integrity: sha512-Q0Brc5Qht0HqB0CuGIaLV8l7iyjsWYgnIjFKpGM3G5jfAiaIrxSFvQFxkwYBZrzlIM5IFbto8Rap3D0HJ3OJQA==}
     dev: false
 
   /@bconnorwhite/module@2.0.2:
@@ -1999,8 +2000,8 @@ packages:
       uri-js: 4.4.1
     dev: true
 
-  /all-package-names@2.0.705:
-    resolution: {integrity: sha512-rXfZKirSvXFwqa+bp4MhaHBU1/afArqxQJ6IDA9sLOCLwL9V3CMWHAgHTBODfJP5m7wD4dPdBa5QaZNnQ1yg9w==}
+  /all-package-names@2.0.706:
+    resolution: {integrity: sha512-91VRfOiiyjEWpYBXKJOGS+0V0a4Hms0M1g7av7DO3xG0klj2HMIgzj/Lph3k6xwrF6OqM5x+D/gKWHqlyk7aGA==}
     hasBin: true
     dependencies:
       commander-version: 1.1.0
@@ -2277,15 +2278,15 @@ packages:
       fill-range: 7.0.1
     dev: true
 
-  /browserslist@4.21.9:
-    resolution: {integrity: sha512-M0MFoZzbUrRU4KNfCrDLnvyE7gub+peetoTid3TBIqtunaDJyXlwhakT+/VkvSXcfIzFfK/nkCs4nmyTmxdNSg==}
+  /browserslist@4.21.10:
+    resolution: {integrity: sha512-bipEBdZfVH5/pwrvqc+Ub0kUPVfGUhlKxbvfD+z1BDnPEO/X98ruXGA1WP5ASpAFKan7Qr6j736IacbZQuAlKQ==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001517
-      electron-to-chromium: 1.4.477
+      caniuse-lite: 1.0.30001518
+      electron-to-chromium: 1.4.478
       node-releases: 2.0.13
-      update-browserslist-db: 1.0.11(browserslist@4.21.9)
+      update-browserslist-db: 1.0.11(browserslist@4.21.10)
     dev: true
 
   /buffer@5.7.1:
@@ -2381,8 +2382,8 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /caniuse-lite@1.0.30001517:
-    resolution: {integrity: sha512-Vdhm5S11DaFVLlyiKu4hiUTkpZu+y1KA/rZZqVQfOD5YdDT/eQKlkt7NaE0WGOFgX32diqt9MiP9CAiFeRklaA==}
+  /caniuse-lite@1.0.30001518:
+    resolution: {integrity: sha512-rup09/e3I0BKjncL+FesTayKtPrdwKhUufQFd3riFw1hHg8JmIFoInYfB102cFcY/pPgGmdyl/iy+jgiDi2vdA==}
     dev: true
 
   /chalk@1.1.3:
@@ -2619,7 +2620,7 @@ packages:
   /core-js-compat@3.32.0:
     resolution: {integrity: sha512-7a9a3D1k4UCVKnLhrgALyFcP7YCsLOQIxPd0dKjf/6GuPcgyiGP70ewWdCGrSK7evyhymi0qO4EqCmSJofDeYw==}
     dependencies:
-      browserslist: 4.21.9
+      browserslist: 4.21.10
     dev: true
 
   /cosmiconfig@8.2.0:
@@ -2834,8 +2835,8 @@ packages:
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  /electron-to-chromium@1.4.477:
-    resolution: {integrity: sha512-shUVy6Eawp33dFBFIoYbIwLHrX0IZ857AlH9ug2o4rvbWmpaCUdBpQ5Zw39HRrfzAFm4APJE9V+E2A/WB0YqJw==}
+  /electron-to-chromium@1.4.478:
+    resolution: {integrity: sha512-qjTA8djMXd+ruoODDFGnRCRBpID+AAfYWCyGtYTNhsuwxI19s8q19gbjKTwRS5z/LyVf5wICaIiPQGLekmbJbA==}
     dev: true
 
   /elegant-spinner@1.0.1:
@@ -3909,7 +3910,7 @@ packages:
   /is-name-taken@2.0.0:
     resolution: {integrity: sha512-W+FUWF5g7ONVJTx3rldZeVizmPzrMMUdscpSQ96vyYerx+4b2NcqaujLJJDWruGzE0FjzGZO9RFIipOGxx/WIw==}
     dependencies:
-      all-package-names: 2.0.705
+      all-package-names: 2.0.706
       package-name-conflict: 1.0.3
       validate-npm-package-name: 3.0.0
     dev: true
@@ -6059,13 +6060,13 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /update-browserslist-db@1.0.11(browserslist@4.21.9):
+  /update-browserslist-db@1.0.11(browserslist@4.21.10):
     resolution: {integrity: sha512-dCwEFf0/oT85M1fHBg4F0jtLwJrutGoHSQXCh7u4o2t1drG+c0a9Flnqww6XUKSfQMPpJBRjU8d4RXB09qtvaA==}
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
-      browserslist: 4.21.9
+      browserslist: 4.21.10
       escalade: 3.1.1
       picocolors: 1.0.0
     dev: true

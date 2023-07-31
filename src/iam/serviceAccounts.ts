@@ -1,7 +1,6 @@
 import cli from '@battis/qui-cli';
-import lib from '../lib';
-import { InputConfig } from '../lib/prompts/input';
-import { SelectOptions } from '../lib/prompts/select';
+import lib, { Email } from '../lib';
+import { InputOptions, SelectOptions } from '../lib/prompts';
 import projects from '../projects';
 import shell from '../shell';
 
@@ -39,39 +38,45 @@ type Key = {
   validBeforeTime: string;
 };
 
-type InputIdentifierOptions = Partial<InputConfig> & { name?: string };
+type ServiceAccountIdentifier = string;
+
+type InputIdentifierOptions = Partial<
+  InputOptions<ServiceAccountIdentifier>
+> & {
+  name?: string;
+};
 
 async function inputIdentifier(options?: InputIdentifierOptions) {
   const { name, ...rest } = options;
-  return (
-    name ||
-    (await cli.prompts.input({
-      message: 'Service account name',
-      validate: cli.validators.notEmpty,
-      default: lib.generate.projectId(),
-      ...rest
-    }))
-  );
+  return await lib.prompts.input({
+    message: 'Service account name',
+    arg: name,
+    validate: cli.validators.notEmpty,
+    default: lib.generate.projectId(),
+    ...rest
+  });
 }
 
-type InputDisplayNameOptions = Partial<InputConfig> & { displayName?: string };
+type ServiceAccountDisplayName = string;
+
+type InputDisplayNameOptions = Partial<
+  InputOptions<ServiceAccountDisplayName>
+> & { displayName?: string };
 
 async function inputDisplayName(options?: InputDisplayNameOptions) {
   const { displayName, ...rest } = options;
-  return (
-    displayName ||
-    (await cli.prompts.input({
-      message: 'Service account display name',
-      validate: cli.validators.notEmpty,
-      ...rest
-    }))
-  );
+  return await lib.prompts.input({
+    arg: displayName,
+    message: 'Service account display name',
+    validate: cli.validators.notEmpty,
+    ...rest
+  });
 }
 
 const list = async () =>
   shell.gcloud<ServiceAccount[]>('iam service-accounts list');
 
-type SelectIdentifierOptions = Partial<SelectOptions> & {
+type SelectIdentifierOptions = Partial<SelectOptions<Email>> & {
   email?: string;
   purpose?: string;
 };
@@ -82,7 +87,8 @@ async function selectIdentifier(options?: SelectIdentifierOptions) {
     arg: email,
     message: `Service account${lib.prompts.pad(purpose)}`,
     choices: list,
-    valueIn: 'email'
+    valueIn: 'email',
+    ...rest
   });
 }
 
@@ -103,8 +109,9 @@ export default {
     );
     if (!serviceAccount) {
       serviceAccount = shell.gcloud<ServiceAccount>(
-        `iam service-accounts create ${name} --display-name="${displayName || name
-        }"`
+        `iam service-accounts create ${name} --display-name=${lib.prompts.escape(
+          displayName || name
+        )}`
       );
     }
     return serviceAccount;
@@ -126,7 +133,7 @@ export default {
     dangerouslyDeleteAllKeysIfNecessary
   }: Partial<GetServiceAccountCredentials>) {
     email = await selectIdentifier({ email });
-    path = await lib.prompts.input.path({
+    path = await lib.prompts.inputPath({
       path,
       purpose: 'stored credentials file'
     });
@@ -142,16 +149,16 @@ export default {
       }
       if (cautiouslyDeleteExpiredKeysIfNecessary) {
         const now = new Date();
-        keys = keys.reduce((_keys: Key[], key: Key) => {
+        keys = keys.reduce((retainedKeys: Key[], key: Key) => {
           const expiry = new Date(key.validBeforeTime);
           if (expiry < now) {
             shell.gcloud(
               `iam service-accounts keys delete ${key.name} --iam-account=${email}`
             );
           } else {
-            _keys.push(key);
+            retainedKeys.push(key);
           }
-          return _keys;
+          return retainedKeys;
         }, []);
       }
       if (

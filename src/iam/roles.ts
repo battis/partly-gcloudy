@@ -1,10 +1,11 @@
 import cli from '@battis/qui-cli';
 import lib from '../lib';
-import { InputConfig } from '../lib/prompts/input';
+import { InputOptions } from '../lib/prompts';
 
-type InputIdentifierOptions = Partial<InputConfig> & {
+type IamRole = string;
+
+type InputIdentifierOptions = Partial<InputOptions<IamRole>> & {
   role?: string;
-  purpose?: string;
 };
 
 export default {
@@ -13,15 +14,13 @@ export default {
     Client: 'roles/cloudsql.client'
   },
 
-  inputIdentifier: async ({
-    role,
-    purpose = 'use',
-    ...rest
-  }: InputIdentifierOptions) =>
-    role ||
-    (await cli.prompts.input({
-      message: `IAM role${lib.prompts.pad(purpose)}`,
+  inputIdentifier: async function(options?: InputIdentifierOptions) {
+    const { role, ...rest } = options;
+    return await lib.prompts.input({
+      arg: role,
+      message: 'IAM role',
       validate: cli.validators.notEmpty,
       ...rest
-    }))
+    });
+  }
 };

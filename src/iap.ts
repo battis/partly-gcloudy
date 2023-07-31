@@ -1,6 +1,7 @@
 import cli from '@battis/qui-cli';
 import path from 'path';
-import { InputConfig } from './lib/prompts/input';
+import lib, { Email } from './lib';
+import { InputOptions } from './lib/prompts';
 import projects from './projects';
 import services from './services';
 import shell from './shell';
@@ -21,69 +22,65 @@ type OAuthClient = {
 type EnableOptions = {
   applicationTitle: string;
   supportEmail: string;
-  users: string[];
+  users: string | Email[];
 };
 
-type InputApplicationTitleOptions = Partial<InputConfig> & {
+type ApplicationTitle = string;
+
+type InputApplicationTitleOptions = Partial<InputOptions<ApplicationTitle>> & {
   applicationTitle?: string;
 };
 
 async function inputApplicationTitle(options?: InputApplicationTitleOptions) {
   const { applicationTitle, ...rest } = options;
-  return (
-    applicationTitle ||
-    (await cli.prompts.input({
-      message: 'Application title for OAuth consent dialog',
-      validate: cli.validators.notEmpty,
-      ...rest
-    }))
-  );
+  return await lib.prompts.input({
+    arg: applicationTitle,
+    message: 'Application title for OAuth consent dialog',
+    validate: cli.validators.notEmpty,
+    ...rest
+  });
 }
 
-type InputSupportEmailOptions = Partial<InputConfig> & {
+type InputSupportEmailOptions = Partial<InputOptions<Email>> & {
   supportEmail?: string;
 };
 
 async function inputSupportEmail(options?: InputSupportEmailOptions) {
   const { supportEmail, ...rest } = options;
-  return (
-    (cli.validators.email(supportEmail) === true && supportEmail) ||
-    (await cli.prompts.input({
-      message: 'Support email from OAuth consent dialog',
-      validate: cli.validators.email,
-      default: supportEmail,
-      ...rest
-    }))
-  );
+  return await lib.prompts.input({
+    arg: supportEmail,
+    message: 'Support email from OAuth consent dialog',
+    validate: cli.validators.email,
+    default: supportEmail,
+    ...rest
+  });
 }
 
 const splitUsers = (value: string) =>
   value?.split(',').map((part) => part.trim()) || [];
 
-type InputUsersOptions = Partial<InputConfig> & {
-  users: string[];
+type InputUsersOptions = Partial<InputOptions<string>> & {
+  users?: string | string[];
 };
 
 async function inputUsers(options?: InputUsersOptions) {
-  const { users = [], ...rest } = options;
-  return users.length > 0 &&
-    users.reduce((valid, user) => valid && cli.validators.email(user), true)
-    ? users
-    : splitUsers(
-      await cli.prompts.input({
-        message: 'Users with access to app via IAP (comma-separated)',
-        validate: (value?: string) =>
-          (cli.validators.notEmpty(value) === true &&
-            splitUsers(value || '')
-              .map(cli.validators.email)
-              .reduce(
-                (valid: boolean, test) => valid && test === true,
-                true
-              )) ||
-          'Must be comma-separated list of valid emails',
-        ...rest
-      })
-    );
+  let { users } = options;
+  if (Array.isArray(users)) {
+    users = users.join(',');
+  }
+  return splitUsers(
+    await lib.prompts.input({
+      ...options,
+      arg: users,
+      message: 'Users with access to app via IAP (comma-separated)',
+      validate: (value?: string) =>
+        (cli.validators.notEmpty(value) === true &&
+          splitUsers(value || '')
+            .map(cli.validators.email)
+            .reduce((valid: boolean, test) => valid && test === true, true)) ||
+        'Must be comma-separated list of valid emails'
+    })
+  );
 }
 
 export default {
@@ -91,11 +88,12 @@ export default {
   inputSupportEmail,
   inputUsers,
 
-  enable: async function({
-    applicationTitle, // defaults to project name if undefined
-    supportEmail,
-    users = [] // defaults to supportEmail if empty
-  }: Partial<EnableOptions>) {
+  enable: async function(options?: Partial<EnableOptions>) {
+    let {
+      users,
+      applicationTitle, // defaults to project name if undefined
+      supportEmail
+    } = options;
     await services.enable({ service: services.API.IdentityAwareProxyAPI });
     const proj = await projects.describe();
     let [brand] = shell.gcloud<OAuthBrand[]>(
@@ -110,8 +108,9 @@ export default {
       supportEmail = await inputSupportEmail({ supportEmail });
 
       brand = shell.gcloud<OAuthBrand>(
-        `iap oauth-brands create --application_title="${applicationTitle || proj.name
-        }" --support_email=${supportEmail}`
+        `iap oauth-brands create --application_title=${lib.prompts.escape(
+          applicationTitle || proj.name
+        )} --support_email=${supportEmail}`
       );
     }
     // FIXME probably unsafe to assume it's always the first OAuth client
@@ -129,9 +128,10 @@ export default {
       )} --oauth2-client-secret=${client.secret}`
     );
 
-    (await inputUsers({ users })).forEach(async (user) =>
+    users = await inputUsers({ users });
+    users.forEach(async (user) =>
       shell.gcloud(
-        `projects add-iam-policy-binding ${projects.active.get()} --member="user:${user}" --role="roles/iap.httpsResourceAccessor"`
+        `projects add-iam-policy-binding ${projects.active.get()} --member=user:${user} --role=roles/iap.httpsResourceAccessor`
       )
     );
   }

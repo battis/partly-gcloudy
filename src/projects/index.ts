@@ -1,8 +1,10 @@
 import cli from '@battis/qui-cli';
 import lib from '../lib';
-import { InputConfig } from '../lib/prompts/input';
+import { InputOptions } from '../lib/prompts';
 import shell from '../shell';
-import active, { Project } from './active';
+import active, { Project as ProjectInstance } from './active';
+
+export type Project = ProjectInstance;
 
 type CreateOptions = {
   name: string;
@@ -12,40 +14,44 @@ type CreateOptions = {
   reuseIfExists: boolean;
 };
 
-type InputIdentifierOptions = Partial<InputConfig> & {
+type ProjectIdentifier = string;
+
+type InputIdentifierOptions = Partial<InputOptions<ProjectIdentifier>> & {
   projectId?: string;
 };
 
 async function inputIdentifier(options?: InputIdentifierOptions) {
   const { projectId, ...rest } = options;
-  return (
-    projectId ||
-    (await cli.prompts.input({
-      message: 'Google Cloud project unique identifier',
-      validate: cli.validators.lengthBetween(6, 30),
-      default: lib.generate.projectId(),
-      ...rest
-    }))
-  );
+  return await lib.prompts.input<ProjectIdentifier>({
+    arg: projectId,
+    message: 'Google Cloud project unique identifier',
+    validate: cli.validators.lengthBetween(6, 30),
+    default: lib.generate.projectId(),
+    ...rest
+  });
 }
 
-type InputNameOptions = Partial<InputConfig> & {
+type ProjectName = string;
+
+type InputNameOptions = Partial<InputOptions<ProjectName>> & {
   name?: string;
 };
 
 async function inputName(options?: InputNameOptions) {
   const { name, ...rest } = options;
-  return (
-    name ||
-    (await cli.prompts.input({
-      message: 'Google Cloud project name',
-      validate: cli.validators.lengthBetween(6, 30),
-      ...rest
-    }))
-  );
+  return await lib.prompts.input<ProjectName>({
+    arg: name,
+    message: 'Google Cloud project name',
+    validate: cli.validators.lengthBetween(6, 30),
+    ...rest
+  });
 }
-const describe = async (projectId?: string) =>
-  shell.gcloud<Project>(
+
+type DescribeOptions = { projectId?: string };
+
+async function describe(options?: DescribeOptions) {
+  const { projectId } = options;
+  return shell.gcloud<Project>(
     `projects describe ${await inputIdentifier({
       projectId: projectId || active.get()
     })}`,
@@ -53,6 +59,7 @@ const describe = async (projectId?: string) =>
       includeProjectIdFlag: false
     }
   );
+}
 
 const list = async () =>
   shell.gcloud<Project[]>('projects list', { includeProjectIdFlag: false });
@@ -67,26 +74,23 @@ export default {
   id: active,
   active,
 
-  create: async function({
-    name,
-    id,
-    projectId,
-    reuseIfExists
-  }: Partial<CreateOptions>) {
+  create: async function(options?: Partial<CreateOptions>) {
+    const { id, reuseIfExists } = options;
+    let { name, projectId } = options;
     name = await inputName({ name });
     projectId = await inputIdentifier({ projectId: projectId || id });
     let project =
       projectId &&
-      (await lib.prompts.confirm.reuse<Project>({
+      (await lib.prompts.confirmReuse<Project>({
         description: 'Google Cloud project',
         reuse: reuseIfExists,
-        instance: await describe(projectId),
+        instance: await describe({ projectId }),
         name: projectId
       }));
 
     if (!project || reuseIfExists === false) {
       project = shell.gcloud<Project>(
-        `projects create --name="${name}" ${projectId}`,
+        `projects create --name=${lib.prompts.escape(name)} ${projectId}`,
         {
           includeProjectIdFlag: false
         }

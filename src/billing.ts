@@ -15,7 +15,8 @@ type BillingAccountDescription = {
 };
 
 export default {
-  enable: async function({ accountId }: Partial<EnableOptions>) {
+  enable: async function(options?: Partial<EnableOptions>) {
+    let { accountId } = options;
     if (!accountId) {
       const response = shell.gcloudBeta<BillingAccountDescription[]>(
         `billing accounts list --filter=open=true`
@@ -43,10 +44,10 @@ export default {
 
     if (accountId) {
       shell.gcloudBeta(
-        `billing projects link ${projects.active.get()} --billing-account="${accountId}"`
+        `billing projects link ${projects.active.get()} --billing-account=${accountId}`
       );
     } else {
-      // FIXME this is kinda hack-tacular
+      // TODO create a new billing account interactively
       await cli.prompts.confirm({
         message:
           'Confirm that you have created a billing account for this project'

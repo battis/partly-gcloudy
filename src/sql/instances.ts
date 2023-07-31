@@ -2,8 +2,7 @@ import cli from '@battis/qui-cli';
 import app from '../app';
 import lib from '../lib';
 import Active from '../lib/active';
-import { InputConfig } from '../lib/prompts/input';
-import { SelectOptions } from '../lib/prompts/select';
+import { InputOptions, SelectOptions } from '../lib/prompts';
 import projects from '../projects';
 import services from '../services';
 import shell from '../shell';
@@ -89,7 +88,9 @@ type Instance = {
 
 const list = async () => shell.gcloud<Instance[]>('sql instances list');
 
-type InputIdentifierOptions = Partial<InputConfig> & {
+type SqlInstanceIdentifier = string;
+
+type InputIdentifierOptions = Partial<InputOptions<SqlInstanceIdentifier>> & {
   region: string;
   name?: string;
   existingInstance?: Instance;
@@ -97,24 +98,20 @@ type InputIdentifierOptions = Partial<InputConfig> & {
 
 async function inputName(options?: InputIdentifierOptions) {
   const { region, name, existingInstance, ...rest } = options;
-  const validate = (value?: string) =>
-    (!!value &&
-      (!existingInstance || value !== existingInstance.name) &&
-      cli.validators.match(/^[a-z][a-z0-9-]*$/)(value) &&
-      cli.validators.maxLength(
-        98 - `${projects.active.get()}:${region}:`.length
-      )(value)) ||
-    `Cannot use name ${cli.colors.value(value)}`;
-
-  return (
-    (validate(name) && name) ||
-    (await cli.prompts.input({
-      message: 'Cloud SQL instance name',
-      validate,
-      default: name || existingInstance?.name,
-      ...rest
-    }))
-  );
+  return await lib.prompts.input<SqlInstanceIdentifier>({
+    arg: name,
+    message: 'Cloud SQL instance name',
+    validate: (value?: string) =>
+      (!!value &&
+        (!existingInstance || value !== existingInstance.name) &&
+        cli.validators.match(/^[a-z][a-z0-9-]*$/)(value) &&
+        cli.validators.maxLength(
+          98 - `${projects.active.get()}:${region}:`.length
+        )(value)) ||
+      `Cannot use name ${cli.colors.value(value)}`,
+    default: name || existingInstance?.name,
+    ...rest
+  });
 }
 
 const describe = async (name?: string) =>
@@ -125,8 +122,8 @@ const describe = async (name?: string) =>
     })}`
   );
 
-type SelectIdentifierOptions = Partial<SelectOptions> & {
-  instance?: string;
+type SelectIdentifierOptions = Partial<SelectOptions<SqlInstanceIdentifier>> & {
+  instance?: SqlInstanceIdentifier;
   purpose?: string;
 };
 
@@ -150,7 +147,7 @@ export default {
   inputName,
 
   describe: async (name?: string) =>
-    shell.gcloud(`sql instances describe "${name}"`),
+    shell.gcloud(`sql instances describe ${name}`),
 
   create: async function({
     name,
@@ -161,7 +158,7 @@ export default {
     services.enable({ service: services.API.CloudSQLAdminAPI });
     let instance: Instance =
       name &&
-      (await lib.prompts.confirm.reuse<Instance>({
+      (await lib.prompts.confirmReuse<Instance>({
         description: 'Cloud SQL instance',
         reuse: reuseIfExists,
         instance: await describe(name)

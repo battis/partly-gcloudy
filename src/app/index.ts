@@ -3,7 +3,7 @@ import shell from '../shell';
 import { DeployResponse } from './deploy';
 import regions from './regions';
 
-type AppEngineInstance = {
+export type AppEngine = {
   authDomain: string;
   codeBucket: string;
   databaseType: string;
@@ -30,7 +30,7 @@ type CreateOptions = {
   region: string;
 };
 
-const describe = async () => shell.gcloud<AppEngineInstance>('app describe');
+const describe = async () => shell.gcloud<AppEngine>('app describe');
 
 export default {
   regions,
@@ -44,7 +44,7 @@ export default {
     services.enable({ service: services.API.AppEngineAdminAPI });
     let instance = await describe();
     if (instance == null) {
-      instance = shell.gcloud<AppEngineInstance>(
+      instance = shell.gcloud<AppEngine>(
         `app create --region=${await regions.selectIdentifier({
           region: options.region,
           purpose: 'create App Engine instance'

@@ -1,7 +1,6 @@
 import cli from '@battis/qui-cli';
-import lib from '../lib';
-import { InputConfig } from '../lib/prompts/input';
-import { SelectOptions } from '../lib/prompts/select';
+import lib, { Email } from '../lib';
+import { InputOptions, SelectOptions } from '../lib/prompts';
 import shell from '../shell';
 import instances from './instances';
 
@@ -45,44 +44,58 @@ async function list(options?: ListOptions) {
   return shell.gcloud<User[]>(`sql users list --instance=${instance}`);
 }
 
-type InputIdentifierOptions = Partial<InputConfig> & {
+type InputIdentifierOptions = Partial<InputOptions<Email>> & {
   instance?: string;
   username?: string;
-  purpose?: string;
 };
 
 async function inputUsername(options?: InputIdentifierOptions) {
-  const { username, purpose = '', ...rest } = options;
-  return (
-    username ||
-    (await cli.prompts.input({
-      message: `MySQL username ${purpose}`,
-      validate: cli.validators.lengthBetween(1, 32),
-      ...rest
-    }))
-  );
+  const { username, ...rest } = options;
+  return await lib.prompts.input({
+    arg: username,
+    message: 'MySQL username',
+    validate: cli.validators.lengthBetween(1, 32),
+    ...rest
+  });
 }
 
-type InputPasswordOptions = Partial<InputConfig> & {
+type InputPasswordOptions = Partial<InputOptions<string>> & {
   password?: string;
-  purpose?: string;
 };
 
 async function inputPassword(options?: InputPasswordOptions) {
-  const { password, purpose, ...rest } = options;
-  return (
-    password ||
-    (await cli.prompts.input({
-      message: `MySQL Password ${purpose}`,
-      validate: cli.validators.maxLength(SQL_MAX_PASSWORD_LENGTH),
-      default: lib.generate.password(SQL_MAX_PASSWORD_LENGTH),
-      ...rest
-    }))
-  );
+  const { password, ...rest } = options;
+  return await lib.prompts.input({
+    arg: password,
+    message: 'MySQL Password',
+    validate: cli.validators.maxLength(SQL_MAX_PASSWORD_LENGTH),
+    default: lib.generate.password(SQL_MAX_PASSWORD_LENGTH),
+    ...rest
+  });
 }
 
-type SelectIdentifierOptins = Partial<SelectOptions> & {
-  username?: string;
+type Hostname = string;
+
+type InputHostOptions = Partial<InputOptions<Hostname>> & {
+  host?: string;
+};
+
+async function inputHost(options?: InputHostOptions) {
+  const { host } = options;
+  return await lib.prompts.input({
+    arg: host,
+    message: 'Host from which this user will connect (% for any)',
+    validate: cli.validators.isHostname({
+      allowed: ['%'],
+      ipAddress: true,
+      localhost: true
+    }),
+    default: 'localhost'
+  });
+}
+
+type SelectIdentifierOptins = Partial<SelectOptions<Email>> & {
+  username?: Email;
   purpose?: string;
 };
 
@@ -109,9 +122,11 @@ export default {
   describe: async function(options?: DescribeOptions) {
     const { username, instance } = options;
     return shell.gcloud<User>(
-      `sql users describe "${await selectIdentifier({
-        username
-      })}" --instance=${await instances.selectIdentifier({ instance })}`
+      `sql users describe ${lib.prompts.escape(
+        await selectIdentifier({
+          username
+        })
+      )} --instance=${await instances.selectIdentifier({ instance })}`
     );
   },
 
@@ -125,17 +140,7 @@ export default {
       instance,
       purpose: 'create user'
     });
-    host =
-      host ||
-      (await cli.prompts.input({
-        message: 'Host from which this user will connect (% for any)',
-        validate: cli.validators.isHostname({
-          allowed: ['%'],
-          ipAddress: true,
-          localhost: true
-        }),
-        default: 'localhost'
-      }));
+    host = await inputHost({ host });
     username = await inputUsername({
       instance,
       username,
@@ -144,7 +149,11 @@ export default {
     password = await inputPassword({ password });
 
     return shell.gcloud<User>(
-      `sql users create ${username} --host=${host} --instance=${instance} --password="${password}"`
+      `sql users create ${lib.prompts.escape(
+        username
+      )} --host=${host} --instance=${instance} --password=${lib.prompts.escape(
+        password
+      )}`
     );
   },
 
@@ -163,9 +172,9 @@ export default {
     });
     password = await inputPassword({ password });
     shell.gcloud(
-      `sql users set-password ${username} --instance=${instance} --password="${lib.prompts.escape(
-        password
-      )}"`
+      `sql users set-password ${lib.prompts.escape(
+        username
+      )} --instance=${instance} --password=${lib.prompts.escape(password)}`
     );
   }
 };
