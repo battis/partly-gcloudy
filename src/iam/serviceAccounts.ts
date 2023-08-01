@@ -1,5 +1,5 @@
 import cli from '@battis/qui-cli';
-import lib, { Email } from '../lib';
+import lib from '../lib';
 import { InputOptions, SelectOptions } from '../lib/prompts';
 import projects from '../projects';
 import shell from '../shell';
@@ -76,16 +76,15 @@ async function inputDisplayName(options?: InputDisplayNameOptions) {
 const list = async () =>
   shell.gcloud<ServiceAccount[]>('iam service-accounts list');
 
-type SelectIdentifierOptions = Partial<SelectOptions<Email>> & {
+type SelectIdentifierOptions = Partial<SelectOptions> & {
   email?: string;
-  purpose?: string;
 };
 
 async function selectIdentifier(options?: SelectIdentifierOptions) {
-  const { email, purpose, ...rest } = options;
+  const { email, ...rest } = options;
   return lib.prompts.select({
     arg: email,
-    message: `Service account${lib.prompts.pad(purpose)}`,
+    message: `Service account`,
     choices: list,
     valueIn: 'email',
     ...rest
@@ -133,9 +132,10 @@ export default {
     dangerouslyDeleteAllKeysIfNecessary
   }: Partial<GetServiceAccountCredentials>) {
     email = await selectIdentifier({ email });
-    path = await lib.prompts.inputPath({
-      path,
-      purpose: 'stored credentials file'
+    path = await lib.prompts.input({
+      arg: path,
+      message: 'Path to stored credentials file',
+      validate: cli.validators.pathExists()
     });
     let keys =
       shell.gcloud<Key[]>(

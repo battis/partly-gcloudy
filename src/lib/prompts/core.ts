@@ -1,5 +1,5 @@
 export type PromptConfig = {
-  arg: string | boolean;
+  arg?: string | boolean;
   purpose?: string;
 };
 

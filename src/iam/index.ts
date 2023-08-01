@@ -31,17 +31,16 @@ type Policy = {
   version: number;
 };
 
-type SelectUserTypeOptions = Partial<SelectOptions<UserType>> & {
+type SelectUserTypeOptions = Partial<SelectOptions> & {
   userType?: string;
-  purpose?: string;
 };
 
 async function selectUserType(options?: SelectUserTypeOptions) {
-  const { userType, purpose, ...rest } = options;
+  const { userType, ...rest } = options;
   return await lib.prompts.select<UserType>({
     arg: userType,
     validate: isUserType,
-    message: `IAM user type${lib.prompts.pad(purpose)}`,
+    message: `IAM user type`,
     choices: () =>
       ['user', 'serviceAccount', 'group'].map((t) => ({ value: t })),
     ...rest
@@ -61,7 +60,7 @@ export default {
     let { member, userType = 'user', role } = options;
     member = await members.inputIdentifier({
       member: member || user,
-      purpose: 'add policy binding'
+      purpose: 'to whom to add policy binding'
     });
     userType = (await selectUserType({ userType })) as UserType;
     role = await roles.inputIdentifier({ role, purpose: `bind to ${member}` });

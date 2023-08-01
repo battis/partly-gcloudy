@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@battis/qui-cli':
-    specifier: ^0.3.2
-    version: 0.3.2
+    specifier: ^0.3.5
+    version: 0.3.5
   '@battis/typescript-tricks':
     specifier: ^0.2.2
     version: 0.2.2
@@ -1350,8 +1350,8 @@ packages:
       prettier-plugin-sql: 0.13.0(prettier@2.8.8)
     dev: true
 
-  /@battis/qui-cli@0.3.2:
-    resolution: {integrity: sha512-J4nBU/di9o5WLM5VGMHSKC5ZDosfiI9nYwbS/RIOFIztCMf3/OSk/Pr8L+ls2NflZT3Ku/KapDYF/IOOGjNhkQ==}
+  /@battis/qui-cli@0.3.5:
+    resolution: {integrity: sha512-CfkqW9hG6naY35J0DiQ6IcdLBpwEp80/2wMUsOpDdm/jxpdrFh/fbF1LjeH4j/bbb3Qj4YFMNOubmZIh5v2ngw==}
     engines: {node: '>=12.17'}
     dependencies:
       '@inquirer/prompts': 2.3.1
@@ -2284,7 +2284,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001518
-      electron-to-chromium: 1.4.478
+      electron-to-chromium: 1.4.480
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11(browserslist@4.21.10)
     dev: true
@@ -2835,8 +2835,8 @@ packages:
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  /electron-to-chromium@1.4.478:
-    resolution: {integrity: sha512-qjTA8djMXd+ruoODDFGnRCRBpID+AAfYWCyGtYTNhsuwxI19s8q19gbjKTwRS5z/LyVf5wICaIiPQGLekmbJbA==}
+  /electron-to-chromium@1.4.480:
+    resolution: {integrity: sha512-IXTgg+bITkQv/FLP9FjX6f9KFCs5hQWeh5uNSKxB9mqYj/JXhHDbu+ekS43LVvbkL3eW6/oZy4+r9Om6lan1Uw==}
     dev: true
 
   /elegant-spinner@1.0.1:
@@ -4583,8 +4583,8 @@ packages:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
     dev: true
 
-  /node-sql-parser@4.8.0:
-    resolution: {integrity: sha512-z+PnREzzu8iv2mNAJvyGICUDRYCY69nOjuYHH8juqGy7zJQzUMJVrDfIUbB0OUVuxJhh3lYQ+1dZ6Bw4yCA1DA==}
+  /node-sql-parser@4.9.0:
+    resolution: {integrity: sha512-8Bob5oXkWdZ65CgIzMj8mHKsxkbKDdfm0FI7Tkm7J5Ar5Oo6BSyF4HBS+RQWJffzmdGBNWmjazPF9amdgUlUCA==}
     engines: {node: '>=8'}
     dependencies:
       big-integer: 1.6.51
@@ -5102,7 +5102,7 @@ packages:
     peerDependencies:
       prettier: ^2.0.0
     dependencies:
-      node-sql-parser: 4.8.0
+      node-sql-parser: 4.9.0
       prettier: 2.8.8
       sql-formatter: 11.0.2
       tslib: 2.6.1

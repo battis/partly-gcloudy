@@ -47,7 +47,7 @@ export default {
       instance = shell.gcloud<AppEngine>(
         `app create --region=${await regions.selectIdentifier({
           region: options.region,
-          purpose: 'create App Engine instance'
+          purpose: 'to create App Engine instance'
         })}`
       );
     }

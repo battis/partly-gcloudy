@@ -49,9 +49,10 @@ export default {
       ) {
         value = await cli.prompts.input({ message: 'Secret value' });
       } else {
-        path = await lib.prompts.inputPath({
+        path = await lib.prompts.input({
           arg: path,
-          message: 'Path to secret value'
+          message: 'Path to secret value',
+          validate: cli.validators.pathExists()
         });
       }
     }

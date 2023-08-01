@@ -94,17 +94,17 @@ async function inputHost(options?: InputHostOptions) {
   });
 }
 
-type SelectIdentifierOptins = Partial<SelectOptions<Email>> & {
+type SelectIdentifierOptins = Partial<SelectOptions> & {
   username?: Email;
-  purpose?: string;
+  instance?: string;
 };
 
-async function selectIdentifier(options?: SelectIdentifierOptins) {
-  const { username, purpose, ...rest } = options;
+async function selectUsername(options?: SelectIdentifierOptins) {
+  const { username, instance, ...rest } = options;
   return await lib.prompts.select({
     arg: username,
-    message: `MySQL username${lib.prompts.pad(purpose)}`,
-    choices: list,
+    message: `MySQL username`,
+    choices: () => list({ instance }),
     ...rest
   });
 }
@@ -113,17 +113,17 @@ type DescribeOptions = { username?: string; instance?: string };
 
 export default {
   list,
-  selectIdentifier,
-  inputIdentifier: inputUsername,
-
+  selectUsername,
+  selectIdentifier: selectUsername,
   inputUsername,
+  inputIdentifier: inputUsername,
   inputPassword,
 
   describe: async function(options?: DescribeOptions) {
     const { username, instance } = options;
     return shell.gcloud<User>(
       `sql users describe ${lib.prompts.escape(
-        await selectIdentifier({
+        await selectUsername({
           username
         })
       )} --instance=${await instances.selectIdentifier({ instance })}`
@@ -142,7 +142,7 @@ export default {
     });
     host = await inputHost({ host });
     username = await inputUsername({
-      instance,
+      name: instance,
       username,
       purpose: `to create`
     });
@@ -164,17 +164,25 @@ export default {
   }: Partial<SetPasswordOptions>) {
     instance = await instances.selectIdentifier({
       instance,
-      purpose: 'user password change'
+      purpose: 'on which to change user password'
     });
-    username = await selectIdentifier({
+    username = await selectUsername({
       username,
-      purpose: `on Cloud SQL instance ${cli.colors.value(instance)}`
+      purpose: `to change password for on Cloud SQL instance ${cli.colors.value(
+        instance
+      )}`
     });
-    password = await inputPassword({ password });
+    password = await inputPassword({
+      password,
+      purpose: `for ${cli.colors.value(
+        username
+      )} on Cloud SQL instance ${cli.colors.value(instance)}`
+    });
     shell.gcloud(
       `sql users set-password ${lib.prompts.escape(
         username
       )} --instance=${instance} --password=${lib.prompts.escape(password)}`
     );
+    return password;
   }
 };

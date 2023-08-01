@@ -29,7 +29,7 @@
     "release:publish": "np --yolo --no-release-draft"
   },
   "dependencies": {
-    "@battis/qui-cli": "^0.3.2",
+    "@battis/qui-cli": "^0.3.5",
     "@battis/typescript-tricks": "^0.2.2",
     "@inquirer/core": "^3.1.0",
     "@inquirer/type": "^1.1.1",

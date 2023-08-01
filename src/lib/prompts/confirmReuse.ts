@@ -1,31 +1,38 @@
 import cli from '@battis/qui-cli';
 import { Descriptor } from '../descriptor';
 import confirm, { ConfirmOptions } from './confirm';
-import { pad } from './core';
+import { PromptConfig, pad } from './core';
 
 /** @see @inquirer/confirm/dist/cjs/types/index.d.ts */
 
-export type ReuseOptions<T extends Descriptor> = Partial<ConfirmOptions> & {
-  description: string;
-  reuse?: boolean;
-  instance?: T;
-  name?: string;
-  purpose?: string;
-};
+export type ReuseOptions<T extends Descriptor> = Partial<ConfirmOptions> &
+  PromptConfig & {
+    instance?: T;
+    argDescription: string;
+    arg?: boolean;
+    name?: string;
+    nameIn?: string;
+  };
 
 export default async function confirmReuse<T extends Descriptor>({
-  description,
-  reuse,
+  arg,
+  argDescription,
   instance,
   name,
+  nameIn,
   purpose,
   ...args
 }: ReuseOptions<T>) {
   if (
     await confirm({
-      arg: reuse,
-      message: `Reuse existing ${description} ${cli.colors.value(
-        name || ('name' in instance && instance.name) || ''
+      arg,
+      message: `Reuse existing${pad(argDescription)}${pad(
+        cli.colors.value(
+          name ||
+          (nameIn && instance[nameIn]) ||
+          ('name' in instance && instance.name) ||
+          ''
+        )
       )}${pad(purpose)}`,
       ...args
     })

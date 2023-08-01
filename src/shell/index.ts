@@ -1,5 +1,5 @@
 import cli from '@battis/qui-cli';
-import { Descriptor } from '../lib/descriptor';
+import { Descriptor } from '../lib';
 import activeProject from '../projects/active';
 import flags, { Flags } from './flags';
 

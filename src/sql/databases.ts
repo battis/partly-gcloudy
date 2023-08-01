@@ -4,7 +4,7 @@ import { InputOptions, SelectOptions } from '../lib/prompts';
 import shell from '../shell';
 import instances from './instances';
 
-type Database = {
+export type Database = {
   charset: string;
   collation: string;
   etag: string;
@@ -37,30 +37,28 @@ type DatabaseIdentifier = string;
 
 type InputNameOptions = Partial<InputOptions<DatabaseIdentifier>> & {
   name?: string;
-  purpose?: string;
 };
 
 async function inputName(options?: InputNameOptions) {
-  const { name, purpose, ...rest } = options;
+  const { name, ...rest } = options;
   return await lib.prompts.input({
     arg: name,
-    message: `MySQL database name${lib.prompts.pad(purpose)}`,
+    message: `MySQL database name`,
     validate: cli.validators.lengthBetween(1, 64),
     ...rest
   });
 }
 
-type SelectIdentifierOptions = Partial<SelectOptions<DatabaseIdentifier>> & {
+type SelectIdentifierOptions = Partial<SelectOptions> & {
   name?: DatabaseIdentifier;
   instance?: string;
-  purpose?: string;
 };
 
-async function selectIdentifier(options?: SelectIdentifierOptions) {
-  const { name, instance, purpose, ...rest } = options;
+async function selectDatabase(options?: SelectIdentifierOptions) {
+  const { name, instance, ...rest } = options;
   return lib.prompts.select({
     arg: name,
-    message: `MySQL database name${lib.prompts.pad(purpose)}`,
+    message: `MySQL database`,
     choices: () => list({ instance }),
     ...rest
   });
@@ -73,12 +71,16 @@ type DescribeOptions = {
 
 export default {
   list,
+  inputName,
+  inputIdentifier: inputName,
+  selectDatabase,
+  selectIdentifier: selectDatabase,
 
   describe: async function(options?: DescribeOptions) {
     const { name, instance } = options;
     return shell.gcloud<Database>(
       `sql databases describe ${lib.prompts.escape(
-        await selectIdentifier({
+        await selectDatabase({
           name
         })
       )} --instance=${await instances.selectIdentifier({ instance })}`
@@ -93,7 +95,7 @@ export default {
   }: Partial<CreateOptions>) {
     instance = await instances.selectIdentifier({
       instance,
-      purpose: 'creat MySQL database'
+      purpose: 'create MySQL database'
     });
     name = await inputName({ name });
     return shell.gcloud<Database>(

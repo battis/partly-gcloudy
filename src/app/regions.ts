@@ -9,11 +9,8 @@ type Region = {
   standard: boolean;
 };
 
-type RegionIdentifier = string;
-
-type SelectIdentifierOptions = Partial<SelectOptions<RegionIdentifier>> & {
+type SelectIdentifierOptions = Partial<SelectOptions> & {
   region?: string;
-  purpose?: string;
 };
 
 const list = async () => shell.gcloud<Region[]>('app regions list');
@@ -22,10 +19,10 @@ export default {
   list,
 
   selectIdentifier: async function(options?: SelectIdentifierOptions) {
-    const { region, purpose = 'operate', ...rest } = options;
+    const { region, ...rest } = options;
     return await lib.prompts.select({
       arg: region,
-      message: `Google Cloud region${lib.prompts.pad(purpose)}`,
+      message: `Google Cloud region`,
       choices: list,
       valueIn: 'region',
       ...rest

@@ -6,7 +6,7 @@ import API from './api';
 
 type ServiceIdentifier = string;
 
-type EnableOptions = Partial<SelectOptions<ServiceIdentifier>> & {
+type EnableOptions = Partial<SelectOptions> & {
   service?: ServiceIdentifier;
 };
 

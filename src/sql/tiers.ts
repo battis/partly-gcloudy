@@ -1,4 +1,5 @@
 import lib from '../lib';
+import { SelectOptions } from '../lib/prompts';
 import shell from '../shell';
 
 type Tier = {
@@ -12,14 +13,23 @@ type Tier = {
 async function list() {
   return shell.gcloud<Tier[]>('sql tiers list');
 }
+
+type SelectTierOptions = Partial<SelectOptions> & {
+  tier?: string;
+};
+
+async function selectTier(options?: SelectTierOptions) {
+  const { tier } = options;
+  return await lib.prompts.select({
+    arg: tier,
+    message: `Cloud SQL service tier}`,
+    choices: list,
+    valueIn: 'tier'
+  });
+}
+
 export default {
   list,
-
-  selectIdentifier: async (tier?: string) =>
-    await lib.prompts.select({
-      arg: tier,
-      message: `Cloud SQL service tier}`,
-      choices: list,
-      valueIn: 'tier'
-    })
+  selectTier,
+  selectIdentifier: selectTier
 };

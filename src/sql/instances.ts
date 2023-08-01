@@ -28,7 +28,7 @@ type Instance = {
   etag: string;
   gceZone: string;
   instanceType: 'CLOUD_SQL_INSTANCE';
-  string: [
+  ipAddresses: [
     {
       ipAddress: string;
       type: string;
@@ -93,45 +93,48 @@ type SqlInstanceIdentifier = string;
 type InputIdentifierOptions = Partial<InputOptions<SqlInstanceIdentifier>> & {
   region: string;
   name?: string;
-  existingInstance?: Instance;
+  instance?: Instance;
 };
 
 async function inputName(options?: InputIdentifierOptions) {
-  const { region, name, existingInstance, ...rest } = options;
+  const { region, name, instance, ...rest } = options;
   return await lib.prompts.input<SqlInstanceIdentifier>({
     arg: name,
     message: 'Cloud SQL instance name',
+    instance,
     validate: (value?: string) =>
-      (!!value &&
-        (!existingInstance || value !== existingInstance.name) &&
-        cli.validators.match(/^[a-z][a-z0-9-]*$/)(value) &&
-        cli.validators.maxLength(
-          98 - `${projects.active.get()}:${region}:`.length
-        )(value)) ||
-      `Cannot use name ${cli.colors.value(value)}`,
-    default: name || existingInstance?.name,
+      cli.validators.match(/^[a-z][a-z0-9-]*$/)(value) &&
+      cli.validators.maxLength(
+        98 - `${projects.active.get()}:${region}:`.length
+      )(value),
+    default: name || instance?.name,
     ...rest
   });
 }
 
-const describe = async (name?: string) =>
-  shell.gcloud<Instance>(
+type DescribeOptions = {
+  name?: string;
+};
+
+async function describe(options?: DescribeOptions) {
+  const { name } = options;
+  return shell.gcloud<Instance>(
     `sql instances describe ${await inputName({
       name,
       region: active.instance()?.region
     })}`
   );
+}
 
-type SelectIdentifierOptions = Partial<SelectOptions<SqlInstanceIdentifier>> & {
+type SelectNameOptions = Partial<SelectOptions> & {
   instance?: SqlInstanceIdentifier;
-  purpose?: string;
 };
 
-async function selectIdentifier(options?: SelectIdentifierOptions) {
-  const { instance, purpose, ...rest } = options;
+async function selectName(options?: SelectNameOptions) {
+  const { instance, ...rest } = options;
   return await lib.prompts.select({
     arg: instance || active.get(),
-    message: `Cloud SQL instance${lib.prompts.pad(purpose)}`,
+    message: `Cloud SQL instance`,
     choices: list,
     ...rest
   });
@@ -141,13 +144,12 @@ const active = new Active<Instance>();
 
 export default {
   list,
-  inputIdentifier: inputName,
-  selectIdentifier,
-  active,
   inputName,
-
-  describe: async (name?: string) =>
-    shell.gcloud(`sql instances describe ${name}`),
+  inputIdentifier: inputName,
+  selectName,
+  selectIdentifier: selectName,
+  active,
+  describe,
 
   create: async function({
     name,
@@ -159,9 +161,9 @@ export default {
     let instance: Instance =
       name &&
       (await lib.prompts.confirmReuse<Instance>({
-        description: 'Cloud SQL instance',
-        reuse: reuseIfExists,
-        instance: await describe(name)
+        arg: reuseIfExists,
+        instance: await describe({ name }),
+        argDescription: 'Cloud SQL instance'
       }));
 
     if (!instance || reuseIfExists === false) {
@@ -173,9 +175,9 @@ export default {
       name = await inputName({
         region,
         name,
-        existingInstance: instance
+        instance
       });
-      tier = await tiers.selectIdentifier(tier);
+      tier = await tiers.selectIdentifier({ tier });
       instance = shell.gcloud<Instance>(
         `sql instances create ${name} --region=${region} --tier=${tier}`
       );

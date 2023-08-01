@@ -2,6 +2,7 @@ import cli from '@battis/qui-cli';
 import { AppEngine } from '../app';
 import gcloud from '../index';
 import { Project } from '../projects';
+import { ConditionalEnvFile } from './ConditionalEnvFile';
 
 type PreBuildCallbackArguments = {
   project: Project;
@@ -15,14 +16,12 @@ type AppEnginePublishOptions = {
   id?: string;
   billingAccountId: string;
   region?: string;
-  env?:
-  | boolean
-  | {
-    idVar?: string;
-    urlVar?: string;
+  env?: ConditionalEnvFile & {
+    keys: { idVar?: string; urlVar?: string };
   };
   preBuild?: PreBuildCallback;
   build: string;
+  deploy: boolean;
 };
 
 export default async function appEnginePublish(
@@ -37,13 +36,14 @@ export default async function appEnginePublish(
       region,
       env = true,
       preBuild,
-      build = 'npm run build'
+      build = 'npm run build',
+      deploy = true
     } = options;
 
     const {
       idVar = args.values.projectEnvVar,
       urlVar = `${args.values.projectEnvVar}_URL`
-    } = typeof env === 'boolean' ? {} : env;
+    } = typeof env === 'boolean' ? {} : env.keys;
 
     if (gcloud.ready()) {
       // create new project (or reuse existing)
@@ -82,7 +82,9 @@ export default async function appEnginePublish(
       if (build) {
         cli.shell.exec(build);
       }
-      gcloud.app.deploy();
+      if (deploy) {
+        gcloud.app.deploy();
+      }
       return { project, appEngine };
     }
     return false;

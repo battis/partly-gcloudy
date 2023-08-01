@@ -16,11 +16,11 @@ type CreateOptions = {
 
 type ProjectIdentifier = string;
 
-type InputIdentifierOptions = Partial<InputOptions<ProjectIdentifier>> & {
+type InputProjectIdOptions = Partial<InputOptions<ProjectIdentifier>> & {
   projectId?: string;
 };
 
-async function inputIdentifier(options?: InputIdentifierOptions) {
+async function inputProjectId(options?: InputProjectIdOptions) {
   const { projectId, ...rest } = options;
   return await lib.prompts.input<ProjectIdentifier>({
     arg: projectId,
@@ -52,7 +52,7 @@ type DescribeOptions = { projectId?: string };
 async function describe(options?: DescribeOptions) {
   const { projectId } = options;
   return shell.gcloud<Project>(
-    `projects describe ${await inputIdentifier({
+    `projects describe ${await inputProjectId({
       projectId: projectId || active.get()
     })}`,
     {
@@ -64,8 +64,25 @@ async function describe(options?: DescribeOptions) {
 const list = async () =>
   shell.gcloud<Project[]>('projects list', { includeProjectIdFlag: false });
 
+type SelectProjectIdOptions = {
+  projectId?: string;
+};
+
+async function selectProjectId(options?: SelectProjectIdOptions) {
+  const { projectId, ...rest } = options;
+  return await lib.prompts.select<ProjectIdentifier>({
+    arg: projectId,
+    message: 'Google Cloud project',
+    choices: list,
+    ...rest
+  });
+}
+
 export default {
-  inputIdentifier,
+  inputProjectId,
+  inputIdentifier: inputProjectId,
+  selectProjectId,
+  selectIdentifier: selectProjectId,
   inputName,
   describe,
   list,
@@ -78,13 +95,13 @@ export default {
     const { id, reuseIfExists } = options;
     let { name, projectId } = options;
     name = await inputName({ name });
-    projectId = await inputIdentifier({ projectId: projectId || id });
+    projectId = await inputProjectId({ projectId: projectId || id });
     let project =
       projectId &&
       (await lib.prompts.confirmReuse<Project>({
-        description: 'Google Cloud project',
-        reuse: reuseIfExists,
+        arg: reuseIfExists,
         instance: await describe({ projectId }),
+        argDescription: 'Google Cloud project',
         name: projectId
       }));
 
