@@ -1,5 +1,6 @@
 .*
 /babel
+/bin
 /tsconfig.json
 /src
 /scripts
