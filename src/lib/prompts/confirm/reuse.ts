@@ -17,7 +17,7 @@ async function reuse<T extends Descriptor>({
   instance?: T;
   name?: string;
   nameIn?: string;
-}) {
+}): Promise<T> {
   if (
     arg === true ||
     (await cli.prompts.confirm({

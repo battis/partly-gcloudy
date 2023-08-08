@@ -154,24 +154,22 @@ export default async function createMySqlInstance(
       name: databaseName || deploy.DB_DATABASE,
       default: instanceName
     });
-    let database = await gcloud.sql.databases.describe({
-      name: databaseName
-    });
-    if (database) {
-      if (
-        !(await gcloud.lib.prompts.confirm.reuse({
-          instance: database,
-          argDescription: 'MySQL database'
-        }))
-      ) {
-        databaseName = await gcloud.sql.databases.inputIdentifier({
-          validate: lib.validators.exclude({
-            exclude: database,
-            property: 'name'
-          })
-        });
-        database = undefined;
-      }
+    let database =
+      databaseName &&
+      (await gcloud.lib.prompts.confirm.reuse({
+        instance: await gcloud.sql.databases.describe({
+          name: databaseName
+        }),
+        argDescription: 'MySQL database'
+      }));
+    if (databaseName && !database) {
+      databaseName = await gcloud.sql.databases.inputIdentifier({
+        validate: lib.validators.exclude({
+          exclude: database,
+          property: 'name'
+        })
+      });
+      database = undefined;
     }
     if (!database) {
       database = await gcloud.sql.databases.create({
