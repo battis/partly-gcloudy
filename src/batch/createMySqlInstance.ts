@@ -1,14 +1,15 @@
 import cli from '@battis/qui-cli';
 import appRootPath from 'app-root-path';
 import path from 'path';
-import { AppEngine } from '../app';
+import app from '../app';
 import gcloud from '../index';
-import { Project } from '../projects';
-import { ConditionalEnvFile } from './ConditionalEnvFile';
+import lib from '../lib';
+import projects from '../projects';
+import ConditionalEnvFile from './ConditionalEnvFile';
 
 type CreateMySqlInstanceOptions = {
-  project?: Project;
-  appEngine?: boolean | AppEngine;
+  project?: projects.Project;
+  appEngine?: boolean | app.AppEngine;
   region?: string;
   tier?: string;
   instanceName?: string;
@@ -46,7 +47,7 @@ export default async function createMySqlInstance(
   const { tier, env } = options;
   if (gcloud.ready()) {
     project = project || (await gcloud.projects.describe());
-    gcloud.projects.active.set(project.projectId, project);
+    gcloud.projects.active.activate(project);
     appEngine = appEngine === true ? await gcloud.app.describe() : appEngine;
     if (
       appEngine &&
@@ -158,13 +159,16 @@ export default async function createMySqlInstance(
     });
     if (database) {
       if (
-        !(await gcloud.lib.prompts.confirmReuse({
+        !(await gcloud.lib.prompts.confirm.reuse({
           instance: database,
           argDescription: 'MySQL database'
         }))
       ) {
         databaseName = await gcloud.sql.databases.inputIdentifier({
-          instance: database
+          validate: lib.validators.exclude({
+            exclude: database,
+            property: 'name'
+          })
         });
         database = undefined;
       }

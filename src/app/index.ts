@@ -1,64 +1,53 @@
 import services from '../services';
 import shell from '../shell';
-import { DeployResponse } from './deploy';
-import regions from './regions';
+import TAppEngine from './AppEngine';
+import TDeploymentConfig from './DeploymentConfig';
+import MRegions from './regions';
 
-export type AppEngine = {
-  authDomain: string;
-  codeBucket: string;
-  databaseType: string;
-  defaultBucket: string;
-  defaultHostname: string;
-  featureSettings: {
-    splitHealthChecks: boolean;
-    useContainerOptimizedOs: true;
-  };
-  gcrDomain: string;
-  iap: {
-    enable: boolean;
-    oauth2ClientId: string;
-    oauth2ClientSecretSha256: string;
-  };
-  id: string;
-  locationId: string;
-  name: string;
-  serviceAccount: string;
-  servingStatus: string;
-};
+class app {
+  protected constructor() {
+    // ignore
+  }
 
-type CreateOptions = {
-  region: string;
-};
-
-const describe = async () => shell.gcloud<AppEngine>('app describe');
-
-export default {
-  regions,
-  describe,
+  public static async describe() {
+    return shell.gcloud<app.AppEngine>('app describe');
+  }
 
   /**
    * There can only be one AppEngine instance per project, so if one already exists it will be returned rather than created
    * @param {Partial<CreateOptions>} options
    */
-  create: async function(options?: Partial<CreateOptions>) {
+  public static async create({ region }: { region?: string } = undefined) {
     services.enable({ service: services.API.AppEngineAdminAPI });
-    let instance = await describe();
+    let instance = await this.describe();
     if (instance == null) {
-      instance = shell.gcloud<AppEngine>(
-        `app create --region=${await regions.selectIdentifier({
-          region: options.region,
+      instance = shell.gcloud<app.AppEngine>(
+        `app create --region=${await this.regions.selectIdentifier({
+          region,
           purpose: 'to create App Engine instance'
         })}`
       );
     }
     return instance;
-  },
+  }
 
-  deploy: async () => shell.gcloud<DeployResponse>('app deploy'),
+  public static deploy() {
+    return shell.gcloud<app.DeploymentConfig>('app deploy');
+  }
 
-  logs: async () =>
-    shell.gcloud('app logs tail -s default', {
+  public static logs() {
+    // TODO app logs should be configurable
+    return shell.gcloud('app logs tail -s default', {
       overrideBaseFlags: true,
       flags: { format: 'text' }
-    })
-};
+    });
+  }
+}
+
+namespace app {
+  export type AppEngine = TAppEngine;
+  export type DeploymentConfig = TDeploymentConfig;
+  export import regions = MRegions; // eslint-disable-line @typescript-eslint/no-unused-vars
+}
+
+export { app as default };

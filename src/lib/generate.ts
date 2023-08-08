@@ -1,18 +1,22 @@
 import crypto from 'node:crypto';
 import { rword } from 'rword';
 
-export default {
+class generate {
+  protected constructor() {
+    // ignore
+  }
+
   /**
    * Google Cloud-style project ID generator
    *
    * Two random words hyphenated with a 6-digit suffix, max 30 characters: owl-phlegmatic-522355
 
-   * @param {number} length (Optional, default `30`) maximum total characters
-   * @param {number} words (Optional, default `2`) number of words to generate
-   * @param {number} digits (Optional, default `6`) number of digits in suffix
-   * @param {string} separator (Optional, default `-`) separator between words
+   * @param length (Optional, default `30`) maximum total characters
+   * @param words (Optional, default `2`) number of words to generate
+   * @param digits (Optional, default `6`) number of digits in suffix
+   * @param separator (Optional, default `-`) separator between words
    */
-  projectId: function(length = 30, words = 2, digits = 6, separator = '-') {
+  public static projectId(length = 30, words = 2, digits = 6, separator = '-') {
     const word = [];
     for (let i = 0; i < words; i++) {
       word.push(
@@ -32,14 +36,18 @@ export default {
       Math.random() * (9 * Math.pow(10, digits - 1) + 1)
     );
     return `${word.join(separator)}${separator}${suffix}`;
-  },
+  }
 
   /**
    * Randomly generated password
    *
-   * @param {number} length number of characters
-   * @param {BufferEncoding} encoding (Optional, default `base64`) encoding for random bytes
+   * @param length number of characters
+   * @param encoding (Optional, default `base64`) encoding for random bytes
    */
-  password: (length = 15, encoding: BufferEncoding = 'base64') =>
-    crypto.randomBytes(length).toString(encoding).substring(0, length)
-};
+  public static password = (length = 15, encoding: BufferEncoding = 'base64') =>
+    crypto.randomBytes(length).toString(encoding).substring(0, length);
+}
+
+namespace generate { }
+
+export { generate as default };

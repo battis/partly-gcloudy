@@ -1,5 +1,5 @@
 import cli from '@battis/qui-cli';
-import { Descriptor } from '../lib';
+import lib from '../lib';
 import activeProject from '../projects/active';
 import flags, { Flags } from './flags';
 
@@ -13,7 +13,7 @@ type InvokeOptions = {
   };
 };
 
-function gcloud<T extends Descriptor>(
+function gcloud<T extends lib.Descriptor>(
   command: string,
   options?: Partial<InvokeOptions>
 ) {
@@ -25,7 +25,7 @@ function gcloud<T extends Descriptor>(
         ? false
         : options?.includeProjectIdFlag === true
           ? true
-          : !new RegExp(activeProject.get()).test(command),
+          : !new RegExp(activeProject.get().projectId).test(command),
     pipe: {
       in: options?.pipe?.in || undefined,
       out: options?.pipe?.out || undefined
@@ -35,7 +35,7 @@ function gcloud<T extends Descriptor>(
     opt.flags = { ...opt.flags, ...flags.getBase() };
   }
   if (opt.includeProjectIdFlag) {
-    opt.flags.project = activeProject.get();
+    opt.flags.project = activeProject.get().projectId;
   }
   const result = cli.shell.exec(
     `${opt.pipe.in ? `${opt.pipe.in} |` : ''

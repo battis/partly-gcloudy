@@ -1,14 +1,18 @@
-import confirmReuse from './confirmReuse';
-import * as core from './core';
-import input, { InputOptions as _InputOptions } from './input';
-import select, { SelectOptions as _SelectOptions } from './select';
+import MConfirm from './confirm';
+import core from './core';
+import MInput from './input';
+import MSelect from './select';
 
-export type InputOptions<T extends string> = _InputOptions<T>;
-export type SelectOptions = _SelectOptions;
+class prompts extends core {
+  protected constructor() {
+    super();
+  }
+}
 
-export default {
-  ...core,
-  select,
-  input,
-  confirmReuse
-};
+namespace prompts {
+  export import confirm = MConfirm; // eslint-disable-line @typescript-eslint/no-unused-vars
+  export import input = MInput; // eslint-disable-line @typescript-eslint/no-unused-vars
+  export import select = MSelect; // eslint-disable-line @typescript-eslint/no-unused-vars
+}
+
+export { prompts as default };

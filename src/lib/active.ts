@@ -1,20 +1,16 @@
-import { Descriptor } from './descriptor';
+import Descriptor from './Descriptor';
 
-export default class Active<T extends Descriptor> {
-  private id: string;
-  private descriptor: T;
+class Active<T extends Descriptor> {
+  public constructor(
+    private instance: T,
+    private identifier: keyof T = 'name'
+  ) { }
 
-  constructor(defaultIdentifier?: string, descriptor?: T) {
-    this.id = defaultIdentifier;
-    this.descriptor = descriptor;
-  }
+  public getIdentifier = () => this.instance[this.identifier];
 
-  get = () => this.id;
+  public activate = (instance: T) => (this.instance = instance);
 
-  set(identifier: string, descriptor?: T) {
-    this.id = identifier;
-    this.descriptor = descriptor;
-  }
-
-  instance = () => this.descriptor;
+  public get = () => this.instance;
 }
+
+export { Active as default };

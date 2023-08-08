@@ -1,42 +1,45 @@
-import app from './app';
-import batch from './batch';
-import billing from './billing';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import MApp from './app';
+import MBatch from './batch';
+import MBilling from './billing';
 import core from './core';
-import iam from './iam';
-import iap from './iap';
-import lib from './lib';
-import projects from './projects';
-import scheduler from './scheduler';
-import secrets from './secretManager';
-import services from './services';
-import shell from './shell';
-import sql from './sql';
+import MIam from './iam';
+import MIap from './iap';
+import MLib from './lib';
+import MProjects from './projects';
+import MScheduler from './scheduler';
+import MSecrets from './secrets';
+import MServices from './services';
+import MSql from './sql';
 
-export default {
-  ...core,
-  lib,
-  batch,
+class gcloud extends core {
+  protected constructor() {
+    super();
+    //ignore
+  }
+}
 
-  app,
-  appEngine: app,
+namespace gcloud {
+  // library
+  export import batch = MBatch;
+  export import lib = MLib;
 
-  iam,
-  identityAccessManagement: iam,
+  // endpoints
+  export import app = MApp;
+  export import billing = MBilling;
+  export import iam = MIam;
+  export import iap = MIap;
+  export import projects = MProjects;
+  export import scheduler = MScheduler;
+  export import secrets = MSecrets;
+  export import services = MServices;
+  export import sql = MSql;
 
-  iap,
-  identityAwareProxy: iap,
+  // endpoint aliases
+  export import identityAndAccessManagement = MIam;
+  export import identityAwareProxy = MIap;
+  export import secretManager = MSecrets;
+}
 
-  secrets,
-  secretManager: secrets,
-
-  projects,
-
-  /** @deprecated use {@link projects} */
-  project: projects,
-
-  billing,
-  shell,
-  scheduler,
-  services,
-  sql
-};
+export { gcloud as default };

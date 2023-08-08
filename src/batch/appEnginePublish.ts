@@ -1,49 +1,45 @@
 import cli from '@battis/qui-cli';
-import { AppEngine } from '../app';
 import gcloud from '../index';
-import { Project } from '../projects';
-import { ConditionalEnvFile } from './ConditionalEnvFile';
+import ConditionalEnvFile from './ConditionalEnvFile';
 
-type PreBuildCallbackArguments = {
-  project: Project;
-  appEngine: AppEngine;
-};
-type PreBuildCallback = (args: PreBuildCallbackArguments) => boolean;
+type EnvFile =
+  | ConditionalEnvFile
+  | {
+    keys: { idVar?: string; urlVar?: string };
+  };
 
-type AppEnginePublishOptions = {
+type PreBuildCallback = (args: {
+  project: gcloud.projects.Project;
+  appEngine: gcloud.app.AppEngine;
+}) => boolean;
+
+export default async function appEnginePublish({
+  name,
+  id = gcloud.projects.active.get().projectId,
+  suggestedName,
+  billingAccountId,
+  region,
+  env = true,
+  preBuild,
+  build = 'npm run build',
+  deploy = true
+}: {
   name?: string;
   suggestedName?: string;
   id?: string;
-  billingAccountId: string;
+  billingAccountId?: string;
   region?: string;
-  env?: ConditionalEnvFile & {
-    keys: { idVar?: string; urlVar?: string };
-  };
+  env?: EnvFile;
   preBuild?: PreBuildCallback;
-  build: string;
-  deploy: boolean;
-};
-
-export default async function appEnginePublish(
-  options?: AppEnginePublishOptions
-) {
-  const args = gcloud.init();
+  build?: string;
+  deploy?: boolean;
+} = undefined) {
+  const args = await gcloud.init();
   if (gcloud.ready()) {
-    let { name, id = gcloud.projects.active.get() } = options;
-    const {
-      suggestedName,
-      billingAccountId,
-      region,
-      env = true,
-      preBuild,
-      build = 'npm run build',
-      deploy = true
-    } = options;
-
     const {
       idVar = args.values.projectEnvVar,
       urlVar = `${args.values.projectEnvVar}_URL`
-    } = typeof env === 'boolean' ? {} : env.keys;
+    } = typeof env === 'boolean' || typeof env === 'string' ? {} : env.keys;
 
     if (gcloud.ready()) {
       // create new project (or reuse existing)
@@ -57,7 +53,7 @@ export default async function appEnginePublish(
       id = project.projectId;
 
       // enable billing to allow enabling services later
-      await gcloud.billing.enable({ accountId: billingAccountId });
+      await gcloud.billing.projects.enable({ account: billingAccountId });
 
       // enable App Engine for the project and update .env
       const appEngine = await gcloud.app.create({ region });

@@ -1,6 +1,19 @@
-import databases from './databases';
-import instances from './instances';
-import tiers from './tiers';
-import users from './users';
+import MDatabases from './databases';
+import MInstances from './instances';
+import MTiers from './tiers';
+import MUsers from './users';
 
-export default { instances, tiers, users, databases };
+class sql {
+  protected constructor() {
+    // ignore
+  }
+}
+
+namespace sql {
+  export import databases = MDatabases; // eslint-disable-line @typescript-eslint/no-unused-vars
+  export import instances = MInstances; // eslint-disable-line @typescript-eslint/no-unused-vars
+  export import tiers = MTiers; // eslint-disable-line @typescript-eslint/no-unused-vars
+  export import users = MUsers; // eslint-disable-line @typescript-eslint/no-unused-vars
+}
+
+export { sql as default };

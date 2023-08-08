@@ -1,112 +1,180 @@
 import cli from '@battis/qui-cli';
 import lib from '../lib';
-import { InputOptions } from '../lib/prompts';
 import shell from '../shell';
-import active, { Project as ProjectInstance } from './active';
+import TProject from './Project';
+import active from './active';
 
-export type Project = ProjectInstance;
+class projects {
+  protected constructor() {
+    // ignore
+  }
 
-type CreateOptions = {
-  name: string;
-  /** @deprecated use {@link CreateOptions.projectId} */
-  id: string;
-  projectId: string;
-  reuseIfExists: boolean;
-};
-
-type ProjectIdentifier = string;
-
-type InputProjectIdOptions = Partial<InputOptions<ProjectIdentifier>> & {
-  projectId?: string;
-};
-
-async function inputProjectId(options?: InputProjectIdOptions) {
-  const { projectId, ...rest } = options;
-  return await lib.prompts.input<ProjectIdentifier>({
-    arg: projectId,
-    message: 'Google Cloud project unique identifier',
-    validate: cli.validators.lengthBetween(6, 30),
-    default: lib.generate.projectId(),
+  public static async inputProjectId({
+    projectId,
+    validate,
     ...rest
-  });
-}
+  }: Partial<Parameters<typeof lib.prompts.input<projects.ProjectId>>[0]> & {
+    projectId?: string;
+  } = undefined) {
+    return await lib.prompts.input<projects.ProjectId>({
+      arg: projectId,
+      message: 'Google Cloud project unique identifier',
+      validate: cli.validators.combine(
+        validate,
+        cli.validators.lengthBetween(6, 30)
+      ),
+      default: lib.generate.projectId(),
+      ...rest
+    });
+  }
 
-type ProjectName = string;
-
-type InputNameOptions = Partial<InputOptions<ProjectName>> & {
-  name?: string;
-};
-
-async function inputName(options?: InputNameOptions) {
-  const { name, ...rest } = options;
-  return await lib.prompts.input<ProjectName>({
-    arg: name,
-    message: 'Google Cloud project name',
-    validate: cli.validators.lengthBetween(6, 30),
+  public static async inputName({
+    name,
+    validate,
     ...rest
-  });
-}
+  }: Partial<Parameters<typeof lib.prompts.input<projects.Name>>[0]> & {
+    name?: string;
+  } = undefined) {
+    return await lib.prompts.input<projects.Name>({
+      arg: name,
+      message: 'Google Cloud project name',
+      validate: cli.validators.combine(
+        validate,
+        cli.validators.lengthBetween(6, 30)
+      ),
+      ...rest
+    });
+  }
 
-type DescribeOptions = { projectId?: string };
+  public static async describe({
+    projectId
+  }: { projectId?: string } = undefined) {
+    return shell.gcloud<projects.Project>(
+      `projects describe ${await this.inputProjectId({
+        projectId: projectId || active.get().projectId
+      })}`,
+      {
+        includeProjectIdFlag: false
+      }
+    );
+  }
 
-async function describe(options?: DescribeOptions) {
-  const { projectId } = options;
-  return shell.gcloud<Project>(
-    `projects describe ${await inputProjectId({
-      projectId: projectId || active.get()
-    })}`,
-    {
+  public static list = () =>
+    shell.gcloud<projects.Project[]>('projects list', {
       includeProjectIdFlag: false
-    }
-  );
-}
+    });
 
-const list = async () =>
-  shell.gcloud<Project[]>('projects list', { includeProjectIdFlag: false });
-
-type SelectProjectIdOptions = {
-  projectId?: string;
-};
-
-async function selectProjectId(options?: SelectProjectIdOptions) {
-  const { projectId, ...rest } = options;
-  return await lib.prompts.select<ProjectIdentifier>({
-    arg: projectId,
-    message: 'Google Cloud project',
-    choices: list,
+  public static async selectProjectId({
+    projectId,
+    activate,
     ...rest
-  });
-}
+  }: Partial<lib.prompts.select.Parameters.ValueToString<projects.Project>> &
+    Partial<Parameters<typeof this.create>[0]> & {
+      projectId?: string;
+    } = undefined) {
+    return await lib.prompts.select<projects.Project>({
+      arg: projectId,
+      message: 'Google Cloud project',
+      choices: () =>
+        this.list().map((p: projects.Project) => ({
+          name: p.name,
+          value: p,
+          description: p.projectId
+        })),
+      transform: (p: projects.Project) => p.projectId,
+      activate: activate && this.active,
+      create: this.create,
+      ...rest
+    });
+  }
 
-export default {
-  inputProjectId,
-  inputIdentifier: inputProjectId,
-  selectProjectId,
-  selectIdentifier: selectProjectId,
-  inputName,
-  describe,
-  list,
+  public static selectIdentifier = this.selectProjectId;
+
+  public static async selectProjectNumber({
+    projectNumber,
+    activate,
+    ...rest
+  }: Partial<lib.prompts.select.Parameters.ValueToString<projects.Project>> &
+    Partial<Parameters<typeof this.create>[0]> & {
+      projectNumber?: string | number;
+    } = undefined) {
+    return await lib.prompts.select({
+      arg: projectNumber.toString() || this.active.get().projectNumber,
+      message: 'Google Cloud project',
+      choices: () =>
+        this.list().map((p) => ({
+          name: p.name,
+          value: p,
+          description: p.projectNumber
+        })),
+      transform: (p: projects.Project) => p.projectId,
+      activate: activate && this.active,
+      create: this.create,
+      ...rest
+    });
+  }
+
+  public static async selectProject({
+    project = this.active.get(),
+    activate,
+    ...rest
+  }: Partial<
+    lib.prompts.select.Parameters.ValueToValue<
+      projects.Project,
+      projects.Project
+    >
+  > &
+    Partial<Parameters<typeof this.create>[0]> & {
+      project?: projects.Project;
+    } = undefined) {
+    return lib.prompts.select<projects.Project, projects.Project>({
+      arg: project?.projectId,
+      argTransform: () => project,
+      validate: false,
+      message: 'Google Cloud project',
+      choices: () =>
+        this.list().map((p) => ({
+          name: p.name,
+          value: p,
+          description: p.projectId
+        })),
+      transform: (p: projects.Project) => p,
+      activate: activate && this.active,
+      create: this.create,
+      ...rest
+    });
+  }
+
+  public static active = active;
 
   /** @deprecated use {@link active} */
-  id: active,
-  active,
+  public static id = this.active;
 
-  create: async function(options?: Partial<CreateOptions>) {
-    const { id, reuseIfExists } = options;
-    let { name, projectId } = options;
-    name = await inputName({ name });
-    projectId = await inputProjectId({ projectId: projectId || id });
+  public static async create({
+    id,
+    name,
+    projectId,
+    reuseIfExists
+  }: {
+    name?: string;
+    /** @deprecated use `projectId` */
+    id?: string;
+    projectId?: string;
+    reuseIfExists?: boolean;
+  } = undefined) {
+    name = await this.inputName({ name });
+    projectId = await this.inputProjectId({ projectId: projectId || id });
     let project =
       projectId &&
-      (await lib.prompts.confirmReuse<Project>({
+      (await lib.prompts.confirm.reuse<projects.Project>({
         arg: reuseIfExists,
-        instance: await describe({ projectId }),
+        instance: await this.describe({ projectId }),
         argDescription: 'Google Cloud project',
         name: projectId
       }));
 
     if (!project || reuseIfExists === false) {
-      project = shell.gcloud<Project>(
+      project = shell.gcloud<projects.Project>(
         `projects create --name=${lib.prompts.escape(name)} ${projectId}`,
         {
           includeProjectIdFlag: false
@@ -116,7 +184,15 @@ export default {
         throw new Error(`Failed to create project`);
       }
     }
-    active.set(project.projectId, project);
+    active.activate(project);
     return project;
   }
-};
+}
+
+namespace projects {
+  export type ProjectId = string;
+  export type Name = string;
+  export type Project = TProject;
+}
+
+export { projects as default };

@@ -29,21 +29,22 @@
     "release:publish": "np --yolo --no-release-draft"
   },
   "dependencies": {
-    "@battis/qui-cli": "^0.3.5",
-    "@battis/typescript-tricks": "^0.2.2",
-    "@inquirer/core": "^3.1.0",
+    "@battis/qui-cli": "^0.3.6",
+    "@battis/typescript-tricks": "^0.4.2",
+    "@inquirer/core": "^3.1.1",
+    "@inquirer/select": "^1.2.7",
     "@inquirer/type": "^1.1.1",
     "rword": "^3.2.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.9",
-    "@babel/core": "^7.22.9",
-    "@babel/preset-env": "^7.22.9",
+    "@babel/cli": "^7.22.10",
+    "@babel/core": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
     "@babel/preset-typescript": "^7.22.5",
     "@battis/eslint-config": "latest",
     "@battis/prettier-config": "latest",
     "@tsconfig/recommended": "^1.0.2",
-    "@types/node": "^20.4.5",
+    "@types/node": "^20.4.8",
     "app-root-path": "^3.1.0",
     "babel-plugin-add-import-extension": "^1.6.0",
     "babel-plugin-add-module-exports": "^1.0.4",
@@ -56,6 +57,9 @@
   },
   "prettier": "@battis/prettier-config",
   "eslintConfig": {
-    "extends": "@battis/eslint-config"
+    "extends": "@battis/eslint-config",
+    "rules": {
+      "@typescript-eslint/no-namespace": "off"
+    }
   }
 }

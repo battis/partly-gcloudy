@@ -1,51 +1,44 @@
-import { AssociativeArray } from '@battis/typescript-tricks';
 import lib from '../lib';
-import { SelectOptions } from '../lib/prompts/select';
 import shell from '../shell';
 import API from './api';
+import TService from './Service';
 
 type ServiceIdentifier = string;
 
-type EnableOptions = Partial<SelectOptions> & {
-  service?: ServiceIdentifier;
-};
+class services {
+  protected constructor() {
+    // ignore
+  }
 
-type Service = {
-  config: {
-    authentication: AssociativeArray<string>;
-    documentation: AssociativeArray<string>;
-    monitoredResources: [{ labels: [{ key: string }]; type: string }];
-    monitoring: {
-      consumerDestinations: [{ metrics: string[]; monitoredResource: string }];
-    };
-    name: string;
-    quota: AssociativeArray<string>;
-    title: string;
-    usage: AssociativeArray<string>;
-  };
-  name: string;
-  parent: string;
-  state: string;
-};
+  public static API = API;
 
-const list = async () => shell.gcloud<Service[]>('services list --available');
+  public static list = () =>
+    shell.gcloud<services.Service[]>('services list --available');
 
-export default {
-  API,
-  list,
-
-  enable: async function(options?: Partial<EnableOptions>) {
-    let { service, pageSize = 20 } = options;
-    pageSize = Math.max(7, pageSize);
-    service = await lib.prompts.select({
-      ...options,
+  public static async enable({
+    service,
+    ...rest
+  }: Partial<lib.prompts.select.Parameters.ValueToString<services.Service>> & {
+    service?: ServiceIdentifier;
+  } = undefined) {
+    service = await lib.prompts.select<services.Service>({
       arg: service,
       message: 'Service to enable',
-      choices: async () => (await list()).map((service) => service.config),
-      nameIn: 'title',
-      valueIn: 'name',
-      pageSize
+      choices: async () =>
+        this.list().map((s) => ({
+          name: s.config.title,
+          value: s,
+          description: s.config.name
+        })),
+      transform: (s: services.Service) => s.config.name,
+      ...rest
     });
     return shell.gcloud(`services enable ${service}`);
   }
-};
+}
+
+namespace services {
+  export type Service = TService;
+}
+
+export { services as default };

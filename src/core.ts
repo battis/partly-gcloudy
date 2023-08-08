@@ -2,41 +2,46 @@ import cli, { Arguments, Options } from '@battis/qui-cli';
 import { RecursivePartial } from '@battis/typescript-tricks';
 import projects from './projects';
 
-let cachedArgs: Arguments;
-let cachedReady: true | string;
+class core {
+  protected constructor() {
+    // ignore
+  }
 
-const debugOverridenArgument = (arg: string, argType: string) =>
-  cli.log.debug(
-    `${cli.colors.value(
-      '@battis/partly-cloudy'
-    )} overrides the ${cli.colors.value(arg)} ${argType} argument`
-  );
+  private static cachedArgs?: Arguments;
 
-type ReadyOptions = {
-  fail: boolean;
-};
+  private static cachedReady?: true | string;
 
-export default {
-  args: () => cachedArgs,
+  public static args = () => this.cachedArgs;
 
-  init: function(initOptions?: RecursivePartial<Options>) {
-    if (!cachedArgs) {
-      const env = {
+  private static debugOverridenArgument = (arg: string, argType: string) =>
+    cli.log.debug(
+      `${cli.colors.value(
+        '@battis/partly-cloudy'
+      )} overrides the ${cli.colors.value(arg)} ${argType} argument`
+    );
+
+  public static async init({
+    env = {},
+    args = {},
+    ...initOptions
+  }: RecursivePartial<Options> = {}) {
+    if (!this.cachedArgs) {
+      env = {
         loadDotEnv: true,
         setRootAsCurrentWorkingDirectory: true,
-        ...(initOptions?.env || {})
+        ...env
       };
-      const args = {
-        ...(initOptions?.args || {}),
+      args = {
+        ...args,
         flags: {
-          ...(initOptions?.args?.flags || {}),
+          ...args.flags,
           verbose: {
             short: 'v',
             description: 'Show verbose output (commands and results)'
           }
         },
         options: {
-          ...(initOptions?.args?.options || {}),
+          ...args.options,
           project: {
             short: 'p',
             description: 'Google Cloud project ID'
@@ -48,43 +53,48 @@ export default {
           }
         }
       };
-      if (initOptions?.args?.flags?.verbose)
-        debugOverridenArgument('verbose', 'flag');
-      if (initOptions?.args?.options?.project)
-        debugOverridenArgument('project', 'option');
-      if (initOptions?.args?.options?.projectEnvVar)
-        debugOverridenArgument('projectEnvVar', 'option');
+      if (args.flags.verbose) this.debugOverridenArgument('verbose', 'flag');
+      if (args.options.project)
+        this.debugOverridenArgument('project', 'option');
+      if (args.options.projectEnvVar)
+        this.debugOverridenArgument('projectEnvVar', 'option');
 
-      cachedArgs = cli.init({ ...(initOptions || {}), env, args });
+      this.cachedArgs = cli.init({ ...initOptions, env, args });
 
-      projects.active.set(
-        cachedArgs.values.project ||
-        process.env[cachedArgs.values.projectEnvVar]
+      projects.active.activate(
+        await projects.describe({
+          projectId:
+            this.cachedArgs.values.project ||
+            process.env[this.cachedArgs.values.projectEnvVar]
+        })
       );
 
-      cli.shell.setShowCommands(!!cachedArgs.values.verbose);
-      cli.shell.setSilent(!cachedArgs.values.verbose);
+      cli.shell.setShowCommands(!!this.cachedArgs.values.verbose);
+      cli.shell.setSilent(!this.cachedArgs.values.verbose);
     }
-    return cachedArgs;
-  },
+    return this.cachedArgs;
+  }
 
-  ready: function(options?: ReadyOptions) {
-    const { fail = true } = options || {};
-    if (cachedReady === undefined) {
-      cachedReady =
+  public static ready({ fail = true }: { fail?: boolean } = undefined) {
+    if (this.cachedReady === undefined) {
+      this.cachedReady =
         /\d+\.\d/.test(cli.shell.exec('gcloud --version').stdout) ||
         `gcloud is required. Install from ${cli.colors.url(
           'https://cloud.google.com/sdk/docs/install'
         )}`;
     }
-    if (cachedReady !== true) {
+    if (this.cachedReady !== true) {
       // TODO just install and authorize gcloud interactively
       if (fail) {
-        throw new Error(cachedReady);
+        throw new Error(this.cachedReady);
       } else {
-        cli.log.fatal(cachedReady);
+        cli.log.fatal(this.cachedReady);
       }
     }
-    return cachedReady;
+    return this.cachedReady;
   }
-};
+}
+
+namespace core { }
+
+export { core as default };
