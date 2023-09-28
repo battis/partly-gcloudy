@@ -3,5 +3,6 @@ export default {
   IdentityAwareProxyAPI: 'iap.googleapis.com',
   AppEngineAdminAPI: 'appengine.googleapis.com',
   SecretManagerAPI: 'secretmanager.googleapis.com',
-  CloudSQLAdminAPI: 'sqladmin.googleapis.com'
+  CloudSQLAdminAPI: 'sqladmin.googleapis.com',
+  DriveAPI: 'drive.googleapis.com'
 };
