@@ -5,8 +5,8 @@ import ConditionalEnvFile from './ConditionalEnvFile';
 type EnvFile =
   | ConditionalEnvFile
   | {
-    keys: { idVar?: string; urlVar?: string };
-  };
+      keys: { idVar?: string; urlVar?: string };
+    };
 
 type PreBuildCallback = (args: {
   project: gcloud.projects.Project;
@@ -21,7 +21,7 @@ export default async function appEnginePublish({
   region,
   env = true,
   preBuild,
-  build = 'npm run build',
+  build,
   deploy = true
 }: {
   name?: string;
