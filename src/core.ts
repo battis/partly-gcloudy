@@ -13,13 +13,6 @@ class core {
 
   public static args = () => this.cachedArgs;
 
-  private static debugOverridenArgument = (arg: string, argType: string) =>
-    cli.log.debug(
-      `${cli.colors.value(
-        '@battis/partly-cloudy'
-      )} overrides the ${cli.colors.value(arg)} ${argType} argument`
-    );
-
   public static async init({
     env = {},
     args = {},
@@ -53,11 +46,6 @@ class core {
           }
         }
       };
-      if (args.flags.verbose) this.debugOverridenArgument('verbose', 'flag');
-      if (args.options.project)
-        this.debugOverridenArgument('project', 'option');
-      if (args.options.projectEnvVar)
-        this.debugOverridenArgument('projectEnvVar', 'option');
 
       this.cachedArgs = cli.init({ ...initOptions, env, args });
 
@@ -95,6 +83,6 @@ class core {
   }
 }
 
-namespace core { }
+namespace core {}
 
 export { core as default };
