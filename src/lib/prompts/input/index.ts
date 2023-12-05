@@ -1,7 +1,7 @@
 import cli from '@battis/qui-cli';
-import prompts from '../core';
+import * as core from '../core';
 
-async function input<T extends string>({
+export default async function input<T extends string>({
   arg,
   message,
   purpose,
@@ -18,12 +18,8 @@ async function input<T extends string>({
     (validate && validate(arg) === true && arg) ||
     (!validate && arg) ||
     (await cli.prompts.input({
-      message: `${message}${prompts.pad(purpose)}`,
+      message: `${message}${core.pad(purpose)}`,
       ...rest
     }))
   );
 }
-
-namespace input { }
-
-export { input as default };

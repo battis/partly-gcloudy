@@ -1,99 +1,90 @@
 import cli from '@battis/qui-cli';
-import app from '../app';
-import lib from '../lib';
-import shell from '../shell';
-import TJob from './Job';
+import * as app from '../app';
+import * as lib from '../lib';
+import * as shell from '../shell';
+import Job from './Job';
 
-class scheduler {
-  public constructor() {
-    // ignore
-  }
-
-  public static async inputJobName({
-    name,
-    validate,
+export async function inputJobName({
+  name,
+  validate,
+  ...rest
+}: Partial<Parameters<typeof lib.prompts.input<JobName>>[0]> & {
+  name?: string;
+}) {
+  return lib.prompts.input<JobName>({
+    arg: name,
+    message: 'Scheduled job name',
+    validate: cli.validators.combine(validate, cli.validators.notEmpty),
     ...rest
-  }: Partial<Parameters<typeof lib.prompts.input<scheduler.JobName>>[0]> & {
-    name?: string;
-  }) {
-    return lib.prompts.input<scheduler.JobName>({
-      arg: name,
-      message: 'Scheduled job name',
-      validate: cli.validators.combine(validate, cli.validators.notEmpty),
-      ...rest
-    });
-  }
+  });
+}
 
-  public static async inputCrontab({
-    cron,
-    validate,
+export async function inputCrontab({
+  cron,
+  validate,
+  ...rest
+}: Partial<Parameters<typeof lib.prompts.input<Crontab>>[0]> & {
+  cron?: string;
+}) {
+  return await lib.prompts.input<Crontab>({
+    arg: cron,
+    message: 'Crontab for scheduled job',
+    validate: cli.validators.combine(validate, cli.validators.cron),
     ...rest
-  }: Partial<Parameters<typeof lib.prompts.input<scheduler.Crontab>>[0]> & {
-    cron?: string;
-  }) {
-    return await lib.prompts.input<scheduler.Crontab>({
-      arg: cron,
-      message: 'Crontab for scheduled job',
-      validate: cli.validators.combine(validate, cli.validators.cron),
-      ...rest
-    });
-  }
+  });
+}
 
-  public static async inputRelativeUrl({
-    relativeUrl,
-    validate,
+export async function inputRelativeUrl({
+  relativeUrl,
+  validate,
+  ...rest
+}: Partial<Parameters<typeof lib.prompts.input<RelativeUrl>>[0]> & {
+  relativeUrl?: string;
+} = undefined) {
+  return await lib.prompts.input<RelativeUrl>({
+    arg: relativeUrl,
+    message: 'URL to call, relative to App Engine instance root',
+    validate: cli.validators.combine(validate, cli.validators.isPath),
     ...rest
-  }: Partial<Parameters<typeof lib.prompts.input<scheduler.RelativeUrl>>[0]> & {
-    relativeUrl?: string;
-  } = undefined) {
-    return await lib.prompts.input<scheduler.RelativeUrl>({
-      arg: relativeUrl,
-      message: 'URL to call, relative to App Engine instance root',
-      validate: cli.validators.combine(validate, cli.validators.isPath),
-      ...rest
-    });
-  }
+  });
+}
 
-  public static async setAppEngineJob({
-    name,
-    cron,
-    location,
-    relativeUrl
-  }: {
-    name?: string;
-    cron?: string;
-    location?: string;
-    relativeUrl?: string;
-  } = undefined) {
-    name = await this.inputJobName({ name });
-    cron = await this.inputCrontab({ cron });
-    relativeUrl = await this.inputRelativeUrl({ relativeUrl });
-    location = location || (await app.describe()).locationId;
-    let [schedule] = shell.gcloud<scheduler.Job[]>(
-      // FIXME this looks not right -- like a hold over from a specific script?
-      `scheduler jobs list --filter=appEngineHttpTarget.relativeUri=/sync --location=${location}`
+export async function setAppEngineJob({
+  name,
+  cron,
+  location,
+  relativeUrl
+}: {
+  name?: string;
+  cron?: string;
+  location?: string;
+  relativeUrl?: string;
+} = undefined) {
+  name = await inputJobName({ name });
+  cron = await inputCrontab({ cron });
+  relativeUrl = await inputRelativeUrl({ relativeUrl });
+  location = location || (await app.describe()).locationId;
+  let [schedule] = shell.gcloud<Job[]>(
+    // FIXME this looks not right -- like a hold over from a specific script?
+    `scheduler jobs list --filter=appEngineHttpTarget.relativeUri=/sync --location=${location}`
+  );
+  if (schedule) {
+    shell.gcloud(
+      `scheduler jobs update app-engine ${
+        schedule.name
+      } --schedule=${lib.prompts.escape(cron)}`
     );
-    if (schedule) {
-      shell.gcloud(
-        `scheduler jobs update app-engine ${schedule.name
-        } --schedule=${lib.prompts.escape(cron)}`
-      );
-    } else {
-      schedule = shell.gcloud<scheduler.Job>(
-        `scheduler jobs create app-engine ${name} --schedule=${lib.prompts.escape(
-          cron
-        )} --relative-url=${lib.prompts.escape(relativeUrl)}`
-      );
-    }
-    return schedule;
+  } else {
+    schedule = shell.gcloud<Job>(
+      `scheduler jobs create app-engine ${name} --schedule=${lib.prompts.escape(
+        cron
+      )} --relative-url=${lib.prompts.escape(relativeUrl)}`
+    );
   }
+  return schedule;
 }
+export type JobName = string;
+export type Crontab = string;
+export type RelativeUrl = string;
 
-namespace scheduler {
-  export type JobName = string;
-  export type Crontab = string;
-  export type RelativeUrl = string;
-  export type Job = TJob;
-}
-
-export { scheduler as default };
+export { type Job };

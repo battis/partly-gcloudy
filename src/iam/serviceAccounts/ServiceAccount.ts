@@ -9,4 +9,4 @@ type ServiceAccount = {
   uniqueId: string;
 };
 
-export type { ServiceAccount as default };
+export default ServiceAccount;

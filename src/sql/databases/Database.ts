@@ -9,4 +9,4 @@ type Database = {
   selfLink: string;
 };
 
-export type { Database as default };
+export default Database;

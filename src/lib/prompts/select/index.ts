@@ -1,10 +1,10 @@
 import cli from '@battis/qui-cli';
 import Active from '../../Active';
 import Descriptor from '../../Descriptor';
-import prompts from '../core';
+import * as core from '../core';
 import TChoice from './Choice';
 
-type Base = prompts.Parameters & {
+type Base = core.Parameters & {
   message: string;
   validate?: boolean | ((value: string) => boolean | string);
 };
@@ -17,7 +17,6 @@ type Choices<Value> =
 
 type Transform<A, B> = (value: A) => B | Promise<B>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Create<Value> = (
   parameters?: Record<string, any>
 ) => Value | Promise<Value>;
@@ -107,7 +106,7 @@ async function select<Value, ReturnValue = string>({
       !(await cli.prompts.confirm({
         message: `${message} ${cli.colors.value(
           choice.name || choice.value
-        )}${prompts.pad(purpose)}`
+        )}${core.pad(purpose)}`
       }))
     ) {
       selection = undefined;
@@ -121,7 +120,7 @@ async function select<Value, ReturnValue = string>({
   selection =
     selection ||
     (await cli.prompts.select({
-      message: `${message}${prompts.pad(purpose)}`,
+      message: `${message}${core.pad(purpose)}`,
       choices
     }));
   if (activate) {
@@ -168,4 +167,4 @@ namespace select {
   }
 }
 
-export { select as default };
+export default select;

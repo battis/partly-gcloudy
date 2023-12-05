@@ -1,10 +1,10 @@
 import cli from '@battis/qui-cli';
 import appRootPath from 'app-root-path';
 import path from 'path';
-import app from '../app';
+import * as app from '../app';
 import gcloud from '../index';
-import lib from '../lib';
-import projects from '../projects';
+import * as lib from '../lib';
+import * as projects from '../projects';
 import ConditionalEnvFile from './ConditionalEnvFile';
 
 type CreateMySqlInstanceOptions = {
@@ -78,8 +78,8 @@ export default async function createMySqlInstance(
     const file = path.resolve(
       appRootPath.toString(),
       (typeof env === 'string' && env) ||
-      (typeof env === 'object' && env.path) ||
-      '.env'
+        (typeof env === 'object' && env.path) ||
+        '.env'
     );
     const {
       dbRootPassword = 'DB_ROOT_PASSWORD',

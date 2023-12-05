@@ -5,4 +5,4 @@ type Brand = {
   supportEmail: string;
 };
 
-export type { Brand as default };
+export default Brand;

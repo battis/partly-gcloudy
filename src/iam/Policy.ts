@@ -9,4 +9,4 @@ type Policy = {
   version: number;
 };
 
-export type { Policy as default };
+export default Policy;

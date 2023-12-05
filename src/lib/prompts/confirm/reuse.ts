@@ -1,8 +1,8 @@
 import cli from '@battis/qui-cli';
 import Descriptor from '../../Descriptor';
-import prompts from '../core';
+import * as core from '../core';
 
-async function reuse<T extends Descriptor>({
+export default async function reuse<T extends Descriptor>({
   arg,
   argDescription,
   instance,
@@ -21,9 +21,9 @@ async function reuse<T extends Descriptor>({
   if (
     arg === true ||
     (await cli.prompts.confirm({
-      message: `Reuse existing${prompts.pad(argDescription)}${prompts.pad(
+      message: `Reuse existing${core.pad(argDescription)}${core.pad(
         cli.colors.value(name || instance[nameIn] || '')
-      )}${prompts.pad(purpose)}`,
+      )}${core.pad(purpose)}`,
       ...rest
     }))
   ) {
@@ -31,7 +31,3 @@ async function reuse<T extends Descriptor>({
   }
   return undefined;
 }
-
-namespace reuse { }
-
-export { reuse as default };

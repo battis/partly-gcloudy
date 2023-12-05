@@ -1,38 +1,29 @@
-import lib from '../../lib';
-import shell from '../../shell';
-import TTier from './Tier';
+import * as lib from '../../lib';
+import * as shell from '../../shell';
+import Tier from './Tier';
 
-class tiers {
-  protected constructor() {
-    // ignore
-  }
-  public static list() {
-    return shell.gcloud<tiers.Tier[]>('sql tiers list');
-  }
-
-  public static async selectTier({
-    tier
-  }: Partial<lib.prompts.select.Parameters.ValueToString<tiers.Tier>> & {
-    tier?: string;
-  } = undefined) {
-    return await lib.prompts.select<tiers.Tier>({
-      arg: tier,
-      message: `Cloud SQL service tier}`,
-      choices: () =>
-        this.list().map((t) => ({
-          name: t.tier,
-          value: t,
-          description: t.DiskQuota
-        })),
-      transform: (t: tiers.Tier) => t.tier
-    });
-  }
-
-  public static selectIdentifier = this.selectTier;
+export function list() {
+  return shell.gcloud<Tier[]>('sql tiers list');
 }
 
-namespace tiers {
-  export type Tier = TTier;
+export async function selectTier({
+  tier
+}: Partial<lib.prompts.select.Parameters.ValueToString<Tier>> & {
+  tier?: string;
+} = undefined) {
+  return await lib.prompts.select<Tier>({
+    arg: tier,
+    message: `Cloud SQL service tier}`,
+    choices: () =>
+      list().map((t) => ({
+        name: t.tier,
+        value: t,
+        description: t.DiskQuota
+      })),
+    transform: (t: Tier) => t.tier
+  });
 }
 
-export { tiers as default };
+export const selectIdentifier = selectTier;
+
+export { type Tier };

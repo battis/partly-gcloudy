@@ -1,44 +1,34 @@
-import lib from '../../lib';
-import shell from '../../shell';
-import TAccount from './Account';
+import * as lib from '../../lib';
+import * as shell from '../../shell';
+import Account from './Account';
 
-class accounts {
-  protected constructor() {
-    // ignore
-  }
+export const active = new lib.Active<Account>(undefined);
 
-  public static active = new lib.Active<accounts.Account>(undefined);
+export function list() {
+  return shell.gcloud<Account[]>('billing accounts list --filter=open=true');
+}
 
-  public static list = () =>
-    shell.gcloud<accounts.Account[]>(
-      'billing accounts list --filter=open=true'
-    );
-
-  public static selectName = async ({
-    name,
+export async function selectName({
+  name,
+  ...rest
+}: {
+  name?: string;
+} & Partial<lib.prompts.select.Parameters.ValueToString<Account>>) {
+  return await lib.prompts.select<Account>({
+    arg: name,
+    message: 'Billing account',
+    choices: () =>
+      list().map((a) => ({
+        name: a.displayName,
+        value: a,
+        description: a.name,
+        disabled: !a.open
+      })),
+    transform: (a: Account) => a.name,
     ...rest
-  }: {
-    name?: string;
-  } & Partial<lib.prompts.select.Parameters.ValueToString<accounts.Account>>) =>
-    await lib.prompts.select<accounts.Account>({
-      arg: name,
-      message: 'Billing account',
-      choices: () =>
-        this.list().map((a) => ({
-          name: a.displayName,
-          value: a,
-          description: a.name,
-          disabled: !a.open
-        })),
-      transform: (a: accounts.Account) => a.name,
-      ...rest
-    });
-
-  public static selectidentifier = this.selectName;
+  });
 }
 
-namespace accounts {
-  export type Account = TAccount;
-}
+export const selectidentifier = selectName;
 
-export { accounts as default };
+export { type Account };

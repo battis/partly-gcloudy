@@ -16,4 +16,4 @@ type Service = {
   state: string;
 };
 
-export type { Service as default };
+export default Service;

@@ -65,4 +65,4 @@ type Instance = {
   state: string;
 };
 
-export type { Instance as default };
+export default Instance;

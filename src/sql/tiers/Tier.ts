@@ -6,4 +6,4 @@ type Tier = {
   tier: string;
 };
 
-export type { Tier as default };
+export default Tier;

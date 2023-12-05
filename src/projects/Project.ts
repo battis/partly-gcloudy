@@ -10,4 +10,4 @@ type Project = {
   projectNumber: string;
 };
 
-export type { Project as default };
+export default Project;

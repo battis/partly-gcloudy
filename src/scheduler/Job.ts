@@ -27,4 +27,4 @@ type Job = {
   userUpdateTime: string;
 };
 
-export type { Job as default };
+export default Job;

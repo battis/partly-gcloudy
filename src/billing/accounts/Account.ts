@@ -5,4 +5,4 @@ type Account = {
   open: boolean;
 };
 
-export type { Account as default };
+export default Account;

@@ -7,16 +7,20 @@ export type Flags = {
 
 let base: Flags = { quiet: true, format: 'json' };
 
-export default {
-  getBase: () => base,
-  setBase: (flags: Partial<Flags>) => (base = flags),
+export function getBase() {
+  return base;
+}
 
-  stringify: (flags: Flags) =>
-    Object.keys(flags)
-      .map((f) =>
-        f.length > 1
-          ? `--${f}${flags[f] === true ? '' : `=${flags[f]}`}`
-          : `-${f}${flags[f] === true ? '' : flags[f]}`
-      )
-      .join(' ')
-};
+export function setBase(flags: Partial<Flags>) {
+  return (base = flags);
+}
+
+export function stringify(flags: Flags) {
+  return Object.keys(flags)
+    .map((f) =>
+      f.length > 1
+        ? `--${f}${flags[f] === true ? '' : `=${flags[f]}`}`
+        : `-${f}${flags[f] === true ? '' : flags[f]}`
+    )
+    .join(' ');
+}

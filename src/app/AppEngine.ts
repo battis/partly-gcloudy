@@ -1,4 +1,4 @@
-type AppEngine = {
+export type AppEngine = {
   authDomain: string;
   codeBucket: string;
   databaseType: string;
@@ -21,4 +21,4 @@ type AppEngine = {
   servingStatus: string;
 };
 
-export type { AppEngine as default };
+export default AppEngine;

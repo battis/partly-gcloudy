@@ -1,4 +1,4 @@
-import lib from '../lib';
+import * as lib from '../lib';
 import Project from './Project';
 
 const active = new lib.Active<Project>(undefined, 'projectId');

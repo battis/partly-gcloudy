@@ -5,4 +5,4 @@ enum UserType {
   'group'
 }
 
-export { UserType as default };
+export default UserType;

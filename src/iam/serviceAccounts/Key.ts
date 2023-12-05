@@ -7,4 +7,4 @@ type Key = {
   validBeforeTime: string;
 };
 
-export type { Key as default };
+export default Key;

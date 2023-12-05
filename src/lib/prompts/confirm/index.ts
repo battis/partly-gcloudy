@@ -1,6 +1,6 @@
 import cli from '@battis/qui-cli';
-import prompts from '../core';
-import MReuse from './reuse';
+import * as core from '../core';
+import FReuse from './reuse';
 
 async function confirm({
   arg,
@@ -14,14 +14,14 @@ async function confirm({
   return (
     (arg !== undefined && arg) ||
     (await cli.prompts.confirm({
-      message: `${message}${prompts.pad(purpose)}`,
+      message: `${message}${core.pad(purpose)}`,
       ...rest
     }))
   );
 }
 
 namespace confirm {
-  export import reuse = MReuse; // eslint-disable-line @typescript-eslint/no-unused-vars
+  export const reuse = FReuse;
 }
 
-export { confirm as default };
+export default confirm;

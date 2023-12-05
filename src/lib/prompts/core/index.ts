@@ -1,17 +1,11 @@
-import TParameters from './Parameters';
+import Parameters from './Parameters';
 
-class core {
-  protected constructor() {
-    // ignore
-  }
-
-  public static pad = (s?: string) => (s ? ` ${s}` : '');
-
-  public static escape = (s: string) => `"${s.replace(/(["\n\r])/g, '\\$1')}"`;
+export function pad(s?: string) {
+  return s ? ` ${s}` : '';
 }
 
-namespace core {
-  export type Parameters = TParameters;
+export function escape(s: string) {
+  return `"${s.replace(/(["\n\r])/g, '\\$1')}"`;
 }
 
-export { core as default };
+export type { Parameters };

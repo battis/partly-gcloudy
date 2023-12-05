@@ -1,7 +1,7 @@
 import cli from '@battis/qui-cli';
-import lib from '../lib';
+import * as lib from '../lib';
 import activeProject from '../projects/active';
-import flags, { Flags } from './flags';
+import * as flags from './flags';
 
 type InvokeOptions = {
   flags: Flags;
@@ -13,7 +13,7 @@ type InvokeOptions = {
   };
 };
 
-function gcloud<T extends lib.Descriptor>(
+export function gcloud<T extends lib.Descriptor>(
   command: string,
   options?: Partial<InvokeOptions>
 ) {
@@ -24,8 +24,8 @@ function gcloud<T extends lib.Descriptor>(
       options?.includeProjectIdFlag === false
         ? false
         : options?.includeProjectIdFlag === true
-          ? true
-          : !new RegExp(activeProject.get().projectId).test(command),
+        ? true
+        : !new RegExp(activeProject.get().projectId).test(command),
     pipe: {
       in: options?.pipe?.in || undefined,
       out: options?.pipe?.out || undefined
@@ -38,8 +38,10 @@ function gcloud<T extends lib.Descriptor>(
     opt.flags.project = activeProject.get().projectId;
   }
   const result = cli.shell.exec(
-    `${opt.pipe.in ? `${opt.pipe.in} |` : ''
-    }gcloud ${command} ${flags.stringify(opt.flags)}${opt.pipe.out ? `| ${opt.pipe.out}` : ''
+    `${
+      opt.pipe.in ? `${opt.pipe.in} |` : ''
+    }gcloud ${command} ${flags.stringify(opt.flags)}${
+      opt.pipe.out ? `| ${opt.pipe.out}` : ''
     }`
   ).stdout;
   try {
@@ -49,10 +51,13 @@ function gcloud<T extends lib.Descriptor>(
   }
 }
 
-export default {
-  gcloud,
-  gcloudBeta: <T>(command: string, options?: Partial<InvokeOptions>) =>
-    gcloud<T>(`beta ${command}`, options),
+export function gcloudBeta<T>(
+  command: string,
+  options?: Partial<InvokeOptions>
+) {
+  return gcloud<T>(`beta ${command}`, options);
+}
 
-  flags
-};
+export type Flags = flags.Flags;
+
+export { flags };

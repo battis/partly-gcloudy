@@ -46,7 +46,7 @@ type Version = {
     id: string;
     instanceClass: string;
     name: string;
-    network: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    network: any;
     runtime: string;
     runtimeChannel: string;
     serviceAccount: string;
@@ -57,7 +57,8 @@ type Version = {
 };
 
 type DeploymentConfig = {
-  configs: any[]; // eslint-disable-line @typescript-eslint/no-explicit-any
+  configs: any[];
   versions: Version[];
 };
-export type { DeploymentConfig as default };
+
+export default DeploymentConfig;

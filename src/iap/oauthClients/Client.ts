@@ -4,4 +4,4 @@ type Client = {
   secret: string;
 };
 
-export type { Client as default };
+export default Client;

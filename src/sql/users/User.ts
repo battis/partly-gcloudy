@@ -10,4 +10,4 @@ type User = {
   project: string;
 };
 
-export type { User as default };
+export default User;

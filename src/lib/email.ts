@@ -1,2 +1,2 @@
 type Email = string;
-export type { Email as default };
+export default Email;

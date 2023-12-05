@@ -18,4 +18,4 @@ namespace Descriptor {
   }
 }
 
-export { Descriptor as default };
+export default Descriptor;

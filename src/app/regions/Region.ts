@@ -5,4 +5,4 @@ type Region = {
   standard: boolean;
 };
 
-export type { Region as default };
+export default Region;
