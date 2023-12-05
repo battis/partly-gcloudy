@@ -1,10 +1,10 @@
 import Descriptor from './Descriptor';
 
-class Active<T extends Descriptor> {
+export default class Active<T extends Descriptor> {
   public constructor(
-    private instance: T,
+    private instance?: T,
     private identifier: keyof T = 'name'
-  ) { }
+  ) {}
 
   public getIdentifier = () => this.instance[this.identifier];
 
@@ -12,5 +12,3 @@ class Active<T extends Descriptor> {
 
   public get = () => this.instance;
 }
-
-export { Active as default };

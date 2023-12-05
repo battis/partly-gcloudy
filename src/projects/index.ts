@@ -51,7 +51,7 @@ class projects {
   }: { projectId?: string } = undefined) {
     return shell.gcloud<projects.Project>(
       `projects describe ${await this.inputProjectId({
-        projectId: projectId || active.get().projectId
+        projectId: projectId || active.get()?.projectId
       })}`,
       {
         includeProjectIdFlag: false
