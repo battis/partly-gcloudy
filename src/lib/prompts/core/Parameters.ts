@@ -1,4 +1,4 @@
-type Parameters = {
+export type Parameters = {
   arg?: string;
   purpose?: string;
 };

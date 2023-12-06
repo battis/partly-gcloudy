@@ -1,7 +1,7 @@
 import cli from '@battis/qui-cli';
 import * as core from '../core';
 
-export default async function input<T extends string>({
+export async function input<T extends string>({
   arg,
   message,
   purpose,
@@ -23,3 +23,5 @@ export default async function input<T extends string>({
     }))
   );
 }
+
+export default input;

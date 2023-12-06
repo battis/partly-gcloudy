@@ -2,7 +2,7 @@ import cli from '@battis/qui-cli';
 import Descriptor from '../../Descriptor';
 import * as core from '../core';
 
-export default async function reuse<T extends Descriptor>({
+export async function reuse<T extends Descriptor>({
   arg,
   argDescription,
   instance,
@@ -31,3 +31,5 @@ export default async function reuse<T extends Descriptor>({
   }
   return undefined;
 }
+
+export default reuse;

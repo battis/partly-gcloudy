@@ -1,4 +1,4 @@
-type ServiceAccount = {
+export type ServiceAccount = {
   disabled: boolean;
   displayName: string;
   email: string;

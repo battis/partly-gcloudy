@@ -1,4 +1,4 @@
-type Instance = {
+export type Instance = {
   backendType: string;
   connectionName: string;
   createTime: string;

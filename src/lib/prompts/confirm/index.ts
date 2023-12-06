@@ -2,7 +2,7 @@ import cli from '@battis/qui-cli';
 import * as core from '../core';
 import FReuse from './reuse';
 
-async function confirm({
+export async function confirm({
   arg,
   message,
   purpose,
@@ -20,7 +20,7 @@ async function confirm({
   );
 }
 
-namespace confirm {
+export namespace confirm {
   export const reuse = FReuse;
 }
 

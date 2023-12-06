@@ -13,7 +13,7 @@ export async function addPolicyBinding({
   projectId
 }: {
   role?: string;
-  /** @deprecated use {@link AddPolicyBindingOptions.member} */
+  /** @deprecated use {@link member} */
   user?: string;
   member?: string;
   userType?: string | members.UserType;

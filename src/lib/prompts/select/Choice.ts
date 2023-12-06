@@ -1,6 +1,6 @@
 import Descriptor from '../../Descriptor';
 
-type Choice<T = string> = (T extends Descriptor
+export type Choice<T = string> = (T extends Descriptor
   ? { name: string }
   : { name?: string }) & {
   description?: string;

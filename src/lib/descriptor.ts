@@ -1,8 +1,8 @@
-interface Descriptor {
+export interface Descriptor {
   [key: string]: any;
 }
 
-namespace Descriptor {
+export namespace Descriptor {
   /**
    * "A Descriptor is not a Choice"
    *

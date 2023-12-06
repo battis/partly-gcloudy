@@ -1,9 +1,9 @@
-type PolicyBinding = {
+export type PolicyBinding = {
   members: string[];
   role: string;
 };
 
-type Policy = {
+export type Policy = {
   bindings: PolicyBinding[];
   etag: string;
   version: number;

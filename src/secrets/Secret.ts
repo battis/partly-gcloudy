@@ -1,4 +1,4 @@
-type Secret = {
+export type Secret = {
   createTime: string;
   etag: string;
   name: string;

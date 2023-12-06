@@ -3,7 +3,7 @@ import * as lib from '../lib';
 import activeProject from '../projects/active';
 import * as flags from './flags';
 
-type InvokeOptions = {
+export type InvokeOptions = {
   flags: Flags;
   overrideBaseFlags: boolean;
   includeProjectIdFlag: boolean;

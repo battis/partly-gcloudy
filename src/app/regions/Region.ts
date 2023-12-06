@@ -1,4 +1,4 @@
-type Region = {
+export type Region = {
   flexible: boolean;
   region: string;
   search_api: boolean;

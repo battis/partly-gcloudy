@@ -1,4 +1,4 @@
-type Tier = {
+export type Tier = {
   DiskQuota: string;
   RAM: string;
   kind: string;

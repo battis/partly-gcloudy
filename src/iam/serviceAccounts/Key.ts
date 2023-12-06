@@ -1,4 +1,4 @@
-type Key = {
+export type Key = {
   keyAlgorithm: string;
   keyOrigin: string;
   keyType: string;

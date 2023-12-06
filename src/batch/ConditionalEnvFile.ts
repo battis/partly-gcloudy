@@ -3,7 +3,7 @@ import { JSONPrimitiveTypes } from '@battis/typescript-tricks';
 import appRootPath from 'app-root-path';
 import path from 'path';
 
-type ConditionalEnvFile =
+export type ConditionalEnvFile =
   | boolean
   | string
   | {
@@ -12,7 +12,7 @@ type ConditionalEnvFile =
     };
 export type { ConditionalEnvFile as default };
 
-type ParsedValue = string | JSONPrimitiveTypes;
+export type ParsedValue = string | JSONPrimitiveTypes;
 
 let parsed: Record<string, ParsedValue> = {};
 let file: string | undefined;

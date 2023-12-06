@@ -1,4 +1,4 @@
-type Service = {
+export type Service = {
   config: {
     authentication: Record<string, string>;
     documentation: Record<string, string>;

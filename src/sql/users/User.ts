@@ -1,4 +1,4 @@
-type User = {
+export type User = {
   etag: string;
   host: string;
   instance: string;

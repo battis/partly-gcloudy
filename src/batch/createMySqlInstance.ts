@@ -2,12 +2,13 @@ import cli from '@battis/qui-cli';
 import appRootPath from 'app-root-path';
 import path from 'path';
 import * as app from '../app';
-import gcloud from '../index';
+import * as core from '../core';
 import * as lib from '../lib';
 import * as projects from '../projects';
+import * as sql from '../sql';
 import ConditionalEnvFile from './ConditionalEnvFile';
 
-type CreateMySqlInstanceOptions = {
+export type CreateMySqlInstanceOptions = {
   project?: projects.Project;
   appEngine?: boolean | app.AppEngine;
   region?: string;
@@ -33,7 +34,7 @@ type CreateMySqlInstanceOptions = {
 export default async function createMySqlInstance(
   options?: CreateMySqlInstanceOptions
 ) {
-  const _args = gcloud.init();
+  const _args = core.init();
   let {
     project,
     appEngine,
@@ -45,10 +46,10 @@ export default async function createMySqlInstance(
     password
   } = options || {};
   const { tier, env } = options || {};
-  if (gcloud.ready()) {
-    project = project || (await gcloud.projects.describe());
-    gcloud.projects.active.activate(project);
-    appEngine = appEngine === true ? await gcloud.app.describe() : appEngine;
+  if (core.ready()) {
+    project = project || (await projects.describe());
+    projects.active.activate(project);
+    appEngine = appEngine === true ? await app.describe() : appEngine;
     if (
       appEngine &&
       appEngine.locationId &&
@@ -58,11 +59,11 @@ export default async function createMySqlInstance(
     ) {
       region = appEngine.locationId;
     } else {
-      region = await gcloud.app.regions.selectIdentifier({ region });
+      region = await app.regions.selectIdentifier({ region });
     }
 
     // create Cloud SQL MySQL instance with App Engine access
-    instanceName = await gcloud.sql.instances.inputIdentifier({
+    instanceName = await sql.instances.inputIdentifier({
       region:
         region ||
         (appEngine !== false &&
@@ -75,7 +76,7 @@ export default async function createMySqlInstance(
         .replace(/[^a-z0-9-]+/g, '-')
         .replace(/^-*(.+)-*$/, '$1')
     });
-    const sql = await gcloud.sql.instances.create({
+    const sqlInstance = await sql.instances.create({
       name: instanceName,
       region,
       tier
@@ -95,7 +96,7 @@ export default async function createMySqlInstance(
       dbUsername = 'DB_USERNAME',
       dbPassword = 'DB_PASSWORD'
     } = typeof env === 'object' ? env.keys : {};
-    const socket = `/cloudsql/${sql.connectionName}`;
+    const socket = `/cloudsql/${sqlInstance.connectionName}`;
     if (env) {
       if (appEngine) {
         cli.env.set({
@@ -109,7 +110,11 @@ export default async function createMySqlInstance(
         cli.env.set({ key: dbHost, value: '', file });
         cli.env.set({ key: dbPort, value: '', file });
       } else {
-        cli.env.set({ key: dbHost, value: sql.ipAddresses[0].ipAddress, file });
+        cli.env.set({
+          key: dbHost,
+          value: sqlInstance.ipAddresses[0].ipAddress,
+          file
+        });
         cli.env.set({ key: dbPort, value: '3306', file });
       }
     }
@@ -117,7 +122,7 @@ export default async function createMySqlInstance(
     const deploy = (env && cli.env.parse(file)) || {};
 
     // secure root user
-    rootPassword = await gcloud.sql.users.setPassword({
+    rootPassword = await sql.users.setPassword({
       username: 'root',
       password: rootPassword || deploy.DB_ROOT_PASSWORD
     });
@@ -129,22 +134,22 @@ export default async function createMySqlInstance(
       });
     }
     // create user and database
-    username = await gcloud.sql.users.inputIdentifier({
+    username = await sql.users.inputIdentifier({
       username: username || deploy.DB_USERNAME,
       default: instanceName
     });
-    password = await gcloud.sql.users.inputPassword({
+    password = await sql.users.inputPassword({
       password: password || deploy.DB_PASSWORD,
       purpose: `for MySQL user ${cli.colors.value(username)}`
     });
-    let user = await gcloud.sql.users.describe({ username });
+    let user = await sql.users.describe({ username });
     if (user) {
-      password = await gcloud.sql.users.setPassword({
+      password = await sql.users.setPassword({
         username,
         password
       });
     } else {
-      user = await gcloud.sql.users.create({
+      user = await sql.users.create({
         username,
         password,
         host:
@@ -159,24 +164,24 @@ export default async function createMySqlInstance(
       cli.env.set({ key: dbPassword, value: password, file });
     }
 
-    databaseName = await gcloud.sql.databases.inputIdentifier({
+    databaseName = await sql.databases.inputIdentifier({
       name: databaseName || deploy.DB_DATABASE,
       default: instanceName
     });
     let database =
       databaseName &&
-      (await gcloud.lib.prompts.confirm.reuse({
-        instance: await gcloud.sql.databases.describe({
+      (await lib.prompts.confirm.reuse({
+        instance: await sql.databases.describe({
           name: databaseName
         }),
         argDescription: 'MySQL database'
       }));
     if (databaseName && !database) {
-      databaseName = await gcloud.sql.databases.inputIdentifier();
+      databaseName = await sql.databases.inputIdentifier();
       database = undefined;
     }
     if (!database) {
-      database = await gcloud.sql.databases.create({
+      database = await sql.databases.create({
         name: databaseName
       });
     }

@@ -1,4 +1,4 @@
-type Project = {
+export type Project = {
   createTime: string;
   lifecycleState: string;
   name: string;

@@ -1,6 +1,6 @@
 import * as lib from '../lib';
 import * as shell from '../shell';
-import API from './api';
+import API from './API';
 import Service from './Service';
 
 type ServiceIdentifier = string;

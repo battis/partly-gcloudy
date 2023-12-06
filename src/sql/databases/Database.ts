@@ -1,4 +1,4 @@
-type Database = {
+export type Database = {
   charset: string;
   collation: string;
   etag: string;

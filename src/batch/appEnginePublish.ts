@@ -1,21 +1,24 @@
 import cli from '@battis/qui-cli';
-import gcloud from '../index';
+import * as core from '../core';
+import * as projects from '../projects';
+import * as app from '../app';
+import * as billing from '../billing';
 import ConditionalEnvFile from './ConditionalEnvFile';
 
-type EnvFile =
+export type EnvFile =
   | ConditionalEnvFile
   | {
       keys: { idVar?: string; urlVar?: string };
     };
 
-type PreBuildCallback = (args: {
-  project: gcloud.projects.Project;
-  appEngine: gcloud.app.AppEngine;
+export type PreBuildCallback = (args: {
+  project: projects.Project;
+  appEngine: app.AppEngine;
 }) => boolean;
 
 export default async function appEnginePublish({
   name,
-  id = gcloud.projects.active.get()?.projectId,
+  id = projects.active.get()?.projectId,
   suggestedName,
   billingAccountId,
   region,
@@ -34,29 +37,29 @@ export default async function appEnginePublish({
   build?: string;
   deploy?: boolean;
 } = {}) {
-  const args = await gcloud.init();
-  if (gcloud.ready()) {
+  const args = await core.init();
+  if (core.ready()) {
     const {
       idVar = args.values.projectEnvVar,
       urlVar = `${args.values.projectEnvVar}_URL`
     } = typeof env === 'boolean' || typeof env === 'string' ? {} : env.keys;
 
-    if (gcloud.ready()) {
+    if (core.ready()) {
       // create new project (or reuse existing)
       if (!name && suggestedName) {
-        name = await gcloud.projects.inputName({ default: suggestedName });
+        name = await projects.inputName({ default: suggestedName });
       }
-      const project = await gcloud.projects.create({
+      const project = await projects.create({
         name,
         id
       });
       id = project.projectId;
 
       // enable billing to allow enabling services later
-      await gcloud.billing.projects.enable({ account: billingAccountId });
+      await billing.projects.enable({ account: billingAccountId });
 
       // enable App Engine for the project and update .env
-      const appEngine = await gcloud.app.create({ region });
+      const appEngine = await app.create({ region });
       const url = `https://${appEngine.defaultHostname}`;
       if (env) {
         cli.env.set({
@@ -79,7 +82,7 @@ export default async function appEnginePublish({
         cli.shell.exec(build);
       }
       if (deploy) {
-        gcloud.app.deploy();
+        app.deploy();
       }
       return { project, appEngine };
     }

@@ -4,7 +4,7 @@ import Descriptor from '../../Descriptor';
 import * as core from '../core';
 import Choice from './Choice';
 
-async function select({
+export async function select({
   arg,
   message,
   purpose,
@@ -13,7 +13,7 @@ async function select({
   transform
 }: select.Parameters<string>): Promise<string>;
 
-async function select<Value extends Descriptor>({
+export async function select<Value extends Descriptor>({
   arg,
   argTransform,
   message,
@@ -26,7 +26,7 @@ async function select<Value extends Descriptor>({
   activateIfCreated
 }: select.Parameters<string, Value>): Promise<string>;
 
-async function select<Value extends Descriptor, ReturnValue = string>({
+export async function select<Value extends Descriptor, ReturnValue = string>({
   arg,
   argTransform,
   message,
@@ -40,7 +40,7 @@ async function select<Value extends Descriptor, ReturnValue = string>({
   ...rest
 }: select.Parameters<Value, ReturnValue>): Promise<ReturnValue>;
 
-async function select<Value, ReturnValue = string>({
+export async function select<Value, ReturnValue = string>({
   arg,
   argTransform,
   message,
@@ -118,7 +118,7 @@ async function select<Value, ReturnValue = string>({
     : (selection as unknown as ReturnValue); // TODO is there a more elegant way to phrase this?
 }
 
-namespace select {
+export namespace select {
   export type Parameters<
     Value = string,
     ReturnValue = string
@@ -133,15 +133,16 @@ namespace select {
     activateIfCreated?: Value extends Descriptor ? boolean : never;
   };
 
-  type Choices<Value> =
+  export type Choices<Value> =
     | Choice<Value>[]
     | Promise<Choice<Value>[]>
     | (() => Choice<Value>[])
     | (() => Promise<Choice<Value>[]>);
 
-  type Transform<A, B> = (value: A) => B | Promise<B>;
+  export type Transform<A, B> = (value: A) => B | Promise<B>;
 
-  type Create<Value> = (
+  // FIXME this should be defined in core, yes?
+  export type Create<Value> = (
     parameters?: Record<string, any>
   ) => Value | Promise<Value>;
 }
