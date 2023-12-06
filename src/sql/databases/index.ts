@@ -10,7 +10,7 @@ export async function list({
   instance
 }: {
   instance?: string;
-} = undefined) {
+} = {}) {
   instance = await instances.selectIdentifier({ instance });
   return shell.gcloud<Database[]>(
     `gcloud sql databases list --instance=${instance}`
@@ -23,7 +23,7 @@ export async function inputName({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<DatabaseIdentifier>>[0]> & {
   name?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input({
     arg: name,
     message: `MySQL database name`,
@@ -41,11 +41,11 @@ export async function selectDatabase({
   name,
   instance,
   ...rest
-}: Partial<lib.prompts.select.Parameters.ValueToString<Database>> &
+}: Partial<lib.prompts.select.Parameters<Database>> &
   Partial<Parameters<typeof create>[0]> & {
     name?: DatabaseIdentifier;
     instance?: string;
-  } = undefined) {
+  } = {}) {
   return lib.prompts.select<Database>({
     arg: name,
     message: `MySQL database`,
@@ -82,12 +82,12 @@ export async function create({
   charset,
   collation,
   instance
-}: {
+}: Partial<{
   name: string;
   instance?: string;
   charset?: string;
   collation?: string;
-} = undefined) {
+}> = {}) {
   instance = await instances.selectIdentifier({
     instance,
     purpose: 'create MySQL database'

@@ -8,9 +8,9 @@ export function list() {
 
 export async function selectTier({
   tier
-}: Partial<lib.prompts.select.Parameters.ValueToString<Tier>> & {
+}: Partial<lib.prompts.select.Parameters<Tier>> & {
   tier?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.select<Tier>({
     arg: tier,
     message: `Cloud SQL service tier}`,

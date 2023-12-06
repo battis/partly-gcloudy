@@ -6,7 +6,8 @@ export default class Active<T extends Descriptor> {
     private identifier: keyof T = 'name'
   ) {}
 
-  public getIdentifier = () => this.instance[this.identifier];
+  public getIdentifier = () =>
+    this.instance ? this.instance[this.identifier] : undefined;
 
   public activate = (instance: T) => (this.instance = instance);
 

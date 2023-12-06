@@ -18,7 +18,7 @@ export async function inputUsers({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input>[0]> & {
   users?: string | string[];
-} = undefined) {
+} = {}) {
   if (Array.isArray(users)) {
     users = users.join(',');
   }
@@ -59,18 +59,17 @@ export async function enable({
   projectId?: string;
   brand?: string;
   client?: string;
-} = undefined) {
+} = {}) {
   await services.enable({ service: services.API.IdentityAwareProxyAPI });
   if (project) {
     projectId = project.projectId;
-  } else if (projectId) {
-    project = await projects.describe({ projectId });
-  } else {
-    project = await projects.selectProject({
-      project,
-      purpose: 'for which set up IAP access'
-    });
-    projectId = project.projectId;
+  } else if (!project && !projectId) {
+    projectId = (
+      await projects.selectProject({
+        project,
+        purpose: 'for which set up IAP access'
+      })
+    ).projectId;
   }
   brand = await oauthBrands.selectBrand({
     brand,
@@ -96,7 +95,7 @@ export async function enable({
     iam.addPolicyBinding({
       member: user,
       role: iam.Role.IAP.WebUser,
-      projectId: project.projectId
+      projectId
     })
   );
 }

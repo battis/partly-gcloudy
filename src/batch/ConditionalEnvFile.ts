@@ -7,15 +7,15 @@ type ConditionalEnvFile =
   | boolean
   | string
   | {
-    path?: string;
-    keys: { [param: string]: string };
-  };
+      path?: string;
+      keys: { [param: string]: string };
+    };
 export type { ConditionalEnvFile as default };
 
 type ParsedValue = string | JSONPrimitiveTypes;
 
 let parsed: Record<string, ParsedValue> = {};
-let file: string;
+let file: string | undefined;
 
 function pathToEnvFile({
   env,
@@ -70,7 +70,7 @@ export function writeEnvFile({ env }: { env: Record<string, ParsedValue> }) {
     );
   for (const key in env) {
     if (env[key] !== parsed[key]) {
-      cli.env.set({ key, value: env[key].toString(), file });
+      cli.env.set({ key, value: env[key]!.toString(), file });
     }
   }
 }

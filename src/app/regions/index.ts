@@ -11,7 +11,7 @@ export async function selectRegion({
   ...rest
 }: {
   region?: string;
-} & Partial<lib.prompts.select.Parameters.ValueToString<Region>>) {
+} & Partial<lib.prompts.select.Parameters<Region, string>>) {
   return await lib.prompts.select<Region>({
     arg: region,
     message: `Google Cloud region`,

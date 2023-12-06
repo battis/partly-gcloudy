@@ -13,7 +13,7 @@ export async function selectName({
   ...rest
 }: {
   name?: string;
-} & Partial<lib.prompts.select.Parameters.ValueToString<Account>>) {
+} & Partial<lib.prompts.select.Parameters<Account>> = {}) {
   return await lib.prompts.select<Account>({
     arg: name,
     message: 'Billing account',

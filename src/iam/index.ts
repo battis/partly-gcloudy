@@ -18,13 +18,16 @@ export async function addPolicyBinding({
   member?: string;
   userType?: string | members.UserType;
   projectId?: string;
-} = undefined) {
+} = {}) {
   member = await members.inputIdentifier({
     member: member || user,
     purpose: 'to whom to add policy binding'
   });
   userType = await members.selectUserType({
-    userType: userType.toString()
+    userType:
+      typeof userType === 'string'
+        ? members.UserType[userType as keyof typeof members.UserType]
+        : userType
   });
   role = await Role.inputIdentifier({
     role,

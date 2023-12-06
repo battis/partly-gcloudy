@@ -12,7 +12,7 @@ export async function list({
   instance
 }: {
   instance?: string;
-} = undefined) {
+} = {}) {
   instance = await instances.selectIdentifier({
     instance,
     purpose: 'list users'
@@ -27,7 +27,7 @@ export async function inputUsername({
 }: Partial<Parameters<typeof lib.prompts.input<lib.Email>>[0]> & {
   instance?: string;
   username?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input({
     arg: username,
     message: 'MySQL username',
@@ -47,7 +47,7 @@ export async function inputPassword({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<string>>[0]> & {
   password?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input({
     arg: password,
     message: 'MySQL Password',
@@ -66,7 +66,7 @@ export async function inputHost({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<Hostname>>[0]> & {
   host?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input({
     arg: host,
     message: 'Host from which this user will connect (% for any)',
@@ -87,11 +87,11 @@ export async function selectUsername({
   username,
   instance,
   ...rest
-}: Partial<lib.prompts.select.Parameters.ValueToString<User>> &
+}: Partial<lib.prompts.select.Parameters<User>> &
   Partial<Parameters<typeof create>[0]> & {
     username?: lib.Email;
     instance?: string;
-  } = undefined) {
+  } = {}) {
   return await lib.prompts.select<User>({
     arg: username,
     message: `MySQL username`,
@@ -109,7 +109,7 @@ export const selectIdentifier = selectUsername;
 export async function describe({
   username,
   instance
-}: { username?: string; instance?: string } = undefined) {
+}: { username?: string; instance?: string } = {}) {
   return shell.gcloud<User>(
     `sql users describe ${lib.prompts.escape(
       await selectUsername({
@@ -129,7 +129,7 @@ export async function create({
   password?: string;
   host?: string;
   instance?: string;
-} = undefined) {
+} = {}) {
   instance = await instances.selectIdentifier({
     instance,
     purpose: 'create user'
@@ -139,8 +139,10 @@ export async function create({
     username,
     purpose: `to create`,
     validate: (value?: string) =>
-      lib.validators.exclude({ exclude: instance })(value) &&
-      cli.validators.notEmpty(value)
+      instance === undefined
+        ? true
+        : lib.validators.exclude({ exclude: instance })(value) &&
+          cli.validators.notEmpty(value)
   });
   password = await inputPassword({ password });
 
@@ -161,7 +163,7 @@ export async function setPassword({
   username?: string;
   password?: string;
   instance?: string;
-} = undefined) {
+} = {}) {
   instance = await instances.selectIdentifier({
     instance,
     purpose: 'on which to change user password'

@@ -6,13 +6,14 @@ import UserType from './UserType';
 export async function selectUserType({
   userType,
   ...rest
-}: Partial<lib.prompts.select.Parameters.StringToString> & {
-  userType?: string;
-} = undefined): Promise<UserType> {
-  return this.caller[
-    await lib.prompts.select({
-      arg: userType,
+}: Partial<lib.prompts.select.Parameters> & {
+  userType?: UserType;
+} = {}): Promise<UserType> {
+  return UserType[
+    (await lib.prompts.select({
+      arg: userType?.toString(),
       validate: (value?: string) =>
+        value !== undefined &&
         getEnumValues(UserType)
           .map((u) => u.toString())
           .includes(value),
@@ -20,7 +21,7 @@ export async function selectUserType({
       choices: () =>
         getEnumValues(UserType).map((t) => ({ value: t.toString() })),
       ...rest
-    })
+    })) as keyof typeof UserType
   ];
 }
 
@@ -30,7 +31,7 @@ export async function inputMember({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<lib.Email>>[0]> & {
   member?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input({
     arg: member,
     message: `IAM Member`,
@@ -41,4 +42,4 @@ export async function inputMember({
 
 export const inputIdentifier = inputMember;
 
-export { type UserType };
+export { UserType };

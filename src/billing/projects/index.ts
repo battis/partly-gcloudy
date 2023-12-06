@@ -6,7 +6,7 @@ import * as accounts from '../accounts';
 export async function enable({
   account,
   projectId
-}: { account?: string; projectId?: string } = undefined) {
+}: { account?: string; projectId?: string } = {}) {
   account = await accounts.selectidentifier({ name: account });
   if (account) {
     projectId = await rootProjects.selectIdentifier({ projectId });

@@ -17,6 +17,7 @@ export function gcloud<T extends lib.Descriptor>(
   command: string,
   options?: Partial<InvokeOptions>
 ) {
+  const activeProjectId = activeProject?.get()?.projectId;
   const opt: InvokeOptions = {
     flags: { ...(options?.flags || {}) },
     overrideBaseFlags: options?.overrideBaseFlags || false,
@@ -25,7 +26,8 @@ export function gcloud<T extends lib.Descriptor>(
         ? false
         : options?.includeProjectIdFlag === true
         ? true
-        : !new RegExp(activeProject.get().projectId).test(command),
+        : activeProjectId !== undefined &&
+          !new RegExp(activeProjectId).test(command),
     pipe: {
       in: options?.pipe?.in || undefined,
       out: options?.pipe?.out || undefined
@@ -35,7 +37,7 @@ export function gcloud<T extends lib.Descriptor>(
     opt.flags = { ...opt.flags, ...flags.getBase() };
   }
   if (opt.includeProjectIdFlag) {
-    opt.flags.project = activeProject.get().projectId;
+    opt.flags.project = activeProjectId;
   }
   const result = cli.shell.exec(
     `${
@@ -47,11 +49,11 @@ export function gcloud<T extends lib.Descriptor>(
   try {
     return JSON.parse(result) as T;
   } catch (e) {
-    return undefined as T;
+    return undefined as unknown as T;
   }
 }
 
-export function gcloudBeta<T>(
+export function gcloudBeta<T extends lib.Descriptor>(
   command: string,
   options?: Partial<InvokeOptions>
 ) {

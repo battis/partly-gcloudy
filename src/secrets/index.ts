@@ -7,7 +7,7 @@ import * as services from '../services';
 import * as shell from '../shell';
 import Secret from './Secret';
 
-var apiEnabled = false;
+let apiEnabled = false;
 
 export async function set({
   name,

@@ -21,25 +21,28 @@ export async function inputName({
   validate,
   instance,
   ...rest
-}: Partial<Parameters<typeof lib.prompts.input<SqlInstanceIdentifier>>[0]> & {
-  region: string;
-  name?: string;
-  instance?: Instance;
-} = undefined) {
+}: Partial<Parameters<typeof lib.prompts.input<SqlInstanceIdentifier>>[0]> &
+  Partial<{
+    region: string;
+    name?: string;
+    instance?: Instance;
+  }> = {}) {
   return await lib.prompts.input<SqlInstanceIdentifier>({
     arg: name,
     message: 'Cloud SQL instance name',
     validate: cli.validators.combine(
       validate,
-      (value?: string) =>
-        lib.validators.exclude({
-          exclude: instance,
-          property: 'name'
-        })(value) &&
-        cli.validators.match(/^[a-z][a-z0-9-]*$/)(value) &&
-        cli.validators.maxLength(
-          98 - `${projects.active.get()}:${region}:`.length
-        )(value)
+      instance === undefined
+        ? undefined
+        : (value?: string) =>
+            lib.validators.exclude({
+              exclude: instance,
+              property: 'name'
+            })(value) &&
+            cli.validators.match(/^[a-z][a-z0-9-]*$/)(value) &&
+            cli.validators.maxLength(
+              98 - `${projects.active.get()}:${region}:`.length
+            )(value)
     ),
     default: name || instance?.name,
     ...rest
@@ -50,7 +53,7 @@ export async function describe({
   name
 }: {
   name?: string;
-} = undefined) {
+} = {}) {
   return shell.gcloud<Instance>(
     `sql instances describe ${await inputName({
       name,
@@ -64,10 +67,10 @@ export const inputIdentifier = inputName;
 export async function selectName({
   instance,
   ...rest
-}: Partial<lib.prompts.select.Parameters.ValueToString<Instance>> &
+}: Partial<lib.prompts.select.Parameters<Instance>> &
   Partial<Parameters<typeof create>[0]> & {
     instance?: SqlInstanceIdentifier;
-  } = undefined) {
+  } = {}) {
   return await lib.prompts.select<Instance>({
     arg: instance || active.get()?.name,
     message: `Cloud SQL instance`,
@@ -94,15 +97,16 @@ export async function create({
   cpu?: number;
   memory?: string;
   reuseIfExists?: boolean;
-} = undefined) {
+} = {}) {
   services.enable({ service: services.API.CloudSQLAdminAPI });
-  let instance: Instance =
-    name &&
-    (await lib.prompts.confirm.reuse<Instance>({
-      arg: reuseIfExists,
-      argDescription: 'Cloud SQL instance',
-      instance: await describe({ name })
-    }));
+  let instance: Instance | undefined =
+    name === undefined
+      ? undefined
+      : await lib.prompts.confirm.reuse<Instance>({
+          arg: reuseIfExists,
+          argDescription: 'Cloud SQL instance',
+          instance: await describe({ name })
+        });
 
   if (!instance || reuseIfExists === false) {
     // TODO apparently no way to list available Cloud SQL regions at the moment https://cloud.google.com/sql/docs/instance-locations

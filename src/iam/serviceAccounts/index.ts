@@ -15,7 +15,7 @@ export async function inputName({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<Identifier>>[0]> & {
   name?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input({
     message: 'Service account name',
     arg: name,
@@ -33,7 +33,7 @@ export async function inputDisplayName({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<DisplayName>>[0]> & {
   displayName?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input({
     arg: displayName,
     message: 'Service account display name',
@@ -49,10 +49,10 @@ export function list() {
 export async function selectEmail({
   email,
   ...rest
-}: Partial<lib.prompts.select.Parameters.ValueToString<ServiceAccount>> &
+}: Partial<lib.prompts.select.Parameters<ServiceAccount>> &
   Partial<Parameters<typeof create>[0]> & {
     email?: string;
-  } = undefined) {
+  } = {}) {
   return lib.prompts.select({
     arg: email,
     message: `Service account`,
@@ -75,7 +75,7 @@ export async function create({
 }: {
   name?: string;
   displayName?: string;
-} = undefined) {
+} = {}) {
   name = await inputName({ name });
   displayName = await inputDisplayName({ displayName, default: name });
   let [serviceAccount] = shell.gcloud<ServiceAccount[]>(
@@ -111,7 +111,7 @@ export async function keys({
   path?: string;
   cautiouslyDeleteExpiredKeysIfNecessary?: boolean;
   dangerouslyDeleteAllKeysIfNecessary?: boolean;
-} = undefined) {
+} = {}) {
   email = await selectIdentifier({ email });
   path = await lib.prompts.input({
     arg: path,

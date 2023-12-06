@@ -18,7 +18,7 @@ export async function inputRole({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<IamRole>>[0]> & {
   role?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input({
     arg: role,
     message: 'IAM role',

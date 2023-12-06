@@ -2,24 +2,7 @@ import cli from '@battis/qui-cli';
 import Active from '../../Active';
 import Descriptor from '../../Descriptor';
 import * as core from '../core';
-import TChoice from './Choice';
-
-type Base = core.Parameters & {
-  message: string;
-  validate?: boolean | ((value: string) => boolean | string);
-};
-
-type Choices<Value> =
-  | select.Choice<Value>[]
-  | Promise<select.Choice<Value>[]>
-  | (() => select.Choice<Value>[])
-  | (() => Promise<select.Choice<Value>[]>);
-
-type Transform<A, B> = (value: A) => B | Promise<B>;
-
-type Create<Value> = (
-  parameters?: Record<string, any>
-) => Value | Promise<Value>;
+import Choice from './Choice';
 
 async function select({
   arg,
@@ -28,9 +11,9 @@ async function select({
   choices,
   validate,
   transform
-}: select.Parameters.StringToString): Promise<string>;
+}: select.Parameters<string>): Promise<string>;
 
-async function select<Value>({
+async function select<Value extends Descriptor>({
   arg,
   argTransform,
   message,
@@ -41,9 +24,9 @@ async function select<Value>({
   activate,
   create,
   activateIfCreated
-}: select.Parameters.ValueToString<Value>): Promise<string>;
+}: select.Parameters<string, Value>): Promise<string>;
 
-async function select<Value, ReturnValue>({
+async function select<Value extends Descriptor, ReturnValue = string>({
   arg,
   argTransform,
   message,
@@ -55,7 +38,7 @@ async function select<Value, ReturnValue>({
   create,
   activateIfCreated,
   ...rest
-}: select.Parameters.ValueToValue<Value, ReturnValue>): Promise<ReturnValue>;
+}: select.Parameters<Value, ReturnValue>): Promise<ReturnValue>;
 
 async function select<Value, ReturnValue = string>({
   arg,
@@ -67,22 +50,22 @@ async function select<Value, ReturnValue = string>({
   transform,
   activate,
   create,
-  activateIfCreated = true,
+  activateIfCreated,
   ...rest
-}: select.Parameters.Implementation<Value, ReturnValue>): Promise<ReturnValue> {
-  let choices: select.Choice<Value>[];
+}: select.Parameters<Value, ReturnValue>): Promise<ReturnValue> {
+  let choices: Choice<Value>[];
   const preload = async () =>
     choices ||
     (choices =
       typeof choicesArg === 'function' ? await choicesArg() : await choicesArg);
-  let selection: Value;
+  let selection: Value | undefined;
   if (arg) {
     if (validate === false) {
       selection = argTransform
         ? await argTransform(arg)
         : (arg as unknown as Value);
     } else if (validate === true) {
-      await preload();
+      choices = await preload();
       if (
         choices.find((choice) =>
           transform ? transform(choice.value) : choice.value === arg
@@ -98,11 +81,12 @@ async function select<Value, ReturnValue = string>({
         : (arg as unknown as Value);
     }
   }
-  await preload();
+  choices = await preload();
   if (choices.length === 1) {
     const choice = choices.shift();
-    selection = choice.value;
+    selection = choice?.value;
     if (
+      choice &&
       !(await cli.prompts.confirm({
         message: `${message} ${cli.colors.value(
           choice.name || choice.value
@@ -114,7 +98,10 @@ async function select<Value, ReturnValue = string>({
   }
   if (choices.length === 0) {
     if (create) {
-      selection = await create({ activate: activateIfCreated, ...rest });
+      selection = await create({
+        activate: activateIfCreated === true || activateIfCreated === undefined,
+        ...rest
+      });
     }
   }
   selection =
@@ -132,39 +119,31 @@ async function select<Value, ReturnValue = string>({
 }
 
 namespace select {
-  export type Choice<Value> = TChoice<Value>;
-  export namespace Parameters {
-    export type StringToString = Base & {
-      choices: Choices<string>;
-      transform?: Transform<string, string>;
-    };
-    export type ValueToString<Value> = Base & {
-      argTransform?: Transform<string, Value>;
-      choices: Choices<Value>;
-      transform: Transform<Value, string>;
-      activate?: Active<Value>;
-      create?: Create<Value>;
-      activateIfCreated?: boolean;
-    };
-    export type ValueToValue<Value, ReturnValue> = Base & {
-      argTransform: Transform<string, Value>;
-      choices: Choices<Value>;
-      transform: Transform<Value, ReturnValue>;
-      activate?: Active<Value>;
-      create?: Create<Value>;
-      activateIfCreated?: boolean;
-    };
-    export type Implementation<Value, ReturnValue> = Base & {
-      argTransform?: Transform<string, Value>;
-      message: string;
-      choices: Choices<Value>;
-      validate?: boolean | ((value?: string) => boolean | string);
-      transform?: Transform<Value, ReturnValue>;
-      activate?: Value extends Descriptor ? Active<Value> : never;
-      create?: Value extends Descriptor ? (parameters: object) => Value : never;
-      activateIfCreated?: Value extends Descriptor ? boolean : never;
-    };
-  }
+  export type Parameters<
+    Value = string,
+    ReturnValue = string
+  > = core.Parameters & {
+    argTransform?: Value extends Descriptor ? Transform<string, Value> : never;
+    message: string;
+    choices: Choices<Value>;
+    validate?: boolean | ((value?: string) => boolean | string);
+    transform?: Transform<Value, ReturnValue>;
+    activate?: Value extends Descriptor ? Active<Value> : never;
+    create?: Value extends Descriptor ? Create<Value> : never;
+    activateIfCreated?: Value extends Descriptor ? boolean : never;
+  };
+
+  type Choices<Value> =
+    | Choice<Value>[]
+    | Promise<Choice<Value>[]>
+    | (() => Choice<Value>[])
+    | (() => Promise<Choice<Value>[]>);
+
+  type Transform<A, B> = (value: A) => B | Promise<B>;
+
+  type Create<Value> = (
+    parameters?: Record<string, any>
+  ) => Value | Promise<Value>;
 }
 
 export default select;

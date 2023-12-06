@@ -12,9 +12,9 @@ export function list() {
 export async function enable({
   service,
   ...rest
-}: Partial<lib.prompts.select.Parameters.ValueToString<Service>> & {
+}: Partial<lib.prompts.select.Parameters<Service>> & {
   service?: ServiceIdentifier;
-} = undefined) {
+} = {}) {
   service = await lib.prompts.select<Service>({
     arg: service,
     message: 'Service to enable',

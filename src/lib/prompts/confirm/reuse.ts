@@ -17,12 +17,12 @@ export default async function reuse<T extends Descriptor>({
   instance?: T;
   name?: string;
   nameIn?: string;
-}): Promise<T> {
+}): Promise<T | undefined> {
   if (
     arg === true ||
     (await cli.prompts.confirm({
       message: `Reuse existing${core.pad(argDescription)}${core.pad(
-        cli.colors.value(name || instance[nameIn] || '')
+        cli.colors.value(name || (instance && instance[nameIn]) || '')
       )}${core.pad(purpose)}`,
       ...rest
     }))

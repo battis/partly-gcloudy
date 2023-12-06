@@ -12,7 +12,7 @@ export async function describe() {
  * There can only be one AppEngine instance per project, so if one already exists it will be returned rather than created
  * @param {Partial<CreateOptions>} options
  */
-export async function create({ region }: { region?: string } = undefined) {
+export async function create({ region }: { region?: string } = {}) {
   services.enable({ service: services.API.AppEngineAdminAPI });
   let instance = await describe();
   if (instance == null) {

@@ -40,7 +40,7 @@ export async function inputRelativeUrl({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<RelativeUrl>>[0]> & {
   relativeUrl?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input<RelativeUrl>({
     arg: relativeUrl,
     message: 'URL to call, relative to App Engine instance root',
@@ -59,7 +59,7 @@ export async function setAppEngineJob({
   cron?: string;
   location?: string;
   relativeUrl?: string;
-} = undefined) {
+} = {}) {
   name = await inputJobName({ name });
   cron = await inputCrontab({ cron });
   relativeUrl = await inputRelativeUrl({ relativeUrl });

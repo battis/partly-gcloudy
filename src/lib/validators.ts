@@ -1,11 +1,12 @@
 import cli from '@battis/qui-cli';
+import Descriptor from './Descriptor';
 
-export function exclude<T = string>({
+export function exclude<T = string | Descriptor>({
   exclude,
   property
-}: T extends string
-  ? { exclude: string; property?: undefined }
-  : { exclude: T; property: string }) {
+}: T extends Descriptor
+  ? { exclude: T; property: string }
+  : { exclude: string; property?: undefined }) {
   return (value?: string) =>
     (value &&
       (property ? value !== exclude[property] : property !== exclude)) ||

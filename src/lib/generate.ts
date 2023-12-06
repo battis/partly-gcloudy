@@ -12,7 +12,7 @@ import { rword } from 'rword';
    * @param separator (Optional, default `-`) separator between words
    */
 export function projectId(length = 30, words = 2, digits = 6, separator = '-') {
-  const word = [];
+  const word: string[] = [];
   for (let i = 0; i < words; i++) {
     word.push(
       rword.generate(1, {

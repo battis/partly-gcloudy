@@ -15,7 +15,7 @@ type PreBuildCallback = (args: {
 
 export default async function appEnginePublish({
   name,
-  id = gcloud.projects.active.get().projectId,
+  id = gcloud.projects.active.get()?.projectId,
   suggestedName,
   billingAccountId,
   region,
@@ -33,7 +33,7 @@ export default async function appEnginePublish({
   preBuild?: PreBuildCallback;
   build?: string;
   deploy?: boolean;
-} = undefined) {
+} = {}) {
   const args = await gcloud.init();
   if (gcloud.ready()) {
     const {

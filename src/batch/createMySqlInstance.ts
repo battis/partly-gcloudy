@@ -43,8 +43,8 @@ export default async function createMySqlInstance(
     databaseName,
     username,
     password
-  } = options;
-  const { tier, env } = options;
+  } = options || {};
+  const { tier, env } = options || {};
   if (gcloud.ready()) {
     project = project || (await gcloud.projects.describe());
     gcloud.projects.active.activate(project);
@@ -63,7 +63,12 @@ export default async function createMySqlInstance(
 
     // create Cloud SQL MySQL instance with App Engine access
     instanceName = await gcloud.sql.instances.inputIdentifier({
-      region: region || (appEngine && appEngine.locationId),
+      region:
+        region ||
+        (appEngine !== false &&
+          appEngine !== undefined &&
+          appEngine.locationId) ||
+        undefined,
       name: instanceName,
       default: project.name
         .toLowerCase()
@@ -142,7 +147,11 @@ export default async function createMySqlInstance(
       user = await gcloud.sql.users.create({
         username,
         password,
-        host: appEngine && appEngine.defaultHostname
+        host:
+          (appEngine !== false &&
+            appEngine !== undefined &&
+            appEngine.defaultHostname) ||
+          undefined
       });
     }
     if (env) {
@@ -163,12 +172,7 @@ export default async function createMySqlInstance(
         argDescription: 'MySQL database'
       }));
     if (databaseName && !database) {
-      databaseName = await gcloud.sql.databases.inputIdentifier({
-        validate: lib.validators.exclude({
-          exclude: database,
-          property: 'name'
-        })
-      });
+      databaseName = await gcloud.sql.databases.inputIdentifier();
       database = undefined;
     }
     if (!database) {

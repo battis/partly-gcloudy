@@ -12,7 +12,7 @@ export async function inputApplicationTitle({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<ApplicationTitle>>[0]> & {
   applicationTitle?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input({
     arg: applicationTitle,
     message: 'Application title for OAuth consent dialog',
@@ -27,7 +27,7 @@ export async function inputSupportEmail({
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<lib.Email>>[0]> & {
   supportEmail?: string;
-} = undefined) {
+} = {}) {
   return await lib.prompts.input({
     arg: supportEmail,
     message: 'Support email from OAuth consent dialog',
@@ -47,7 +47,7 @@ export async function create({
   supportEmail?: lib.Email;
   project?: projects.Project;
   activate?: boolean;
-} = undefined) {
+} = {}) {
   project = await projects.selectProject({ project });
 
   applicationTitle = await inputApplicationTitle({
@@ -67,7 +67,7 @@ export async function create({
 
 export async function list({
   projectNumber
-}: { projectNumber?: number | string } = undefined) {
+}: { projectNumber?: number | string } = {}) {
   projectNumber = await projects.selectProjectNumber({ projectNumber });
   return shell.gcloud<Brand[]>(
     `iap oauth-brands list --filter=name=projects/${projectNumber}/brands/${projectNumber}`
@@ -79,11 +79,11 @@ export async function selectBrand({
   activate,
   activateIfCreated = true,
   ...rest
-}: Partial<lib.prompts.select.Parameters.ValueToString<Brand>> &
+}: Partial<lib.prompts.select.Parameters<Brand>> &
   Partial<Parameters<typeof create>>[0] & {
     brand?: string;
     activate?: boolean;
-  } = undefined) {
+  } = {}) {
   return await lib.prompts.select<Brand>({
     arg: brand,
     message: 'IAP OAuth brand',

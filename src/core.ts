@@ -2,9 +2,9 @@ import cli, { Arguments, Options } from '@battis/qui-cli';
 import { RecursivePartial } from '@battis/typescript-tricks';
 import * as projects from './projects';
 
-var cachedArgs: Arguments;
+let cachedArgs: Arguments;
 
-var cachedReady: true | string;
+let cachedReady: true | string;
 
 export function args() {
   return cachedArgs;
@@ -60,7 +60,7 @@ export async function init({
   return cachedArgs;
 }
 
-export function ready({ fail = true }: { fail?: boolean } = undefined) {
+export function ready({ fail = true }: { fail?: boolean } = {}) {
   if (cachedReady === undefined) {
     cachedReady =
       /\d+\.\d/.test(cli.shell.exec('gcloud --version').stdout) ||
