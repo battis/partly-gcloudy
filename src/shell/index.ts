@@ -13,7 +13,7 @@ export type InvokeOptions = {
   };
 };
 
-export function gcloud<T extends lib.Descriptor>(
+export async function gcloud<T extends lib.Descriptor>(
   command: string,
   options?: Partial<InvokeOptions>
 ) {
@@ -53,7 +53,7 @@ export function gcloud<T extends lib.Descriptor>(
   }
 }
 
-export function gcloudBeta<T extends lib.Descriptor>(
+export async function gcloudBeta<T extends lib.Descriptor>(
   command: string,
   options?: Partial<InvokeOptions>
 ) {

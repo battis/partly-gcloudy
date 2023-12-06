@@ -4,7 +4,7 @@ import Account from './Account';
 
 export const active = new lib.Active<Account>(undefined);
 
-export function list() {
+export async function list() {
   return shell.gcloud<Account[]>('billing accounts list --filter=open=true');
 }
 
@@ -17,8 +17,10 @@ export async function selectName({
   return await lib.prompts.select<Account>({
     arg: name,
     message: 'Billing account',
-    choices: () =>
-      list().map((a) => ({
+    choices: async () =>
+      (
+        await list()
+      ).map((a) => ({
         name: a.displayName,
         value: a,
         description: a.name,

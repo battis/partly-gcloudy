@@ -25,8 +25,6 @@
     "build": "run-s build:*",
     "build:clean": "shx rm -rf dist",
     "build:compile": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
-    "--build:esm": "babel src --extensions .ts --out-dir dist/esm --out-file-extension .mjs --source-maps --config-file ./babel/esm.json",
-    "--build:types": "tsc",
     "docs": "run-s docs:**",
     "docs:clean": "shx rm -rf docs/*",
     "docs:build": "typedoc --entryPointStrategy expand --tsconfig tsconfig.typedoc.json",

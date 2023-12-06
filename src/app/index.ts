@@ -16,7 +16,7 @@ export async function create({ region }: { region?: string } = {}) {
   services.enable({ service: services.API.AppEngineAdminAPI });
   let instance = await describe();
   if (instance == null) {
-    instance = shell.gcloud<AppEngine>(
+    instance = await shell.gcloud<AppEngine>(
       `app create --region=${await regions.selectIdentifier({
         region,
         purpose: 'to create App Engine instance'
@@ -26,11 +26,11 @@ export async function create({ region }: { region?: string } = {}) {
   return instance;
 }
 
-export function deploy() {
+export async function deploy() {
   return shell.gcloud<DeploymentConfig>('app deploy');
 }
 
-export function logs() {
+export async function logs() {
   // TODO app logs should be configurable
   return shell.gcloud('app logs tail -s default', {
     overrideBaseFlags: true,

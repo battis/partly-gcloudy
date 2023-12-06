@@ -14,8 +14,10 @@ export async function selectTier({
   return await lib.prompts.select<Tier>({
     arg: tier,
     message: `Cloud SQL service tier}`,
-    choices: () =>
-      list().map((t) => ({
+    choices: async () =>
+      (
+        await list()
+      ).map((t) => ({
         name: t.tier,
         value: t,
         description: t.DiskQuota

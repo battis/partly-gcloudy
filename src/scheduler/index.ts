@@ -64,7 +64,7 @@ export async function setAppEngineJob({
   cron = await inputCrontab({ cron });
   relativeUrl = await inputRelativeUrl({ relativeUrl });
   location = location || (await app.describe()).locationId;
-  let [schedule] = shell.gcloud<Job[]>(
+  let [schedule] = await shell.gcloud<Job[]>(
     // FIXME this looks not right -- like a hold over from a specific script?
     `scheduler jobs list --filter=appEngineHttpTarget.relativeUri=/sync --location=${location}`
   );
@@ -75,7 +75,7 @@ export async function setAppEngineJob({
       } --schedule=${lib.prompts.escape(cron)}`
     );
   } else {
-    schedule = shell.gcloud<Job>(
+    schedule = await shell.gcloud<Job>(
       `scheduler jobs create app-engine ${name} --schedule=${lib.prompts.escape(
         cron
       )} --relative-url=${lib.prompts.escape(relativeUrl)}`

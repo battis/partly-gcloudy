@@ -2,7 +2,7 @@ import cli from '@battis/qui-cli';
 import * as lib from '../../lib';
 import * as projects from '../../projects';
 import * as shell from '../../shell';
-import TBrand from './Brand';
+import Brand from './Brand';
 
 export const active = new lib.Active<Brand>(undefined);
 
@@ -56,7 +56,7 @@ export async function create({
   });
   supportEmail = await inputSupportEmail({ supportEmail });
 
-  const brand = shell.gcloud<Brand>(
+  const brand = await shell.gcloud<Brand>(
     `iap oauth-brands create --application_title=${lib.prompts.escape(
       applicationTitle
     )} --support_email=${supportEmail}`
@@ -106,4 +106,4 @@ export async function selectBrand({
 export const selectIdentifier = selectBrand;
 
 export type ApplicationTitle = string;
-export type Brand = TBrand;
+export { type Brand };

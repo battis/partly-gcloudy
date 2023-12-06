@@ -15,8 +15,8 @@ This is an ESM module that depends on other ESM modules, and so really can only 
 
 ```js
 import gcloud from '@battis/partly-gcloudy';
-gcloud.init();
-gcloud.app.deploy();
+await gcloud.init();
+await gcloud.app.deploy();
 ```
 
 ## Design
@@ -28,11 +28,11 @@ This is really designed to meet my needs (type-safe, fat-finger-preventative, re
 - Method parameters are the names used in the corresponding `gcloud` CLI tool documentation, camelCased.
   `gcloud projects describe PROJECT_ID_OR_NUMBER` becomes
   `gcloud.projects.describe({ projectId: 'flim-flam-1234' })`
-- Methods are typed to hint their parameters, which are passed as object arguments for to facilitate hyper-aggressive type-checking in a loosey-goosey manner. Argument order is too much to worry about.
+- Methods are typed to hint their parameters, which are passed as object arguments to facilitate hyper-aggressive type-checking in a loosey-goosey manner. Argument order is too much to worry about.
   `gcloud.projects.describe({ projectId: 'flim-flam-1234' })`
-- Methods are information-agnostic -- if you don't pass some or all of the arguments, they'll ask you for what they need.
+- Methods are information-agnostic -- if you don't pass some or all of the arguments, they'll interactively ask the user for what they need.
   `gcloud.projects.create()` works. If it really can't be done, it will fail with a demonstrative error.
-- All methods are asynchronous.
+- All "verb" methods are asynchronous.
 - All input is validated to the extent possible.
 
 #### `gcloud.*.input*()` and `gcloud.*.select*()`
@@ -44,7 +44,7 @@ let projectId = '_$argle-bargle';
 projectId = await gcloud.projects.inputProjectId({ projectId });
 ```
 
-The initial `projectId` value is invalid, will faile the validation, and result in interactie user-input to choose a valid project ID.
+The initial `projectId` value is invalid, will fail the validation, and result in interactive user-input to choose a valid project ID.
 
 ## Batch operations
 
@@ -52,7 +52,7 @@ As I need them, I am packaging up modular batches of operations in the `gcloud.b
 
 ```js
 import gcloud from '@battis/partly-gcloudy';
-gcloud.batch.appEnginePublish();
+await gcloud.batch.appEnginePublish();
 ```
 
 This will create a Google Cloud project (or reuse an existing one, if you enter an existing project ID or have your environment variable `PROJECT` set), configure an App Engine Instance in that project, if necessary, and deploy the current project to that App Engine instance.

@@ -5,7 +5,7 @@ import Service from './Service';
 
 type ServiceIdentifier = string;
 
-export function list() {
+export async function list() {
   return shell.gcloud<Service[]>('services list --available');
 }
 
@@ -19,7 +19,9 @@ export async function enable({
     arg: service,
     message: 'Service to enable',
     choices: async () =>
-      list().map((s) => ({
+      (
+        await list()
+      ).map((s) => ({
         name: s.config.title,
         value: s,
         description: s.config.name

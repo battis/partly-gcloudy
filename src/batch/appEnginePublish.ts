@@ -82,7 +82,7 @@ export default async function appEnginePublish({
         cli.shell.exec(build);
       }
       if (deploy) {
-        app.deploy();
+        await app.deploy();
       }
       return { project, appEngine };
     }

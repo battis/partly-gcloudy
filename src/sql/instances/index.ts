@@ -120,7 +120,7 @@ export async function create({
       instance
     });
     tier = await tiers.selectIdentifier({ tier });
-    instance = shell.gcloud<Instance>(
+    instance = await shell.gcloud<Instance>(
       `sql instances create ${name} --region=${region} --tier=${tier}`
     );
   }

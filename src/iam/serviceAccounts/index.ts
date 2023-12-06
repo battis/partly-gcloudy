@@ -42,7 +42,7 @@ export async function inputDisplayName({
   });
 }
 
-export function list() {
+export async function list() {
   return shell.gcloud<ServiceAccount[]>('iam service-accounts list');
 }
 
@@ -56,8 +56,8 @@ export async function selectEmail({
   return lib.prompts.select({
     arg: email,
     message: `Service account`,
-    choices: () =>
-      list().map((s) => ({
+    choices: async () =>
+      (await list()).map((s) => ({
         name: s.displayName,
         value: s,
         description: s.email
@@ -78,12 +78,12 @@ export async function create({
 } = {}) {
   name = await inputName({ name });
   displayName = await inputDisplayName({ displayName, default: name });
-  let [serviceAccount] = shell.gcloud<ServiceAccount[]>(
+  let [serviceAccount] = await shell.gcloud<ServiceAccount[]>(
     `iam service-accounts list --filter=email=${name}@${projects.active.get()}.iam.gserviceaccount.com`,
     { includeProjectIdFlag: true }
   );
   if (!serviceAccount) {
-    serviceAccount = shell.gcloud<ServiceAccount>(
+    serviceAccount = await shell.gcloud<ServiceAccount>(
       `iam service-accounts create ${name} --display-name=${lib.prompts.escape(
         displayName || name
       )}`
@@ -119,9 +119,9 @@ export async function keys({
     validate: cli.validators.pathExists()
   });
   let keys =
-    shell.gcloud<Key[]>(
+    (await shell.gcloud<Key[]>(
       `iam service-accounts keys list --iam-account=${email}`
-    ) || [];
+    )) || [];
   if (keys.length === MAX_KEYS) {
     if (cautiouslyDeleteExpiredKeysIfNecessary === undefined) {
       cautiouslyDeleteExpiredKeysIfNecessary = !!(await cli.prompts.confirm({

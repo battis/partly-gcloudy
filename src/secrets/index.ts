@@ -44,7 +44,9 @@ export async function set({
     await services.enable({ service: services.API.SecretManagerAPI });
     apiEnabled = true;
   }
-  let [secret] = shell.gcloud<Secret[]>(`secrets list --filter=name:${name}`);
+  let [secret] = await shell.gcloud<Secret[]>(
+    `secrets list --filter=name:${name}`
+  );
   if (secret) {
     shell.gcloud(
       `secrets versions add ${secret.name} --data-file=${
@@ -60,7 +62,7 @@ export async function set({
       }
     );
   } else {
-    secret = shell.gcloud<Secret>(
+    secret = await shell.gcloud<Secret>(
       `secrets create ${name} --data-file=${
         path !== undefined ? `${path}` : '-'
       }`,

@@ -52,7 +52,7 @@ export async function describe({ projectId }: { projectId?: string } = {}) {
   );
 }
 
-export function list() {
+export async function list() {
   return shell.gcloud<Project[]>('projects list', {
     includeProjectIdFlag: false
   });
@@ -69,8 +69,10 @@ export async function selectProjectId({
   return await lib.prompts.select<Project>({
     arg: projectId,
     message: 'Google Cloud project',
-    choices: () =>
-      list().map((p) => ({
+    choices: async () =>
+      (
+        await list()
+      ).map((p) => ({
         name: p.name,
         value: p,
         description: p.projectId
@@ -95,8 +97,10 @@ export async function selectProjectNumber({
   return await lib.prompts.select({
     arg: projectNumber?.toString() || active.get()?.projectNumber,
     message: 'Google Cloud project',
-    choices: () =>
-      list().map((p) => ({
+    choices: async () =>
+      (
+        await list()
+      ).map((p) => ({
         name: p.name,
         value: p,
         description: p.projectNumber
@@ -127,8 +131,8 @@ export async function selectProject({
     ...args,
     validate: false,
     message: 'Google Cloud project',
-    choices: () =>
-      list().map((p) => ({
+    choices: async () =>
+      (await list()).map((p) => ({
         name: p.name,
         value: p,
         description: p.projectId
@@ -169,7 +173,7 @@ export async function create({
     }));
 
   if (!project || reuseIfExists === false) {
-    project = shell.gcloud<Project>(
+    project = await shell.gcloud<Project>(
       `projects create --name=${lib.prompts.escape(name)} ${projectId}`,
       {
         includeProjectIdFlag: false
