@@ -68,12 +68,13 @@ export async function describe({
   name?: string;
   instance?: string;
 }) {
-  return shell.gcloud<Database>(
+  return shell.gcloud<Database, lib.Undefined.Value>(
     `sql databases describe ${lib.prompts.escape(
       await selectDatabase({
         name
       })
-    )} --instance=${await instances.selectIdentifier({ instance })}`
+    )} --instance=${await instances.selectIdentifier({ instance })}`,
+    { error: lib.Undefined.callback }
   );
 }
 

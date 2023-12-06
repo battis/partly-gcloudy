@@ -42,13 +42,13 @@ export async function inputName({
 }
 
 export async function describe({ projectId }: { projectId?: string } = {}) {
-  return shell.gcloud<Project, undefined>(
+  return shell.gcloud<Project, lib.Undefined.Value>(
     `projects describe ${await inputProjectId({
       projectId: projectId || active.get()?.projectId
     })}`,
     {
       includeProjectIdFlag: false,
-      error: () => undefined
+      error: lib.Undefined.callback
     }
   );
 }

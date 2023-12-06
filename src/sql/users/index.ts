@@ -110,12 +110,13 @@ export async function describe({
   username,
   instance
 }: { username?: string; instance?: string } = {}) {
-  return shell.gcloud<User>(
+  return shell.gcloud<User, lib.Undefined.Value>(
     `sql users describe ${lib.prompts.escape(
       await selectUsername({
         username
       })
-    )} --instance=${await instances.selectIdentifier({ instance })}`
+    )} --instance=${await instances.selectIdentifier({ instance })}`,
+    { error: lib.Undefined.callback }
   );
 }
 

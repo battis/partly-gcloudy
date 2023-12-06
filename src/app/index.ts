@@ -3,9 +3,12 @@ import * as shell from '../shell';
 import AppEngine from './AppEngine';
 import DeploymentConfig from './DeploymentConfig';
 import * as regions from './regions';
+import * as lib from '../lib';
 
 export async function describe() {
-  return shell.gcloud<AppEngine>('app describe');
+  return shell.gcloud<AppEngine, lib.Undefined.Value>('app describe', {
+    error: lib.Undefined.callback
+  });
 }
 
 /**
@@ -15,7 +18,7 @@ export async function describe() {
 export async function create({ region }: { region?: string } = {}) {
   services.enable({ service: services.API.AppEngineAdminAPI });
   let instance = await describe();
-  if (instance == null) {
+  if (!instance) {
     instance = await shell.gcloud<AppEngine>(
       `app create --region=${await regions.selectIdentifier({
         region,

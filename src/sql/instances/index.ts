@@ -54,11 +54,12 @@ export async function describe({
 }: {
   name?: string;
 } = {}) {
-  return shell.gcloud<Instance>(
+  return shell.gcloud<Instance, lib.Undefined.Value>(
     `sql instances describe ${await inputName({
       name,
       region: active.get()?.region
-    })}`
+    })}`,
+    { error: lib.Undefined.callback }
   );
 }
 

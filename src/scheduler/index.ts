@@ -53,17 +53,33 @@ export async function setAppEngineJob({
   name,
   cron,
   location,
-  relativeUrl
+  relativeUrl,
+  enableAppEngineIfNecessary
 }: {
   name?: string;
   cron?: string;
   location?: string;
   relativeUrl?: string;
+  enableAppEngineIfNecessary?: boolean;
 } = {}) {
   name = await inputJobName({ name });
   cron = await inputCrontab({ cron });
   relativeUrl = await inputRelativeUrl({ relativeUrl });
-  location = location || (await app.describe()).locationId;
+  let appEngine = await app.describe();
+  if (!appEngine) {
+    if (
+      await lib.prompts.confirm({
+        arg: enableAppEngineIfNecessary,
+        message: 'App Engine is not enabled. Enable?'
+      })
+    ) {
+      appEngine = await app.create();
+      await app.deploy();
+    } else {
+      throw new Error('App Engine not enabled, cannot schedule job');
+    }
+  }
+  location = location || appEngine.locationId;
   let [schedule] = await shell.gcloud<Job[]>(
     // FIXME this looks not right -- like a hold over from a specific script?
     `scheduler jobs list --filter=appEngineHttpTarget.relativeUri=/sync --location=${location}`
