@@ -48,6 +48,9 @@ export default async function createMySqlInstance(
   const { tier, env } = options || {};
   if (core.ready()) {
     project = project || (await projects.describe());
+    if (!project) {
+      throw new Error('Project unknown');
+    }
     projects.active.activate(project);
     appEngine = appEngine === true ? await app.describe() : appEngine;
     if (

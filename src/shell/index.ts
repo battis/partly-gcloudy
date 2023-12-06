@@ -3,7 +3,7 @@ import * as lib from '../lib';
 import activeProject from '../projects/active';
 import * as flags from './flags';
 
-export type InvokeOptions = {
+export type InvokeOptions<Value extends lib.Descriptor, AltValue = Value> = {
   flags: Flags;
   overrideBaseFlags: boolean;
   includeProjectIdFlag: boolean;
@@ -11,14 +11,15 @@ export type InvokeOptions = {
     in?: string;
     out?: string;
   };
+  error?: (result: any) => Value | AltValue;
 };
 
-export async function gcloud<T extends lib.Descriptor>(
+export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
   command: string,
-  options?: Partial<InvokeOptions>
+  options?: Partial<InvokeOptions<Value, AltValue>>
 ) {
   const activeProjectId = activeProject?.get()?.projectId;
-  const opt: InvokeOptions = {
+  const opt: InvokeOptions<Value, AltValue> = {
     flags: { ...(options?.flags || {}) },
     overrideBaseFlags: options?.overrideBaseFlags || false,
     includeProjectIdFlag:
@@ -31,7 +32,8 @@ export async function gcloud<T extends lib.Descriptor>(
     pipe: {
       in: options?.pipe?.in || undefined,
       out: options?.pipe?.out || undefined
-    }
+    },
+    error: options?.error
   };
   if (!opt.overrideBaseFlags) {
     opt.flags = { ...opt.flags, ...flags.getBase() };
@@ -45,19 +47,26 @@ export async function gcloud<T extends lib.Descriptor>(
     }gcloud ${command} ${flags.stringify(opt.flags)}${
       opt.pipe.out ? `| ${opt.pipe.out}` : ''
     }`
-  ).stdout;
+  );
+  if (result.stderr.length) {
+    if (opt.error) {
+      return opt.error(result);
+    } else {
+      throw new Error(result.stderr);
+    }
+  }
   try {
-    return JSON.parse(result) as T;
+    return JSON.parse(result.stdout) as Value;
   } catch (e) {
-    return undefined as unknown as T;
+    return undefined as unknown as Value; // FIXME this is probably unwise
   }
 }
 
-export async function gcloudBeta<T extends lib.Descriptor>(
-  command: string,
-  options?: Partial<InvokeOptions>
-) {
-  return gcloud<T>(`beta ${command}`, options);
+export async function gcloudBeta<
+  Value extends lib.Descriptor,
+  AltValue = Value
+>(command: string, options?: Partial<InvokeOptions<Value, AltValue>>) {
+  return gcloud<Value, AltValue>(`beta ${command}`, options);
 }
 
 export type Flags = flags.Flags;

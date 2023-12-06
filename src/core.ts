@@ -45,14 +45,33 @@ export async function init({
     };
 
     cachedArgs = cli.init({ ...initOptions, env, args });
-
-    projects.active.activate(
-      await projects.describe({
+    if (
+      cachedArgs.values.project ||
+      process.env[cachedArgs.values.projectEnvVar]
+    ) {
+      const cachedProject = await projects.describe({
         projectId:
           cachedArgs.values.project ||
           process.env[cachedArgs.values.projectEnvVar]
-      })
-    );
+      });
+      if (cachedProject) {
+        projects.active.activate(cachedProject);
+      } else {
+        if (cachedArgs.values.project) {
+          cli.log.warning(
+            `Project ID argument ${cachedArgs.values.project} unknown`
+          );
+        } else if (process.env[cachedArgs.values.projectEnvVar]) {
+          cli.log.error(
+            `Project ID in .env ${cachedArgs.values.projectEnvVar} = ${
+              process.env[cachedArgs.values.projectEnvVar]
+            } unknown`
+          );
+        } else {
+          throw new Error('Project ID unknown in unexpected manner');
+        }
+      }
+    }
 
     cli.shell.setShowCommands(!!cachedArgs.values.verbose);
     cli.shell.setSilent(!cachedArgs.values.verbose);

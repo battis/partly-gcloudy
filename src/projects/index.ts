@@ -42,12 +42,13 @@ export async function inputName({
 }
 
 export async function describe({ projectId }: { projectId?: string } = {}) {
-  return shell.gcloud<Project>(
+  return shell.gcloud<Project, undefined>(
     `projects describe ${await inputProjectId({
       projectId: projectId || active.get()?.projectId
     })}`,
     {
-      includeProjectIdFlag: false
+      includeProjectIdFlag: false,
+      error: () => undefined
     }
   );
 }
@@ -163,15 +164,18 @@ export async function create({
 } = {}) {
   name = await inputName({ name });
   projectId = await inputProjectId({ projectId: projectId || id });
-  let project =
-    projectId &&
-    (await lib.prompts.confirm.reuse<Project>({
-      arg: reuseIfExists,
-      instance: await describe({ projectId }),
-      argDescription: 'Google Cloud project',
-      name: projectId
-    }));
-
+  let project: Project | undefined;
+  if (projectId) {
+    project = await describe({ projectId });
+    if (project && reuseIfExists === undefined) {
+      reuseIfExists = !!(await lib.prompts.confirm.reuse<Project>({
+        arg: reuseIfExists,
+        instance: project,
+        argDescription: 'Google Cloud project',
+        name: projectId
+      }));
+    }
+  }
   if (!project || reuseIfExists === false) {
     project = await shell.gcloud<Project>(
       `projects create --name=${lib.prompts.escape(name)} ${projectId}`,
