@@ -2,6 +2,7 @@ import cli from '@battis/qui-cli';
 import path from 'path';
 import * as iam from '../iam';
 import * as lib from '../lib';
+import type { Email } from '../lib';
 import * as projects from '../projects';
 import * as services from '../services';
 import * as shell from '../shell';
@@ -54,7 +55,7 @@ export async function enable({
 }: {
   applicationTitle?: string;
   supportEmail?: string;
-  users?: string | lib.Email[];
+  users?: string | Email[];
   project?: projects.Project;
   projectId?: string;
   brand?: string;

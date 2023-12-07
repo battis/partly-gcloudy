@@ -1,5 +1,6 @@
 import cli from '@battis/qui-cli';
 import * as lib from '../../lib';
+import type { Email } from '../../lib';
 import * as projects from '../../projects';
 import * as shell from '../../shell';
 import Key from './Key';
@@ -51,7 +52,7 @@ export async function selectEmail({
   ...rest
 }: Partial<lib.prompts.select.Parameters<ServiceAccount>> &
   Partial<Parameters<typeof create>[0]> & {
-    email?: string;
+    email?: Email;
   } = {}) {
   return lib.prompts.select({
     arg: email,
@@ -107,7 +108,7 @@ export async function keys({
   cautiouslyDeleteExpiredKeysIfNecessary,
   dangerouslyDeleteAllKeysIfNecessary
 }: {
-  email?: string;
+  email?: Email;
   path?: string;
   cautiouslyDeleteExpiredKeysIfNecessary?: boolean;
   dangerouslyDeleteAllKeysIfNecessary?: boolean;

@@ -27,7 +27,7 @@ export async function inputSupportEmail({
   validate,
   ...rest
 }: Partial<Parameters<typeof lib.prompts.input<Email>>[0]> & {
-  supportEmail?: string;
+  supportEmail?: Email;
 } = {}) {
   return await lib.prompts.input({
     arg: supportEmail,
