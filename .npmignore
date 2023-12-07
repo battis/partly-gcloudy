@@ -3,4 +3,6 @@
 /bin
 /tsconfig.json
 /src
+/rollup.*
 /scripts
+/tsconfig.*
