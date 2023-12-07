@@ -5,7 +5,9 @@ import Account from './Account';
 export const active = new lib.Active<Account>(undefined);
 
 export async function list() {
-  return shell.gcloud<Account[]>('billing accounts list --filter=open=true');
+  return await shell.gcloud<Account[]>(
+    'billing accounts list --filter=open=true'
+  );
 }
 
 export async function selectName({

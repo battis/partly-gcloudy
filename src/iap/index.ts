@@ -84,7 +84,7 @@ export async function enable({
     purpose: 'for IAP access',
     default: 'IAP-App-Engine-app'
   });
-  shell.gcloud(
+  await shell.gcloud(
     `iap web enable --resource-type=app-engine --oauth2-client-id=${path.basename(
       client.name
     )} --oauth2-client-secret=${client.secret}`

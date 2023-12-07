@@ -48,7 +48,7 @@ export async function set({
     `secrets list --filter=name:${name}`
   );
   if (secret) {
-    shell.gcloud(
+    await shell.gcloud(
       `secrets versions add ${secret.name} --data-file=${
         path !== undefined ? `${path}` : '-'
       }`,

@@ -4,6 +4,12 @@ import * as shell from '../shell';
 import Project from './Project';
 import active from './active';
 
+export type ProjectId = string;
+
+export type Name = string;
+
+export { type Project };
+
 export async function inputProjectId({
   projectId,
   validate,
@@ -42,7 +48,7 @@ export async function inputName({
 }
 
 export async function describe({ projectId }: { projectId?: string } = {}) {
-  return shell.gcloud<Project, lib.Undefined.Value>(
+  return await shell.gcloud<Project, lib.Undefined.Value>(
     `projects describe ${await inputProjectId({
       projectId: projectId || active.get()?.projectId
     })}`,
@@ -54,7 +60,7 @@ export async function describe({ projectId }: { projectId?: string } = {}) {
 }
 
 export async function list() {
-  return shell.gcloud<Project[]>('projects list', {
+  return await shell.gcloud<Project[]>('projects list', {
     includeProjectIdFlag: false
   });
 }
@@ -178,7 +184,14 @@ export async function create({
   }
   if (!project || reuseIfExists === false) {
     project = await shell.gcloud<Project>(
-      `projects create --name=${lib.prompts.escape(name)} ${projectId}`,
+      `projects create --name=${lib.prompts.escape(
+        name
+      )} ${await inputProjectId({
+        projectId,
+        validate:
+          project &&
+          lib.validators.exclude({ exclude: project, property: 'name' })
+      })}`,
       {
         includeProjectIdFlag: false
       }
@@ -190,7 +203,3 @@ export async function create({
   active.activate(project);
   return project;
 }
-
-export type ProjectId = string;
-export type Name = string;
-export { type Project };

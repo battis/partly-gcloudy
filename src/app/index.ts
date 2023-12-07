@@ -6,7 +6,7 @@ import * as regions from './regions';
 import * as lib from '../lib';
 
 export async function describe() {
-  return shell.gcloud<AppEngine, lib.Undefined.Value>('app describe', {
+  return await shell.gcloud<AppEngine, lib.Undefined.Value>('app describe', {
     error: lib.Undefined.callback
   });
 }
@@ -30,12 +30,12 @@ export async function create({ region }: { region?: string } = {}) {
 }
 
 export async function deploy() {
-  return shell.gcloud<DeploymentConfig>('app deploy');
+  return await shell.gcloud<DeploymentConfig>('app deploy');
 }
 
 export async function logs() {
   // TODO app logs should be configurable
-  return shell.gcloud('app logs tail -s default', {
+  return await shell.gcloud('app logs tail -s default', {
     overrideBaseFlags: true,
     flags: { format: 'text' }
   });

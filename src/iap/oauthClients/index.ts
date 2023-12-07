@@ -21,7 +21,7 @@ export async function inputDisplayName({
 
 export async function describe({ name }: { name?: string } = {}) {
   name = await selectName({ name, purpose: 'to describe' });
-  return shell.gcloud<Client, lib.Undefined.Value>(
+  return await shell.gcloud<Client, lib.Undefined.Value>(
     `iap oauth-clients describe ${name}`,
     { error: lib.Undefined.callback }
   );
@@ -32,7 +32,7 @@ export async function list({ brand }: { brand?: string } = {}) {
     brand,
     purpose: 'for which to list clients'
   });
-  return shell.gcloud<Client[]>(`iap oauth-clients list ${brand}`);
+  return await shell.gcloud<Client[]>(`iap oauth-clients list ${brand}`);
 }
 
 export async function selectName({
@@ -99,7 +99,7 @@ export async function create({
 } = {}) {
   brand = await oauthBrands.selectIdentifier({ brand, ...rest });
   displayName = await inputDisplayName({ displayName });
-  return shell.gcloud<Client>(
+  return await shell.gcloud<Client>(
     `iap oauth-clients create ${brand} --display_name="${displayName}"`
   );
 }

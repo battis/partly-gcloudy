@@ -2,8 +2,8 @@ import * as lib from '../../lib';
 import * as shell from '../../shell';
 import Tier from './Tier';
 
-export function list() {
-  return shell.gcloud<Tier[]>('sql tiers list');
+export async function list() {
+  return await shell.gcloud<Tier[]>('sql tiers list');
 }
 
 export async function selectTier({

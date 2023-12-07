@@ -3,7 +3,7 @@ import * as shell from '../../shell';
 import Region from './Region';
 
 export async function list() {
-  return shell.gcloud<Region[]>('app regions list');
+  return await shell.gcloud<Region[]>('app regions list');
 }
 
 export async function selectRegion({

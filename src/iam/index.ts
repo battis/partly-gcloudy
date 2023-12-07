@@ -34,7 +34,7 @@ export async function addPolicyBinding({
     purpose: `bind to ${member}`
   });
   projectId = await projects.selectIdentifier({ projectId });
-  return shell.gcloud<Policy>(
+  return await shell.gcloud<Policy>(
     `projects add-iam-policy-binding ${projectId} --member=${userType}:${member} --role=${role}`
   );
 }

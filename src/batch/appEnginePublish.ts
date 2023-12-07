@@ -58,7 +58,7 @@ export default async function appEnginePublish({
       // enable billing to allow enabling services later
       await billing.projects.enable({
         account: billingAccountId,
-        projectId: project.projectId
+        projectId: id
       });
 
       // enable App Engine for the project and update .env

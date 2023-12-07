@@ -10,7 +10,7 @@ export async function enable({
   account = await accounts.selectidentifier({ name: account });
   if (account) {
     projectId = await rootProjects.selectIdentifier({ projectId });
-    shell.gcloudBeta(
+    await shell.gcloudBeta(
       `billing projects link ${projectId} --billing-account=${account}`,
       { includeProjectIdFlag: false }
     );

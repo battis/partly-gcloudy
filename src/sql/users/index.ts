@@ -17,7 +17,7 @@ export async function list({
     instance,
     purpose: 'list users'
   });
-  return shell.gcloud<User[]>(`sql users list --instance=${instance}`);
+  return await shell.gcloud<User[]>(`sql users list --instance=${instance}`);
 }
 
 export async function inputUsername({
@@ -110,7 +110,7 @@ export async function describe({
   username,
   instance
 }: { username?: string; instance?: string } = {}) {
-  return shell.gcloud<User, lib.Undefined.Value>(
+  return await shell.gcloud<User, lib.Undefined.Value>(
     `sql users describe ${lib.prompts.escape(
       await selectUsername({
         username
@@ -147,7 +147,7 @@ export async function create({
   });
   password = await inputPassword({ password });
 
-  return shell.gcloud<User>(
+  return await shell.gcloud<User>(
     `sql users create ${lib.prompts.escape(
       username
     )} --host=${host} --instance=${instance} --password=${lib.prompts.escape(
@@ -181,7 +181,7 @@ export async function setPassword({
       username
     )} on Cloud SQL instance ${cli.colors.value(instance)}`
   });
-  shell.gcloud(
+  await shell.gcloud(
     `sql users set-password ${lib.prompts.escape(
       username
     )} --instance=${instance} --password=${lib.prompts.escape(password)}`

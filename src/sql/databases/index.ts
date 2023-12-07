@@ -12,7 +12,7 @@ export async function list({
   instance?: string;
 } = {}) {
   instance = await instances.selectIdentifier({ instance });
-  return shell.gcloud<Database[]>(
+  return await shell.gcloud<Database[]>(
     `gcloud sql databases list --instance=${instance}`
   );
 }
@@ -46,11 +46,13 @@ export async function selectDatabase({
     name?: DatabaseIdentifier;
     instance?: string;
   } = {}) {
-  return lib.prompts.select<Database>({
+  return await lib.prompts.select<Database>({
     arg: name,
     message: `MySQL database`,
     choices: async () =>
-      (await list({ instance })).map((d) => ({
+      (
+        await list({ instance })
+      ).map((d) => ({
         name: d.name,
         value: d
       })),
@@ -68,7 +70,7 @@ export async function describe({
   name?: string;
   instance?: string;
 }) {
-  return shell.gcloud<Database, lib.Undefined.Value>(
+  return await shell.gcloud<Database, lib.Undefined.Value>(
     `sql databases describe ${lib.prompts.escape(
       await selectDatabase({
         name
@@ -94,7 +96,7 @@ export async function create({
     purpose: 'create MySQL database'
   });
   name = await inputName({ name });
-  return shell.gcloud<Database>(
+  return await shell.gcloud<Database>(
     `sql databases create ${lib.prompts.escape(name)} --instance=${instance}${
       charset ? ` --charset=${charset}` : ''
     }${collation ? ` --collation=${collation}` : ''}`

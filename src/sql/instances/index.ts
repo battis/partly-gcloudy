@@ -12,7 +12,7 @@ type SqlInstanceIdentifier = string;
 export const active = new lib.Active<Instance>(undefined);
 
 export async function list() {
-  return shell.gcloud<Instance[]>('sql instances list');
+  return await shell.gcloud<Instance[]>('sql instances list');
 }
 
 export async function inputName({
@@ -54,7 +54,7 @@ export async function describe({
 }: {
   name?: string;
 } = {}) {
-  return shell.gcloud<Instance, lib.Undefined.Value>(
+  return await shell.gcloud<Instance, lib.Undefined.Value>(
     `sql instances describe ${await inputName({
       name,
       region: active.get()?.region

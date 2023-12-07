@@ -66,15 +66,9 @@ export async function select<Value, ReturnValue = string>({
         : (arg as unknown as Value);
     } else if (validate === true) {
       choices = await preload();
-      if (
-        choices.find((choice) =>
-          transform ? transform(choice.value) : choice.value === arg
-        )
-      ) {
-        selection = argTransform
-          ? await argTransform(arg)
-          : (arg as unknown as Value);
-      }
+      selection = choices.find((choice) =>
+        transform ? transform(choice.value) : choice.value === arg
+      )?.value;
     } else if (typeof validate === 'function' && validate(arg) === true) {
       selection = argTransform
         ? await argTransform(arg)
@@ -113,6 +107,7 @@ export async function select<Value, ReturnValue = string>({
   if (activate) {
     activate.activate(selection);
   }
+
   return transform
     ? await transform(selection)
     : (selection as unknown as ReturnValue); // TODO is there a more elegant way to phrase this?

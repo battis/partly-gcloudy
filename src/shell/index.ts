@@ -41,24 +41,23 @@ export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
   if (opt.includeProjectIdFlag) {
     opt.flags.project = activeProjectId;
   }
-  const result = cli.shell.exec(
-    `${
-      opt.pipe.in ? `${opt.pipe.in} |` : ''
-    }gcloud ${command} ${flags.stringify(opt.flags)}${
-      opt.pipe.out ? `| ${opt.pipe.out}` : ''
-    }`
-  );
+  const exec = `${
+    opt.pipe.in ? `${opt.pipe.in} |` : ''
+  }gcloud ${command} ${flags.stringify(opt.flags)}${
+    opt.pipe.out ? `| ${opt.pipe.out}` : ''
+  }`;
+  const result = cli.shell.exec(exec);
   if (result.stderr.length) {
-    if (opt.error) {
-      return opt.error(result);
-    } else {
-      throw new Error(result.stderr);
-    }
+    cli.log.warning(result.stderr, { command, options, exec });
   }
   try {
     return JSON.parse(result.stdout) as Value;
   } catch (e) {
-    return undefined as unknown as Value; // FIXME this is probably unwise
+    if (opt.error) {
+      return opt.error(result);
+    } else {
+      throw e;
+    }
   }
 }
 

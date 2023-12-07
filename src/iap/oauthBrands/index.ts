@@ -69,7 +69,7 @@ export async function list({
   projectNumber
 }: { projectNumber?: number | string } = {}) {
   projectNumber = await projects.selectProjectNumber({ projectNumber });
-  return shell.gcloud<Brand[]>(
+  return await shell.gcloud<Brand[]>(
     `iap oauth-brands list --filter=name=projects/${projectNumber}/brands/${projectNumber}`
   );
 }

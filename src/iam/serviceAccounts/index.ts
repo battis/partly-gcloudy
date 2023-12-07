@@ -43,7 +43,7 @@ export async function inputDisplayName({
 }
 
 export async function list() {
-  return shell.gcloud<ServiceAccount[]>('iam service-accounts list');
+  return await shell.gcloud<ServiceAccount[]>('iam service-accounts list');
 }
 
 export async function selectEmail({
@@ -130,17 +130,18 @@ export async function keys({
     }
     if (cautiouslyDeleteExpiredKeysIfNecessary) {
       const now = new Date();
-      keys = keys.reduce((retainedKeys: Key[], key: Key) => {
+      const retainedKeys: Key[] = [];
+      keys.forEach(async (key) => {
         const expiry = new Date(key.validBeforeTime);
         if (expiry < now) {
-          shell.gcloud(
+          await shell.gcloud(
             `iam service-accounts keys delete ${key.name} --iam-account=${email}`
           );
         } else {
           retainedKeys.push(key);
         }
-        return retainedKeys;
-      }, []);
+      });
+      keys = retainedKeys;
     }
     if (
       keys.length === MAX_KEYS &&
@@ -152,14 +153,14 @@ export async function keys({
     }
     if (keys.length === MAX_KEYS && dangerouslyDeleteAllKeysIfNecessary) {
       keys.forEach(async (key) => {
-        shell.gcloud(
+        await shell.gcloud(
           `iam service-accounts keys delete ${key.name} --iam-account=${email}`
         );
       });
       keys = [];
     }
   }
-  const key = shell.gcloud<Key>(
+  const key = await shell.gcloud<Key>(
     `iam service-accounts keys create ${path} --iam-account=${email}`
   );
   if (!key) {

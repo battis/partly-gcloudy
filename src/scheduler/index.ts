@@ -85,7 +85,7 @@ export async function setAppEngineJob({
     `scheduler jobs list --filter=appEngineHttpTarget.relativeUri=/sync --location=${location}`
   );
   if (schedule) {
-    shell.gcloud(
+    await shell.gcloud(
       `scheduler jobs update app-engine ${
         schedule.name
       } --schedule=${lib.prompts.escape(cron)}`
