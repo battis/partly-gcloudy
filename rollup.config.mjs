@@ -9,7 +9,8 @@ export default [
     input: 'src/index.ts',
     output: {
       file: 'dist/index.mjs',
-      format: 'esm'
+      format: 'esm',
+      compact: true
     },
     external: Object.keys(pkg.dependencies),
     plugins: [
@@ -20,7 +21,7 @@ export default [
   },
   {
     input: './tmp/types/index.d.ts',
-    output: [{ file: 'dist/index.d.ts', format: 'es' }],
+    output: [{ file: 'dist/index.d.ts', format: 'es', compact: true }],
     plugins: [dts()]
   }
 ];

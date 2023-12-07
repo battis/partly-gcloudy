@@ -1,5 +1,6 @@
 import cli from '@battis/qui-cli';
 import * as lib from '../../lib';
+import type { Email } from '../../lib';
 import * as projects from '../../projects';
 import * as shell from '../../shell';
 import Brand from './Brand';
@@ -25,7 +26,7 @@ export async function inputSupportEmail({
   supportEmail,
   validate,
   ...rest
-}: Partial<Parameters<typeof lib.prompts.input<lib.Email>>[0]> & {
+}: Partial<Parameters<typeof lib.prompts.input<Email>>[0]> & {
   supportEmail?: string;
 } = {}) {
   return await lib.prompts.input({
@@ -44,7 +45,7 @@ export async function create({
   activate = true
 }: {
   applicationTitle?: string;
-  supportEmail?: lib.Email;
+  supportEmail?: Email;
   project?: projects.Project;
   activate?: boolean;
 } = {}) {

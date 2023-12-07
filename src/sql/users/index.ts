@@ -1,10 +1,11 @@
 import cli from '@battis/qui-cli';
 import * as lib from '../../lib';
+import type { Email } from '../../lib';
 import * as shell from '../../shell';
 import * as instances from '../instances';
 import User from './User';
 
-type Hostname = string;
+export type Hostname = string;
 
 export const SQL_MAX_PASSWORD_LENGTH = 15;
 
@@ -24,7 +25,7 @@ export async function inputUsername({
   username,
   validate,
   ...rest
-}: Partial<Parameters<typeof lib.prompts.input<lib.Email>>[0]> & {
+}: Partial<Parameters<typeof lib.prompts.input<Email>>[0]> & {
   instance?: string;
   username?: string;
 } = {}) {
@@ -89,7 +90,7 @@ export async function selectUsername({
   ...rest
 }: Partial<lib.prompts.select.Parameters<User>> &
   Partial<Parameters<typeof create>[0]> & {
-    username?: lib.Email;
+    username?: Email;
     instance?: string;
   } = {}) {
   return await lib.prompts.select<User>({

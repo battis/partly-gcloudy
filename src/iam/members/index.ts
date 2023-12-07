@@ -1,6 +1,7 @@
 import cli from '@battis/qui-cli';
 import { getEnumValues } from '@battis/typescript-tricks';
 import * as lib from '../../lib';
+import type { Email } from '../../lib';
 import UserType from './UserType';
 
 export async function selectUserType({
@@ -29,7 +30,7 @@ export async function inputMember({
   member,
   validate,
   ...rest
-}: Partial<Parameters<typeof lib.prompts.input<lib.Email>>[0]> & {
+}: Partial<Parameters<typeof lib.prompts.input<Email>>[0]> & {
   member?: string;
 } = {}) {
   return await lib.prompts.input({
