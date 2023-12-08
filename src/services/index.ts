@@ -15,6 +15,7 @@ export async function enable({
 }: Partial<lib.prompts.select.Parameters<Service>> & {
   service?: ServiceIdentifier;
 } = {}) {
+  console.log({ service });
   service = await lib.prompts.select<Service>({
     arg: service,
     message: 'Service to enable',
@@ -29,6 +30,7 @@ export async function enable({
     transform: (s: Service) => s.config.name,
     ...rest
   });
+  console.log({ validated: service });
   return await shell.gcloud(`services enable ${service}`);
 }
 
