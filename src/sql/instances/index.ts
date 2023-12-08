@@ -100,15 +100,17 @@ export async function create({
   reuseIfExists?: boolean;
 } = {}) {
   services.enable({ service: services.API.CloudSQLAdminAPI });
-  let instance: Instance | undefined =
-    name === undefined
-      ? undefined
-      : await lib.prompts.confirm.reuse<Instance>({
-          arg: reuseIfExists,
-          argDescription: 'Cloud SQL instance',
-          instance: await describe({ name })
-        });
-
+  let instance: Instance | undefined;
+  if (name) {
+    instance = await describe({ name });
+    if (instance && reuseIfExists === undefined) {
+      reuseIfExists = !!(await lib.prompts.confirm.reuse<Instance>({
+        arg: reuseIfExists,
+        argDescription: 'Cloud SQL instance',
+        instance
+      }));
+    }
+  }
   if (!instance || reuseIfExists === false) {
     // TODO apparently no way to list available Cloud SQL regions at the moment https://cloud.google.com/sql/docs/instance-locations
     region = await app.regions.selectIdentifier({
