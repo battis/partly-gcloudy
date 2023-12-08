@@ -45,6 +45,9 @@ export async function init({
     };
 
     cachedArgs = cli.init({ ...initOptions, env, args });
+    cli.shell.setShowCommands(!!cachedArgs.values.verbose);
+    cli.shell.setSilent(!cachedArgs.values.verbose);
+
     if (
       cachedArgs.values.project ||
       process.env[cachedArgs.values.projectEnvVar]
@@ -72,9 +75,6 @@ export async function init({
         }
       }
     }
-
-    cli.shell.setShowCommands(!!cachedArgs.values.verbose);
-    cli.shell.setSilent(!cachedArgs.values.verbose);
   }
   return cachedArgs;
 }
