@@ -172,7 +172,10 @@ export async function create({
   projectId = await inputProjectId({ projectId: projectId || id });
   let project: Project | undefined;
   if (projectId) {
-    project = await describe({ projectId });
+    project = active.get();
+    if (projectId !== project?.projectId) {
+      project = await describe({ projectId });
+    }
     if (project && reuseIfExists === undefined) {
       reuseIfExists = !!(await lib.prompts.confirm.reuse<Project>({
         arg: reuseIfExists,
