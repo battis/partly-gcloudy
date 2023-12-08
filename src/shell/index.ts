@@ -47,9 +47,6 @@ export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
     opt.pipe.out ? `| ${opt.pipe.out}` : ''
   }`;
   const result = cli.shell.exec(exec);
-  if (result.stderr.length) {
-    cli.log.warning(result.stderr, { command, options, exec });
-  }
   try {
     return JSON.parse(result.stdout) as Value;
   } catch (e) {
