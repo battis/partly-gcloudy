@@ -41,7 +41,12 @@ ${services
     )
   );
   spinner.succeed(`Wrote ${cli.colors.url(filepath)}`);
-  cli.env.set({ key: API_LAST_UPDATE, value: new Date().toISOString() });
+  cli.env.delete({ key: API_LAST_UPDATE });
+  cli.env.set({
+    key: API_LAST_UPDATE,
+    value: new Date().toISOString(),
+    replace: true
+  });
 } else {
   cli.shell.echo(
     `${cli.colors.value(
