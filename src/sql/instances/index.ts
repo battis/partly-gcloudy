@@ -100,7 +100,7 @@ export async function create({
   memory?: string;
   reuseIfExists?: boolean;
 } = {}) {
-  services.enable(services.API.CloudSQLAdminAPI);
+  await services.enable(services.API.CloudSQLAdminAPI);
   let instance: Instance | undefined;
   if (name) {
     instance = await describe({ name });

@@ -8,7 +8,7 @@ type ServiceIdentifier = string;
 export async function describe({ service }: { service: ServiceIdentifier }) {
   return (
     await shell.gcloud<Service[], lib.Undefined.Value>(
-      'service list --available --filter=config.name=${service}',
+      `services list --available --filter=config.name=${service}`,
       { error: lib.Undefined.callback }
     )
   )?.shift();
@@ -26,7 +26,7 @@ export async function enable({
 } = {}) {
   service = await lib.prompts.select<Service>({
     arg: service,
-    argTransform: (service) => describe({ service }),
+    argTransform: async (service) => await describe({ service }),
     message: 'Service to enable',
     choices: async () =>
       (

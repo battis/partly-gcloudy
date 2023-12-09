@@ -5,7 +5,7 @@ import Region from './Region';
 export async function describe({ region }: { region: string }) {
   return (
     await shell.gcloud<Region[], lib.Undefined.Value>(
-      'app regions list --filter=region=${region}',
+      `app regions list --filter=region=${region}`,
       { error: lib.Undefined.callback }
     )
   )?.shift();
