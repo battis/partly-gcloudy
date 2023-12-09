@@ -20,9 +20,15 @@ dependencies:
   '@inquirer/type':
     specifier: ^1.1.5
     version: 1.1.5
+  '@types/lodash':
+    specifier: ^4.14.202
+    version: 4.14.202
   app-root-path:
     specifier: ^3.1.0
     version: 3.1.0
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   rword:
     specifier: ^3.2.1
     version: 3.2.1

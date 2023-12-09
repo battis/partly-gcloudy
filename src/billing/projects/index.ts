@@ -7,18 +7,25 @@ export async function enable({
   account,
   projectId
 }: { account?: string; projectId?: string } = {}) {
-  account = await accounts.selectidentifier({ name: account });
+  // TODO create a new billing account interactively
+  account = await accounts.selectidentifier({
+    name: account,
+    purpose: 'to link to the project'
+  });
   if (account) {
-    projectId = await rootProjects.selectIdentifier({ projectId });
+    projectId = await rootProjects.selectIdentifier({
+      projectId,
+      purpose: `to link to billing account ${cli.colors.value(account)}`
+    });
     await shell.gcloudBeta(
       `billing projects link ${projectId} --billing-account=${account}`,
       { includeProjectIdFlag: false }
     );
   } else {
-    // TODO create a new billing account interactively
-    await cli.prompts.confirm({
-      message:
-        'Confirm that you have created a billing account for this project'
-    });
+    throw new Error(
+      `Billing accounts must be create interactively at ${cli.colors.url(
+        'https://console.cloud.google.com/billing'
+      )}`
+    );
   }
 }
