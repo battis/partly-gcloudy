@@ -43,6 +43,13 @@ export async function inputDisplayName({
   });
 }
 
+export async function describe({ email }: { email: Email }) {
+  return await shell.gcloud<ServiceAccount, lib.Undefined.Value>(
+    `iam service-accounts describe ${email}`,
+    { error: lib.Undefined.callback }
+  );
+}
+
 export async function list() {
   return await shell.gcloud<ServiceAccount[]>('iam service-accounts list');
 }
@@ -56,6 +63,7 @@ export async function selectEmail({
   } = {}) {
   return lib.prompts.select({
     arg: email,
+    argTransform: async (email) => await describe({ email }),
     message: `Service account`,
     choices: async () =>
       (await list()).map((s) => ({

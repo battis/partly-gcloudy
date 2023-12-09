@@ -95,6 +95,7 @@ export async function selectUsername({
   } = {}) {
   return await lib.prompts.select<User>({
     arg: username,
+    argTransform: async (username) => await describe({ username }),
     message: `MySQL username`,
     choices: async () =>
       (
@@ -110,13 +111,14 @@ export const selectIdentifier = selectUsername;
 export async function describe({
   username,
   instance
-}: { username?: string; instance?: string } = {}) {
+}: {
+  username: string;
+  instance?: string;
+}): Promise<User | undefined> {
   return await shell.gcloud<User, lib.Undefined.Value>(
-    `sql users describe ${lib.prompts.escape(
-      await selectUsername({
-        username
-      })
-    )} --instance=${await instances.selectIdentifier({ instance })}`,
+    `sql users describe ${username} --instance=${await instances.selectIdentifier(
+      { instance }
+    )}`,
     { error: lib.Undefined.callback }
   );
 }

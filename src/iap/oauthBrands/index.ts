@@ -66,6 +66,13 @@ export async function create({
   return brand;
 }
 
+export async function describe({ name }: { name: string }) {
+  return shell.gcloud<Brand, lib.Undefined.Value>(
+    `iap oauth-brands describe ${name}`,
+    { error: lib.Undefined.callback }
+  );
+}
+
 export async function list({
   projectNumber
 }: { projectNumber?: number | string } = {}) {
@@ -87,6 +94,7 @@ export async function selectBrand({
   } = {}) {
   return await lib.prompts.select<Brand>({
     arg: brand,
+    argTransform: async (name) => await describe({ name }),
     message: 'IAP OAuth brand',
     choices: async () =>
       (
@@ -97,8 +105,8 @@ export async function selectBrand({
         desription: b.name
       })),
     transform: (b: Brand) => b.name,
-    activate: activate && active,
-    create,
+    active: activate ? active : undefined,
+    create: async (applicationTitle) => await create({ applicationTitle }),
     activateIfCreated,
     ...rest
   });

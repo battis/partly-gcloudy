@@ -67,19 +67,20 @@ export async function list() {
 
 export async function selectProjectId({
   projectId,
-  activate,
+  activate = true,
   ...rest
 }: Partial<lib.prompts.select.Parameters<Project>> &
   Partial<Parameters<typeof create>[0]> & {
     projectId?: string;
+    activate?: boolean;
   } = {}) {
   return await lib.prompts.select<Project>({
-    arg: projectId,
-    argTransform: async (projectId) => {
-      if (projectId === active.get()?.projectId) {
+    arg: projectId || active.get()?.projectId,
+    argTransform: async (id?: string) => {
+      if (id === active.get()?.projectId) {
         return active.get() as Project;
       }
-      return (await describe({ projectId })) as Project;
+      return await describe({ projectId });
     },
     message: 'Google Cloud project',
     choices: async () =>
@@ -91,8 +92,8 @@ export async function selectProjectId({
         description: p.projectId
       })),
     transform: (p: Project) => p.projectId,
-    activate: activate && active,
-    create,
+    active: activate ? active : undefined,
+    create: async (projectId?: string) => await create({ projectId }),
     ...rest
   });
 }
@@ -106,9 +107,21 @@ export async function selectProjectNumber({
 }: Partial<lib.prompts.select.Parameters<Project, string>> &
   Partial<Parameters<typeof create>[0]> & {
     projectNumber?: string | number;
+    activate?: boolean;
   } = {}) {
   return await lib.prompts.select({
     arg: projectNumber?.toString() || active.get()?.projectNumber,
+    argTransform: async (projectNumber) => {
+      if (projectNumber === active.get()?.projectNumber) {
+        return active.get();
+      } else {
+        return (
+          await shell.gcloud<Project[]>(
+            `projects list --filter=projectNumber=${projectNumber}`
+          )
+        ).shift();
+      }
+    },
     message: 'Google Cloud project',
     choices: async () =>
       (
@@ -118,9 +131,8 @@ export async function selectProjectNumber({
         value: p,
         description: p.projectNumber
       })),
-    transform: (p: Project) => p.projectId,
-    activate: activate && active,
-    create,
+    transform: (p: Project) => p.projectNumber,
+    active: activate ? active : undefined,
     ...rest
   });
 }
@@ -132,28 +144,24 @@ export async function selectProject({
 }: Partial<lib.prompts.select.Parameters<Project, Project>> &
   Partial<Parameters<typeof create>[0]> & {
     project?: Project;
+    activate?: boolean;
   } = {}) {
-  let args = {};
   if (project) {
-    args = {
-      arg: project.projectId,
-      argTransform: () => project
-    };
+    if (activate) {
+      active.activate(project);
+    }
+    return project;
   }
   return lib.prompts.select<Project, Project>({
-    ...args,
-    validate: false,
+    argTransform: () => undefined,
     message: 'Google Cloud project',
     choices: async () =>
       (await list()).map((p) => ({
         name: p.name,
-        value: p,
-        description: p.projectId
+        description: p.projectId,
+        value: p
       })),
-    transform: (p: Project) => p,
-    activate: activate && active,
-    create,
-    ...rest
+    active: activate ? active : undefined
   });
 }
 

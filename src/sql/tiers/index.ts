@@ -2,6 +2,15 @@ import * as lib from '../../lib';
 import * as shell from '../../shell';
 import Tier from './Tier';
 
+export async function describe({ tier }: { tier: string }) {
+  return (
+    await shell.gcloud<Tier[], lib.Undefined.Value>(
+      `sql tiers list --filter=tier=${tier}`,
+      { error: lib.Undefined.callback }
+    )
+  )?.shift();
+}
+
 export async function list() {
   return await shell.gcloud<Tier[]>('sql tiers list');
 }
@@ -13,6 +22,7 @@ export async function selectTier({
 } = {}) {
   return await lib.prompts.select<Tier>({
     arg: tier,
+    argTransform: async (tier) => await describe({ tier }),
     message: `Cloud SQL service tier}`,
     choices: async () =>
       (

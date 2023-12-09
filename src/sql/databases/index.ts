@@ -48,6 +48,7 @@ export async function selectDatabase({
   } = {}) {
   return await lib.prompts.select<Database>({
     arg: name,
+    argTransform: async (name) => await describe({ name }),
     message: `MySQL database`,
     choices: async () =>
       (
@@ -67,15 +68,13 @@ export async function describe({
   name,
   instance
 }: {
-  name?: string;
+  name: string;
   instance?: string;
 }) {
   return await shell.gcloud<Database, lib.Undefined.Value>(
-    `sql databases describe ${lib.prompts.escape(
-      await selectDatabase({
-        name
-      })
-    )} --instance=${await instances.selectIdentifier({ instance })}`,
+    `sql databases describe ${name} --instance=${await instances.selectIdentifier(
+      { instance }
+    )}`,
     { error: lib.Undefined.callback }
   );
 }

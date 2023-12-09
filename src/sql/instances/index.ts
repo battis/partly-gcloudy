@@ -74,6 +74,7 @@ export async function selectName({
   } = {}) {
   return await lib.prompts.select<Instance>({
     arg: instance || active.get()?.name,
+    argTransform: async (name) => await describe({ name }),
     message: `Cloud SQL instance`,
     choices: async () =>
       (await list()).map((i) => ({ name: i.name, value: i })),

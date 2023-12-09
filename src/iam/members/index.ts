@@ -1,29 +1,25 @@
 import cli from '@battis/qui-cli';
-import { getEnumValues } from '@battis/typescript-tricks';
 import * as lib from '../../lib';
 import type { Email } from '../../lib';
-import UserType from './UserType';
+
+export type UserType = 'user' | 'serviceAccount' | 'group';
 
 export async function selectUserType({
   userType,
   ...rest
 }: Partial<lib.prompts.select.Parameters> & {
   userType?: UserType;
-} = {}): Promise<UserType> {
-  return UserType[
-    (await lib.prompts.select({
-      arg: userType?.toString(),
-      validate: (value?: string) =>
-        value !== undefined &&
-        getEnumValues(UserType)
-          .map((u) => u.toString())
-          .includes(value),
-      message: `IAM user type`,
-      choices: () =>
-        getEnumValues(UserType).map((t) => ({ value: t.toString() })),
-      ...rest
-    })) as keyof typeof UserType
-  ];
+} = {}) {
+  return (await lib.prompts.select({
+    arg: userType,
+    message: `IAM user type`,
+    choices: [
+      { value: 'user' },
+      { value: 'serviceAccount' },
+      { value: 'group' }
+    ],
+    ...rest
+  })) as unknown as UserType;
 }
 
 export async function inputMember({
@@ -42,5 +38,3 @@ export async function inputMember({
 }
 
 export const inputIdentifier = inputMember;
-
-export { UserType };

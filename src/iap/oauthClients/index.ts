@@ -19,8 +19,7 @@ export async function inputDisplayName({
   });
 }
 
-export async function describe({ name }: { name?: string } = {}) {
-  name = await selectName({ name, purpose: 'to describe' });
+export async function describe({ name }: { name: string }) {
   return await shell.gcloud<Client, lib.Undefined.Value>(
     `iap oauth-clients describe ${name}`,
     { error: lib.Undefined.callback }
@@ -45,6 +44,7 @@ export async function selectName({
 } = {}) {
   return await lib.prompts.select<Client>({
     arg: name,
+    argTransform: async (name) => await describe({ name }),
     message: 'IAP OAuth client',
     choices: async () =>
       (
@@ -66,25 +66,15 @@ export async function selectClient({
     name?: string;
     brand?: string;
   } = {}) {
-  let args = {};
-  if (name) {
-    let client = await describe({ name });
-    if (client) {
-      args = {
-        arg: name,
-        argTransform: () => client
-      };
-    }
-  }
   return await lib.prompts.select<Client, Client>({
-    ...args,
+    arg: name,
+    argTransform: async (name) => await describe({ name }),
     message: 'IAP OAuth client',
     choices: async () =>
       (
         await list({ brand })
       ).map((c) => ({ name: c.displayName, value: c, description: c.name })),
-    transform: (c: Client) => c,
-    create,
+    create: async (displayName) => await create({ displayName }),
     ...rest
   });
 }
