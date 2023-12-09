@@ -61,7 +61,7 @@ export async function enable({
   brand?: string;
   client?: string;
 } = {}) {
-  await services.enable({ service: services.API.CloudIdentityAwareProxyAPI });
+  await services.enable(services.API.CloudIdentityAwareProxyAPI);
   if (project) {
     projectId = project.projectId;
   } else if (!project && !projectId) {

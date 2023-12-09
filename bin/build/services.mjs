@@ -2,8 +2,11 @@ import cli from '@battis/qui-cli';
 import fs from 'fs';
 import path from 'path';
 import * as url from 'url';
+import * as prettier from 'prettier';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+cli.shell.echo(`Dynamic build of ${cli.colors.value('gcloud.services.API')}`);
 
 cli.init({ shell: { silent: true, showCommands: false } });
 let spinner = cli.spinner('Loading Google API services...');
@@ -14,20 +17,21 @@ const services = JSON.parse(
 );
 spinner.succeed('Google API services loaded');
 
-spinner = cli.spinner('Writing src/services/API.ts...');
+const filepath = path.join(__dirname, '../../src/services/API.ts');
+spinner = cli.spinner(`Writing ${cli.colors.url(filepath)}...`);
 fs.writeFileSync(
-  path.join(__dirname, '../../src/services/API.ts'),
-  `export const API = {
+  filepath,
+  await prettier.format(
+    `export const API = {
 ${services
   .map(
     (service) =>
-      `    ${service.config.title.replace(/[^a-z0-9]+/gi, '')}: '${
+      `${service.config.title.replace(/[^a-z0-9]+/gi, '')}: {service: '${
         service.config.name
-      }',`
+      }', validate: false },`
   )
-  .join('\n')}
-};
-
-export default API;`
+  .join('\n')}}; export default API;`,
+    { filepath }
+  )
 );
-spinner.succeed('Wrote src/services/API.ts');
+spinner.succeed(`Wrote ${cli.colors.url(filepath)}`);

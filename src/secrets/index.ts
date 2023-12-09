@@ -41,7 +41,7 @@ export async function set({
     }
   }
   if (!apiEnabled) {
-    await services.enable({ service: services.API.SecretManagerAPI });
+    await services.enable(services.API.SecretManagerAPI);
     apiEnabled = true;
   }
   let [secret] = await shell.gcloud<Secret[]>(

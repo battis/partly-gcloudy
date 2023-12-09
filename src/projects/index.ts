@@ -75,6 +75,12 @@ export async function selectProjectId({
   } = {}) {
   return await lib.prompts.select<Project>({
     arg: projectId,
+    argTransform: async (projectId) => {
+      if (projectId === active.get()?.projectId) {
+        return active.get() as Project;
+      }
+      return (await describe({ projectId })) as Project;
+    },
     message: 'Google Cloud project',
     choices: async () =>
       (

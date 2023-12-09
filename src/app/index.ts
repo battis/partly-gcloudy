@@ -16,7 +16,7 @@ export async function describe() {
  * @param {Partial<CreateOptions>} options
  */
 export async function create({ region }: { region?: string } = {}) {
-  services.enable({ service: services.API.AppEngineAdminAPI });
+  services.enable(services.API.AppEngineAdminAPI);
   let instance = await describe();
   if (!instance) {
     instance = await shell.gcloud<AppEngine>(

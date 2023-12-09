@@ -5,6 +5,14 @@ import Service from './Service';
 
 type ServiceIdentifier = string;
 
+export async function describe({ service }: { service: ServiceIdentifier }) {
+  return (
+    await shell.gcloud<Service[]>(
+      'service list --available --filter=config.name=${service}'
+    )
+  )?.shift();
+}
+
 export async function list() {
   return await shell.gcloud<Service[]>('services list --available');
 }
@@ -15,9 +23,9 @@ export async function enable({
 }: Partial<lib.prompts.select.Parameters<Service>> & {
   service?: ServiceIdentifier;
 } = {}) {
-  console.log({ service });
   service = await lib.prompts.select<Service>({
     arg: service,
+    argTransform: (service) => describe({ service }) as unknown as Service,
     message: 'Service to enable',
     choices: async () =>
       (
@@ -30,7 +38,6 @@ export async function enable({
     transform: (s: Service) => s.config.name,
     ...rest
   });
-  console.log({ validated: service });
   return await shell.gcloud(`services enable ${service}`);
 }
 
