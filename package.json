@@ -21,6 +21,7 @@
     "build:google-services": "node bin/build/services.mjs",
     "build:types": "tsc -b ./tsconfig.types.json",
     "build:rollup": "rollup -c rollup.config.mjs",
+    "build:cleanup": "shx rm -rf tmp",
     "docs": "run-s docs:**",
     "docs:clean": "shx rm -rf docs/*",
     "docs:build": "typedoc --entryPointStrategy expand --tsconfig tsconfig.typedoc.json",
