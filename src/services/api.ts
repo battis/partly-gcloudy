@@ -142,6 +142,7 @@ export const API = {
     service: "artifactregistry.googleapis.com",
     validate: false,
   },
+  AssuredOSSAPI: { service: "assuredoss.googleapis.com", validate: false },
   AssuredWorkloadsAPI: {
     service: "assuredworkloads.googleapis.com",
     validate: false,
@@ -307,6 +308,7 @@ export const API = {
     service: "cloudprofiler.googleapis.com",
     validate: false,
   },
+  CloudQuotasAPI: { service: "cloudquotas.googleapis.com", validate: false },
   CloudResourceManagerAPI: {
     service: "cloudresourcemanager.googleapis.com",
     validate: false,
@@ -405,6 +407,10 @@ export const API = {
     validate: false,
   },
   CloudDataplexAPI: { service: "dataplex.googleapis.com", validate: false },
+  DataPortabilityAPI: {
+    service: "dataportability.googleapis.com",
+    validate: false,
+  },
   CloudDataprocAPI: { service: "dataproc.googleapis.com", validate: false },
   CloudDatastoreAPI: { service: "datastore.googleapis.com", validate: false },
   DatastreamAPI: { service: "datastream.googleapis.com", validate: false },
@@ -492,6 +498,10 @@ export const API = {
   },
   EnterpriseKnowledgeGraphAPI: {
     service: "enterpriseknowledgegraph.googleapis.com",
+    validate: false,
+  },
+  EnterprisePurchasingAPI: {
+    service: "enterprisepurchasing.googleapis.com",
     validate: false,
   },
   EssentialContactsAPI: {
@@ -836,7 +846,7 @@ export const API = {
     service: "mybusinessverifications.googleapis.com",
     validate: false,
   },
-  NetAppAPI: { service: "netapp.googleapis.com", validate: false },
+  NetAppVolumesAPI: { service: "netapp.googleapis.com", validate: false },
   NetworkActionsService: {
     service: "networkactions.googleapis.com",
     validate: false,
@@ -916,10 +926,6 @@ export const API = {
   GooglePickerAPI: { service: "picker.googleapis.com", validate: false },
   PlacesAPI: { service: "places-backend.googleapis.com", validate: false },
   PlacesAPINew: { service: "places.googleapis.com", validate: false },
-  PlayableLocationsAPI: {
-    service: "playablelocations.googleapis.com",
-    validate: false,
-  },
   GooglePlayCustomAppPublishingAPI: {
     service: "playcustomapp.googleapis.com",
     validate: false,
@@ -1079,6 +1085,10 @@ export const API = {
   TokenServiceAPI: { service: "securetoken.googleapis.com", validate: false },
   SecurityCommandCenterAPI: {
     service: "securitycenter.googleapis.com",
+    validate: false,
+  },
+  SecurityCenterManagementAPI: {
+    service: "securitycentermanagement.googleapis.com",
     validate: false,
   },
   SecurityPostureAPI: {
