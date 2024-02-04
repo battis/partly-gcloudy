@@ -846,7 +846,7 @@ export const API = {
     service: "mybusinessverifications.googleapis.com",
     validate: false,
   },
-  NetAppVolumesAPI: { service: "netapp.googleapis.com", validate: false },
+  NetAppAPI: { service: "netapp.googleapis.com", validate: false },
   NetworkActionsService: {
     service: "networkactions.googleapis.com",
     validate: false,
@@ -1251,7 +1251,6 @@ export const API = {
     validate: false,
   },
   CloudVisionAPI: { service: "vision.googleapis.com", validate: false },
-  VisionAIAPI: { service: "visionai.googleapis.com", validate: false },
   VMMigrationAPI: { service: "vmmigration.googleapis.com", validate: false },
   VMwareEngineAPI: { service: "vmwareengine.googleapis.com", validate: false },
   ServerlessVPCAccessAPI: {

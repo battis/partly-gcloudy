@@ -3,6 +3,11 @@ import * as lib from '../lib';
 import activeProject from '../projects/active';
 import * as flags from './flags';
 
+type Result = {
+  stdout?: string;
+  stderr?: string;
+};
+
 export type InvokeOptions<Value extends lib.Descriptor, AltValue = Value> = {
   flags: Flags;
   overrideBaseFlags: boolean;
@@ -11,7 +16,7 @@ export type InvokeOptions<Value extends lib.Descriptor, AltValue = Value> = {
     in?: string;
     out?: string;
   };
-  error?: (result: any) => Value | AltValue;
+  error?: (result: Result) => Value | AltValue;
 };
 
 export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
@@ -26,9 +31,9 @@ export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
       options?.includeProjectIdFlag === false
         ? false
         : options?.includeProjectIdFlag === true
-        ? true
-        : activeProjectId !== undefined &&
-          !new RegExp(activeProjectId).test(command),
+          ? true
+          : activeProjectId !== undefined &&
+            !new RegExp(activeProjectId).test(command),
     pipe: {
       in: options?.pipe?.in || undefined,
       out: options?.pipe?.out || undefined

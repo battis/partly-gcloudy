@@ -4,6 +4,7 @@ import AppEngine from './AppEngine';
 import DeploymentConfig from './DeploymentConfig';
 import * as regions from './regions';
 import * as lib from '../lib';
+import * as versions from './versions';
 
 export async function describe() {
   return await shell.gcloud<AppEngine, lib.Undefined.Value>('app describe', {
@@ -30,7 +31,11 @@ export async function create({ region }: { region?: string } = {}) {
 }
 
 export async function deploy() {
-  return await shell.gcloud<DeploymentConfig>('app deploy');
+  return await shell.gcloud<DeploymentConfig>('app deploy', {
+    error: (result) => {
+      throw new Error(result.stderr);
+    }
+  });
 }
 
 export async function logs() {
@@ -42,4 +47,4 @@ export async function logs() {
 }
 
 export type { AppEngine, DeploymentConfig };
-export { regions };
+export { regions, versions };
