@@ -31,7 +31,7 @@
     "release:docs:build": "run-s docs:*",
     "release:docs:publish": "node ./bin/docs/publish.mjs",
     "release:changeset": "changeset version",
-    "release:publish": "publish --otp $(op get item npm --otp)"
+    "release:publish": "pnpm publish --otp $(op get item npm --otp)"
   },
   "dependencies": {
     "@battis/qui-cli": "^0.3.9",
