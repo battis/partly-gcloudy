@@ -7,6 +7,7 @@ export async function enable({
   account,
   projectId
 }: { account?: string; projectId?: string } = {}) {
+  cli.log.debug({ projectId });
   // TODO create a new billing account interactively
   account = await accounts.selectidentifier({
     name: account,

@@ -1,20 +1,38 @@
 import cli from '@battis/qui-cli';
 import fs from 'fs';
 import path from 'path';
-import * as url from 'url';
 import * as prettier from 'prettier';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const API_LAST_UPDATE = 'API_LAST_UPDATE';
+
+const { values } = cli.init({
+  args: {
+    flags: {
+      force: {
+        short: 'f',
+        description: `Force a rebuld of ${cli.colors.value(
+          'gcloud.services.API'
+        )}`
+      }
+    }
+  },
+  shell: {
+    showCommands: false,
+    silent: true
+  }
+});
 
 const cutoff = new Date() - 24 * 60 * 60 * 1000;
 const lastUpdate = new Date(
   cli.env.get({ key: API_LAST_UPDATE }) || cutoff - 1000
 );
-if (lastUpdate <= cutoff) {
+if (lastUpdate <= cutoff || values.force) {
   cli.shell.echo(`Dynamic build of ${cli.colors.value('gcloud.services.API')}`);
 
-  cli.init({ shell: { silent: true, showCommands: false } });
   let spinner = cli.spinner('Loading Google API services...');
   const services = JSON.parse(
     cli.shell.exec(

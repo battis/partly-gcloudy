@@ -147,6 +147,7 @@ export const API = {
     service: "assuredworkloads.googleapis.com",
     validate: false,
   },
+  AuditManagerAPI: { service: "auditmanager.googleapis.com", validate: false },
   AuthorizedBuyersMarketplaceAPI: {
     service: "authorizedbuyersmarketplace.googleapis.com",
     validate: false,
@@ -273,6 +274,10 @@ export const API = {
   CloudChannelAPI: { service: "cloudchannel.googleapis.com", validate: false },
   CloudCommerceConsumerProcurementAPI: {
     service: "cloudcommerceconsumerprocurement.googleapis.com",
+    validate: false,
+  },
+  CloudControlsPartnerAPI: {
+    service: "cloudcontrolspartner.googleapis.com",
     validate: false,
   },
   CloudDeployAPI: { service: "clouddeploy.googleapis.com", validate: false },
@@ -445,7 +450,7 @@ export const API = {
     service: "distance-matrix-backend.googleapis.com",
     validate: false,
   },
-  CloudDataLossPreventionDLP: {
+  SensitiveDataProtectionDLP: {
     service: "dlp.googleapis.com",
     validate: false,
   },
@@ -632,7 +637,7 @@ export const API = {
     service: "gkemulticloud.googleapis.com",
     validate: false,
   },
-  AnthosOnPremAPI: { service: "gkeonprem.googleapis.com", validate: false },
+  GDCVirtualAPI: { service: "gkeonprem.googleapis.com", validate: false },
   GmailAPI: { service: "gmail.googleapis.com", validate: false },
   GmailPostmasterToolsAPI: {
     service: "gmailpostmastertools.googleapis.com",
@@ -758,6 +763,11 @@ export const API = {
     service: "mapsplatformdatasets.googleapis.com",
     validate: false,
   },
+  GoogleMarketingPlatformAdminAPI: {
+    service: "marketingplatformadmin.googleapis.com",
+    validate: false,
+  },
+  GoogleMeetAPI: { service: "meet.googleapis.com", validate: false },
   CloudMemorystoreforMemcachedAPI: {
     service: "memcache.googleapis.com",
     validate: false,
@@ -1042,7 +1052,10 @@ export const API = {
     service: "resourceviews.googleapis.com",
     validate: false,
   },
-  RetailAPI: { service: "retail.googleapis.com", validate: false },
+  VertexAISearchforRetailAPI: {
+    service: "retail.googleapis.com",
+    validate: false,
+  },
   RISCAPI: { service: "risc.googleapis.com", validate: false },
   RoadsAPI: { service: "roads.googleapis.com", validate: false },
   RoutesAPI: { service: "routes.googleapis.com", validate: false },
@@ -1251,6 +1264,7 @@ export const API = {
     validate: false,
   },
   CloudVisionAPI: { service: "vision.googleapis.com", validate: false },
+  VisionAIAPI: { service: "visionai.googleapis.com", validate: false },
   VMMigrationAPI: { service: "vmmigration.googleapis.com", validate: false },
   VMwareEngineAPI: { service: "vmwareengine.googleapis.com", validate: false },
   ServerlessVPCAccessAPI: {
