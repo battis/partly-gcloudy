@@ -34,7 +34,7 @@ export async function select<ChoiceType = string, ReturnType = string>({
     if (transform) {
       return await transform(selection);
     } else {
-      return selection as ReturnType;
+      return selection as unknown as ReturnType;
     }
   }
 
@@ -53,9 +53,8 @@ export async function select<ChoiceType = string, ReturnType = string>({
 
   // validate selection, if necessary
   if (selection && validate === true) {
-    selection = choices.find((choice) =>
-      _.isEqual(choice.value, selection)
-    )?.value;
+    selection = choices.find((choice) => _.isEqual(choice.value, selection))
+      ?.value;
   }
 
   // still no selection, but only a single choice

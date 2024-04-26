@@ -25,7 +25,7 @@ export async function enable({
     );
   } else {
     throw new Error(
-      `Billing accounts must be create interactively at ${cli.colors.url(
+      `Billing accounts must be created interactively at ${cli.colors.url(
         'https://console.cloud.google.com/billing'
       )}`
     );
