@@ -1,6 +1,6 @@
 {
   "name": "@battis/partly-gcloudy",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Idiosyncratic collection of interactions with `gcloud` CLI tool",
   "author": {
     "name": "Seth Battis",
@@ -22,16 +22,10 @@
     "build:types": "tsc -b ./tsconfig.types.json",
     "build:rollup": "rollup -c rollup.config.mjs",
     "build:cleanup": "shx rm -rf tmp",
-    "docs": "run-s docs:**",
-    "docs:clean": "shx rm -rf docs/*",
-    "docs:build": "typedoc --entryPointStrategy expand --tsconfig tsconfig.typedoc.json",
-    "docs:build:open": "node ./bin/docs/launch.mjs",
     "release": "run-s release:*",
-    "release:build": "run build",
-    "release:docs:build": "run-s docs:*",
-    "release:docs:publish": "node ./bin/docs/publish.mjs",
+    "release:build": "run-s build",
     "release:changeset": "changeset version",
-    "release:publish": "pnpm publish --otp $(op get item npm --otp)"
+    "release:publish": "pnpm publish --otp $(op item get npm --otp)"
   },
   "dependencies": {
     "@battis/qui-cli": "^0.4.2",
