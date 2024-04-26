@@ -1,4 +1,4 @@
-# @battis/partly-gcloudy
+# @battis/partly-gcloudy <img src="./logo.svg" style="height: 1em;" />
 
 Idiosyncratic collection of interactions with `gcloud` CLI tool
 
@@ -15,6 +15,7 @@ This is an ESM module that depends on other ESM modules, and so really can only 
 
 ```js
 import gcloud from '@battis/partly-gcloudy';
+
 await gcloud.init();
 await gcloud.app.deploy();
 ```
@@ -52,6 +53,7 @@ As I need them, I am packaging up modular batches of operations in the `gcloud.b
 
 ```js
 import gcloud from '@battis/partly-gcloudy';
+
 await gcloud.batch.appEnginePublish();
 ```
 
