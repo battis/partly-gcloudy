@@ -1073,6 +1073,10 @@ export const API = {
     validate: false,
   },
   SafeBrowsingAPI: { service: "safebrowsing.googleapis.com", validate: false },
+  GoogleShoppingforSalesforceAPI: {
+    service: "salesforceshopping.googleapis.com",
+    validate: false,
+  },
   SASPortalAPI: { service: "sasportal.googleapis.com", validate: false },
   AppsScriptAPI: { service: "script.googleapis.com", validate: false },
   SearchAds360ReportingAPI: {
