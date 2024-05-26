@@ -1,9 +1,9 @@
-import cli from '@battis/qui-cli';
 import * as lib from '../../lib';
 import type { Email } from '../../lib';
 import * as projects from '../../projects';
 import * as shell from '../../shell';
 import Brand from './Brand';
+import cli from '@battis/qui-cli';
 
 export const active = new lib.Active<Brand>(undefined);
 
@@ -11,9 +11,9 @@ export async function inputApplicationTitle({
   applicationTitle,
   validate,
   ...rest
-}: Partial<Parameters<typeof lib.prompts.input<ApplicationTitle>>[0]> & {
+}: {
   applicationTitle?: string;
-} = {}) {
+} & Partial<Parameters<typeof lib.prompts.input<ApplicationTitle>>[0]> = {}) {
   return await lib.prompts.input({
     arg: applicationTitle,
     message: 'Application title for OAuth consent dialog',
@@ -26,9 +26,9 @@ export async function inputSupportEmail({
   supportEmail,
   validate,
   ...rest
-}: Partial<Parameters<typeof lib.prompts.input<Email>>[0]> & {
+}: {
   supportEmail?: Email;
-} = {}) {
+} & Partial<Parameters<typeof lib.prompts.input<Email>>[0]> = {}) {
   return await lib.prompts.input({
     arg: supportEmail,
     message: 'Support email from OAuth consent dialog',
@@ -74,9 +74,13 @@ export async function describe({ name }: { name: string }) {
 }
 
 export async function list({
+  project,
   projectNumber
-}: { projectNumber?: number | string } = {}) {
-  projectNumber = await projects.selectProjectNumber({ projectNumber });
+}: { project?: projects.Project; projectNumber?: number | string } = {}) {
+  projectNumber =
+    project?.projectNumber ||
+    projectNumber ||
+    (await projects.selectProjectNumber({ projectNumber }));
   return await shell.gcloud<Brand[]>(
     `iap oauth-brands list --filter=name=projects/${projectNumber}/brands/${projectNumber}`
   );
@@ -87,18 +91,19 @@ export async function selectBrand({
   activate,
   activateIfCreated = true,
   ...rest
-}: Partial<lib.prompts.select.Parameters<Brand>> &
-  Partial<Parameters<typeof create>>[0] & {
-    brand?: string;
-    activate?: boolean;
-  } = {}) {
+}: {
+  brand?: string;
+  activate?: boolean;
+} & Partial<lib.prompts.select.Parameters<Brand>> &
+  Partial<Parameters<typeof create>[0]> &
+  Partial<Parameters<typeof list>[0]> = {}) {
   return await lib.prompts.select<Brand>({
     arg: brand,
     argTransform: async (name) => await describe({ name }),
     message: 'IAP OAuth brand',
     choices: async () =>
       (
-        await list()
+        await list({ ...rest })
       ).map((b) => ({
         name: b.applicationTitle,
         value: b,
@@ -106,7 +111,8 @@ export async function selectBrand({
       })),
     transform: (b: Brand) => b.name,
     active: activate ? active : undefined,
-    create: async (applicationTitle) => await create({ applicationTitle }),
+    create: async (applicationTitle) =>
+      await create({ applicationTitle, activate, ...rest }),
     activateIfCreated,
     ...rest
   });

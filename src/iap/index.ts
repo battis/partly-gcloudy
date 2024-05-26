@@ -1,5 +1,3 @@
-import cli from '@battis/qui-cli';
-import path from 'path';
 import * as iam from '../iam';
 import * as lib from '../lib';
 import type { Email } from '../lib';
@@ -8,6 +6,8 @@ import * as services from '../services';
 import * as shell from '../shell';
 import * as oauthBrands from './oauthBrands';
 import * as oauthClients from './oauthClients';
+import cli from '@battis/qui-cli';
+import path from 'path';
 
 function splitUsers(value: string) {
   return value?.split(',').map((part) => part.trim()) || [];
@@ -17,9 +17,9 @@ export async function inputUsers({
   users,
   validate,
   ...rest
-}: Partial<Parameters<typeof lib.prompts.input>[0]> & {
+}: {
   users?: string | string[];
-} = {}) {
+} & Partial<Parameters<typeof lib.prompts.input>[0]> = {}) {
   if (Array.isArray(users)) {
     users = users.join(',');
   }
@@ -51,7 +51,8 @@ export async function enable({
   project,
   projectId,
   brand,
-  client: clientArg
+  client: clientArg,
+  ...rest
 }: {
   applicationTitle?: string;
   supportEmail?: string;
@@ -60,30 +61,36 @@ export async function enable({
   projectId?: string;
   brand?: string;
   client?: string;
-} = {}) {
+} & Partial<Parameters<typeof projects.selectProject>[0]> &
+  Partial<Parameters<typeof oauthBrands.selectBrand>[0]> &
+  Partial<Parameters<typeof oauthClients.selectClient>[0]> &
+  Partial<Parameters<typeof iam.addPolicyBinding>[0]> = {}) {
   await services.enable(services.API.CloudIdentityAwareProxyAPI);
-  if (project) {
-    projectId = project.projectId;
-  } else if (!project && !projectId) {
-    projectId = (
+  projectId =
+    projectId ||
+    (
       await projects.selectProject({
         project,
-        purpose: 'for which set up IAP access'
+        id: projectId,
+        purpose: 'for which set up IAP access',
+        ...rest
       })
     ).projectId;
-  }
+
   brand = await oauthBrands.selectBrand({
     brand,
     applicationTitle,
     supportEmail,
-    project
+    project,
+    ...rest
   });
-  brand = await oauthBrands.selectBrand({ brand });
   const client = await oauthClients.selectClient({
     brand,
     name: clientArg,
     purpose: 'for IAP access',
-    default: 'IAP-App-Engine-app'
+    default: 'IAP-App-Engine-app',
+    project,
+    ...rest
   });
   await shell.gcloud(
     `iap web enable --resource-type=app-engine --oauth2-client-id=${path.basename(
@@ -96,7 +103,8 @@ export async function enable({
     iam.addPolicyBinding({
       member: user,
       role: iam.Role.IAP.WebUser,
-      projectId
+      projectId,
+      ...rest
     })
   );
 }

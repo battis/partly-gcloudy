@@ -1,9 +1,10 @@
 import cli from '@battis/qui-cli';
 import fs from 'fs';
 import path from 'path';
+import { dirname } from 'path';
 import * as prettier from 'prettier';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -59,7 +60,7 @@ ${services
     )
   );
   spinner.succeed(`Wrote ${cli.colors.url(filepath)}`);
-  cli.env.delete({ key: API_LAST_UPDATE });
+  cli.env.remove({ key: API_LAST_UPDATE });
   cli.env.set({
     key: API_LAST_UPDATE,
     value: new Date().toISOString(),

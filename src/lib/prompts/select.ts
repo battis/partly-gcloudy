@@ -1,8 +1,8 @@
-import cli from '@battis/qui-cli';
 import Active from '../Active';
 import Descriptor from '../Descriptor';
-import * as core from './core';
 import confirm from './confirm';
+import * as core from './core';
+import cli from '@battis/qui-cli';
 import _ from 'lodash';
 
 export async function select<ChoiceType = string, ReturnType = string>({
@@ -12,6 +12,7 @@ export async function select<ChoiceType = string, ReturnType = string>({
   purpose,
   choices,
   validate = true,
+  isEqual = _.isEqual,
   transform,
   active,
   create,
@@ -53,8 +54,9 @@ export async function select<ChoiceType = string, ReturnType = string>({
 
   // validate selection, if necessary
   if (selection && validate === true) {
-    selection = choices.find((choice) => _.isEqual(choice.value, selection))
-      ?.value;
+    selection = choices.find((choice) =>
+      isEqual(choice.value, selection as ChoiceType)
+    )?.value;
   }
 
   // still no selection, but only a single choice
@@ -63,8 +65,8 @@ export async function select<ChoiceType = string, ReturnType = string>({
     if (
       !create ||
       (await confirm({
-        message: `${message}${cli.colors.value(
-          choices[0].name || choices[0].value
+        message: `${message}${core.pad(
+          cli.colors.value(choices[0].name || choices[0].value)
         )}${core.pad(purpose)}`
       }))
     ) {
@@ -111,6 +113,7 @@ export namespace select {
       message: string;
       choices: Choices<ChoiceType>;
       validate?: boolean | ((value?: string) => boolean | string);
+      isEqual?: (a: ChoiceType, b: ChoiceType) => boolean;
       active?: ChoiceType extends Descriptor ? Active<ChoiceType> : never;
       create?: ChoiceType extends Descriptor ? Create<ChoiceType> : never;
       activateIfCreated?: ChoiceType extends Descriptor ? boolean : never;

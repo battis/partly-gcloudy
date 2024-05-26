@@ -1,8 +1,8 @@
-import cli from '@battis/qui-cli';
 import * as lib from '../lib';
 import * as shell from '../shell';
 import Project from './Project';
 import active from './active';
+import cli from '@battis/qui-cli';
 
 export type ProjectId = string;
 
@@ -76,13 +76,18 @@ export async function selectProjectId({
   } = {}) {
   return await lib.prompts.select<Project>({
     arg: projectId || active.get()?.projectId,
-    argTransform: async (id?: string) => {
-      if (id === active.get()?.projectId) {
-        return active.get() as Project;
+    argTransform: async (projectId?: string) => {
+      if (projectId == active.get()?.projectId) {
+        return active.get();
       }
       return await describe({ projectId });
     },
     message: 'Google Cloud project',
+    /*
+     * describe returns creation time precise to 1/1000000th of a second, but
+     * list only returns creation time precise to 1/1000th of a second
+     */
+    isEqual: (a: Project, b: Project) => a.projectId === b.projectId,
     choices: async () =>
       (
         await list()
@@ -93,7 +98,7 @@ export async function selectProjectId({
       })),
     transform: (p: Project) => p.projectId,
     active: activate ? active : undefined,
-    create: async (projectId?: string) => await create({ projectId }),
+    create: async (projectId?: string) => await create({ projectId, ...rest }),
     ...rest
   });
 }
