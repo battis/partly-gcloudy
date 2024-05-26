@@ -1,6 +1,6 @@
 {
   "name": "@battis/partly-gcloudy",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Idiosyncratic collection of interactions with `gcloud` CLI tool",
   "author": {
     "name": "Seth Battis",

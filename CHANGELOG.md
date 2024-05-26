@@ -1,5 +1,11 @@
 # @battis/partly-gcloudy
 
+## 0.4.3
+
+### Patch Changes
+
+- Fixed IAP
+
 ## 0.4.2
 
 ### Patch Changes
