@@ -1,5 +1,11 @@
 # @battis/partly-gcloudy
 
+## 0.4.4
+
+### Patch Changes
+
+- faster service enables
+
 ## 0.4.3
 
 ### Patch Changes
