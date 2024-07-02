@@ -24,21 +24,21 @@ export async function enable({
 }: Partial<lib.prompts.select.Parameters<Service>> & {
   service?: ServiceIdentifier;
 } = {}) {
-  service = await lib.prompts.select<Service>({
-    arg: service,
-    argTransform: async (service) => await describe({ service }),
-    message: 'Service to enable',
-    choices: async () =>
-      (
-        await list()
-      ).map((s) => ({
-        name: s.config.title,
-        value: s,
-        description: s.config.name
-      })),
-    transform: (s: Service) => s.config.name,
-    ...rest
-  });
+  service =
+    service ||
+    (await lib.prompts.select<Service>({
+      arg: service,
+      argTransform: async (service) => await describe({ service }),
+      message: 'Service to enable',
+      choices: async () =>
+        (await list()).map((s) => ({
+          name: s.config.title,
+          value: s,
+          description: s.config.name
+        })),
+      transform: (s: Service) => s.config.name,
+      ...rest
+    }));
   return await shell.gcloud(`services enable ${service}`);
 }
 

@@ -111,6 +111,7 @@ export const API = {
   },
   APIhubAPI: { service: "apihub.googleapis.com", validate: false },
   APIKeysAPI: { service: "apikeys.googleapis.com", validate: false },
+  APIManagementAPI: { service: "apim.googleapis.com", validate: false },
   AppDevelopmentExperienceAPI: {
     service: "appdevelopmentexperience.googleapis.com",
     validate: false,
@@ -264,7 +265,7 @@ export const API = {
   },
   GoogleClassroomAPI: { service: "classroom.googleapis.com", validate: false },
   ServiceMetadataAPI: { service: "cloud.googleapis.com", validate: false },
-  CloudAICompanionAPI: {
+  GeminiforGoogleCloud: {
     service: "cloudaicompanion.googleapis.com",
     validate: false,
   },
@@ -343,6 +344,10 @@ export const API = {
   },
   InfrastructureManagerAPI: {
     service: "config.googleapis.com",
+    validate: false,
+  },
+  ConfigDeliveryAPI: {
+    service: "configdelivery.googleapis.com",
     validate: false,
   },
   ConnectGatewayAPI: {
@@ -643,7 +648,7 @@ export const API = {
     validate: false,
   },
   GKEHubAPI: { service: "gkehub.googleapis.com", validate: false },
-  AnthosMultiCloudAPI: {
+  GKEMultiCloudAPI: {
     service: "gkemulticloud.googleapis.com",
     validate: false,
   },
@@ -735,6 +740,10 @@ export const API = {
   },
   ManagedServiceforMicrosoftActiveDirectoryAPI: {
     service: "managedidentities.googleapis.com",
+    validate: false,
+  },
+  ApacheKafkaforBigQueryAPI: {
+    service: "managedkafka.googleapis.com",
     validate: false,
   },
   ManufacturerCenterAPI: {
@@ -986,6 +995,7 @@ export const API = {
   },
   PollenAPI: { service: "pollen.googleapis.com", validate: false },
   PolyAPI: { service: "poly.googleapis.com", validate: false },
+  PrivacyPassIssuerAPI: { service: "ppissuer.googleapis.com", validate: false },
   CertificateAuthorityAPI: {
     service: "privateca.googleapis.com",
     validate: false,
@@ -1109,10 +1119,6 @@ export const API = {
     service: "secretmanager.googleapis.com",
     validate: false,
   },
-  SecuredLandingZoneAPI: {
-    service: "securedlandingzone.googleapis.com",
-    validate: false,
-  },
   TokenServiceAPI: { service: "securetoken.googleapis.com", validate: false },
   SecurityCommandCenterAPI: {
     service: "securitycenter.googleapis.com",
@@ -1170,10 +1176,6 @@ export const API = {
     validate: false,
   },
   SolarAPI: { service: "solar.googleapis.com", validate: false },
-  CloudSourceRepositoriesAPI: {
-    service: "sourcerepo.googleapis.com",
-    validate: false,
-  },
   CloudSpannerAPI: { service: "spanner.googleapis.com", validate: false },
   CloudSpeechtoTextAPI: { service: "speech.googleapis.com", validate: false },
   CloudSQL: { service: "sql-component.googleapis.com", validate: false },
@@ -1221,7 +1223,6 @@ export const API = {
     service: "subscribewithgoogledeveloper.googleapis.com",
     validate: false,
   },
-  GoogleSurveysAPI: { service: "surveys.googleapis.com", validate: false },
   TagManagerAPI: { service: "tagmanager.googleapis.com", validate: false },
   GoogleTasksAPI: { service: "tasks.googleapis.com", validate: false },
   TelemetryAPI: { service: "telemetry.googleapis.com", validate: false },
