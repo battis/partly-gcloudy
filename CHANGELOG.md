@@ -1,5 +1,11 @@
 # @battis/partly-gcloudy
 
+## 0.4.5
+
+### Patch Changes
+
+- 6d8f219: fix iam service-accounts project interpolation
+
 ## 0.4.4
 
 ### Patch Changes
