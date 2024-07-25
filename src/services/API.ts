@@ -38,6 +38,10 @@ export const API = {
   AdsDataHubAPI: { service: "adsdatahub.googleapis.com", validate: false },
   AdSenseManagementAPI: { service: "adsense.googleapis.com", validate: false },
   AdSenseHostAPI: { service: "adsensehost.googleapis.com", validate: false },
+  AdSensePlatformAPI: {
+    service: "adsenseplatform.googleapis.com",
+    validate: false,
+  },
   AdvisoryNotificationsAPI: {
     service: "advisorynotifications.googleapis.com",
     validate: false,

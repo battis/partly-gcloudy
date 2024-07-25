@@ -1,10 +1,10 @@
-import cli from '@battis/qui-cli';
 import * as lib from '../../lib';
 import type { Email } from '../../lib';
 import * as projects from '../../projects';
 import * as shell from '../../shell';
 import Key from './Key';
 import ServiceAccount from './ServiceAccount';
+import cli from '@battis/qui-cli';
 
 const MAX_KEYS = 10;
 
@@ -88,7 +88,7 @@ export async function create({
   name = await inputName({ name });
   displayName = await inputDisplayName({ displayName, default: name });
   let [serviceAccount] = await shell.gcloud<ServiceAccount[]>(
-    `iam service-accounts list --filter=email=${name}@${projects.active.get()}.iam.gserviceaccount.com`,
+    `iam service-accounts list --filter=email=${name}@${projects.active.get()?.projectId}.iam.gserviceaccount.com`,
     { includeProjectIdFlag: true }
   );
   if (!serviceAccount) {
