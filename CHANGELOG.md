@@ -1,5 +1,11 @@
 # @battis/partly-gcloudy
 
+## 0.5.1
+
+### Patch Changes
+
+- e6dfd1a: whoa, bucko
+
 ## 0.5.0
 
 ### Minor Changes
