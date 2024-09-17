@@ -57,7 +57,7 @@ export async function set({
         pipe: {
           in:
             value !== undefined
-              ? `printf ${lib.prompts.escape(value)}}`
+              ? `printf ${lib.prompts.escape(value)}`
               : undefined
         }
       }

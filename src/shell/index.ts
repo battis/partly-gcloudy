@@ -1,7 +1,7 @@
-import cli from '@battis/qui-cli';
 import * as lib from '../lib';
 import activeProject from '../projects/active';
 import * as flags from './flags';
+import cli from '@battis/qui-cli';
 
 type Result = {
   stdout?: string;
@@ -47,9 +47,9 @@ export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
     opt.flags.project = activeProjectId;
   }
   const exec = `${
-    opt.pipe.in ? `${opt.pipe.in} |` : ''
+    opt.pipe.in ? `${opt.pipe.in} | ` : ''
   }gcloud ${command} ${flags.stringify(opt.flags)}${
-    opt.pipe.out ? `| ${opt.pipe.out}` : ''
+    opt.pipe.out ? ` | ${opt.pipe.out}` : ''
   }`;
   const result = cli.shell.exec(exec);
   try {
