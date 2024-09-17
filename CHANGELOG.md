@@ -1,5 +1,11 @@
 # @battis/partly-gcloudy
 
+## 0.5.2
+
+### Patch Changes
+
+- f64f4c8: fix set secrets trailing }
+
 ## 0.5.1
 
 ### Patch Changes
