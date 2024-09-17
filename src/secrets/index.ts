@@ -1,20 +1,22 @@
-import cli from '@battis/qui-cli';
-import { RequireOnlyOne } from '@battis/typescript-tricks';
 import * as app from '../app';
 import * as iam from '../iam';
 import * as lib from '../lib';
 import * as services from '../services';
 import * as shell from '../shell';
 import Secret from './Secret';
+import * as versions from './versions';
+import cli from '@battis/qui-cli';
+import { RequireOnlyOne } from '@battis/typescript-tricks';
 
 let apiEnabled = false;
 
 export async function set({
   name,
   value,
-  path
+  path,
+  retain
 }: RequireOnlyOne<
-  { name: string; value: string; path: string },
+  { name: string; value: string; path: string; retain?: number },
   'value' | 'path'
 >) {
   name =
@@ -76,6 +78,20 @@ export async function set({
       }
     );
   }
+
+  if (retain) {
+    const v = (await versions.list({ secret: secret.name }))
+      .filter((secret) => secret.state != 'DESTROYED')
+      .sort(
+        (a, b) =>
+          new Date(a.createTime).getTime() - new Date(b.createTime).getTime()
+      );
+    while (v.length > retain) {
+      const s = v.shift();
+      s && (await versions.destroy({ secret: secret.name, version: s.name }));
+    }
+  }
+
   return secret;
 }
 
@@ -103,3 +119,4 @@ export async function enableAppEngineAccess() {
 }
 
 export { type Secret };
+export { versions };

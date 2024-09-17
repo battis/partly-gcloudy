@@ -15,7 +15,6 @@ export const API = {
     service: "accesscontextmanager.googleapis.com",
     validate: false,
   },
-  ACMEDNSAPI: { service: "acmedns.googleapis.com", validate: false },
   ActionsAPI: { service: "actions.googleapis.com", validate: false },
   AddressValidationAPI: {
     service: "addressvalidation.googleapis.com",
@@ -33,6 +32,7 @@ export const API = {
     service: "adexperiencereport.googleapis.com",
     validate: false,
   },
+  GoogleAdManagerAPI: { service: "admanager.googleapis.com", validate: false },
   AdminSDKAPI: { service: "admin.googleapis.com", validate: false },
   AdMobAPI: { service: "admob.googleapis.com", validate: false },
   AdsDataHubAPI: { service: "adsdatahub.googleapis.com", validate: false },
@@ -144,6 +144,10 @@ export const API = {
     service: "area120tables.googleapis.com",
     validate: false,
   },
+  PlacesInsightsAPI: {
+    service: "areainsights.googleapis.com",
+    validate: false,
+  },
   ArtifactRegistryAPI: {
     service: "artifactregistry.googleapis.com",
     validate: false,
@@ -220,6 +224,7 @@ export const API = {
     service: "binaryauthorization.googleapis.com",
     validate: false,
   },
+  BlockchainAPI: { service: "blockchain.googleapis.com", validate: false },
   BlockchainNodeEngineAPI: {
     service: "blockchainnodeengine.googleapis.com",
     validate: false,
@@ -269,7 +274,7 @@ export const API = {
   },
   GoogleClassroomAPI: { service: "classroom.googleapis.com", validate: false },
   ServiceMetadataAPI: { service: "cloud.googleapis.com", validate: false },
-  GeminiforGoogleCloud: {
+  GeminiforGoogleCloudAPI: {
     service: "cloudaicompanion.googleapis.com",
     validate: false,
   },
@@ -428,6 +433,10 @@ export const API = {
     validate: false,
   },
   CloudDataprocAPI: { service: "dataproc.googleapis.com", validate: false },
+  DataprocResourceManagerAPI: {
+    service: "dataprocrm.googleapis.com",
+    validate: false,
+  },
   CloudDatastoreAPI: { service: "datastore.googleapis.com", validate: false },
   DatastreamAPI: { service: "datastream.googleapis.com", validate: false },
   LookerStudioAPI: { service: "datastudio.googleapis.com", validate: false },
@@ -473,7 +482,6 @@ export const API = {
   GoogleDocsAPI: { service: "docs.googleapis.com", validate: false },
   CloudDocumentAIAPI: { service: "documentai.googleapis.com", validate: false },
   CloudDomainsAPI: { service: "domains.googleapis.com", validate: false },
-  DomainsRDAPAPI: { service: "domainsrdap.googleapis.com", validate: false },
   DoubleClickBidManagerAPI: {
     service: "doubleclickbidmanager.googleapis.com",
     validate: false,
@@ -742,11 +750,15 @@ export const API = {
     service: "looker.googleapis.com",
     validate: false,
   },
+  BigQueryEngineforApacheFlinkAPI: {
+    service: "managedflink.googleapis.com",
+    validate: false,
+  },
   ManagedServiceforMicrosoftActiveDirectoryAPI: {
     service: "managedidentities.googleapis.com",
     validate: false,
   },
-  ApacheKafkaforBigQueryAPI: {
+  ManagedServiceforApacheKafkaAPI: {
     service: "managedkafka.googleapis.com",
     validate: false,
   },
@@ -791,6 +803,7 @@ export const API = {
     service: "memcache.googleapis.com",
     validate: false,
   },
+  MemorystoreAPI: { service: "memorystore.googleapis.com", validate: false },
   MerchantAPI: { service: "merchantapi.googleapis.com", validate: false },
   MeshAPI: { service: "mesh.googleapis.com", validate: false },
   AnthosServiceMeshCertificateAuthorityAPI: {
@@ -905,6 +918,10 @@ export const API = {
     validate: false,
   },
   NotebooksAPI: { service: "notebooks.googleapis.com", validate: false },
+  NotebookSecurityScannerAPI: {
+    service: "notebooksecurityscanner.googleapis.com",
+    validate: false,
+  },
   OnDemandScanningAPI: {
     service: "ondemandscanning.googleapis.com",
     validate: false,
@@ -915,6 +932,10 @@ export const API = {
   },
   OperationsResearchAPI: {
     service: "optimization.googleapis.com",
+    validate: false,
+  },
+  OracleDatabaseGoogleCloudAPI: {
+    service: "oracledatabase.googleapis.com",
     validate: false,
   },
   OrganizationPolicyAPI: {
@@ -950,6 +971,10 @@ export const API = {
   },
   PhotosLibraryAPI: {
     service: "photoslibrary.googleapis.com",
+    validate: false,
+  },
+  GooglePhotosPickerAPI: {
+    service: "photospicker.googleapis.com",
     validate: false,
   },
   GooglePickerAPI: { service: "picker.googleapis.com", validate: false },
@@ -1198,6 +1223,10 @@ export const API = {
     validate: false,
   },
   CloudStorageAPI: { service: "storage.googleapis.com", validate: false },
+  StorageBatchOperationsAPI: {
+    service: "storagebatchoperations.googleapis.com",
+    validate: false,
+  },
   StorageInsightsAPI: {
     service: "storageinsights.googleapis.com",
     validate: false,

@@ -1,9 +1,9 @@
+import * as lib from '../lib';
 import * as services from '../services';
 import * as shell from '../shell';
 import AppEngine from './AppEngine';
 import DeploymentConfig from './DeploymentConfig';
 import * as regions from './regions';
-import * as lib from '../lib';
 import * as versions from './versions';
 
 export async function describe() {
