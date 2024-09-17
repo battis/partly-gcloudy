@@ -1,5 +1,14 @@
 # @battis/partly-gcloudy
 
+## 0.5.0
+
+### Minor Changes
+
+- 2395e69: gcloud.secrets.versions
+
+  - Added `gcloud.secrets.versions` vocabulary (partial)
+  - Added `retain` parameter to `gcloud.secrets.set()` to determine how many secret versions should be retained after setting the new value (default is all, suggested value is 1)
+
 ## 0.4.5
 
 ### Patch Changes
