@@ -1,12 +1,12 @@
-import cli from '@battis/qui-cli';
-import appRootPath from 'app-root-path';
-import path from 'path';
 import * as app from '../app';
 import * as core from '../core';
 import * as lib from '../lib';
 import * as projects from '../projects';
 import * as sql from '../sql';
 import ConditionalEnvFile from './ConditionalEnvFile';
+import cli from '@battis/qui-cli';
+import appRootPath from 'app-root-path';
+import path from 'path';
 
 export type CreateMySqlInstanceOptions = {
   project?: projects.Project;
@@ -31,7 +31,7 @@ export type CreateMySqlInstanceOptions = {
   };
 };
 
-export default async function createMySqlInstance(
+export async function createMySqlInstance(
   options?: CreateMySqlInstanceOptions
 ) {
   const _args = core.init();

@@ -13,10 +13,9 @@ let apiEnabled = false;
 export async function set({
   name,
   value,
-  path,
-  retain
+  path
 }: RequireOnlyOne<
-  { name: string; value: string; path: string; retain?: number },
+  { name: string; value: string; path: string },
   'value' | 'path'
 >) {
   name =
@@ -77,19 +76,6 @@ export async function set({
         }
       }
     );
-  }
-
-  if (retain) {
-    const v = (await versions.list({ secret: secret.name }))
-      .filter((secret) => secret.state != 'DESTROYED')
-      .sort(
-        (a, b) =>
-          new Date(a.createTime).getTime() - new Date(b.createTime).getTime()
-      );
-    while (v.length > retain) {
-      const s = v.shift();
-      s && (await versions.destroy({ secret: secret.name, version: s.name }));
-    }
   }
 
   return secret;

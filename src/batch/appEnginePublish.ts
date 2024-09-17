@@ -1,11 +1,11 @@
-import cli from '@battis/qui-cli';
-import * as core from '../core';
-import * as projects from '../projects';
 import * as app from '../app';
 import * as billing from '../billing';
+import * as core from '../core';
+import * as projects from '../projects';
 import ConditionalEnvFile from './ConditionalEnvFile';
+import cli from '@battis/qui-cli';
 
-export type EnvFile =
+type EnvFile =
   | ConditionalEnvFile
   | {
       keys: { idVar?: string; urlVar?: string };
@@ -16,7 +16,7 @@ export type PreBuildCallback = (args: {
   appEngine: app.AppEngine;
 }) => boolean;
 
-export default async function appEnginePublish({
+export async function appEnginePublish({
   name,
   id = projects.active.get()?.projectId,
   suggestedName,

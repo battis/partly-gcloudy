@@ -1,21 +1,10 @@
-import cli from '@battis/qui-cli';
+import * as app from '../app';
 import * as core from '../core';
 import * as projects from '../projects';
-import * as app from '../app';
-import ConditionalEnvFile from './ConditionalEnvFile';
+import { PreBuildCallback } from './appEnginePublish';
+import cli from '@battis/qui-cli';
 
-export type EnvFile =
-  | ConditionalEnvFile
-  | {
-      keys: { idVar?: string; urlVar?: string };
-    };
-
-export type PreBuildCallback = (args: {
-  project: projects.Project;
-  appEngine: app.AppEngine;
-}) => boolean;
-
-export default async function appEngineDeployAndCleanup({
+export async function appEngineDeployAndCleanup({
   preBuild,
   build,
   retainVersions
