@@ -1,7 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "typedocOptions": {
-    "entryPoints": ["./src"],
-    "out": "docs/docs"
-  }
-}

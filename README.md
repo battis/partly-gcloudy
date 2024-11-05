@@ -14,7 +14,7 @@ Idiosyncratic collection of interactions with `gcloud` CLI tool
 This is an ESM module that depends on other ESM modules, and so really can only feasibly be imported by ESM modules.
 
 ```js
-import gcloud from '@battis/partly-gcloudy';
+import * as gcloud from '@battis/partly-gcloudy';
 
 await gcloud.init();
 await gcloud.app.deploy();

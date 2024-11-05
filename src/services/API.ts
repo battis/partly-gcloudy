@@ -579,6 +579,10 @@ export const API = {
     service: "firebasedatabase.googleapis.com",
     validate: false,
   },
+  FirebaseDataConnectAPI: {
+    service: "firebasedataconnect.googleapis.com",
+    validate: false,
+  },
   FirebaseDynamicLinksAPI: {
     service: "firebasedynamiclinks.googleapis.com",
     validate: false,
@@ -618,6 +622,10 @@ export const API = {
   },
   CloudStorageforFirebaseAPI: {
     service: "firebasestorage.googleapis.com",
+    validate: false,
+  },
+  VertexAIinFirebaseAPI: {
+    service: "firebasevertexai.googleapis.com",
     validate: false,
   },
   CloudFirestoreAPI: { service: "firestore.googleapis.com", validate: false },
@@ -888,6 +896,7 @@ export const API = {
     service: "mybusinessverifications.googleapis.com",
     validate: false,
   },
+  NavigationSDK: { service: "navigationsdk.googleapis.com", validate: false },
   NetAppAPI: { service: "netapp.googleapis.com", validate: false },
   NetworkActionsService: {
     service: "networkactions.googleapis.com",
@@ -1153,7 +1162,7 @@ export const API = {
     service: "securitycenter.googleapis.com",
     validate: false,
   },
-  SecurityCenterManagementAPI: {
+  SecurityCommandCenterManagementAPI: {
     service: "securitycentermanagement.googleapis.com",
     validate: false,
   },
