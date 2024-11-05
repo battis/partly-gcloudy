@@ -1,5 +1,11 @@
 # @battis/partly-gcloudy
 
+## 0.6.0
+
+### Minor Changes
+
+- 8f99c59: tweak build architecture
+
 ## 0.5.2
 
 ### Patch Changes
