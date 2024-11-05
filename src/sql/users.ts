@@ -1,9 +1,9 @@
 import cli from '@battis/qui-cli';
-import * as lib from '../../lib';
-import type { Email } from '../../lib';
-import * as shell from '../../shell';
-import * as instances from '../instances';
-import User from './User';
+import type { Email } from '../lib.js';
+import * as lib from '../lib.js';
+import * as shell from '../shell.js';
+import * as instances from './instances.js';
+import User from './users/User.js';
 
 export type Hostname = string;
 
@@ -98,9 +98,10 @@ export async function selectUsername({
     argTransform: async (username) => await describe({ username }),
     message: `MySQL username`,
     choices: async () =>
-      (
-        await list({ instance })
-      ).map((u) => ({ name: `${u.name}@${u.host}`, value: u })),
+      (await list({ instance })).map((u) => ({
+        name: `${u.name}@${u.host}`,
+        value: u
+      })),
     transform: (u: User) => u.name,
     ...rest
   });

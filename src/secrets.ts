@@ -1,12 +1,12 @@
-import * as app from '../app';
-import * as iam from '../iam';
-import * as lib from '../lib';
-import * as services from '../services';
-import * as shell from '../shell';
-import Secret from './Secret';
-import * as versions from './versions';
 import cli from '@battis/qui-cli';
 import { RequireOnlyOne } from '@battis/typescript-tricks';
+import * as app from './app.js';
+import * as iam from './iam.js';
+import * as lib from './lib.js';
+import Secret from './secrets/Secret.js';
+import * as versions from './secrets/versions.js';
+import * as services from './services.js';
+import * as shell from './shell.js';
 
 let apiEnabled = false;
 
@@ -104,5 +104,4 @@ export async function enableAppEngineAccess() {
   });
 }
 
-export { type Secret };
-export { versions };
+export { versions, type Secret };

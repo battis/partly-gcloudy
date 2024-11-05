@@ -1,8 +1,8 @@
 import cli from '@battis/qui-cli';
-import * as lib from '../../lib';
-import * as shell from '../../shell';
-import * as instances from '../instances';
-import Database from './Database';
+import * as lib from '../lib.js';
+import * as shell from '../shell.js';
+import Database from './databases/Database.js';
+import * as instances from './instances.js';
 
 type DatabaseIdentifier = string;
 
@@ -51,9 +51,7 @@ export async function selectDatabase({
     argTransform: async (name) => await describe({ name }),
     message: `MySQL database`,
     choices: async () =>
-      (
-        await list({ instance })
-      ).map((d) => ({
+      (await list({ instance })).map((d) => ({
         name: d.name,
         value: d
       })),

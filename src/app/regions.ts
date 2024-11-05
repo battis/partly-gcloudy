@@ -1,6 +1,6 @@
-import * as lib from '../../lib';
-import * as shell from '../../shell';
-import Region from './Region';
+import * as lib from '../lib.js';
+import * as shell from '../shell.js';
+import Region from './regions/Region.js';
 
 export async function describe({ region }: { region: string }) {
   return (

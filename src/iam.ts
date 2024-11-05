@@ -1,10 +1,10 @@
-import * as projects from '../projects';
-import * as shell from '../shell';
-import Policy from './Policy';
-import * as Role from './Role';
-import * as members from './members';
-import * as serviceAccounts from './serviceAccounts';
 import cli from '@battis/qui-cli';
+import Policy from './iam/Policy.js';
+import * as Role from './iam/Role.js';
+import * as members from './iam/members.js';
+import * as serviceAccounts from './iam/serviceAccounts.js';
+import * as projects from './projects.js';
+import * as shell from './shell.js';
 
 export async function addPolicyBinding({
   user,
@@ -44,4 +44,4 @@ export async function addPolicyBinding({
     `projects add-iam-policy-binding ${projectId} --member=${userType}:${member} --role=${role}`
   );
 }
-export { Role, serviceAccounts, members, type Policy };
+export { Role, members, serviceAccounts, type Policy };

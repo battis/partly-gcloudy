@@ -1,7 +1,7 @@
-import * as lib from '../lib';
-import * as shell from '../shell';
-import API from './API';
-import Service from './Service';
+import * as lib from './lib.js';
+import API from './services/API.js';
+import Service from './services/Service.js';
+import * as shell from './shell.js';
 
 type ServiceIdentifier = string;
 

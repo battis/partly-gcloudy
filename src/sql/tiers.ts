@@ -1,6 +1,6 @@
-import * as lib from '../../lib';
-import * as shell from '../../shell';
-import Tier from './Tier';
+import * as lib from '../lib.js';
+import * as shell from '../shell.js';
+import Tier from './tiers/Tier.js';
 
 export async function describe({ tier }: { tier: string }) {
   return (
@@ -25,9 +25,7 @@ export async function selectTier({
     argTransform: async (tier) => await describe({ tier }),
     message: `Cloud SQL service tier}`,
     choices: async () =>
-      (
-        await list()
-      ).map((t) => ({
+      (await list()).map((t) => ({
         name: t.tier,
         value: t,
         description: t.DiskQuota

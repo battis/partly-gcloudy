@@ -1,8 +1,8 @@
-import * as lib from '../lib';
-import * as shell from '../shell';
-import Project from './Project';
-import active from './active';
 import cli from '@battis/qui-cli';
+import * as lib from './lib.js';
+import Project from './projects/Project.js';
+import active from './projects/active.js';
+import * as shell from './shell.js';
 
 export type ProjectId = string;
 
@@ -89,9 +89,7 @@ export async function selectProjectId({
      */
     isEqual: (a: Project, b: Project) => a.projectId === b.projectId,
     choices: async () =>
-      (
-        await list()
-      ).map((p) => ({
+      (await list()).map((p) => ({
         name: p.name,
         value: p,
         description: p.projectId
@@ -129,9 +127,7 @@ export async function selectProjectNumber({
     },
     message: 'Google Cloud project',
     choices: async () =>
-      (
-        await list()
-      ).map((p) => ({
+      (await list()).map((p) => ({
         name: p.name,
         value: p,
         description: p.projectNumber

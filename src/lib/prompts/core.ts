@@ -1,4 +1,4 @@
-import Parameters from './Parameters';
+import Parameters from './core/Parameters.js';
 
 export function pad(s?: string) {
   return s ? ` ${s}` : '';

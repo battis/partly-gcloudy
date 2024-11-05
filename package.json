@@ -7,8 +7,8 @@
     "name": "Seth Battis",
     "url": "https://github.com/battis"
   },
-  "main": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/gcloud.js",
+  "types": "./dist/gcloud.d.ts",
   "scripts": {
     "dev": "run-s dev:*",
     "dev:docs-worktree": "git worktree add docs ./docs",

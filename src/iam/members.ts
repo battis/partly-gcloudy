@@ -1,6 +1,6 @@
 import cli from '@battis/qui-cli';
-import * as lib from '../../lib';
-import type { Email } from '../../lib';
+import type { Email } from '../lib.js';
+import * as lib from '../lib.js';
 
 export type UserType = 'user' | 'serviceAccount' | 'group';
 

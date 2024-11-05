@@ -1,7 +1,7 @@
 import cli from '@battis/qui-cli';
-import * as rootProjects from '../../projects';
-import * as shell from '../../shell';
-import * as accounts from '../accounts';
+import * as rootProjects from '../projects.js';
+import * as shell from '../shell.js';
+import * as accounts from './accounts.js';
 
 export async function enable({
   account,

@@ -1,5 +1,5 @@
-import * as shell from '../../shell';
-import Version from './Version';
+import * as shell from '../shell.js';
+import Version from './versions/Version.js';
 
 export async function describe({
   secret,

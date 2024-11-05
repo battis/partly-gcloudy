@@ -1,7 +1,7 @@
-import * as lib from '../lib';
-import activeProject from '../projects/active';
-import * as flags from './flags';
 import cli from '@battis/qui-cli';
+import * as lib from './lib.js';
+import activeProject from './projects/active.js';
+import * as flags from './shell/flags.js';
 
 type Result = {
   stdout?: string;

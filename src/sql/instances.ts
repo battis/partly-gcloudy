@@ -1,11 +1,11 @@
 import cli from '@battis/qui-cli';
-import * as app from '../../app';
-import * as lib from '../../lib';
-import * as projects from '../../projects';
-import * as services from '../../services';
-import * as shell from '../../shell';
-import * as tiers from '../tiers';
-import Instance from './Instance';
+import * as app from '../app.js';
+import * as lib from '../lib.js';
+import * as projects from '../projects.js';
+import * as services from '../services.js';
+import * as shell from '../shell.js';
+import Instance from './instances/Instance.js';
+import * as tiers from './tiers.js';
 
 type SqlInstanceIdentifier = string;
 

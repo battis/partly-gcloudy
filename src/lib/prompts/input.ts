@@ -1,5 +1,5 @@
 import cli from '@battis/qui-cli';
-import * as core from '../core';
+import * as core from './core.js';
 
 export async function input<T extends string>({
   arg,

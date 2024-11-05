@@ -1,6 +1,6 @@
 import cli from '@battis/qui-cli';
-import * as core from '../core';
-import FReuse from './reuse';
+import FReuse from './confirm/reuse.js';
+import * as core from './core.js';
 
 export async function confirm({
   arg,

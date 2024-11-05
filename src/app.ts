@@ -1,10 +1,10 @@
-import * as lib from '../lib';
-import * as services from '../services';
-import * as shell from '../shell';
-import AppEngine from './AppEngine';
-import DeploymentConfig from './DeploymentConfig';
-import * as regions from './regions';
-import * as versions from './versions';
+import AppEngine from './app/AppEngine.js';
+import DeploymentConfig from './app/DeploymentConfig.js';
+import * as regions from './app/regions.js';
+import * as versions from './app/versions.js';
+import * as lib from './lib.js';
+import * as services from './services.js';
+import * as shell from './shell.js';
 
 export async function describe() {
   return await shell.gcloud<AppEngine, lib.Undefined.Value>('app describe', {
@@ -46,5 +46,5 @@ export async function logs() {
   });
 }
 
-export type { AppEngine, DeploymentConfig };
 export { regions, versions };
+export type { AppEngine, DeploymentConfig };

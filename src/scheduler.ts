@@ -1,8 +1,8 @@
 import cli from '@battis/qui-cli';
-import * as app from '../app';
-import * as lib from '../lib';
-import * as shell from '../shell';
-import Job from './Job';
+import * as app from './app.js';
+import * as lib from './lib.js';
+import Job from './scheduler/Job.js';
+import * as shell from './shell.js';
 
 export async function inputJobName({
   name,

@@ -1,6 +1,6 @@
-import * as lib from '../../lib';
-import * as shell from '../../shell';
-import Account from './Account';
+import * as lib from '../lib.js';
+import * as shell from '../shell.js';
+import Account from './accounts/Account.js';
 
 export const active = new lib.Active<Account>(undefined);
 
@@ -28,9 +28,7 @@ export async function selectName({
     argTransform: async (accountId) => await describe({ accountId }),
     message: 'Billing account',
     choices: async () =>
-      (
-        await list()
-      ).map((a) => ({
+      (await list()).map((a) => ({
         name: a.displayName,
         value: a,
         description: a.name,

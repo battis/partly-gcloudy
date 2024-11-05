@@ -1,10 +1,10 @@
-import * as lib from '../../lib';
-import type { Email } from '../../lib';
-import * as projects from '../../projects';
-import * as shell from '../../shell';
-import Key from './Key';
-import ServiceAccount from './ServiceAccount';
 import cli from '@battis/qui-cli';
+import type { Email } from '../lib.js';
+import * as lib from '../lib.js';
+import * as projects from '../projects.js';
+import * as shell from '../shell.js';
+import Key from './serviceAccounts/Key.js';
+import ServiceAccount from './serviceAccounts/ServiceAccount.js';
 
 const MAX_KEYS = 10;
 
@@ -183,4 +183,4 @@ export async function keys({
 export type Identifier = string;
 export type DisplayName = string;
 
-export { type ServiceAccount, type Key };
+export { type Key, type ServiceAccount };
