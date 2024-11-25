@@ -1,6 +1,8 @@
 import * as lib from '../lib.js';
 import * as shell from '../shell.js';
-import Account from './accounts/Account.js';
+import { Account } from './accounts/Account.js';
+
+export { Account };
 
 export const active = new lib.Active<Account>(undefined);
 
@@ -25,7 +27,7 @@ export async function selectName({
 } & Partial<lib.prompts.select.Parameters<Account>> = {}) {
   return await lib.prompts.select<Account>({
     arg: name,
-    argTransform: async (accountId) => await describe({ accountId }),
+    argTransform: async (accountId: string) => await describe({ accountId }),
     message: 'Billing account',
     choices: async () =>
       (await list()).map((a) => ({
@@ -40,5 +42,3 @@ export async function selectName({
 }
 
 export const selectidentifier = selectName;
-
-export { type Account };

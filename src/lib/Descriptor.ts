@@ -17,5 +17,3 @@ export namespace Descriptor {
     );
   }
 }
-
-export default Descriptor;

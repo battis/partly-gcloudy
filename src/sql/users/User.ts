@@ -9,5 +9,3 @@ export type User = {
   };
   project: string;
 };
-
-export default User;

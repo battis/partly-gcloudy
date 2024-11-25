@@ -26,5 +26,3 @@ export type Job = {
   timeZone: string;
   userUpdateTime: string;
 };
-
-export default Job;

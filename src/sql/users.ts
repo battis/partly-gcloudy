@@ -1,9 +1,10 @@
 import cli from '@battis/qui-cli';
-import type { Email } from '../lib.js';
 import * as lib from '../lib.js';
 import * as shell from '../shell.js';
 import * as instances from './instances.js';
-import User from './users/User.js';
+import { User } from './users/User.js';
+
+export { User };
 
 export type Hostname = string;
 
@@ -25,7 +26,7 @@ export async function inputUsername({
   username,
   validate,
   ...rest
-}: Partial<Parameters<typeof lib.prompts.input<Email>>[0]> & {
+}: Partial<Parameters<typeof lib.prompts.input<lib.Email>>[0]> & {
   instance?: string;
   username?: string;
 } = {}) {
@@ -90,12 +91,12 @@ export async function selectUsername({
   ...rest
 }: Partial<lib.prompts.select.Parameters<User>> &
   Partial<Parameters<typeof create>[0]> & {
-    username?: Email;
+    username?: lib.Email;
     instance?: string;
   } = {}) {
   return await lib.prompts.select<User>({
     arg: username,
-    argTransform: async (username) => await describe({ username }),
+    argTransform: async (username: string) => await describe({ username }),
     message: `MySQL username`,
     choices: async () =>
       (await list({ instance })).map((u) => ({
@@ -192,5 +193,3 @@ export async function setPassword({
   );
   return password;
 }
-
-export { type User };

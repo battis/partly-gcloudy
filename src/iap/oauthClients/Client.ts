@@ -3,5 +3,3 @@ export type Client = {
   name: string;
   secret: string;
 };
-
-export default Client;

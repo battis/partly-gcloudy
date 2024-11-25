@@ -6,5 +6,3 @@ export type Key = {
   validAfterTime: string;
   validBeforeTime: string;
 };
-
-export default Key;

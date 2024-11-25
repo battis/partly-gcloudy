@@ -4,5 +4,3 @@ export type Brand = {
   orgInternalOnly: boolean;
   supportEmail: string;
 };
-
-export default Brand;

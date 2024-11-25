@@ -20,5 +20,3 @@ export type AppEngine = {
   serviceAccount: string;
   servingStatus: string;
 };
-
-export default AppEngine;

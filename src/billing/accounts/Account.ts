@@ -4,5 +4,3 @@ export type Account = {
   name: string;
   open: boolean;
 };
-
-export default Account;

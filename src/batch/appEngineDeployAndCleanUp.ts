@@ -1,8 +1,8 @@
-import * as app from '../app';
-import * as core from '../core';
-import * as projects from '../projects';
-import { PreBuildCallback } from './appEnginePublish';
 import cli from '@battis/qui-cli';
+import * as app from '../app.js';
+import * as core from '../core.js';
+import * as projects from '../projects.js';
+import { PreBuildCallback } from './appEnginePublish.js';
 
 export async function appEngineDeployAndCleanup({
   preBuild,

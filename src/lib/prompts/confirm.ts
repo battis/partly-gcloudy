@@ -1,5 +1,5 @@
 import cli from '@battis/qui-cli';
-import FReuse from './confirm/reuse.js';
+import { reuse as FReuse } from './confirm/reuse.js';
 import * as core from './core.js';
 
 export async function confirm({
@@ -23,5 +23,3 @@ export async function confirm({
 export namespace confirm {
   export const reuse = FReuse;
 }
-
-export default confirm;

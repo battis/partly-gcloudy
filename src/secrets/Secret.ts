@@ -4,5 +4,3 @@ export type Secret = {
   name: string;
   replication: { [key: string]: string };
 };
-
-export default Secret;

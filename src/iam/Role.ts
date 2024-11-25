@@ -1,5 +1,5 @@
 import cli from '@battis/qui-cli';
-import * as lib from '../lib';
+import * as lib from '../lib.js';
 
 export const Owner = 'roles/owner';
 export const CloudSQL = {

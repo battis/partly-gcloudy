@@ -5,5 +5,3 @@ export type Tier = {
   region: string[];
   tier: string;
 };
-
-export default Tier;

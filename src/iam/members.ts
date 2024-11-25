@@ -1,8 +1,9 @@
 import cli from '@battis/qui-cli';
 import type { Email } from '../lib.js';
 import * as lib from '../lib.js';
+import { UserType } from './members/UserType.js';
 
-export type UserType = 'user' | 'serviceAccount' | 'group';
+export { UserType };
 
 export async function selectUserType({
   userType,

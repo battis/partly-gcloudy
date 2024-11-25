@@ -8,5 +8,3 @@ export type Database = {
   project: string;
   selfLink: string;
 };
-
-export default Database;

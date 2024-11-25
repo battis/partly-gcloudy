@@ -1,7 +1,6 @@
 import cli from '@battis/qui-cli';
 import { JSONPrimitiveTypes } from '@battis/typescript-tricks';
-import appRootPath from 'app-root-path';
-import path from 'path';
+import path from 'node:path';
 
 export type ConditionalEnvFile =
   | boolean
@@ -19,7 +18,7 @@ let file: string | undefined;
 
 function pathToEnvFile({
   env,
-  root = appRootPath.toString()
+  root = cli.appRoot()
 }: {
   env: ConditionalEnvFile;
   root?: string;

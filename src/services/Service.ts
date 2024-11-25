@@ -15,5 +15,3 @@ export type Service = {
   parent: string;
   state: string;
 };
-
-export default Service;

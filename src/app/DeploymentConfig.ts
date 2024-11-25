@@ -60,5 +60,3 @@ export type DeploymentConfig = {
   configs: any[];
   versions: Version[];
 };
-
-export default DeploymentConfig;

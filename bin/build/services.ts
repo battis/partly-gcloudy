@@ -1,7 +1,6 @@
 import cli from '@battis/qui-cli';
 import fs from 'fs';
-import path from 'path';
-import { dirname } from 'path';
+import path, { dirname } from 'path';
 import * as prettier from 'prettier';
 import { fileURLToPath } from 'url';
 
@@ -55,7 +54,7 @@ ${services
         service.config.name
       }', validate: false },`
   )
-  .join('\n')}}; export default API;`,
+  .join('\n')}};`,
       { filepath }
     )
   );

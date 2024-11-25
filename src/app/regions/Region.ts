@@ -4,5 +4,3 @@ export type Region = {
   search_api: boolean;
   standard: boolean;
 };
-
-export default Region;

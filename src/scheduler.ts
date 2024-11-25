@@ -1,8 +1,14 @@
 import cli from '@battis/qui-cli';
 import * as app from './app.js';
 import * as lib from './lib.js';
-import Job from './scheduler/Job.js';
+import { Job } from './scheduler/Job.js';
 import * as shell from './shell.js';
+
+export type JobName = string;
+export type Crontab = string;
+export type RelativeUrl = string;
+
+export { Job };
 
 export async function inputJobName({
   name,
@@ -99,8 +105,3 @@ export async function setAppEngineJob({
   }
   return schedule;
 }
-export type JobName = string;
-export type Crontab = string;
-export type RelativeUrl = string;
-
-export { type Job };

@@ -9,5 +9,3 @@ export type Project = {
   projectId: string;
   projectNumber: string;
 };
-
-export default Project;

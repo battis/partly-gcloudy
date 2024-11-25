@@ -1,9 +1,9 @@
-import * as app from '../app';
-import * as billing from '../billing';
-import * as core from '../core';
-import * as projects from '../projects';
-import ConditionalEnvFile from './ConditionalEnvFile';
 import cli from '@battis/qui-cli';
+import * as app from '../app.js';
+import * as billing from '../billing.js';
+import * as core from '../core.js';
+import * as projects from '../projects.js';
+import ConditionalEnvFile from './ConditionalEnvFile.js';
 
 type EnvFile =
   | ConditionalEnvFile

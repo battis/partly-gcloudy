@@ -1,5 +1,5 @@
 import cli from '@battis/qui-cli';
-import Descriptor from './Descriptor';
+import { Descriptor } from './Descriptor.js';
 
 export function exclude<T = string | Descriptor>({
   exclude,
@@ -10,5 +10,5 @@ export function exclude<T = string | Descriptor>({
   return (value?: string) =>
     (value &&
       (property ? value !== exclude[property] : property !== exclude)) ||
-    `Cannot reuse ${cli.colors.value(value)}`;
+    `Cannot reuse ${cli.colors.quotedValue(`"${value}"`)}`;
 }

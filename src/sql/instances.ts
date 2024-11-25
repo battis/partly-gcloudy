@@ -4,8 +4,10 @@ import * as lib from '../lib.js';
 import * as projects from '../projects.js';
 import * as services from '../services.js';
 import * as shell from '../shell.js';
-import Instance from './instances/Instance.js';
+import { Instance } from './instances/Instance.js';
 import * as tiers from './tiers.js';
+
+export { Instance };
 
 type SqlInstanceIdentifier = string;
 
@@ -131,5 +133,3 @@ export async function create({
   active.activate(instance);
   return instance;
 }
-
-export { type Instance };

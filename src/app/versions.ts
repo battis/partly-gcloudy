@@ -1,5 +1,7 @@
 import * as shell from '../shell.js';
-import Version from './versions/Version.js';
+import { Version } from './versions/Version.js';
+
+export { Version };
 
 export async function list({
   sortBy = '~version.createTime'
@@ -14,5 +16,3 @@ export async function list({
 export async function delete_({ version }: { version: string }) {
   return await shell.gcloud<Version>(`app versions delete ${version}`);
 }
-
-export type { Version };

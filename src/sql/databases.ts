@@ -1,8 +1,10 @@
 import cli from '@battis/qui-cli';
 import * as lib from '../lib.js';
 import * as shell from '../shell.js';
-import Database from './databases/Database.js';
+import { Database } from './databases/Database.js';
 import * as instances from './instances.js';
+
+export { Database };
 
 type DatabaseIdentifier = string;
 
@@ -99,5 +101,3 @@ export async function create({
     }${collation ? ` --collation=${collation}` : ''}`
   );
 }
-
-export { type Database };

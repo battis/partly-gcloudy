@@ -1,6 +1,8 @@
 import * as lib from '../lib.js';
 import * as shell from '../shell.js';
-import Region from './regions/Region.js';
+import { Region } from './regions/Region.js';
+
+export { Region };
 
 export async function describe({ region }: { region: string }) {
   return (
@@ -23,7 +25,7 @@ export async function selectRegion({
 } & Partial<lib.prompts.select.Parameters<Region, string>>) {
   return await lib.prompts.select<Region>({
     arg: region,
-    argTransform: async (region?) => await describe({ region }),
+    argTransform: async (region: string) => await describe({ region }),
     message: `Google Cloud region`,
     choices: async () =>
       (await list()).map((r) => ({ name: r.region, value: r })),

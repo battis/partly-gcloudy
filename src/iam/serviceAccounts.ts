@@ -3,8 +3,13 @@ import type { Email } from '../lib.js';
 import * as lib from '../lib.js';
 import * as projects from '../projects.js';
 import * as shell from '../shell.js';
-import Key from './serviceAccounts/Key.js';
-import ServiceAccount from './serviceAccounts/ServiceAccount.js';
+import { Key } from './serviceAccounts/Key.js';
+import { ServiceAccount } from './serviceAccounts/ServiceAccount.js';
+
+export type Identifier = string;
+export type DisplayName = string;
+
+export { Key, ServiceAccount };
 
 const MAX_KEYS = 10;
 
@@ -63,7 +68,7 @@ export async function selectEmail({
   } = {}) {
   return lib.prompts.select({
     arg: email,
-    argTransform: async (email) => await describe({ email }),
+    argTransform: async (email: string) => await describe({ email }),
     message: `Service account`,
     choices: async () =>
       (await list()).map((s) => ({
@@ -179,8 +184,3 @@ export async function keys({
   }
   return key;
 }
-
-export type Identifier = string;
-export type DisplayName = string;
-
-export { type Key, type ServiceAccount };

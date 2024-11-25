@@ -23,5 +23,3 @@ export async function input<T extends string>({
     }))
   );
 }
-
-export default input;

@@ -1,6 +1,4 @@
-import confirm from './prompts/confirm.js';
-import input from './prompts/input.js';
-import select from './prompts/select.js';
+export * from './prompts/confirm.js';
 export * from './prompts/core.js';
-
-export { confirm, input, select };
+export * from './prompts/input.js';
+export * from './prompts/select.js';

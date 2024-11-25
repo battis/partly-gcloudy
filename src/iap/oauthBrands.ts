@@ -1,9 +1,8 @@
-import * as lib from '../../lib';
-import type { Email } from '../../lib';
-import * as projects from '../../projects';
-import * as shell from '../../shell';
-import Brand from './Brand';
 import cli from '@battis/qui-cli';
+import * as lib from '../lib.js';
+import * as projects from '../projects.js';
+import * as shell from '../shell.js';
+import { Brand } from './oauthBrands/Brand.js';
 
 export const active = new lib.Active<Brand>(undefined);
 
@@ -27,8 +26,8 @@ export async function inputSupportEmail({
   validate,
   ...rest
 }: {
-  supportEmail?: Email;
-} & Partial<Parameters<typeof lib.prompts.input<Email>>[0]> = {}) {
+  supportEmail?: lib.Email;
+} & Partial<Parameters<typeof lib.prompts.input<lib.Email>>[0]> = {}) {
   return await lib.prompts.input({
     arg: supportEmail,
     message: 'Support email from OAuth consent dialog',
@@ -45,7 +44,7 @@ export async function create({
   activate = true
 }: {
   applicationTitle?: string;
-  supportEmail?: Email;
+  supportEmail?: lib.Email;
   project?: projects.Project;
   activate?: boolean;
 } = {}) {
@@ -99,19 +98,17 @@ export async function selectBrand({
   Partial<Parameters<typeof list>[0]> = {}) {
   return await lib.prompts.select<Brand>({
     arg: brand,
-    argTransform: async (name) => await describe({ name }),
+    argTransform: async (name: string) => await describe({ name }),
     message: 'IAP OAuth brand',
     choices: async () =>
-      (
-        await list({ ...rest })
-      ).map((b) => ({
+      (await list({ ...rest })).map((b: Brand) => ({
         name: b.applicationTitle,
         value: b,
         desription: b.name
       })),
     transform: (b: Brand) => b.name,
     active: activate ? active : undefined,
-    create: async (applicationTitle) =>
+    create: async (applicationTitle?: string) =>
       await create({ applicationTitle, activate, ...rest }),
     activateIfCreated,
     ...rest

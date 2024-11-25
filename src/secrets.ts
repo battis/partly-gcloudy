@@ -3,10 +3,12 @@ import { RequireOnlyOne } from '@battis/typescript-tricks';
 import * as app from './app.js';
 import * as iam from './iam.js';
 import * as lib from './lib.js';
-import Secret from './secrets/Secret.js';
+import { Secret } from './secrets/Secret.js';
 import * as versions from './secrets/versions.js';
 import * as services from './services.js';
 import * as shell from './shell.js';
+
+export { Secret, versions };
 
 let apiEnabled = false;
 
@@ -103,5 +105,3 @@ export async function enableAppEngineAccess() {
     role: iam.Role.SecretManager.SecretAccessor
   });
 }
-
-export { versions, type Secret };

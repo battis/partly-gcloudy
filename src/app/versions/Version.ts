@@ -1,4 +1,4 @@
-type Version = {
+export type Version = {
   environment: {
     name: string;
     value: number;
@@ -41,4 +41,3 @@ type Version = {
     versionUrl: string;
   };
 };
-export default Version;

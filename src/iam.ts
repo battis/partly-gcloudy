@@ -1,5 +1,5 @@
 import cli from '@battis/qui-cli';
-import Policy from './iam/Policy.js';
+import { Policy } from './iam/Policy.js';
 import * as Role from './iam/Role.js';
 import * as members from './iam/members.js';
 import * as serviceAccounts from './iam/serviceAccounts.js';

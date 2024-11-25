@@ -1,6 +1,6 @@
 import cli from '@battis/qui-cli';
-import Descriptor from '../../Descriptor';
-import * as core from '../core';
+import { Descriptor } from '../../Descriptor.js';
+import * as core from '../core.js';
 
 export async function reuse<T extends Descriptor>({
   arg,
@@ -31,5 +31,3 @@ export async function reuse<T extends Descriptor>({
   }
   return undefined;
 }
-
-export default reuse;

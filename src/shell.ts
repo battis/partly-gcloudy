@@ -1,7 +1,11 @@
 import cli from '@battis/qui-cli';
 import * as lib from './lib.js';
-import activeProject from './projects/active.js';
+import * as projects from './projects.js';
 import * as flags from './shell/flags.js';
+
+export type Flags = flags.Flags;
+
+export { flags };
 
 type Result = {
   stdout?: string;
@@ -23,7 +27,7 @@ export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
   command: string,
   options?: Partial<InvokeOptions<Value, AltValue>>
 ) {
-  const activeProjectId = activeProject?.get()?.projectId;
+  const activeProjectId = projects.active?.get()?.projectId;
   const opt: InvokeOptions<Value, AltValue> = {
     flags: { ...(options?.flags || {}) },
     overrideBaseFlags: options?.overrideBaseFlags || false,
@@ -69,7 +73,3 @@ export async function gcloudBeta<
 >(command: string, options?: Partial<InvokeOptions<Value, AltValue>>) {
   return gcloud<Value, AltValue>(`beta ${command}`, options);
 }
-
-export type Flags = flags.Flags;
-
-export { flags };

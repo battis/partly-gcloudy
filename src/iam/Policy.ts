@@ -8,5 +8,3 @@ export type Policy = {
   etag: string;
   version: number;
 };
-
-export default Policy;

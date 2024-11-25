@@ -1,7 +1,9 @@
 import * as lib from './lib.js';
-import API from './services/API.js';
-import Service from './services/Service.js';
+import { API } from './services/API.js';
+import { Service } from './services/Service.js';
 import * as shell from './shell.js';
+
+export { API, Service };
 
 type ServiceIdentifier = string;
 
@@ -28,7 +30,7 @@ export async function enable({
     service ||
     (await lib.prompts.select<Service>({
       arg: service,
-      argTransform: async (service) => await describe({ service }),
+      argTransform: async (service: string) => await describe({ service }),
       message: 'Service to enable',
       choices: async () =>
         (await list()).map((s) => ({
@@ -41,5 +43,3 @@ export async function enable({
     }));
   return await shell.gcloud(`services enable ${service}`);
 }
-
-export { API, type Service };

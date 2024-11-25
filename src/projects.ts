@@ -1,14 +1,14 @@
 import cli from '@battis/qui-cli';
 import * as lib from './lib.js';
-import Project from './projects/Project.js';
-import active from './projects/active.js';
+import { Project } from './projects/Project.js';
+import { active } from './projects/active.js';
 import * as shell from './shell.js';
 
 export type ProjectId = string;
 
 export type Name = string;
 
-export { type Project };
+export { Project };
 
 export async function inputProjectId({
   projectId,
@@ -114,7 +114,7 @@ export async function selectProjectNumber({
   } = {}) {
   return await lib.prompts.select({
     arg: projectNumber?.toString() || active.get()?.projectNumber,
-    argTransform: async (projectNumber) => {
+    argTransform: async (projectNumber: string) => {
       if (projectNumber === active.get()?.projectNumber) {
         return active.get();
       } else {

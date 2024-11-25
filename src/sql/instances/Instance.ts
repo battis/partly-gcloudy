@@ -64,5 +64,3 @@ export type Instance = {
   };
   state: string;
 };
-
-export default Instance;

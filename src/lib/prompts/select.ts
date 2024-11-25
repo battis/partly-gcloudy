@@ -1,9 +1,9 @@
-import Active from '../Active';
-import Descriptor from '../Descriptor';
-import confirm from './confirm';
-import * as core from './core';
 import cli from '@battis/qui-cli';
 import _ from 'lodash';
+import { Active } from '../Active.js';
+import { Descriptor } from '../Descriptor.js';
+import { confirm } from './confirm.js';
+import * as core from './core.js';
 
 export async function select<ChoiceType = string, ReturnType = string>({
   arg,
@@ -142,5 +142,3 @@ export namespace select {
     arg?: string
   ) => ChoiceType | Promise<ChoiceType>;
 }
-
-export default select;

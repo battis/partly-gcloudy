@@ -1,6 +1,6 @@
 import cli, { Arguments, Options } from '@battis/qui-cli';
 import { RecursivePartial } from '@battis/typescript-tricks';
-import * as projects from './projects';
+import * as projects from './projects.js';
 
 let cachedArgs: Arguments;
 

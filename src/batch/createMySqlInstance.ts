@@ -1,12 +1,11 @@
-import * as app from '../app';
-import * as core from '../core';
-import * as lib from '../lib';
-import * as projects from '../projects';
-import * as sql from '../sql';
-import ConditionalEnvFile from './ConditionalEnvFile';
 import cli from '@battis/qui-cli';
-import appRootPath from 'app-root-path';
-import path from 'path';
+import path from 'node:path';
+import * as app from '../app.js';
+import * as core from '../core.js';
+import * as lib from '../lib.js';
+import * as projects from '../projects.js';
+import * as sql from '../sql.js';
+import ConditionalEnvFile from './ConditionalEnvFile.js';
 
 export type CreateMySqlInstanceOptions = {
   project?: projects.Project;
@@ -85,7 +84,7 @@ export async function createMySqlInstance(
       tier
     });
     const file = path.resolve(
-      appRootPath.toString(),
+      cli.appRoot(),
       (typeof env === 'string' && env) ||
         (typeof env === 'object' && env.path) ||
         '.env'

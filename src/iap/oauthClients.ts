@@ -1,8 +1,11 @@
-import * as lib from '../../lib';
-import * as shell from '../../shell';
-import * as oauthBrands from '../oauthBrands';
-import Client from './Client';
 import cli from '@battis/qui-cli';
+import * as lib from '../lib.js';
+import * as shell from '../shell.js';
+import * as oauthBrands from './oauthBrands.js';
+import { Client } from './oauthClients/Client.js';
+
+export type DisplayName = string;
+export { type Client };
 
 export async function inputDisplayName({
   displayName,
@@ -51,12 +54,14 @@ export async function selectName({
   } = {}) {
   return await lib.prompts.select<Client>({
     arg: name,
-    argTransform: async (name) => await describe({ name }),
+    argTransform: async (name: string) => await describe({ name }),
     message: 'IAP OAuth client',
     choices: async () =>
-      (
-        await list({ brand, ...rest })
-      ).map((c) => ({ name: c.displayName, value: c, description: c.name })),
+      (await list({ brand, ...rest })).map((c) => ({
+        name: c.displayName,
+        value: c,
+        description: c.name
+      })),
     transform: (c: Client) => c.name,
     ...rest
   });
@@ -76,13 +81,16 @@ export async function selectClient({
   Partial<Parameters<typeof list>[0]> = {}) {
   return await lib.prompts.select<Client, Client>({
     arg: name,
-    argTransform: async (name) => await describe({ name }),
+    argTransform: async (name: string) => await describe({ name }),
     message: 'IAP OAuth client',
     choices: async () =>
-      (
-        await list({ brand, ...rest })
-      ).map((c) => ({ name: c.displayName, value: c, description: c.name })),
-    create: async (displayName) => await create({ displayName, ...rest }),
+      (await list({ brand, ...rest })).map((c) => ({
+        name: c.displayName,
+        value: c,
+        description: c.name
+      })),
+    create: async (displayName?: string) =>
+      await create({ displayName, ...rest }),
     ...rest
   });
 }
@@ -101,5 +109,3 @@ export async function create({
     `iap oauth-clients create ${brand} --display_name="${displayName}"`
   );
 }
-export type DisplayName = string;
-export { type Client };

@@ -1,6 +1,8 @@
 import * as lib from '../lib.js';
 import * as shell from '../shell.js';
-import Tier from './tiers/Tier.js';
+import { Tier } from './tiers/Tier.js';
+
+export { Tier };
 
 export async function describe({ tier }: { tier: string }) {
   return (
@@ -35,5 +37,3 @@ export async function selectTier({
 }
 
 export const selectIdentifier = selectTier;
-
-export { type Tier };

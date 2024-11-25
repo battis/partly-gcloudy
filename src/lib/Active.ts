@@ -1,4 +1,4 @@
-import Descriptor from './Descriptor';
+import { Descriptor } from './Descriptor.js';
 
 export class Active<T extends Descriptor> {
   public constructor(
@@ -13,5 +13,3 @@ export class Active<T extends Descriptor> {
 
   public get = () => this.instance;
 }
-
-export default Active;

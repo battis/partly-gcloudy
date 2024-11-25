@@ -1,13 +1,14 @@
-import * as iam from '../iam';
-import * as lib from '../lib';
-import type { Email } from '../lib';
-import * as projects from '../projects';
-import * as services from '../services';
-import * as shell from '../shell';
-import * as oauthBrands from './oauthBrands';
-import * as oauthClients from './oauthClients';
 import cli from '@battis/qui-cli';
-import path from 'path';
+import path from 'node:path';
+import * as iam from './iam.js';
+import * as oauthBrands from './iap/oauthBrands.js';
+import * as oauthClients from './iap/oauthClients.js';
+import * as lib from './lib.js';
+import * as projects from './projects.js';
+import * as services from './services.js';
+import * as shell from './shell.js';
+
+export { oauthBrands, oauthClients };
 
 function splitUsers(value: string) {
   return value?.split(',').map((part) => part.trim()) || [];
@@ -56,7 +57,7 @@ export async function enable({
 }: {
   applicationTitle?: string;
   supportEmail?: string;
-  users?: string | Email[];
+  users?: string | lib.Email[];
   project?: projects.Project;
   projectId?: string;
   brand?: string;
@@ -99,7 +100,7 @@ export async function enable({
   );
 
   users = await inputUsers({ users });
-  users.forEach(async (user) =>
+  users.forEach(async (user: string) =>
     iam.addPolicyBinding({
       member: user,
       role: iam.Role.IAP.WebUser,
@@ -108,5 +109,3 @@ export async function enable({
     })
   );
 }
-
-export { oauthBrands, oauthClients };

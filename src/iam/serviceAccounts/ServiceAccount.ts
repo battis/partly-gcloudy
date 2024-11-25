@@ -8,5 +8,3 @@ export type ServiceAccount = {
   projectId: string;
   uniqueId: string;
 };
-
-export default ServiceAccount;
