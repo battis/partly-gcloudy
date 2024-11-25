@@ -1,4 +1,4 @@
-# @battis/partly-gcloudy <img src="./logo.svg" style="height: 1em;" />
+# @battis/partly-gcloudy <img src="./assets/logo.svg" style="height: 1em;" />
 
 Idiosyncratic collection of interactions with `gcloud` CLI tool
 
