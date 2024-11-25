@@ -61,11 +61,11 @@ export async function init({
         projects.active.activate(cachedProject);
       } else {
         if (cachedArgs.values.project) {
-          cli.log.warning(
+          throw new Error(
             `Project ID argument ${cachedArgs.values.project} unknown`
           );
         } else if (process.env[cachedArgs.values.projectEnvVar]) {
-          cli.log.error(
+          throw new Error(
             `Project ID in .env ${cachedArgs.values.projectEnvVar} = ${
               process.env[cachedArgs.values.projectEnvVar]
             } unknown`
@@ -92,7 +92,7 @@ export function ready({ fail = true }: { fail?: boolean } = {}) {
     if (fail) {
       throw new Error(cachedReady);
     } else {
-      cli.log.fatal(cachedReady);
+      throw new Error(`${cachedReady} (ready did not expect to fail)`);
     }
   }
   return cachedReady;
