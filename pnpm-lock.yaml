@@ -37,8 +37,8 @@ importers:
         specifier: ^1.5.5
         version: 1.5.5(typescript@5.1.6)
       '@battis/typescript-tricks':
-        specifier: ^0.4.3
-        version: 0.4.3
+        specifier: ^0.7.0
+        version: 0.7.0
       '@changesets/cli':
         specifier: ^2.27.10
         version: 2.27.10
@@ -159,8 +159,8 @@ packages:
     resolution: {integrity: sha512-APsUhhJGqjo9JDGrlgpWg68mnKGciBFwvqywW9K+I7HybVDqiFJ9DDCkBjE0REZge3wuV10/NZ9e2ONFmG2Mcg==}
     engines: {node: '>=12.17'}
 
-  '@battis/typescript-tricks@0.4.3':
-    resolution: {integrity: sha512-7uHRia+kAWWXbTJFMjax3XXmTSIAAnqegLFONN9dAjMv1T5dqRTj+adkKcAlUrZBBQq3A2f0pZz8OFWNwXYTOg==}
+  '@battis/typescript-tricks@0.7.0':
+    resolution: {integrity: sha512-MdcMWCLKa0sBgEDnAI//uYAVBxZ0EP/vkGiGcFpkqd6YjlbiIqNPSH5KM1SFAlPRWP6DuUBr53Bm7UTJltqzrg==}
 
   '@changesets/apply-release-plan@7.0.6':
     resolution: {integrity: sha512-TKhVLtiwtQOgMAC0fCJfmv93faiViKSDqr8oMEqrnNs99gtSC1sZh/aEMS9a+dseU1ESZRCK+ofLgGY7o0fw/Q==}
@@ -2527,7 +2527,7 @@ snapshots:
       strip-ansi: 7.1.0
       winston: 3.17.0
 
-  '@battis/typescript-tricks@0.4.3': {}
+  '@battis/typescript-tricks@0.7.0': {}
 
   '@changesets/apply-release-plan@7.0.6':
     dependencies:
