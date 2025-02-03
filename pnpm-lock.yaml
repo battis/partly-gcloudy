@@ -38,7 +38,7 @@ importers:
         version: 1.5.5(typescript@5.7.3)
       '@battis/typescript-tricks':
         specifier: ^0.7.0
-        version: 0.7.0
+        version: 0.7.4
       '@changesets/cli':
         specifier: ^2.27.10
         version: 2.27.10
@@ -159,8 +159,8 @@ packages:
     resolution: {integrity: sha512-APsUhhJGqjo9JDGrlgpWg68mnKGciBFwvqywW9K+I7HybVDqiFJ9DDCkBjE0REZge3wuV10/NZ9e2ONFmG2Mcg==}
     engines: {node: '>=12.17'}
 
-  '@battis/typescript-tricks@0.7.0':
-    resolution: {integrity: sha512-MdcMWCLKa0sBgEDnAI//uYAVBxZ0EP/vkGiGcFpkqd6YjlbiIqNPSH5KM1SFAlPRWP6DuUBr53Bm7UTJltqzrg==}
+  '@battis/typescript-tricks@0.7.4':
+    resolution: {integrity: sha512-WCe6ShJCn1/KoIqqeyfjeYesM/RR/7woWSnRGzYrjgcG3DcGDvGpZY0nk4196oSNy1mE+98v8U/IIZTqIehEyg==}
 
   '@changesets/apply-release-plan@7.0.6':
     resolution: {integrity: sha512-TKhVLtiwtQOgMAC0fCJfmv93faiViKSDqr8oMEqrnNs99gtSC1sZh/aEMS9a+dseU1ESZRCK+ofLgGY7o0fw/Q==}
@@ -1258,8 +1258,8 @@ packages:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
 
-  import-fresh@3.3.0:
-    resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
+  import-fresh@3.3.1:
+    resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
     engines: {node: '>=6'}
 
   imurmurhash@0.1.4:
@@ -2440,7 +2440,7 @@ snapshots:
       strip-ansi: 7.1.0
       winston: 3.17.0
 
-  '@battis/typescript-tricks@0.7.0': {}
+  '@battis/typescript-tricks@0.7.4': {}
 
   '@changesets/apply-release-plan@7.0.6':
     dependencies:
@@ -2678,7 +2678,7 @@ snapshots:
       espree: 9.6.1
       globals: 13.24.0
       ignore: 5.3.2
-      import-fresh: 3.3.0
+      import-fresh: 3.3.1
       js-yaml: 4.1.0
       minimatch: 3.1.2
       strip-json-comments: 3.1.1
@@ -3783,7 +3783,7 @@ snapshots:
 
   ignore@5.3.2: {}
 
-  import-fresh@3.3.0:
+  import-fresh@3.3.1:
     dependencies:
       parent-module: 1.0.1
       resolve-from: 4.0.0
