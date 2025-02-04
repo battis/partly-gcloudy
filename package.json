@@ -8,8 +8,8 @@
     "url": "https://github.com/battis"
   },
   "type": "module",
-  "main": "./dist/gcloud.js",
-  "types": "./dist/gcloud.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "run-s dev:*",
     "dev:docs-worktree": "git worktree add docs ./docs",
