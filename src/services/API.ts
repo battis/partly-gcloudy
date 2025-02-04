@@ -579,7 +579,7 @@ export const API = {
     service: 'firebasecrashlytics.googleapis.com',
     validate: false
   },
-  FirebaseRealtimeDatabaseAPI: {
+  FirebaseRealtimeDatabaseManagementAPI: {
     service: 'firebasedatabase.googleapis.com',
     validate: false
   },
@@ -855,6 +855,7 @@ export const API = {
     service: 'mobilecrashreporting.googleapis.com',
     validate: false
   },
+  ModelArmorAPI: { service: 'modelarmor.googleapis.com', validate: false },
   CloudMonitoringAPI: { service: 'monitoring.googleapis.com', validate: false },
   PlayMoviesAnywhereAPI: {
     service: 'moviesanywhere.googleapis.com',
@@ -963,6 +964,10 @@ export const API = {
   },
   ParallelstoreAPI: {
     service: 'parallelstore.googleapis.com',
+    validate: false
+  },
+  ParameterManagerAPI: {
+    service: 'parametermanager.googleapis.com',
     validate: false
   },
   GoogleMapsBookingAPIDev: {
@@ -1119,7 +1124,7 @@ export const API = {
     service: 'resourceviews.googleapis.com',
     validate: false
   },
-  VertexAISearchforRetailAPI: {
+  VertexAISearchforcommerceAPI: {
     service: 'retail.googleapis.com',
     validate: false
   },
