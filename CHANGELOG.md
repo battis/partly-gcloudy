@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.9](https://github.com/battis/partly-gcloudy/compare/v0.6.8...v0.6.9) (2025-02-09)
+
+
+### Bug Fixes
+
+* bump qui-cli to finally resolve .env loading issues ([d0df2b0](https://github.com/battis/partly-gcloudy/commit/d0df2b03ab66aacb4b4fdb3d168c13d4e59fe1d4))
+
 ## [0.6.8](https://github.com/battis/partly-gcloudy/compare/v0.6.7...v0.6.8) (2025-02-09)
 
 
