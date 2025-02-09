@@ -1,5 +1,6 @@
 import cli from '@battis/qui-cli';
 import fs from 'fs';
+import ora from 'ora';
 import path, { dirname } from 'path';
 import * as prettier from 'prettier';
 import { fileURLToPath } from 'url';
@@ -33,7 +34,7 @@ const lastUpdate = new Date(
 if (lastUpdate <= cutoff || values.force) {
   cli.shell.echo(`Dynamic build of ${cli.colors.value('gcloud.services.API')}`);
 
-  let spinner = cli.spinner('Loading Google API services...');
+  let spinner = ora('Loading Google API services...');
   const services = JSON.parse(
     cli.shell.exec(
       `gcloud services list --available  --filter=name:googleapis.com --format=json --project=${process.env.PROJECT} --quiet`
@@ -42,7 +43,7 @@ if (lastUpdate <= cutoff || values.force) {
   spinner.succeed('Google API services loaded');
 
   const filepath = path.join(__dirname, '../../src/services/API.ts');
-  spinner = cli.spinner(`Writing ${cli.colors.url(filepath)}...`);
+  spinner = ora(`Writing ${cli.colors.url(filepath)}...`);
   fs.writeFileSync(
     filepath,
     await prettier.format(
