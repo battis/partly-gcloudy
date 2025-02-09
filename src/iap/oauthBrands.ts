@@ -31,7 +31,7 @@ export async function inputSupportEmail({
   return await lib.prompts.input({
     arg: supportEmail,
     message: 'Support email from OAuth consent dialog',
-    validate: cli.validators.combine(validate, cli.validators.email),
+    validate: cli.validators.combine(validate, cli.validators.email()),
     default: supportEmail,
     ...rest
   });

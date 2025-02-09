@@ -1,6 +1,9 @@
-import cli, { Arguments, Options } from '@battis/qui-cli';
-import { RecursivePartial } from '@battis/typescript-tricks';
+import cli from '@battis/qui-cli';
 import * as projects from './projects.js';
+
+type Arguments = {
+  values: { verbose?: boolean; project?: string; projectEnvVar: string };
+};
 
 let cachedArgs: Arguments;
 
@@ -10,69 +13,35 @@ export function args() {
   return cachedArgs;
 }
 
-export async function init({
-  env = {},
-  args = {},
-  ...initOptions
-}: RecursivePartial<Options> = {}) {
-  if (!cachedArgs) {
-    env = {
-      loadDotEnv: true,
-      setRootAsCurrentWorkingDirectory: true,
-      ...env
-    };
-    args = {
-      ...args,
-      flags: {
-        ...args.flags,
-        verbose: {
-          short: 'v',
-          description: 'Show verbose output (commands and results)'
-        }
-      },
-      options: {
-        ...args.options,
-        project: {
-          short: 'p',
-          description: 'Google Cloud project ID'
-        },
-        projectEnvVar: {
-          description:
-            'Environment variable that stores Google Cloud project ID',
-          default: 'PROJECT'
-        }
-      }
-    };
+export async function init(args: Arguments) {
+  cachedArgs = args;
+  cli.shell.setShowCommands(!!cachedArgs.values.verbose);
+  cli.shell.setSilent(!cachedArgs.values.verbose);
 
-    cachedArgs = cli.init({ ...initOptions, env, args });
-    cli.shell.setShowCommands(!!cachedArgs.values.verbose);
-    cli.shell.setSilent(!cachedArgs.values.verbose);
-
-    if (
-      cachedArgs.values.project ||
-      process.env[cachedArgs.values.projectEnvVar]
-    ) {
-      const cachedProject = await projects.describe({
-        projectId:
-          cachedArgs.values.project ||
-          process.env[cachedArgs.values.projectEnvVar]
-      });
-      if (cachedProject) {
-        projects.active.activate(cachedProject);
+  if (
+    cachedArgs.values.project ||
+    process.env[cachedArgs.values.projectEnvVar]
+  ) {
+    const cachedProject = await projects.describe({
+      projectId:
+        cachedArgs.values.project ||
+        process.env[cachedArgs.values.projectEnvVar]
+    });
+    if (cachedProject) {
+      projects.active.activate(cachedProject);
+    } else {
+      if (cachedArgs.values.project) {
+        throw new Error(
+          `Project ID argument ${cachedArgs.values.project} unknown`
+        );
+      } else if (process.env[cachedArgs.values.projectEnvVar]) {
+        throw new Error(
+          `Project ID in .env ${cachedArgs.values.projectEnvVar} = ${
+            process.env[cachedArgs.values.projectEnvVar]
+          } unknown`
+        );
       } else {
-        if (cachedArgs.values.project) {
-          throw new Error(
-            `Project ID argument ${cachedArgs.values.project} unknown`
-          );
-        } else if (process.env[cachedArgs.values.projectEnvVar]) {
-          throw new Error(
-            `Project ID in .env ${cachedArgs.values.projectEnvVar} = ${
-              process.env[cachedArgs.values.projectEnvVar]
-            } unknown`
-          );
-        } else {
-          throw new Error('Project ID unknown in unexpected manner');
-        }
+        throw new Error('Project ID unknown in unexpected manner');
       }
     }
   }

@@ -33,7 +33,7 @@ export async function inputMember({
   return await lib.prompts.input({
     arg: member,
     message: `IAM Member`,
-    validate: cli.validators.combine(validate, cli.validators.email),
+    validate: cli.validators.combine(validate, cli.validators.email()),
     ...rest
   });
 }

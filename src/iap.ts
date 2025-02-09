@@ -33,7 +33,7 @@ export async function inputUsers({
         (value?: string) =>
           (cli.validators.notEmpty(value) === true &&
             splitUsers(value || '')
-              .map(cli.validators.email)
+              .map(cli.validators.email())
               .reduce(
                 (valid: boolean, test) => valid && test === true,
                 true

@@ -1,4 +1,5 @@
 import cli from '@battis/qui-cli';
+import { confirm } from '@inquirer/prompts';
 import path from 'node:path';
 import * as app from '../app.js';
 import * as core from '../core.js';
@@ -33,7 +34,7 @@ export type CreateMySqlInstanceOptions = {
 export async function createMySqlInstance(
   options?: CreateMySqlInstanceOptions
 ) {
-  const _args = core.init();
+  const _args = core.args();
   let {
     project,
     appEngine,
@@ -55,7 +56,7 @@ export async function createMySqlInstance(
     if (
       appEngine &&
       appEngine.locationId &&
-      (await cli.prompts.confirm({
+      (await confirm({
         message: `Use region ${cli.colors.value(appEngine.locationId)}`
       }))
     ) {
@@ -84,7 +85,7 @@ export async function createMySqlInstance(
       tier
     });
     const file = path.resolve(
-      cli.appRoot(),
+      cli.appRoot,
       (typeof env === 'string' && env) ||
         (typeof env === 'object' && env.path) ||
         '.env'
