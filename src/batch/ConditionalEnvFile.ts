@@ -18,7 +18,7 @@ let file: string | undefined;
 
 function pathToEnvFile({
   env,
-  root = cli.appRoot
+  root = cli.appRoot()
 }: {
   env: ConditionalEnvFile;
   root?: string;

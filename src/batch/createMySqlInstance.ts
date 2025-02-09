@@ -85,7 +85,7 @@ export async function createMySqlInstance(
       tier
     });
     const file = path.resolve(
-      cli.appRoot,
+      cli.appRoot(),
       (typeof env === 'string' && env) ||
         (typeof env === 'object' && env.path) ||
         '.env'
