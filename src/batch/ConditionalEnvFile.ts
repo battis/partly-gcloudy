@@ -1,4 +1,5 @@
-import cli from '@battis/qui-cli';
+import { Env } from '@battis/qui-cli.env';
+import { Root } from '@battis/qui-cli.root';
 import { JSONPrimitiveTypes } from '@battis/typescript-tricks';
 import path from 'node:path';
 
@@ -18,7 +19,7 @@ let file: string | undefined;
 
 function pathToEnvFile({
   env,
-  root = cli.appRoot()
+  root = Root.path()
 }: {
   env: ConditionalEnvFile;
   root?: string;
@@ -44,7 +45,7 @@ export function readEnvFile({
 }): Record<string, ParsedValue> {
   const path = pathToEnvFile({ env });
   if (path) {
-    parsed = cli.env.parse(path);
+    parsed = Env.parse(path);
     if (parsePrimitives) {
       for (const key in parsed) {
         try {
@@ -69,7 +70,7 @@ export function writeEnvFile({ env }: { env: Record<string, ParsedValue> }) {
     );
   for (const key in env) {
     if (env[key] !== parsed[key]) {
-      cli.env.set({ key, value: env[key]!.toString(), file });
+      Env.set({ key, value: env[key]!.toString(), file });
     }
   }
 }

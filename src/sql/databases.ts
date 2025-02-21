@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
 import * as lib from '../lib.js';
 import * as shell from '../shell.js';
 import { Database } from './databases/Database.js';
@@ -29,9 +29,9 @@ export async function inputName({
   return await lib.prompts.input({
     arg: name,
     message: `MySQL database name`,
-    validate: cli.validators.combine(
-      validate,
-      cli.validators.lengthBetween(1, 64)
+    validate: Validators.combine(
+      validate || (() => true),
+      Validators.lengthBetween(1, 64)
     ),
     ...rest
   });

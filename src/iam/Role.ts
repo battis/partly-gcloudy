@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
 import * as lib from '../lib.js';
 
 export const Owner = 'roles/owner';
@@ -22,7 +22,7 @@ export async function inputRole({
   return await lib.prompts.input({
     arg: role,
     message: 'IAM role',
-    validate: cli.validators.combine(validate, cli.validators.notEmpty),
+    validate: Validators.combine(validate || (() => true), Validators.notEmpty),
     ...rest
   });
 }

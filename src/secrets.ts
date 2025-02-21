@@ -1,5 +1,6 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
 import { RequireOnlyOne } from '@battis/typescript-tricks';
+import { confirm, input } from '@inquirer/prompts';
 import * as app from './app.js';
 import * as iam from './iam.js';
 import * as lib from './lib.js';
@@ -22,24 +23,24 @@ export async function set({
 >) {
   name =
     name ||
-    (await cli.prompts.input({
+    (await input({
       message: 'Secret name',
-      validate: cli.validators.notEmpty
+      validate: Validators.notEmpty
     }));
   if (value === undefined) {
     if (
       path === undefined &&
-      !(await cli.prompts.confirm({
+      !(await confirm({
         message: 'Is this secret value stored in a file?',
         default: true
       }))
     ) {
-      value = await cli.prompts.input({ message: 'Secret value' });
+      value = await input({ message: 'Secret value' });
     } else {
       path = await lib.prompts.input({
         arg: path,
         message: 'Path to secret value',
-        validate: cli.validators.pathExists()
+        validate: Validators.pathExists()
       });
     }
   }

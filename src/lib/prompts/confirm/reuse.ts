@@ -1,4 +1,5 @@
-import cli from '@battis/qui-cli';
+import { Colors } from '@battis/qui-cli.colors';
+import { confirm } from '@inquirer/prompts';
 import { Descriptor } from '../../Descriptor.js';
 import * as core from '../core.js';
 
@@ -10,7 +11,7 @@ export async function reuse<T extends Descriptor>({
   nameIn = 'name',
   purpose,
   ...rest
-}: Omit<Parameters<typeof cli.prompts.confirm>[0], 'message'> & {
+}: Omit<Parameters<typeof confirm>[0], 'message'> & {
   arg?: boolean;
   argDescription: string;
   purpose?: string;
@@ -20,9 +21,9 @@ export async function reuse<T extends Descriptor>({
 }): Promise<T | undefined> {
   if (
     arg === true ||
-    (await cli.prompts.confirm({
+    (await confirm({
       message: `Reuse existing${core.pad(argDescription)}${core.pad(
-        cli.colors.value(name || (instance && instance[nameIn]) || '')
+        Colors.value(name || (instance && instance[nameIn]) || '')
       )}${core.pad(purpose)}`,
       ...rest
     }))

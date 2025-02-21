@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Colors } from '@battis/qui-cli.colors';
 import * as rootProjects from '../projects.js';
 import * as shell from '../shell.js';
 import * as accounts from './accounts.js';
@@ -17,7 +17,7 @@ export async function enable({
       projectId ||
       (await rootProjects.selectIdentifier({
         projectId,
-        purpose: `to link to billing account ${cli.colors.value(account)}`
+        purpose: `to link to billing account ${Colors.value(account)}`
       }));
     await shell.gcloudBeta(
       `billing projects link ${projectId} --billing-account=${account}`,
@@ -25,7 +25,7 @@ export async function enable({
     );
   } else {
     throw new Error(
-      `Billing accounts must be created interactively at ${cli.colors.url(
+      `Billing accounts must be created interactively at ${Colors.url(
         'https://console.cloud.google.com/billing'
       )}`
     );

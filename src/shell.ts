@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Shell } from '@battis/qui-cli.shell';
 import * as lib from './lib.js';
 import * as projects from './projects.js';
 import * as flags from './shell/flags.js';
@@ -55,7 +55,7 @@ export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
   }gcloud ${command} ${flags.stringify(opt.flags)}${
     opt.pipe.out ? ` | ${opt.pipe.out}` : ''
   }`;
-  const result = cli.shell.exec(exec);
+  const result = Shell.exec(exec);
   try {
     return JSON.parse(result.stdout) as Value;
   } catch (e) {

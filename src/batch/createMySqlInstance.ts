@@ -1,4 +1,6 @@
-import cli from '@battis/qui-cli';
+import { Colors } from '@battis/qui-cli.colors';
+import { Env } from '@battis/qui-cli.env';
+import { Root } from '@battis/qui-cli.root';
 import { confirm } from '@inquirer/prompts';
 import path from 'node:path';
 import * as app from '../app.js';
@@ -57,7 +59,7 @@ export async function createMySqlInstance(
       appEngine &&
       appEngine.locationId &&
       (await confirm({
-        message: `Use region ${cli.colors.value(appEngine.locationId)}`
+        message: `Use region ${Colors.value(appEngine.locationId)}`
       }))
     ) {
       region = appEngine.locationId;
@@ -85,7 +87,7 @@ export async function createMySqlInstance(
       tier
     });
     const file = path.resolve(
-      cli.appRoot(),
+      Root.path(),
       (typeof env === 'string' && env) ||
         (typeof env === 'object' && env.path) ||
         '.env'
@@ -102,27 +104,27 @@ export async function createMySqlInstance(
     const socket = `/cloudsql/${sqlInstance.connectionName}`;
     if (env) {
       if (appEngine) {
-        cli.env.set({
+        Env.set({
           key: dbSocket,
           value: socket,
           file: file,
-          comment: cli.env.exists({ key: dbSocket, file: file })
+          comment: Env.exists({ key: dbSocket, file: file })
             ? undefined
             : 'Cloud SQL MySQL credentials'
         });
-        cli.env.set({ key: dbHost, value: '', file });
-        cli.env.set({ key: dbPort, value: '', file });
+        Env.set({ key: dbHost, value: '', file });
+        Env.set({ key: dbPort, value: '', file });
       } else {
-        cli.env.set({
+        Env.set({
           key: dbHost,
           value: sqlInstance.ipAddresses[0].ipAddress,
           file
         });
-        cli.env.set({ key: dbPort, value: '3306', file });
+        Env.set({ key: dbPort, value: '3306', file });
       }
     }
 
-    const deploy = (env && cli.env.parse(file)) || {};
+    const deploy = (env && Env.parse(file)) || {};
 
     // secure root user
     rootPassword = await sql.users.setPassword({
@@ -130,7 +132,7 @@ export async function createMySqlInstance(
       password: rootPassword || deploy.DB_ROOT_PASSWORD
     });
     if (env) {
-      cli.env.set({
+      Env.set({
         key: dbRootPassword,
         value: rootPassword,
         file
@@ -143,7 +145,7 @@ export async function createMySqlInstance(
     });
     password = await sql.users.inputPassword({
       password: password || deploy.DB_PASSWORD,
-      purpose: `for MySQL user ${cli.colors.value(username)}`
+      purpose: `for MySQL user ${Colors.value(username)}`
     });
     let user = await sql.users.describe({ username });
     if (user) {
@@ -163,8 +165,8 @@ export async function createMySqlInstance(
       });
     }
     if (env) {
-      cli.env.set({ key: dbUsername, value: username, file });
-      cli.env.set({ key: dbPassword, value: password, file });
+      Env.set({ key: dbUsername, value: username, file });
+      Env.set({ key: dbPassword, value: password, file });
     }
 
     databaseName = await sql.databases.inputIdentifier({
@@ -189,7 +191,7 @@ export async function createMySqlInstance(
       });
     }
     if (env) {
-      cli.env.set({
+      Env.set({
         key: dbDatabase,
         value: database.name,
         file

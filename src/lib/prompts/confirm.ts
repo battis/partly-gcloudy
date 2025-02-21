@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { confirm as pConfirm } from '@inquirer/prompts';
 import { reuse as FReuse } from './confirm/reuse.js';
 import * as core from './core.js';
 
@@ -7,13 +7,13 @@ export async function confirm({
   message,
   purpose,
   ...rest
-}: Parameters<typeof cli.prompts.confirm>[0] & {
+}: Parameters<typeof pConfirm>[0] & {
   arg?: boolean;
   purpose?: string;
 }) {
   return (
     (arg !== undefined && arg) ||
-    (await cli.prompts.confirm({
+    (await pConfirm({
       message: `${message}${core.pad(purpose)}`,
       ...rest
     }))

@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
 import type { Email } from '../lib.js';
 import * as lib from '../lib.js';
 import { UserType } from './members/UserType.js';
@@ -33,7 +33,7 @@ export async function inputMember({
   return await lib.prompts.input({
     arg: member,
     message: `IAM Member`,
-    validate: cli.validators.combine(validate, cli.validators.email()),
+    validate: Validators.combine(validate || (() => true), Validators.email()),
     ...rest
   });
 }

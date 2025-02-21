@@ -1,4 +1,5 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
+import { confirm } from '@inquirer/prompts';
 import type { Email } from '../lib.js';
 import * as lib from '../lib.js';
 import * as projects from '../projects.js';
@@ -25,7 +26,7 @@ export async function inputName({
   return await lib.prompts.input({
     message: 'Service account name',
     arg: name,
-    validate: cli.validators.combine(validate, cli.validators.notEmpty),
+    validate: Validators.combine(validate || (() => true), Validators.notEmpty),
     default: lib.generate.projectId(),
     ...rest
   });
@@ -43,7 +44,7 @@ export async function inputDisplayName({
   return await lib.prompts.input({
     arg: displayName,
     message: 'Service account display name',
-    validate: cli.validators.combine(validate, cli.validators.notEmpty),
+    validate: Validators.combine(validate || (() => true), Validators.notEmpty),
     ...rest
   });
 }
@@ -130,7 +131,7 @@ export async function keys({
   path = await lib.prompts.input({
     arg: path,
     message: 'Path to stored credentials file',
-    validate: cli.validators.pathExists()
+    validate: Validators.pathExists()
   });
   let keys =
     (await shell.gcloud<Key[]>(
@@ -138,7 +139,7 @@ export async function keys({
     )) || [];
   if (keys.length === MAX_KEYS) {
     if (cautiouslyDeleteExpiredKeysIfNecessary === undefined) {
-      cautiouslyDeleteExpiredKeysIfNecessary = !!(await cli.prompts.confirm({
+      cautiouslyDeleteExpiredKeysIfNecessary = !!(await confirm({
         message: `${keys.length} keys already exist, delete expired keys?`
       }));
     }
@@ -161,7 +162,7 @@ export async function keys({
       keys.length === MAX_KEYS &&
       dangerouslyDeleteAllKeysIfNecessary === undefined
     ) {
-      dangerouslyDeleteAllKeysIfNecessary = !!(await cli.prompts.confirm({
+      dangerouslyDeleteAllKeysIfNecessary = !!(await confirm({
         message: `${keys.length} keys already exist, delete all keys?`
       }));
     }

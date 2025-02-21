@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
 import * as lib from '../lib.js';
 import * as projects from '../projects.js';
 import * as shell from '../shell.js';
@@ -16,7 +16,7 @@ export async function inputApplicationTitle({
   return await lib.prompts.input({
     arg: applicationTitle,
     message: 'Application title for OAuth consent dialog',
-    validate: cli.validators.combine(validate, cli.validators.notEmpty),
+    validate: Validators.combine(validate || (() => true), Validators.notEmpty),
     ...rest
   });
 }
@@ -31,7 +31,7 @@ export async function inputSupportEmail({
   return await lib.prompts.input({
     arg: supportEmail,
     message: 'Support email from OAuth consent dialog',
-    validate: cli.validators.combine(validate, cli.validators.email()),
+    validate: Validators.combine(validate || (() => true), Validators.email()),
     default: supportEmail,
     ...rest
   });

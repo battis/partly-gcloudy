@@ -1,4 +1,5 @@
-import cli from '@battis/qui-cli';
+import { Colors } from '@battis/qui-cli.colors';
+import { select as pSelect } from '@inquirer/prompts';
 import _ from 'lodash';
 import { Active } from '../Active.js';
 import { Descriptor } from '../Descriptor.js';
@@ -66,7 +67,7 @@ export async function select<ChoiceType = string, ReturnType = string>({
       !create ||
       (await confirm({
         message: `${message}${core.pad(
-          cli.colors.value(choices[0].name || choices[0].value)
+          Colors.value(choices[0].name || choices[0].value)
         )}${core.pad(purpose)}`
       }))
     ) {
@@ -79,7 +80,7 @@ export async function select<ChoiceType = string, ReturnType = string>({
 
   // interactively make selection if not yet made
   if (!selection) {
-    selection = await cli.prompts.select({
+    selection = await pSelect({
       message: `${message}${core.pad(purpose)}`,
       choices,
       validate,

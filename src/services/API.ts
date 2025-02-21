@@ -444,6 +444,7 @@ export const API = {
     service: "deploymentmanager.googleapis.com",
     validate: false,
   },
+  DesignCenterAPI: { service: "designcenter.googleapis.com", validate: false },
   DeveloperConnectAPI: {
     service: "developerconnect.googleapis.com",
     validate: false,
@@ -691,7 +692,7 @@ export const API = {
     service: "groupssettings.googleapis.com",
     validate: false,
   },
-  GoogleWorkspaceAddonsAPI: {
+  GoogleWorkspaceaddonsAPI: {
     service: "gsuiteaddons.googleapis.com",
     validate: false,
   },

@@ -1,4 +1,5 @@
-import cli from '@battis/qui-cli';
+import { Colors } from '@battis/qui-cli.colors';
+import { Shell } from '@battis/qui-cli.shell';
 import * as projects from './projects.js';
 
 type Arguments = {
@@ -15,8 +16,11 @@ export function args() {
 
 export async function init(args: Arguments) {
   cachedArgs = args;
-  cli.shell.setShowCommands(!!cachedArgs.values.verbose);
-  cli.shell.setSilent(!cachedArgs.values.verbose);
+
+  Shell.configure({
+    showCommands: !!cachedArgs.values.verbose,
+    silent: !cachedArgs.values.verbose
+  });
 
   if (
     cachedArgs.values.project ||
@@ -51,8 +55,8 @@ export async function init(args: Arguments) {
 export function ready({ fail = true }: { fail?: boolean } = {}) {
   if (cachedReady === undefined) {
     cachedReady =
-      /\d+\.\d/.test(cli.shell.exec('gcloud --version').stdout) ||
-      `gcloud is required. Install from ${cli.colors.url(
+      /\d+\.\d/.test(Shell.exec('gcloud --version').stdout) ||
+      `gcloud is required. Install from ${Colors.url(
         'https://cloud.google.com/sdk/docs/install'
       )}`;
   }

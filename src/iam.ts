@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Colors } from '@battis/qui-cli.colors';
 import { Policy } from './iam/Policy.js';
 import * as Role from './iam/Role.js';
 import * as members from './iam/members.js';
@@ -36,7 +36,7 @@ export async function addPolicyBinding({
   });
   role = await Role.inputIdentifier({
     role,
-    purpose: `bind to ${cli.colors.value(member)}`,
+    purpose: `bind to ${Colors.value(member)}`,
     ...rest
   });
   projectId = await projects.selectIdentifier({ projectId, ...rest });
@@ -44,4 +44,4 @@ export async function addPolicyBinding({
     `projects add-iam-policy-binding ${projectId} --member=${userType}:${member} --role=${role}`
   );
 }
-export { Role, members, serviceAccounts, type Policy };
+export { members, Role, serviceAccounts, type Policy };

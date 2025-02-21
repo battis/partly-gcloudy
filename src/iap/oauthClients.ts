@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
 import * as lib from '../lib.js';
 import * as shell from '../shell.js';
 import * as oauthBrands from './oauthBrands.js';
@@ -17,7 +17,7 @@ export async function inputDisplayName({
   return await lib.prompts.input<DisplayName>({
     arg: displayName,
     message: 'IAP OAuth client display name',
-    validate: cli.validators.combine(validate, cli.validators.notEmpty),
+    validate: Validators.combine(validate || (() => true), Validators.notEmpty),
     ...rest
   });
 }

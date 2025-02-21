@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
 import * as lib from './lib.js';
 import { Project } from './projects/Project.js';
 import { active } from './projects/active.js';
@@ -20,9 +20,9 @@ export async function inputProjectId({
   return await lib.prompts.input<ProjectId>({
     arg: projectId,
     message: 'Google Cloud project unique identifier',
-    validate: cli.validators.combine(
-      validate,
-      cli.validators.lengthBetween(6, 30)
+    validate: Validators.combine(
+      validate || (() => true),
+      Validators.lengthBetween(6, 30)
     ),
     default: lib.generate.projectId(),
     ...rest
@@ -39,9 +39,9 @@ export async function inputName({
   return await lib.prompts.input<Name>({
     arg: name,
     message: 'Google Cloud project name',
-    validate: cli.validators.combine(
-      validate,
-      cli.validators.lengthBetween(6, 30)
+    validate: Validators.combine(
+      validate || (() => true),
+      Validators.lengthBetween(6, 30)
     ),
     ...rest
   });

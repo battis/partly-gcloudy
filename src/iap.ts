@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
 import path from 'node:path';
 import * as iam from './iam.js';
 import * as oauthBrands from './iap/oauthBrands.js';
@@ -28,12 +28,12 @@ export async function inputUsers({
     await lib.prompts.input({
       arg: users,
       message: 'Users with access to app via IAP (comma-separated)',
-      validate: cli.validators.combine(
-        validate,
+      validate: Validators.combine(
+        validate || (() => true),
         (value?: string) =>
-          (cli.validators.notEmpty(value) === true &&
+          (Validators.notEmpty(value) === true &&
             splitUsers(value || '')
-              .map(cli.validators.email())
+              .map(Validators.email())
               .reduce(
                 (valid: boolean, test) => valid && test === true,
                 true

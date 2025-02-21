@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
 import * as app from './app.js';
 import * as lib from './lib.js';
 import { Job } from './scheduler/Job.js';
@@ -20,7 +20,7 @@ export async function inputJobName({
   return lib.prompts.input<JobName>({
     arg: name,
     message: 'Scheduled job name',
-    validate: cli.validators.combine(validate, cli.validators.notEmpty),
+    validate: Validators.combine(validate || (() => true), Validators.notEmpty),
     ...rest
   });
 }
@@ -35,7 +35,7 @@ export async function inputCrontab({
   return await lib.prompts.input<Crontab>({
     arg: cron,
     message: 'Crontab for scheduled job',
-    validate: cli.validators.combine(validate, cli.validators.cron),
+    validate: Validators.combine(validate || (() => true), Validators.cron),
     ...rest
   });
 }
@@ -50,7 +50,7 @@ export async function inputRelativeUrl({
   return await lib.prompts.input<RelativeUrl>({
     arg: relativeUrl,
     message: 'URL to call, relative to App Engine instance root',
-    validate: cli.validators.combine(validate, cli.validators.isPath),
+    validate: Validators.combine(validate || (() => true), Validators.isPath),
     ...rest
   });
 }

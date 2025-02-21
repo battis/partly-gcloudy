@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { input as pInput } from '@inquirer/prompts';
 import * as core from './core.js';
 
 export async function input<T extends string>({
@@ -17,7 +17,7 @@ export async function input<T extends string>({
   return (
     (validate && validate(arg) === true && arg) ||
     (!validate && arg) ||
-    (await cli.prompts.input({
+    (await pInput({
       message: `${message}${core.pad(purpose)}`,
       ...rest
     }))

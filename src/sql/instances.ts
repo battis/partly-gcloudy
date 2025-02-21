@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Validators } from '@battis/qui-cli.validators';
 import * as app from '../app.js';
 import * as lib from '../lib.js';
 import * as projects from '../projects.js';
@@ -32,17 +32,17 @@ export async function inputName({
   return await lib.prompts.input<SqlInstanceIdentifier>({
     arg: name,
     message: 'Cloud SQL instance name',
-    validate: cli.validators.combine(
-      validate,
+    validate: Validators.combine(
+      validate || (() => true),
       instance === undefined
-        ? undefined
+        ? () => true
         : (value?: string) =>
             lib.validators.exclude({
               exclude: instance,
               property: 'name'
             })(value) &&
-            cli.validators.match(/^[a-z][a-z0-9-]*$/)(value) &&
-            cli.validators.maxLength(
+            Validators.match(/^[a-z][a-z0-9-]*$/)(value) &&
+            Validators.maxLength(
               98 - `${projects.active.get()}:${region}:`.length
             )(value)
     ),

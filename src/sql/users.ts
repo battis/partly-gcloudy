@@ -1,4 +1,5 @@
-import cli from '@battis/qui-cli';
+import { Colors } from '@battis/qui-cli.colors';
+import { Validators } from '@battis/qui-cli.validators';
 import * as lib from '../lib.js';
 import * as shell from '../shell.js';
 import * as instances from './instances.js';
@@ -33,9 +34,9 @@ export async function inputUsername({
   return await lib.prompts.input({
     arg: username,
     message: 'MySQL username',
-    validate: cli.validators.combine(
-      validate,
-      cli.validators.lengthBetween(1, 32)
+    validate: Validators.combine(
+      validate || (() => true),
+      Validators.lengthBetween(1, 32)
     ),
     ...rest
   });
@@ -53,9 +54,9 @@ export async function inputPassword({
   return await lib.prompts.input({
     arg: password,
     message: 'MySQL Password',
-    validate: cli.validators.combine(
-      validate,
-      cli.validators.maxLength(SQL_MAX_PASSWORD_LENGTH)
+    validate: Validators.combine(
+      validate || (() => true),
+      Validators.maxLength(SQL_MAX_PASSWORD_LENGTH)
     ),
     default: lib.generate.password(SQL_MAX_PASSWORD_LENGTH),
     ...rest
@@ -72,9 +73,9 @@ export async function inputHost({
   return await lib.prompts.input({
     arg: host,
     message: 'Host from which this user will connect (% for any)',
-    validate: cli.validators.combine(
-      validate,
-      cli.validators.isHostname({
+    validate: Validators.combine(
+      validate || (() => true),
+      Validators.isHostname({
         allowed: ['%'],
         ipAddress: true,
         localhost: true
@@ -148,7 +149,7 @@ export async function create({
       instance === undefined
         ? true
         : lib.validators.exclude({ exclude: instance })(value) &&
-          cli.validators.notEmpty(value)
+          Validators.notEmpty(value)
   });
   password = await inputPassword({ password });
 
@@ -176,15 +177,15 @@ export async function setPassword({
   });
   username = await selectUsername({
     username,
-    purpose: `to change password for on Cloud SQL instance ${cli.colors.value(
+    purpose: `to change password for on Cloud SQL instance ${Colors.value(
       instance
     )}`
   });
   password = await inputPassword({
     password,
-    purpose: `for ${cli.colors.value(
+    purpose: `for ${Colors.value(
       username
-    )} on Cloud SQL instance ${cli.colors.value(instance)}`
+    )} on Cloud SQL instance ${Colors.value(instance)}`
   });
   await shell.gcloud(
     `sql users set-password ${lib.prompts.escape(
