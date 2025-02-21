@@ -1,49 +1,40 @@
-import cli from '@battis/qui-cli';
+import { Colors } from '@battis/qui-cli.colors';
+import { Core } from '@battis/qui-cli.core';
+import { Env } from '@battis/qui-cli.env';
+import { Log } from '@battis/qui-cli.log';
+import { Shell } from '@battis/qui-cli.shell';
 import fs from 'fs';
 import ora from 'ora';
-import path, { dirname } from 'path';
+import path from 'path';
 import * as prettier from 'prettier';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const API_LAST_UPDATE = 'API_LAST_UPDATE';
 
-const { values } = cli.init({
-  args: {
-    flags: {
-      force: {
-        short: 'f',
-        description: `Force a rebuld of ${cli.colors.value(
-          'gcloud.services.API'
-        )}`
-      }
+Shell.configure({ showCommands: false, silent: true });
+const { values } = Core.init({
+  flag: {
+    force: {
+      short: 'f',
+      description: `Force a rebuld of ${Colors.value('gcloud.services.API')}`
     }
-  },
-  shell: {
-    showCommands: false,
-    silent: true
   }
 });
 
 const cutoff = new Date() - 24 * 60 * 60 * 1000;
-const lastUpdate = new Date(
-  cli.env.get({ key: API_LAST_UPDATE }) || cutoff - 1000
-);
+const lastUpdate = new Date(Env.get({ key: API_LAST_UPDATE }) || cutoff - 1000);
 if (lastUpdate <= cutoff || values.force) {
-  cli.shell.echo(`Dynamic build of ${cli.colors.value('gcloud.services.API')}`);
+  Log.info(`Dynamic build of ${Colors.value('gcloud.services.API')}`);
 
   let spinner = ora('Loading Google API services...');
   const services = JSON.parse(
-    cli.shell.exec(
+    Shell.exec(
       `gcloud services list --available  --filter=name:googleapis.com --format=json --project=${process.env.PROJECT} --quiet`
     ).stdout
   );
   spinner.succeed('Google API services loaded');
 
-  const filepath = path.join(__dirname, '../../src/services/API.ts');
-  spinner = ora(`Writing ${cli.colors.url(filepath)}...`);
+  const filepath = path.join(import.meta.dirname, '../../src/services/API.ts');
+  spinner = ora(`Writing ${Colors.url(filepath)}...`);
   fs.writeFileSync(
     filepath,
     await prettier.format(
@@ -59,17 +50,14 @@ ${services
       { filepath }
     )
   );
-  spinner.succeed(`Wrote ${cli.colors.url(filepath)}`);
-  cli.env.remove({ key: API_LAST_UPDATE });
-  cli.env.set({
+  spinner.succeed(`Wrote ${Colors.url(filepath)}`);
+  Env.remove({ key: API_LAST_UPDATE });
+  Env.set({
     key: API_LAST_UPDATE,
-    value: new Date().toISOString(),
-    replace: true
+    value: new Date().toISOString()
   });
 } else {
-  cli.shell.echo(
-    `${cli.colors.value(
-      'gcloud.services.API'
-    )} last built ${lastUpdate}: skipping`
+  Log.info(
+    `${Colors.value('gcloud.services.API')} last built ${lastUpdate}: skipping`
   );
 }
