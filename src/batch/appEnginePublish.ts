@@ -1,4 +1,5 @@
-import cli from '@battis/qui-cli';
+import { Env } from '@battis/qui-cli.env';
+import { Shell } from '@battis/qui-cli.shell';
 import * as app from '../app.js';
 import * as billing from '../billing.js';
 import * as core from '../core.js';
@@ -65,14 +66,14 @@ export async function appEnginePublish({
       const appEngine = await app.create({ region });
       const url = `https://${appEngine.defaultHostname}`;
       if (env) {
-        cli.env.set({
+        Env.set({
           key: idVar,
           value: project.projectId,
-          comment: cli.env.exists({ key: idVar })
+          comment: Env.exists({ key: idVar })
             ? undefined
             : 'Google Cloud Project'
         });
-        cli.env.set({ key: urlVar, value: url });
+        Env.set({ key: urlVar, value: url });
       }
 
       if (preBuild) {
@@ -82,7 +83,7 @@ export async function appEnginePublish({
       }
 
       if (build) {
-        cli.shell.exec(build);
+        Shell.exec(build);
       }
       if (deploy) {
         await app.deploy();

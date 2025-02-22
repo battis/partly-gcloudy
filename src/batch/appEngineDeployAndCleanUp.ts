@@ -1,4 +1,4 @@
-import cli from '@battis/qui-cli';
+import { Shell } from '@battis/qui-cli.shell';
 import * as app from '../app.js';
 import * as core from '../core.js';
 import * as projects from '../projects.js';
@@ -23,7 +23,7 @@ export async function appEngineDeployAndCleanup({
     }
 
     if (build) {
-      cli.shell.exec(build);
+      Shell.exec(build);
     }
 
     const activeVersion = await app.deploy();
