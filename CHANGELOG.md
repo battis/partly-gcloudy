@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.0](https://github.com/battis/partly-gcloudy/compare/v0.6.9...v1.0.0) (2025-02-22)
+
+
+### Bug Fixes
+
+* export gcloud as default ([3b09ba1](https://github.com/battis/partly-gcloudy/commit/3b09ba1457997996bebfec7c0099ef5ec546fcb2))
+* qui-cli plugins as peers ([af030a8](https://github.com/battis/partly-gcloudy/commit/af030a884dfdc2a2dfb0c7c93f03a4e3d56a376e))
+
 ## [0.6.9](https://github.com/battis/partly-gcloudy/compare/v0.6.8...v0.6.9) (2025-02-09)
 
 
