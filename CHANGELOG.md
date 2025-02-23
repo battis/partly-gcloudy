@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.2](https://github.com/battis/partly-gcloudy/compare/v1.0.1...v1.0.2) (2025-02-23)
+
+
+### Bug Fixes
+
+* bump qui-cli to 2.x ([52cdd48](https://github.com/battis/partly-gcloudy/commit/52cdd48c353ff8b2c30e97f658c49236063137dd))
+* need to await qui-cli register ([97e0393](https://github.com/battis/partly-gcloudy/commit/97e03935ebab6120e1b4edbd5232e8f13c884915))
+
 ## [1.0.1](https://github.com/battis/partly-gcloudy/compare/v1.0.0...v1.0.1) (2025-02-22)
 
 
