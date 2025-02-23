@@ -37,10 +37,10 @@ export function options(): Plugin.Options {
   };
 }
 
-export function init({
+export async function init({
   values: { verbose, project, projectEnvVar }
-}: Plugin.Arguments<ReturnType<typeof options>>) {
-  coreInit({
+}: Plugin.Arguments<Awaited<ReturnType<typeof options>>>) {
+  await coreInit({
     values: {
       verbose: !!verbose,
       project: project?.toString(),
