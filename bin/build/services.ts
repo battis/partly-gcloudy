@@ -11,7 +11,7 @@ import * as prettier from 'prettier';
 const API_LAST_UPDATE = 'API_LAST_UPDATE';
 
 Shell.configure({ showCommands: false, silent: true });
-const { values } = Core.init({
+const { values } = await Core.init({
   flag: {
     force: {
       short: 'f',

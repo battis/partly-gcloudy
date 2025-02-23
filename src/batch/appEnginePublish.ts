@@ -38,7 +38,8 @@ export async function appEnginePublish({
   build?: string;
   deploy?: boolean;
 } = {}) {
-  const args = await core.args();
+  const args = core.args();
+  console.log({ args });
   if (core.ready()) {
     const {
       idVar = args.values.projectEnvVar,
