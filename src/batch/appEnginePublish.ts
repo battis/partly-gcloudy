@@ -86,10 +86,11 @@ export async function appEnginePublish({
       if (build) {
         Shell.exec(build);
       }
+      let deployment;
       if (deploy) {
-        await app.deploy();
+        deployment = await app.deploy();
       }
-      return { project, appEngine };
+      return { project, appEngine, deployment };
     }
     return false;
   }
