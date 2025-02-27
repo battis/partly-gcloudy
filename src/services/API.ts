@@ -677,7 +677,7 @@ export const API = {
     service: "gkemulticloud.googleapis.com",
     validate: false,
   },
-  GDCVirtualAPI: { service: "gkeonprem.googleapis.com", validate: false },
+  GKEOnPremAPI: { service: "gkeonprem.googleapis.com", validate: false },
   GmailAPI: { service: "gmail.googleapis.com", validate: false },
   GmailPostmasterToolsAPI: {
     service: "gmailpostmastertools.googleapis.com",
