@@ -42,8 +42,8 @@ importers:
         specifier: ^8.2.0
         version: 8.2.0
       rword:
-        specifier: ^3.2.1
-        version: 3.2.1
+        specifier: ^4.0.0
+        version: 4.0.0
     devDependencies:
       '@battis/eslint-config':
         specifier: ^2.0.3
@@ -2418,8 +2418,8 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  rword@3.2.1:
-    resolution: {integrity: sha512-E1PhzHCM8enXQJoVv0ZKvqMNojkbRqMsv66pD0P4mRl1imb+0g+3Q19CtXobZIqOhi3zNZi1br//U87vc/s6OA==}
+  rword@4.0.0:
+    resolution: {integrity: sha512-BqYBmdCnysVnb2PKyyD+DACwyglW0JV41tluk7/Z7pGPwOHTAF8RjOfKc1zez54FMOLpHt4GJ8z4VWkSzRKBDw==}
 
   safe-array-concat@1.1.3:
     resolution: {integrity: sha512-AURm5f0jYEOydBj7VQlVvDrjeFgthDdEF5H1dP+6mNpoXOMo1quQqJ4wvJDyRZ9+pO3kGWoOdmV08cSv2aJV6Q==}
@@ -5425,7 +5425,7 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  rword@3.2.1: {}
+  rword@4.0.0: {}
 
   safe-array-concat@1.1.3:
     dependencies:
