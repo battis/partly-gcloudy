@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.1](https://github.com/battis/partly-gcloudy/compare/v1.1.0...v1.1.1) (2025-04-17)
+
+
+### Bug Fixes
+
+* appEngineDeployAndCleanUp() and appEnginePublish() should succeed on first attempt ([be15c74](https://github.com/battis/partly-gcloudy/commit/be15c74384acea10b792a9fd10918bbaeaf99488)), closes [#42](https://github.com/battis/partly-gcloudy/issues/42)
+* update API names ([26fd87a](https://github.com/battis/partly-gcloudy/commit/26fd87a2991786bb5d64a6979c6906011d7a8ed1))
+
 ## [1.1.0](https://github.com/battis/partly-gcloudy/compare/v1.0.2...v1.1.0) (2025-02-27)
 
 
