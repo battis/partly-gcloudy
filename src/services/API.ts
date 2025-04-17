@@ -144,7 +144,7 @@ export const API = {
     service: "area120tables.googleapis.com",
     validate: false,
   },
-  PlacesInsightsAPI: {
+  PlacesAggregateAPI: {
     service: "areainsights.googleapis.com",
     validate: false,
   },
@@ -205,6 +205,10 @@ export const API = {
   },
   BigQueryStorageAPI: {
     service: "bigquerystorage.googleapis.com",
+    validate: false,
+  },
+  BigQueryUnifiedAPI: {
+    service: "bigqueryunified.googleapis.com",
     validate: false,
   },
   CloudBigtableAPI: { service: "bigtable.googleapis.com", validate: false },
@@ -449,6 +453,10 @@ export const API = {
     service: "developerconnect.googleapis.com",
     validate: false,
   },
+  DeviceStreamingAPI: {
+    service: "devicestreaming.googleapis.com",
+    validate: false,
+  },
   CampaignManager360API: {
     service: "dfareporting.googleapis.com",
     validate: false,
@@ -644,17 +652,28 @@ export const API = {
   },
   FitnessAPI: { service: "fitness.googleapis.com", validate: false },
   GoogleFormsAPI: { service: "forms.googleapis.com", validate: false },
-  GooglePlayGameServices: { service: "games.googleapis.com", validate: false },
-  GooglePlayGameServicesPublishingAPI: {
+  GooglePlayGamesServicesAPI: {
+    service: "games.googleapis.com",
+    validate: false,
+  },
+  GooglePlayGamesServicesPublishingAPI: {
     service: "gamesconfiguration.googleapis.com",
     validate: false,
   },
-  GooglePlayGameManagement: {
+  GooglePlayGamesServicesManagementAPI: {
     service: "gamesmanagement.googleapis.com",
     validate: false,
   },
   GDCHardwareManagementAPI: {
     service: "gdchardwaremanagement.googleapis.com",
+    validate: false,
+  },
+  GoogleDeepMindScienceAPI: {
+    service: "gdmscience.googleapis.com",
+    validate: false,
+  },
+  GeminiCloudAssistAPI: {
+    service: "geminicloudassist.googleapis.com",
     validate: false,
   },
   GenerativeLanguageAPI: {
@@ -678,6 +697,10 @@ export const API = {
     validate: false,
   },
   GKEOnPremAPI: { service: "gkeonprem.googleapis.com", validate: false },
+  GKERecommenderAPI: {
+    service: "gkerecommender.googleapis.com",
+    validate: false,
+  },
   GmailAPI: { service: "gmail.googleapis.com", validate: false },
   GmailPostmasterToolsAPI: {
     service: "gmailpostmastertools.googleapis.com",
@@ -697,6 +720,7 @@ export const API = {
     validate: false,
   },
   CloudHealthcareAPI: { service: "healthcare.googleapis.com", validate: false },
+  HomeAPI: { service: "home.googleapis.com", validate: false },
   HomeGraphAPI: { service: "homegraph.googleapis.com", validate: false },
   IdentityandAccessManagementIAMAPI: {
     service: "iam.googleapis.com",
@@ -763,6 +787,11 @@ export const API = {
     service: "looker.googleapis.com",
     validate: false,
   },
+  GoogleCloudManagedLustreAPI: {
+    service: "lustre.googleapis.com",
+    validate: false,
+  },
+  MaintenanceAPI: { service: "maintenance.googleapis.com", validate: false },
   BigQueryEngineforApacheFlinkAPI: {
     service: "managedflink.googleapis.com",
     validate: false,
@@ -777,6 +806,10 @@ export const API = {
   },
   ManufacturerCenterAPI: {
     service: "manufacturers.googleapis.com",
+    validate: false,
+  },
+  MapManagementAPI: {
+    service: "mapmanagement.googleapis.com",
     validate: false,
   },
   MapsSDKforAndroid: {
@@ -801,6 +834,10 @@ export const API = {
   },
   GoogleMapsforFleetRouting: {
     service: "mapsfleetrouting.googleapis.com",
+    validate: false,
+  },
+  MapsGroundingAPI: {
+    service: "mapsgrounding.googleapis.com",
     validate: false,
   },
   MapsPlatformDatasetsAPI: {
@@ -935,6 +972,10 @@ export const API = {
   NotebooksAPI: { service: "notebooks.googleapis.com", validate: false },
   NotebookSecurityScannerAPI: {
     service: "notebooksecurityscanner.googleapis.com",
+    validate: false,
+  },
+  ObservabilityAPI: {
+    service: "observability.googleapis.com",
     validate: false,
   },
   OnDemandScanningAPI: {
@@ -1145,6 +1186,10 @@ export const API = {
     service: "runtimeconfig.googleapis.com",
     validate: false,
   },
+  SaaSServiceManagementAPI: {
+    service: "saasservicemgmt.googleapis.com",
+    validate: false,
+  },
   SafeBrowsingAPILegacy: {
     service: "safebrowsing-json.googleapis.com",
     validate: false,
@@ -1349,6 +1394,7 @@ export const API = {
     validate: false,
   },
   GoogleWalletAPI: { service: "walletobjects.googleapis.com", validate: false },
+  WeatherAPI: { service: "weather.googleapis.com", validate: false },
   WebFontsDeveloperAPI: { service: "webfonts.googleapis.com", validate: false },
   WebRiskAPI: { service: "webrisk.googleapis.com", validate: false },
   WebSecurityScannerAPI: {
