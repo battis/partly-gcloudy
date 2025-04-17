@@ -86,6 +86,12 @@ export async function appEnginePublish({
       if (build) {
         Shell.exec(build);
       }
+      function timeout(ms: number) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      await app.describe();
+
       let deployment;
       if (deploy) {
         deployment = await app.deploy();
