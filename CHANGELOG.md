@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.4](https://github.com/battis/partly-gcloudy/compare/v1.1.3...v1.1.4) (2025-04-18)
+
+
+### Bug Fixes
+
+* ensure that gcloud is ready before being invoked ([4b9273d](https://github.com/battis/partly-gcloudy/commit/4b9273d1601c3a45c7fd43e506f750c418f9661b))
+* remove redundant tests for readiness ([af4ff13](https://github.com/battis/partly-gcloudy/commit/af4ff13e40a5441a89ed3b8cdbdb7d5d8a1b4ce4))
+
 ## [1.1.3](https://github.com/battis/partly-gcloudy/compare/v1.1.1...v1.1.3) (2025-04-18)
 
 
