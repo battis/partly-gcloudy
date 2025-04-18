@@ -40,64 +40,60 @@ export async function appEnginePublish({
 } = {}) {
   const args = core.args();
   console.log({ args });
+  const {
+    idVar = args.values.projectEnvVar,
+    urlVar = `${args.values.projectEnvVar}_URL`
+  } = typeof env === 'boolean' || typeof env === 'string' ? {} : env.keys;
+
   if (core.ready()) {
-    const {
-      idVar = args.values.projectEnvVar,
-      urlVar = `${args.values.projectEnvVar}_URL`
-    } = typeof env === 'boolean' || typeof env === 'string' ? {} : env.keys;
-
-    if (core.ready()) {
-      // create new project (or reuse existing)
-      if (!name && suggestedName) {
-        name = await projects.inputName({ default: suggestedName });
-      }
-      const project = await projects.create({
-        name,
-        id
-      });
-      id = project.projectId;
-
-      // enable billing to allow enabling services later
-      await billing.projects.enable({
-        account: billingAccountId,
-        projectId: id
-      });
-
-      // enable App Engine for the project and update .env
-      const appEngine = await app.create({ region });
-      const url = `https://${appEngine.defaultHostname}`;
-      if (env) {
-        Env.set({
-          key: idVar,
-          value: project.projectId,
-          comment: Env.exists({ key: idVar })
-            ? undefined
-            : 'Google Cloud Project'
-        });
-        Env.set({ key: urlVar, value: url });
-      }
-
-      if (preBuild) {
-        if (!preBuild({ project, appEngine })) {
-          throw new Error('Pre-build callback failed');
-        }
-      }
-
-      if (build) {
-        Shell.exec(build);
-      }
-      function timeout(ms: number) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-      }
-
-      await app.describe();
-
-      let deployment;
-      if (deploy) {
-        deployment = await app.deploy();
-      }
-      return { project, appEngine, deployment };
+    // create new project (or reuse existing)
+    if (!name && suggestedName) {
+      name = await projects.inputName({ default: suggestedName });
     }
-    return false;
+    const project = await projects.create({
+      name,
+      id
+    });
+    id = project.projectId;
+
+    // enable billing to allow enabling services later
+    await billing.projects.enable({
+      account: billingAccountId,
+      projectId: id
+    });
+
+    // enable App Engine for the project and update .env
+    const appEngine = await app.create({ region });
+    const url = `https://${appEngine.defaultHostname}`;
+    if (env) {
+      Env.set({
+        key: idVar,
+        value: project.projectId,
+        comment: Env.exists({ key: idVar }) ? undefined : 'Google Cloud Project'
+      });
+      Env.set({ key: urlVar, value: url });
+    }
+
+    if (preBuild) {
+      if (!preBuild({ project, appEngine })) {
+        throw new Error('Pre-build callback failed');
+      }
+    }
+
+    if (build) {
+      Shell.exec(build);
+    }
+    function timeout(ms: number) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    await app.describe();
+
+    let deployment;
+    if (deploy) {
+      deployment = await app.deploy();
+    }
+    return { project, appEngine, deployment };
   }
+  return false;
 }
