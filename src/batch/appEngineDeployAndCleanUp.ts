@@ -1,7 +1,7 @@
 import * as app from '../app.js';
 import * as core from '../core.js';
 import * as projects from '../projects.js';
-import { appEnginePublish, PreBuildCallback } from './appEnginePublish.js';
+import { appEnginePublish } from './appEnginePublish.js';
 
 export async function appEngineDeployAndCleanup({
   retainVersions,
@@ -10,26 +10,31 @@ export async function appEngineDeployAndCleanup({
   retainVersions?: number;
 } = {}) {
   if (core.ready()) {
-    let activeVersion: app.DeploymentConfig | undefined = undefined;
+    let appEngine: app.AppEngine | undefined = undefined;
+    let project: projects.Project | undefined = undefined;
+    let deployment: app.DeploymentConfig | undefined = undefined;
     if (!projects.active.get()) {
       const result = await appEnginePublish(options);
       if (result) {
-        activeVersion = result?.deployment;
+        project = result.project;
+        appEngine = result.appEngine;
+        deployment = result.deployment;
       }
     } else {
-      activeVersion = await app.deploy();
+      project = await projects.describe();
+      appEngine = await app.describe();
+      deployment = await app.deploy();
     }
-    if (activeVersion) {
+    if (deployment) {
       if (retainVersions !== undefined && retainVersions > 0) {
         const versions = await app.versions.list();
         for (let i = retainVersions; i < versions.length; i++) {
-          if (versions[i].id !== activeVersion?.versions[0].id)
+          if (versions[i].id !== deployment.versions[0].id)
             app.versions.delete_({ version: versions[i].id });
         }
       }
-
-      return { activeVersion };
     }
+    return { project, appEngine, deployment };
   }
   return false;
 }
