@@ -23,8 +23,8 @@ export async function init(args: Arguments) {
   });
 
   if (
-    cachedArgs.values.project ||
-    process.env[cachedArgs.values.projectEnvVar]
+    ready() &&
+    (cachedArgs.values.project || process.env[cachedArgs.values.projectEnvVar])
   ) {
     const cachedProject = await projects.describe({
       projectId:
