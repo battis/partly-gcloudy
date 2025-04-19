@@ -1328,7 +1328,6 @@ export const API = {
   TagManagerAPI: { service: "tagmanager.googleapis.com", validate: false },
   GoogleTasksAPI: { service: "tasks.googleapis.com", validate: false },
   TelemetryAPI: { service: "telemetry.googleapis.com", validate: false },
-  TenorAPI: { service: "tenor.googleapis.com", validate: false },
   CloudTestingAPI: { service: "testing.googleapis.com", validate: false },
   CloudTexttoSpeechAPI: {
     service: "texttospeech.googleapis.com",
