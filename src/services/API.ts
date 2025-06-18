@@ -64,10 +64,6 @@ export const API = {
     validate: false,
   },
   AnalyticsHubAPI: { service: "analyticshub.googleapis.com", validate: false },
-  AnalyticsReportingAPI: {
-    service: "analyticsreporting.googleapis.com",
-    validate: false,
-  },
   AndroidDeviceProvisioningPartnerAPI: {
     service: "androiddeviceprovisioning.googleapis.com",
     validate: false,
@@ -314,6 +310,10 @@ export const API = {
   },
   CloudNetworkPerformanceMonitoringAPI: {
     service: "cloudlatencytest.googleapis.com",
+    validate: false,
+  },
+  CloudLocationFinderAPI: {
+    service: "cloudlocationfinder.googleapis.com",
     validate: false,
   },
   CloudOptimizationAPI: {
@@ -637,7 +637,7 @@ export const API = {
     service: "firebasestorage.googleapis.com",
     validate: false,
   },
-  VertexAIinFirebaseAPI: {
+  FirebaseAILogicAPI: {
     service: "firebasevertexai.googleapis.com",
     validate: false,
   },
@@ -744,7 +744,6 @@ export const API = {
     service: "integrations.googleapis.com",
     validate: false,
   },
-  IssuerswitchAPI: { service: "issuerswitch.googleapis.com", validate: false },
   CloudTalentSolutionAPI: { service: "jobs.googleapis.com", validate: false },
   GoogleKeepAPI: { service: "keep.googleapis.com", validate: false },
   KnowledgeGraphSearchAPI: {
@@ -828,6 +827,10 @@ export const API = {
     service: "maps-ios-backend.googleapis.com",
     validate: false,
   },
+  Maps3DSDKforAndroid: {
+    service: "mapsandroid.googleapis.com",
+    validate: false,
+  },
   GoogleMapsBookingAPI: {
     service: "mapsbooking.googleapis.com",
     validate: false,
@@ -840,6 +843,7 @@ export const API = {
     service: "mapsgrounding.googleapis.com",
     validate: false,
   },
+  Maps3DSDKforiOS: { service: "mapsios.googleapis.com", validate: false },
   MapsPlatformDatasetsAPI: {
     service: "mapsplatformdatasets.googleapis.com",
     validate: false,
@@ -1158,10 +1162,6 @@ export const API = {
     service: "reseller.googleapis.com",
     validate: false,
   },
-  ResourceSettingsAPI: {
-    service: "resourcesettings.googleapis.com",
-    validate: false,
-  },
   ComputeEngineInstanceGroupsAPI: {
     service: "resourceviews.googleapis.com",
     validate: false,
@@ -1186,7 +1186,7 @@ export const API = {
     service: "runtimeconfig.googleapis.com",
     validate: false,
   },
-  SaaSServiceManagementAPI: {
+  SaaSRuntimeAPI: {
     service: "saasservicemgmt.googleapis.com",
     validate: false,
   },
@@ -1328,6 +1328,7 @@ export const API = {
   TagManagerAPI: { service: "tagmanager.googleapis.com", validate: false },
   GoogleTasksAPI: { service: "tasks.googleapis.com", validate: false },
   TelemetryAPI: { service: "telemetry.googleapis.com", validate: false },
+  TenorAPI: { service: "tenor.googleapis.com", validate: false },
   CloudTestingAPI: { service: "testing.googleapis.com", validate: false },
   CloudTexttoSpeechAPI: {
     service: "texttospeech.googleapis.com",
