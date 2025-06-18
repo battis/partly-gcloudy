@@ -39,7 +39,6 @@ export async function appEnginePublish({
   deploy?: boolean;
 } = {}) {
   const args = core.args();
-  console.log({ args });
   const {
     idVar = args.values.projectEnvVar,
     urlVar = `${args.values.projectEnvVar}_URL`
