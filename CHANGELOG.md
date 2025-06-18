@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/battis/partly-gcloudy/compare/v1.1.5...v1.2.0) (2025-06-18)
+
+
+### Features
+
+* simplified plugin use ([5688c76](https://github.com/battis/partly-gcloudy/commit/5688c76c4d54017c135ece147d150640e6e1f21f))
+* update service list ([8e362b9](https://github.com/battis/partly-gcloudy/commit/8e362b9e57c4a868477e9de9d677b6001baabd41))
+* update to rword@4 ([3392588](https://github.com/battis/partly-gcloudy/commit/3392588b35d250f5ddeaebbb678ccf5a6f410000))
+
+
+### Bug Fixes
+
+* remove extraneous output from gcloud.batch.appEnginePublish ([53191de](https://github.com/battis/partly-gcloudy/commit/53191de4231f3d23e99694ae664d10a8f60d1fef))
+
 ## [1.1.5](https://github.com/battis/partly-gcloudy/compare/v1.1.4...v1.1.5) (2025-04-19)
 
 ## [1.1.4](https://github.com/battis/partly-gcloudy/compare/v1.1.3...v1.1.4) (2025-04-18)
