@@ -31,7 +31,8 @@
     "@inquirer/prompts": "^7.3.2",
     "lodash": "^4.17.21",
     "ora": "^8.2.0",
-    "rword": "^4.0.0"
+    "rword": "^4.0.0",
+    "rword-english-extended": "^1.0.0"
   },
   "devDependencies": {
     "@battis/eslint-config": "^2.0.3",
