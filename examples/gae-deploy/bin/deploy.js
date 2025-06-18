@@ -1,17 +1,19 @@
 import gcloud from '@battis/partly-gcloudy';
-import { Core } from '@battis/qui-cli.core';
-import { Root } from '@battis/qui-cli.root';
+import CLI from '@battis/qui-cli';
 import path from 'node:path';
 
 (async () => {
   // configure the script root/CWD to be the root of the package (in a monorepo)
-  Root.configure({ path: path.dirname(import.meta.dirname) });
+  CLI.root.configure({ path: path.dirname(import.meta.dirname) });
+
+  // initialize with command line arguments
   const {
     values: { force }
-  } = await Core.init({
+  } = await CLI.init({
     flag: {
       force: {
         short: 'f',
+        description: `Force the initial setup wizard to run, even if not needed`,
         default: false
       }
     }
@@ -29,8 +31,11 @@ import path from 'node:path';
   // one-time configuration (e.g. enabling services, creating secrets, etc.)
   if (configure) {
     await gcloud.services.enable(gcloud.services.API.CloudFirestoreAPI);
-    await gcloud.services.enable(
-      gcloud.services.API.CloudMemorystoreforMemcachedAPI
-    );
+    await gcloud.secrets.enableAppEngineAccess();
+    await gcloud.batch.secretsSetAndCleanUp({
+      key: 'my-secret',
+      value: 's00per53kr37',
+      retainVersions: 1
+    });
   }
 })();

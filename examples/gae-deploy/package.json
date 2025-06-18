@@ -1,10 +1,10 @@
 {
+  "type": "module",
   "scripts": {
     "deploy": "node ./bin/deploy.js"
   },
   "devDependencies": {
-    "@battis/partly-gcloudy": "^1.1.0",
-    "@battis/qui-cli.core": "^2.0.1",
-    "@battis/qui-cli.root": "^2.0.1"
+    "@battis/partly-gcloudy": "file:../..",
+    "@battis/qui-cli": "^2.1.4"
   }
 }

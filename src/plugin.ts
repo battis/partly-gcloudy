@@ -1,5 +1,4 @@
 import * as Plugin from '@battis/qui-cli.plugin';
-import { init as coreInit } from './core.js';
 
 export * as app from './app.js';
 export * as batch from './batch.js';
@@ -13,15 +12,32 @@ export * as secrets from './secrets.js';
 export * as services from './services.js';
 export * as sql from './sql.js';
 
-export const name = 'glcoud';
+export type Configuration = Plugin.Configuration & {
+  verbose?: boolean;
+  project?: string;
+  projectEnvVar?: string;
+};
+
+export const name = 'gcloud';
 export const src = import.meta.dirname;
+
+let verbose = false;
+let project: string | undefined = undefined;
+let projectEnvVar = 'PROJECT';
+
+export function configure(config: Configuration = {}) {
+  verbose = Plugin.hydrate(config.verbose, verbose);
+  project = Plugin.hydrate(config.project, project);
+  projectEnvVar = Plugin.hydrate(config.projectEnvVar, projectEnvVar);
+}
 
 export function options(): Plugin.Options {
   return {
     flag: {
       verbose: {
         short: 'v',
-        description: 'Show verbose output (commands and results)'
+        description: 'Show verbose output (commands and results)',
+        default: verbose
       }
     },
     opt: {
@@ -31,20 +47,8 @@ export function options(): Plugin.Options {
       },
       projectEnvVar: {
         description: 'Environment variable that stores Google Cloud project ID',
-        default: 'PROJECT'
+        default: projectEnvVar
       }
     }
   };
-}
-
-export async function init({
-  values: { verbose, project, projectEnvVar }
-}: Plugin.Arguments<Awaited<ReturnType<typeof options>>>) {
-  await coreInit({
-    values: {
-      verbose: !!verbose,
-      project: project?.toString(),
-      projectEnvVar: projectEnvVar!.toString()
-    }
-  });
 }

@@ -1,12 +1,10 @@
 import { Colors } from '@battis/qui-cli.colors';
+import { ExpectedArguments } from '@battis/qui-cli.plugin';
 import { Shell } from '@battis/qui-cli.shell';
+import * as plugin from './plugin.js';
 import * as projects from './projects.js';
 
-type Arguments = {
-  values: { verbose?: boolean; project?: string; projectEnvVar: string };
-};
-
-let cachedArgs: Arguments;
+let cachedArgs: ExpectedArguments<typeof plugin.options>;
 
 let cachedReady: true | string;
 
@@ -14,7 +12,7 @@ export function args() {
   return cachedArgs;
 }
 
-export async function init(args: Arguments) {
+export async function init(args: ExpectedArguments<typeof plugin.options>) {
   cachedArgs = args;
 
   Shell.configure({
@@ -24,12 +22,15 @@ export async function init(args: Arguments) {
 
   if (
     ready() &&
-    (cachedArgs.values.project || process.env[cachedArgs.values.projectEnvVar])
+    (cachedArgs.values.project ||
+      (cachedArgs.values.projectEnvVar &&
+        process.env[cachedArgs.values.projectEnvVar]))
   ) {
     const cachedProject = await projects.describe({
       projectId:
         cachedArgs.values.project ||
-        process.env[cachedArgs.values.projectEnvVar]
+        (cachedArgs.values.projectEnvVar &&
+          process.env[cachedArgs.values.projectEnvVar])
     });
     if (cachedProject) {
       projects.active.activate(cachedProject);
@@ -38,7 +39,10 @@ export async function init(args: Arguments) {
         throw new Error(
           `Project ID argument ${cachedArgs.values.project} unknown`
         );
-      } else if (process.env[cachedArgs.values.projectEnvVar]) {
+      } else if (
+        cachedArgs.values.projectEnvVar &&
+        process.env[cachedArgs.values.projectEnvVar]
+      ) {
         throw new Error(
           `Project ID in .env ${cachedArgs.values.projectEnvVar} = ${
             process.env[cachedArgs.values.projectEnvVar]
@@ -49,7 +53,6 @@ export async function init(args: Arguments) {
       }
     }
   }
-  return cachedArgs;
 }
 
 export function ready({ fail = true }: { fail?: boolean } = {}) {
