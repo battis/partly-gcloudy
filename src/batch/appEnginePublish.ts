@@ -2,7 +2,7 @@ import { Env } from '@battis/qui-cli.env';
 import { Shell } from '@battis/qui-cli.shell';
 import * as app from '../app/index.js';
 import * as billing from '../billing/index.js';
-import * as core from '../core.js';
+import * as gcloud from '../gcloud.js';
 import * as projects from '../projects/index.js';
 import ConditionalEnvFile from './ConditionalEnvFile.js';
 
@@ -38,13 +38,13 @@ export async function appEnginePublish({
   build?: string;
   deploy?: boolean;
 } = {}) {
-  const args = core.args();
+  const args = gcloud.args();
   const {
     idVar = args.values.projectEnvVar,
     urlVar = `${args.values.projectEnvVar}_URL`
   } = typeof env === 'boolean' || typeof env === 'string' ? {} : env.keys;
 
-  if (core.ready()) {
+  if (gcloud.ready()) {
     // create new project (or reuse existing)
     if (!name && suggestedName) {
       name = await projects.inputName({ default: suggestedName });

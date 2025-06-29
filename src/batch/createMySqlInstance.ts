@@ -4,7 +4,7 @@ import { Root } from '@battis/qui-cli.root';
 import { confirm } from '@inquirer/prompts';
 import path from 'node:path';
 import * as app from '../app/index.js';
-import * as core from '../core.js';
+import * as gcloud from '../gcloud.js';
 import * as lib from '../lib/index.js';
 import * as projects from '../projects/index.js';
 import * as sql from '../sql/index.js';
@@ -36,7 +36,7 @@ export type CreateMySqlInstanceOptions = {
 export async function createMySqlInstance(
   options?: CreateMySqlInstanceOptions
 ) {
-  const _args = core.args();
+  const _args = gcloud.args();
   let {
     project,
     appEngine,
