@@ -18,8 +18,7 @@ export type Configuration = Plugin.Configuration & {
   projectEnvVar?: string;
 };
 
-export const name = 'gcloud';
-export const src = import.meta.dirname;
+export const name = 'partly-gcloudy';
 
 let verbose = false;
 let project: string | undefined = undefined;
