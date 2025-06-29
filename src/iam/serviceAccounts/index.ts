@@ -1,11 +1,11 @@
 import { Validators } from '@battis/qui-cli.validators';
 import { confirm } from '@inquirer/prompts';
-import type { Email } from '../lib.js';
-import * as lib from '../lib.js';
-import * as projects from '../projects.js';
-import * as shell from '../shell.js';
-import { Key } from './serviceAccounts/Key.js';
-import { ServiceAccount } from './serviceAccounts/ServiceAccount.js';
+import type { Email } from '../../lib/index.js';
+import * as lib from '../../lib/index.js';
+import * as projects from '../../projects/index.js';
+import * as shell from '../../shell/index.js';
+import { Key } from './Key.js';
+import { ServiceAccount } from './ServiceAccount.js';
 
 export type Identifier = string;
 export type DisplayName = string;

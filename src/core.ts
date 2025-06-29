@@ -2,7 +2,7 @@ import { Colors } from '@battis/qui-cli.colors';
 import { ExpectedArguments } from '@battis/qui-cli.plugin';
 import { Shell } from '@battis/qui-cli.shell';
 import * as plugin from './plugin.js';
-import * as projects from './projects.js';
+import * as projects from './projects/index.js';
 
 let cachedArgs: ExpectedArguments<typeof plugin.options>;
 

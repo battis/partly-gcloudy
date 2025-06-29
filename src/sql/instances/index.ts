@@ -1,11 +1,11 @@
 import { Validators } from '@battis/qui-cli.validators';
-import * as app from '../app.js';
-import * as lib from '../lib.js';
-import * as projects from '../projects.js';
-import * as services from '../services.js';
-import * as shell from '../shell.js';
-import { Instance } from './instances/Instance.js';
-import * as tiers from './tiers.js';
+import * as app from '../../app/index.js';
+import * as lib from '../../lib/index.js';
+import * as projects from '../../projects/index.js';
+import * as services from '../../services/index.js';
+import * as shell from '../../shell/index.js';
+import { Instance } from './Instance.js';
+import * as tiers from '../tiers/index.js';
 
 export { Instance };
 

@@ -1,13 +1,13 @@
 import { Validators } from '@battis/qui-cli.validators';
 import { RequireOnlyOne } from '@battis/typescript-tricks';
 import { confirm, input } from '@inquirer/prompts';
-import * as app from './app.js';
-import * as iam from './iam.js';
-import * as lib from './lib.js';
-import { Secret } from './secrets/Secret.js';
-import * as versions from './secrets/versions.js';
-import * as services from './services.js';
-import * as shell from './shell.js';
+import * as app from '../app/index.js';
+import * as iam from '../iam/index.js';
+import * as lib from '../lib/index.js';
+import { Secret } from './Secret.js';
+import * as versions from './versions/index.js';
+import * as services from '../services/index.js';
+import * as shell from '../shell/index.js';
 
 export { Secret, versions };
 

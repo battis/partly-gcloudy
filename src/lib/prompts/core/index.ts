@@ -1,4 +1,4 @@
-import { Parameters } from './core/Parameters.js';
+import { Parameters } from '../core/Parameters.js';
 
 export { Parameters };
 

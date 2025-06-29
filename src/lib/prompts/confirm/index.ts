@@ -1,6 +1,6 @@
 import { confirm as pConfirm } from '@inquirer/prompts';
-import { reuse as FReuse } from './confirm/reuse.js';
-import * as core from './core.js';
+import { reuse as FReuse } from './reuse.js';
+import * as core from '../core/index.js';
 
 export async function confirm({
   arg,

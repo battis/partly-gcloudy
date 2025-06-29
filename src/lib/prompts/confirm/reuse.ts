@@ -1,7 +1,7 @@
 import { Colors } from '@battis/qui-cli.colors';
 import { confirm } from '@inquirer/prompts';
 import { Descriptor } from '../../Descriptor.js';
-import * as core from '../core.js';
+import * as core from '../core/index.js';
 
 export async function reuse<T extends Descriptor>({
   arg,

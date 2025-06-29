@@ -1,8 +1,8 @@
 import { Validators } from '@battis/qui-cli.validators';
-import * as lib from '../lib.js';
-import * as shell from '../shell.js';
-import { Database } from './databases/Database.js';
-import * as instances from './instances.js';
+import * as lib from '../../lib/index.js';
+import * as shell from '../../shell/index.js';
+import { Database } from './Database.js';
+import * as instances from '../instances/index.js';
 
 export { Database };
 

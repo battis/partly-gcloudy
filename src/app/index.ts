@@ -1,10 +1,10 @@
-import { AppEngine } from './app/AppEngine.js';
-import { DeploymentConfig } from './app/DeploymentConfig.js';
-import * as regions from './app/regions.js';
-import * as versions from './app/versions.js';
-import * as lib from './lib.js';
-import * as services from './services.js';
-import * as shell from './shell.js';
+import { AppEngine } from './AppEngine.js';
+import { DeploymentConfig } from './DeploymentConfig.js';
+import * as regions from './regions/index.js';
+import * as versions from './versions/index.js';
+import * as lib from '../lib/index.js';
+import * as services from '../services/index.js';
+import * as shell from '../shell/index.js';
 
 export { AppEngine, DeploymentConfig, regions, versions };
 

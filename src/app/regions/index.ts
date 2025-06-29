@@ -1,6 +1,6 @@
-import * as lib from '../lib.js';
-import * as shell from '../shell.js';
-import { Region } from './regions/Region.js';
+import * as lib from '../../lib/index.js';
+import * as shell from '../../shell/index.js';
+import { Region } from './Region.js';
 
 export { Region };
 

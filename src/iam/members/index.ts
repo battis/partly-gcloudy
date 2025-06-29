@@ -1,7 +1,7 @@
 import { Validators } from '@battis/qui-cli.validators';
-import type { Email } from '../lib.js';
-import * as lib from '../lib.js';
-import { UserType } from './members/UserType.js';
+import type { Email } from '../../lib/index.js';
+import * as lib from '../../lib/index.js';
+import { UserType } from './UserType.js';
 
 export { UserType };
 

@@ -1,7 +1,7 @@
 import { Shell } from '@battis/qui-cli.shell';
-import * as lib from './lib.js';
-import * as projects from './projects.js';
-import * as flags from './shell/flags.js';
+import * as lib from '../lib/index.js';
+import * as projects from '../projects/index.js';
+import * as flags from './flags.js';
 
 export type Flags = flags.Flags;
 

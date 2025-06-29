@@ -1,12 +1,12 @@
 import { Validators } from '@battis/qui-cli.validators';
 import path from 'node:path';
-import * as iam from './iam.js';
-import * as oauthBrands from './iap/oauthBrands.js';
-import * as oauthClients from './iap/oauthClients.js';
-import * as lib from './lib.js';
-import * as projects from './projects.js';
-import * as services from './services.js';
-import * as shell from './shell.js';
+import * as iam from '../iam/index.js';
+import * as oauthBrands from './oauthBrands/index.js';
+import * as oauthClients from './oauthClients/index.js';
+import * as lib from '../lib/index.js';
+import * as projects from '../projects/index.js';
+import * as services from '../services/index.js';
+import * as shell from '../shell/index.js';
 
 export { oauthBrands, oauthClients };
 

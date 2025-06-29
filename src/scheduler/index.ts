@@ -1,8 +1,8 @@
 import { Validators } from '@battis/qui-cli.validators';
-import * as app from './app.js';
-import * as lib from './lib.js';
-import { Job } from './scheduler/Job.js';
-import * as shell from './shell.js';
+import * as app from '../app/index.js';
+import * as lib from '../lib/index.js';
+import { Job } from './Job.js';
+import * as shell from '../shell/index.js';
 
 export type JobName = string;
 export type Crontab = string;

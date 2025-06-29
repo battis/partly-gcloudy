@@ -1,4 +1,4 @@
-import * as secrets from '../secrets.js';
+import * as secrets from '../secrets/index.js';
 
 export async function secretsSetAndCleanUp({
   retainVersions = 1,

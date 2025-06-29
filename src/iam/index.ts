@@ -1,10 +1,10 @@
 import { Colors } from '@battis/qui-cli.colors';
-import { Policy } from './iam/Policy.js';
-import * as Role from './iam/Role.js';
-import * as members from './iam/members.js';
-import * as serviceAccounts from './iam/serviceAccounts.js';
-import * as projects from './projects.js';
-import * as shell from './shell.js';
+import { Policy } from './Policy.js';
+import * as Role from './Role.js';
+import * as members from './members/index.js';
+import * as serviceAccounts from './serviceAccounts/index.js';
+import * as projects from '../projects/index.js';
+import * as shell from '../shell/index.js';
 
 export async function addPolicyBinding({
   user,

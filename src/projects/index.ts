@@ -1,8 +1,8 @@
 import { Validators } from '@battis/qui-cli.validators';
-import * as lib from './lib.js';
-import { Project } from './projects/Project.js';
-import { active } from './projects/active.js';
-import * as shell from './shell.js';
+import * as lib from '../lib/index.js';
+import { Project } from './Project.js';
+import { active } from './active.js';
+import * as shell from '../shell/index.js';
 
 export type ProjectId = string;
 

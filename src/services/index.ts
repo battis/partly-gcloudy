@@ -1,7 +1,7 @@
-import * as lib from './lib.js';
-import { API } from './services/API.js';
-import { Service } from './services/Service.js';
-import * as shell from './shell.js';
+import * as lib from '../lib/index.js';
+import { API } from './API.js';
+import { Service } from './Service.js';
+import * as shell from '../shell/index.js';
 
 export { API, Service };
 

@@ -1,5 +1,5 @@
-import * as shell from '../shell.js';
-import { Version } from './versions/Version.js';
+import * as shell from '../../shell/index.js';
+import { Version } from './Version.js';
 
 export { Version };
 

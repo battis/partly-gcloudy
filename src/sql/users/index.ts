@@ -1,9 +1,9 @@
 import { Colors } from '@battis/qui-cli.colors';
 import { Validators } from '@battis/qui-cli.validators';
-import * as lib from '../lib.js';
-import * as shell from '../shell.js';
-import * as instances from './instances.js';
-import { User } from './users/User.js';
+import * as lib from '../../lib/index.js';
+import * as shell from '../../shell/index.js';
+import * as instances from '../instances/index.js';
+import { User } from './User.js';
 
 export { User };
 

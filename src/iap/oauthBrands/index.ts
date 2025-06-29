@@ -1,8 +1,8 @@
 import { Validators } from '@battis/qui-cli.validators';
-import * as lib from '../lib.js';
-import * as projects from '../projects.js';
-import * as shell from '../shell.js';
-import { Brand } from './oauthBrands/Brand.js';
+import * as lib from '../../lib/index.js';
+import * as projects from '../../projects/index.js';
+import * as shell from '../../shell/index.js';
+import { Brand } from './Brand.js';
 
 export const active = new lib.Active<Brand>(undefined);
 
@@ -52,7 +52,7 @@ export async function create({
 
   applicationTitle = await inputApplicationTitle({
     applicationTitle,
-    default: project.name
+    default: project?.name
   });
   supportEmail = await inputSupportEmail({ supportEmail });
 

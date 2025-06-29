@@ -3,8 +3,8 @@ import { select as pSelect } from '@inquirer/prompts';
 import _ from 'lodash';
 import { Active } from '../Active.js';
 import { Descriptor } from '../Descriptor.js';
-import { confirm } from './confirm.js';
-import * as core from './core.js';
+import { confirm } from './confirm/index.js';
+import * as core from './core/index.js';
 
 export async function select<ChoiceType = string, ReturnType = string>({
   arg,

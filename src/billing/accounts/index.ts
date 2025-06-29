@@ -1,6 +1,6 @@
-import * as lib from '../lib.js';
-import * as shell from '../shell.js';
-import { Account } from './accounts/Account.js';
+import * as lib from '../../lib/index.js';
+import * as shell from '../../shell/index.js';
+import { Account } from './Account.js';
 
 export { Account };
 

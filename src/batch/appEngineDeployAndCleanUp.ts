@@ -1,5 +1,5 @@
-import * as app from '../app.js';
-import * as projects from '../projects.js';
+import * as app from '../app/index.js';
+import * as projects from '../projects/index.js';
 import { appEnginePublish } from './appEnginePublish.js';
 
 export async function appEngineDeployAndCleanup({

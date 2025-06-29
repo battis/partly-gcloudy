@@ -3,11 +3,11 @@ import { Env } from '@battis/qui-cli.env';
 import { Root } from '@battis/qui-cli.root';
 import { confirm } from '@inquirer/prompts';
 import path from 'node:path';
-import * as app from '../app.js';
+import * as app from '../app/index.js';
 import * as core from '../core.js';
-import * as lib from '../lib.js';
-import * as projects from '../projects.js';
-import * as sql from '../sql.js';
+import * as lib from '../lib/index.js';
+import * as projects from '../projects/index.js';
+import * as sql from '../sql/index.js';
 import ConditionalEnvFile from './ConditionalEnvFile.js';
 
 export type CreateMySqlInstanceOptions = {

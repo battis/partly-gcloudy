@@ -1,5 +1,5 @@
 import { input as pInput } from '@inquirer/prompts';
-import * as core from './core.js';
+import * as core from './core/index.js';
 
 export async function input<T extends string>({
   arg,

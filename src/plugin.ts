@@ -1,16 +1,16 @@
 import * as Plugin from '@battis/qui-cli.plugin';
 
-export * as app from './app.js';
-export * as batch from './batch.js';
-export * as billing from './billing.js';
+export * as app from './app/index.js';
+export * as batch from './batch/index.js';
+export * as billing from './billing/index.js';
 export { args, ready } from './core.js';
-export * as iam from './iam.js';
-export * as iap from './iap.js';
-export * as projects from './projects.js';
-export * as scheduler from './scheduler.js';
-export * as secrets from './secrets.js';
-export * as services from './services.js';
-export * as sql from './sql.js';
+export * as iam from './iam/index.js';
+export * as iap from './iap/index.js';
+export * as projects from './projects/index.js';
+export * as scheduler from './scheduler/index.js';
+export * as secrets from './secrets/index.js';
+export * as services from './services/index.js';
+export * as sql from './sql/index.js';
 
 export type Configuration = Plugin.Configuration & {
   verbose?: boolean;

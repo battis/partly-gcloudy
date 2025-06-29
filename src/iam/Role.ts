@@ -1,5 +1,5 @@
 import { Validators } from '@battis/qui-cli.validators';
-import * as lib from '../lib.js';
+import * as lib from '../lib/index.js';
 
 export const Owner = 'roles/owner';
 export const CloudSQL = {
