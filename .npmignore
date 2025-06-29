@@ -1,6 +1,5 @@
 .*
 /babel
-/bin
 /examples/
 /tsconfig.json
 /src

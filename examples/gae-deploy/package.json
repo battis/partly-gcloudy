@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "deploy": "node ./bin/deploy.js"
+    "deploy": "node ./scripts/deploy.js"
   },
   "devDependencies": {
     "@battis/partly-gcloudy": "file:../..",
