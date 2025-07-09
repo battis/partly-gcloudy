@@ -123,6 +123,7 @@ export const API = {
   },
   AppEngine: { service: "appenginereporting.googleapis.com", validate: false },
   AppHubAPI: { service: "apphub.googleapis.com", validate: false },
+  AppOptimizeAPI: { service: "appoptimize.googleapis.com", validate: false },
   GoogleWorkspaceMarketplaceSDK: {
     service: "appsmarket-component.googleapis.com",
     validate: false,

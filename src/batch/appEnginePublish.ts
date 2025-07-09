@@ -65,12 +65,12 @@ export async function appEnginePublish({
     const appEngine = await app.create({ region });
     const url = `https://${appEngine.defaultHostname}`;
     if (env) {
-      Env.set({
+      await Env.set({
         key: idVar,
         value: project.projectId,
-        comment: Env.exists({ key: idVar }) ? undefined : 'Google Cloud Project'
+        comment: await Env.exists({ key: idVar }) ? undefined : 'Google Cloud Project'
       });
-      Env.set({ key: urlVar, value: url });
+      await Env.set({ key: urlVar, value: url });
     }
 
     if (preBuild) {

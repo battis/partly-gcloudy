@@ -107,23 +107,23 @@ export async function createMySqlInstance(
         key: dbSocket,
         value: socket,
         file: file,
-        comment: Env.exists({ key: dbSocket, file: file })
+        comment: await Env.exists({ key: dbSocket, file: file })
           ? undefined
           : 'Cloud SQL MySQL credentials'
       });
-      Env.set({ key: dbHost, value: '', file });
-      Env.set({ key: dbPort, value: '', file });
+     await Env.set({ key: dbHost, value: '', file });
+    await  Env.set({ key: dbPort, value: '', file });
     } else {
-      Env.set({
+    await   Env.set({
         key: dbHost,
         value: sqlInstance.ipAddresses[0].ipAddress,
         file
       });
-      Env.set({ key: dbPort, value: '3306', file });
+    await  Env.set({ key: dbPort, value: '3306', file });
     }
   }
 
-  const deploy = (env && Env.parse(file)) || {};
+  const deploy = (env &&await Env.parse(file)) || {};
 
   // secure root user
   rootPassword = await sql.users.setPassword({
@@ -131,7 +131,7 @@ export async function createMySqlInstance(
     password: rootPassword || deploy.DB_ROOT_PASSWORD
   });
   if (env) {
-    Env.set({
+   await Env.set({
       key: dbRootPassword,
       value: rootPassword,
       file

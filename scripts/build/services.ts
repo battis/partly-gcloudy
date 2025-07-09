@@ -21,7 +21,7 @@ const { values } = await Core.init({
 });
 
 const cutoff = new Date() - 24 * 60 * 60 * 1000;
-const lastUpdate = new Date(Env.get({ key: API_LAST_UPDATE }) || cutoff - 1000);
+const lastUpdate = new Date(await Env.get({ key: API_LAST_UPDATE }) || cutoff - 1000);
 if (lastUpdate <= cutoff || values.force) {
   Log.info(`Dynamic build of ${Colors.value('gcloud.services.API')}`);
 
