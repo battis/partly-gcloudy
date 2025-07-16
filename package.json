@@ -15,7 +15,7 @@
     "dev:docs-worktree": "git worktree add docs ./docs",
     "build": "run-s build:*",
     "build:clean": "del ./dist ./tmp/*",
-    "build:google-services": "tsx ./scripts/build/services.ts",
+    "build:google-services": "op run --env-file ./.env -- tsx ./scripts/build/services.ts",
     "build:compile": "tsc",
     "build:cleanup": "del ./tmp/*",
     "release": "run-s release:*",
