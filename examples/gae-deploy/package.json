@@ -4,7 +4,6 @@
     "deploy": "node ./scripts/deploy.js"
   },
   "devDependencies": {
-    "@battis/partly-gcloudy": "file:../..",
-    "@qui-cli/qui-cli": "^4.0.2"
+    "@battis/partly-gcloudy": "workspace:*"
   }
 }

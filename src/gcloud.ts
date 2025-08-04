@@ -1,11 +1,11 @@
-import * as Plugin from '@qui-cli/plugin';
+import { PathString } from '@battis/descriptive-types';
 import { Colors } from '@qui-cli/colors';
+import { Core } from '@qui-cli/core';
+import * as Plugin from '@qui-cli/plugin';
 import { ExpectedArguments } from '@qui-cli/plugin';
 import { Shell } from '@qui-cli/shell';
 import * as plugin from './gcloud.js';
 import * as projects from './projects/index.js';
-import { Core } from '@qui-cli/core';
-import {PathString} from '@battis/descriptive-types'
 
 export * as app from './app/index.js';
 export * as batch from './batch/index.js';
@@ -126,6 +126,6 @@ export function args() {
   return cachedArgs;
 }
 
-export async function prepare(options: Parameters<typeof Core['run']>[0]) {
-  return await Core.run(options);
+export async function prepare(options: Parameters<(typeof Core)['init']>[0]) {
+  return await Core.init(options);
 }

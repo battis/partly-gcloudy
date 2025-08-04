@@ -1,15 +1,10 @@
 import gcloud from '@battis/partly-gcloudy';
-import CLI from '@qui-cli/qui-cli';
-import path from 'node:path';
 
 (async () => {
-  // configure the script root/CWD to be the root of the package (in a monorepo)
-  CLI.root.configure({ path: path.dirname(import.meta.dirname) });
-
-  // initialize with command line arguments
+  // initialize with additional command line arguments
   const {
     values: { force }
-  } = await CLI.init({
+  } = await gcloud.prepare({
     flag: {
       force: {
         short: 'f',
@@ -23,6 +18,7 @@ import path from 'node:path';
   const configure = force || !process.env.PROJECT;
 
   // publish or deploy the app (depending on its current state)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- example only!
   const { project, app, deployment } =
     await gcloud.batch.appEngineDeployAndCleanup({
       retainVersions: 2
