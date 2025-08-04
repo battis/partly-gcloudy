@@ -1,4 +1,5 @@
 import gcloud from '@battis/partly-gcloudy';
+import CLI from '@qui-cli/qui-cli';
 import path from 'node:path';
 
 (async () => {
@@ -33,7 +34,7 @@ import path from 'node:path';
     await gcloud.secrets.enableAppEngineAccess();
     await gcloud.batch.secretsSetAndCleanUp({
       key: 'my-secret',
-      value: 's00per53kr37',
+      // no passed value property will result in interactive value entry
       retainVersions: 1
     });
   }

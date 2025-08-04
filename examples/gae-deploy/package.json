@@ -5,6 +5,6 @@
   },
   "devDependencies": {
     "@battis/partly-gcloudy": "file:../..",
-    "@battis/qui-cli": "^2.1.4"
+    "@qui-cli/qui-cli": "^4.0.2"
   }
 }
