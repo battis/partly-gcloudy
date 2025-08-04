@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.0](https://github.com/battis/partly-gcloudy/compare/v1.3.0...v1.4.0) (2025-08-04)
+
+
+### Features
+
+* gcloud.prepare() as alternative to CLI.run() or Core.run() ([ef39802](https://github.com/battis/partly-gcloudy/commit/ef398025d4f2388ac99d946685bdfb99440bf7ff))
+* store secrets in 1Password ([70ccb0a](https://github.com/battis/partly-gcloudy/commit/70ccb0af8f707e8127a797b611f98978020349bd))
+* update Services definitions ([6a0db76](https://github.com/battis/partly-gcloudy/commit/6a0db763fd15387c0e8cce5eb4a99d0fe801304a))
+
+
+### Bug Fixes
+
+* bump dependencies (including @battis/qui-cli/* --> @qui-cli/*) ([4f25683](https://github.com/battis/partly-gcloudy/commit/4f25683c552163ee5c180b3d2bdcfc88a1a14a1d))
+* gcloud.prepare() == CLI.init() (NOT CLI.run()) ([5e788b4](https://github.com/battis/partly-gcloudy/commit/5e788b4bcf58be8d370c3b651b23f5e89a16c62a))
+
 ## [1.3.0](https://github.com/battis/partly-gcloudy/compare/v1.2.1...v1.3.0) (2025-07-09)
 
 
