@@ -1,5 +1,4 @@
 import gcloud from '@battis/partly-gcloudy';
-import CLI from '@battis/qui-cli';
 import path from 'node:path';
 
 (async () => {
