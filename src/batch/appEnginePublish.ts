@@ -1,10 +1,19 @@
-import { Env } from '@qui-cli/env';
+import * as DefaultEnv from '@qui-cli/env/dist/Env.js';
+import * as Plugin from '@qui-cli/plugin';
 import { Shell } from '@qui-cli/shell';
 import * as app from '../app/index.js';
 import * as billing from '../billing/index.js';
 import * as gcloud from '../gcloud.js';
 import * as projects from '../projects/index.js';
 import ConditionalEnvFile from './ConditionalEnvFile.js';
+
+let Env = Plugin.Registrar.registered().find(
+  (plugin) => plugin.name === DefaultEnv.name
+) as typeof DefaultEnv;
+if (!Env) {
+  Env = DefaultEnv;
+  Plugin.register(DefaultEnv);
+}
 
 type EnvFile =
   | ConditionalEnvFile
@@ -68,7 +77,9 @@ export async function appEnginePublish({
       await Env.set({
         key: idVar,
         value: project.projectId,
-        comment: await Env.exists({ key: idVar }) ? undefined : 'Google Cloud Project'
+        comment: (await Env.exists({ key: idVar }))
+          ? undefined
+          : 'Google Cloud Project'
       });
       await Env.set({ key: urlVar, value: url });
     }
@@ -81,9 +92,6 @@ export async function appEnginePublish({
 
     if (build) {
       Shell.exec(build);
-    }
-    function timeout(ms: number) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     await app.describe();

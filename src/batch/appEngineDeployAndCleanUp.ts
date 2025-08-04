@@ -1,6 +1,16 @@
+import * as DefaultEnv from '@qui-cli/env/dist/Env.js';
+import * as Plugin from '@qui-cli/plugin';
 import * as app from '../app/index.js';
 import * as projects from '../projects/index.js';
 import { appEnginePublish } from './appEnginePublish.js';
+
+let Env = Plugin.Registrar.registered().find(
+  (plugin) => plugin.name === DefaultEnv.name
+) as typeof DefaultEnv;
+if (!Env) {
+  Env = DefaultEnv;
+  Plugin.register(DefaultEnv);
+}
 
 export async function appEngineDeployAndCleanup({
   retainVersions,

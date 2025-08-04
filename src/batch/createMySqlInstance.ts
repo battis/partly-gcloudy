@@ -1,7 +1,8 @@
-import { Colors } from '@qui-cli/colors';
-import { Env } from '@qui-cli/env';
-import { Root } from '@qui-cli/root';
 import { confirm } from '@inquirer/prompts';
+import { Colors } from '@qui-cli/colors';
+import * as DefaultEnv from '@qui-cli/env/dist/Env.js';
+import * as Plugin from '@qui-cli/plugin';
+import { Root } from '@qui-cli/root';
 import path from 'node:path';
 import * as app from '../app/index.js';
 import * as gcloud from '../gcloud.js';
@@ -9,6 +10,14 @@ import * as lib from '../lib/index.js';
 import * as projects from '../projects/index.js';
 import * as sql from '../sql/index.js';
 import ConditionalEnvFile from './ConditionalEnvFile.js';
+
+let Env = Plugin.Registrar.registered().find(
+  (plugin) => plugin.name === DefaultEnv.name
+) as typeof DefaultEnv;
+if (!Env) {
+  Env = DefaultEnv;
+  Plugin.register(DefaultEnv);
+}
 
 export type CreateMySqlInstanceOptions = {
   project?: projects.Project;
@@ -107,23 +116,23 @@ export async function createMySqlInstance(
         key: dbSocket,
         value: socket,
         file: file,
-        comment: await Env.exists({ key: dbSocket, file: file })
+        comment: (await Env.exists({ key: dbSocket, file: file }))
           ? undefined
           : 'Cloud SQL MySQL credentials'
       });
-     await Env.set({ key: dbHost, value: '', file });
-    await  Env.set({ key: dbPort, value: '', file });
+      await Env.set({ key: dbHost, value: '', file });
+      await Env.set({ key: dbPort, value: '', file });
     } else {
-    await   Env.set({
+      await Env.set({
         key: dbHost,
         value: sqlInstance.ipAddresses[0].ipAddress,
         file
       });
-    await  Env.set({ key: dbPort, value: '3306', file });
+      await Env.set({ key: dbPort, value: '3306', file });
     }
   }
 
-  const deploy = (env &&await Env.parse(file)) || {};
+  const deploy = (env && (await Env.parse(file))) || {};
 
   // secure root user
   rootPassword = await sql.users.setPassword({
@@ -131,7 +140,7 @@ export async function createMySqlInstance(
     password: rootPassword || deploy.DB_ROOT_PASSWORD
   });
   if (env) {
-   await Env.set({
+    await Env.set({
       key: dbRootPassword,
       value: rootPassword,
       file
