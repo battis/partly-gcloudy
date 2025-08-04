@@ -1,4 +1,4 @@
-import { Validators } from '@battis/qui-cli.validators';
+import { Validators } from '@qui-cli/validators';
 import * as app from '../../app/index.js';
 import * as lib from '../../lib/index.js';
 import * as projects from '../../projects/index.js';

@@ -1,5 +1,5 @@
-import { Env } from '@battis/qui-cli.env';
-import { Shell } from '@battis/qui-cli.shell';
+import { Env } from '@qui-cli/env';
+import { Shell } from '@qui-cli/shell';
 import * as app from '../app/index.js';
 import * as billing from '../billing/index.js';
 import * as gcloud from '../gcloud.js';

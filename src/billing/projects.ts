@@ -1,4 +1,4 @@
-import { Colors } from '@battis/qui-cli.colors';
+import { Colors } from '@qui-cli/colors';
 import * as rootProjects from '../projects/index.js';
 import * as shell from '../shell/index.js';
 import * as accounts from './accounts/index.js';

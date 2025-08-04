@@ -1,4 +1,4 @@
-import { Colors } from '@battis/qui-cli.colors';
+import { Colors } from '@qui-cli/colors';
 import { Policy } from './Policy.js';
 import * as Role from './Role.js';
 import * as members from './members/index.js';

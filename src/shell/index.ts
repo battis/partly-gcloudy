@@ -1,4 +1,4 @@
-import { Shell } from '@battis/qui-cli.shell';
+import { Shell } from '@qui-cli/shell';
 import * as lib from '../lib/index.js';
 import * as projects from '../projects/index.js';
 import * as flags from './flags.js';

@@ -1,4 +1,4 @@
-import { Validators } from '@battis/qui-cli.validators';
+import { Validators } from '@qui-cli/validators';
 import path from 'node:path';
 import * as iam from '../iam/index.js';
 import * as oauthBrands from './oauthBrands/index.js';

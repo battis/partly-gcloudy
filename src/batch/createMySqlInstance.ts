@@ -1,6 +1,6 @@
-import { Colors } from '@battis/qui-cli.colors';
-import { Env } from '@battis/qui-cli.env';
-import { Root } from '@battis/qui-cli.root';
+import { Colors } from '@qui-cli/colors';
+import { Env } from '@qui-cli/env';
+import { Root } from '@qui-cli/root';
 import { confirm } from '@inquirer/prompts';
 import path from 'node:path';
 import * as app from '../app/index.js';

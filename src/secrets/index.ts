@@ -1,4 +1,4 @@
-import { Validators } from '@battis/qui-cli.validators';
+import { Validators } from '@qui-cli/validators';
 import { RequireOnlyOne } from '@battis/typescript-tricks';
 import { confirm, input } from '@inquirer/prompts';
 import * as app from '../app/index.js';

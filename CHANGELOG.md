@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [commit
 
 ### Features
 
-* bump to @battis/qui-cli.env to support 1Password integration ([63da81d](https://github.com/battis/partly-gcloudy/commit/63da81d78a7deab33060fefc81c20dbe4db16b17))
+* bump to @qui-cli/env to support 1Password integration ([63da81d](https://github.com/battis/partly-gcloudy/commit/63da81d78a7deab33060fefc81c20dbe4db16b17))
 
 ## [1.2.1](https://github.com/battis/partly-gcloudy/compare/v1.2.0...v1.2.1) (2025-06-30)
 

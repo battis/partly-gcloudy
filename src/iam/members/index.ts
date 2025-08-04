@@ -1,4 +1,4 @@
-import { Validators } from '@battis/qui-cli.validators';
+import { Validators } from '@qui-cli/validators';
 import type { Email } from '../../lib/index.js';
 import * as lib from '../../lib/index.js';
 import { UserType } from './UserType.js';

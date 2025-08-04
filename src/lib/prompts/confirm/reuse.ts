@@ -1,4 +1,4 @@
-import { Colors } from '@battis/qui-cli.colors';
+import { Colors } from '@qui-cli/colors';
 import { confirm } from '@inquirer/prompts';
 import { Descriptor } from '../../Descriptor.js';
 import * as core from '../core/index.js';

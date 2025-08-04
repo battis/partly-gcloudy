@@ -1,4 +1,4 @@
-import { register } from '@battis/qui-cli.plugin';
+import { register } from '@qui-cli/plugin';
 import * as gcloud from './gcloud.js';
 
 await register(gcloud);

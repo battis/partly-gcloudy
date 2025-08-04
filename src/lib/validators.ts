@@ -1,4 +1,4 @@
-import { Colors } from '@battis/qui-cli.colors';
+import { Colors } from '@qui-cli/colors';
 import { Descriptor } from './Descriptor.js';
 
 export function exclude<T = string | Descriptor>({

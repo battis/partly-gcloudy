@@ -1,4 +1,4 @@
-import { Validators } from '@battis/qui-cli.validators';
+import { Validators } from '@qui-cli/validators';
 import * as lib from '../../lib/index.js';
 import * as shell from '../../shell/index.js';
 import * as oauthBrands from '../oauthBrands/index.js';

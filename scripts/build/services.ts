@@ -1,8 +1,8 @@
-import { Colors } from '@battis/qui-cli.colors';
-import { Core } from '@battis/qui-cli.core';
-import { Env } from '@battis/qui-cli.env';
-import { Log } from '@battis/qui-cli.log';
-import { Shell } from '@battis/qui-cli.shell';
+import { Colors } from '@qui-cli/colors';
+import { Core } from '@qui-cli/core';
+import { Env } from '@qui-cli/env';
+import { Log } from '@qui-cli/log';
+import { Shell } from '@qui-cli/shell';
 import fs from 'fs';
 import ora from 'ora';
 import path from 'path';

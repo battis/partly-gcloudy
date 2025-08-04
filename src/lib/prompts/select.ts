@@ -1,4 +1,4 @@
-import { Colors } from '@battis/qui-cli.colors';
+import { Colors } from '@qui-cli/colors';
 import { select as pSelect } from '@inquirer/prompts';
 import _ from 'lodash';
 import { Active } from '../Active.js';

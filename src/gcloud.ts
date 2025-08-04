@@ -1,7 +1,7 @@
-import * as Plugin from '@battis/qui-cli.plugin';
-import { Colors } from '@battis/qui-cli.colors';
-import { ExpectedArguments } from '@battis/qui-cli.plugin';
-import { Shell } from '@battis/qui-cli.shell';
+import * as Plugin from '@qui-cli/plugin';
+import { Colors } from '@qui-cli/colors';
+import { ExpectedArguments } from '@qui-cli/plugin';
+import { Shell } from '@qui-cli/shell';
 import * as plugin from './gcloud.js';
 import * as projects from './projects/index.js';
 
