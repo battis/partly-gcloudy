@@ -765,6 +765,10 @@ export const API = {
     validate: false,
   },
   LibraryAgentAPI: { service: "libraryagent.googleapis.com", validate: false },
+  LicenseManagerAPI: {
+    service: "licensemanager.googleapis.com",
+    validate: false,
+  },
   EnterpriseLicenseManagerAPI: {
     service: "licensing.googleapis.com",
     validate: false,
@@ -1216,6 +1220,10 @@ export const API = {
   },
   SecretManagerAPI: {
     service: "secretmanager.googleapis.com",
+    validate: false,
+  },
+  SecureSourceManagerAPI: {
+    service: "securesourcemanager.googleapis.com",
     validate: false,
   },
   TokenServiceAPI: { service: "securetoken.googleapis.com", validate: false },
