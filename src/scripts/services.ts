@@ -7,6 +7,7 @@ import fs from 'fs';
 import ora from 'ora';
 import path from 'path';
 import * as prettier from 'prettier';
+import { Service } from '../services/index.js';
 
 const API_LAST_UPDATE = 'API_LAST_UPDATE';
 
@@ -20,8 +21,10 @@ const { values } = await Core.init({
   }
 });
 
-const cutoff = new Date() - 24 * 60 * 60 * 1000;
-const lastUpdate = new Date(await Env.get({ key: API_LAST_UPDATE }) || cutoff - 1000);
+const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+const lastUpdate = new Date(
+  (await Env.get({ key: API_LAST_UPDATE })) || cutoff - 1000
+).getTime();
 if (lastUpdate <= cutoff || values.force) {
   Log.info(`Dynamic build of ${Colors.value('gcloud.services.API')}`);
 
@@ -41,7 +44,7 @@ if (lastUpdate <= cutoff || values.force) {
       `export const API = {
 ${services
   .map(
-    (service) =>
+    (service: Service) =>
       `${service.config.title.replace(/[^a-z0-9]+/gi, '')}: {service: '${
         service.config.name
       }', validate: false },`
@@ -58,6 +61,6 @@ ${services
   });
 } else {
   Log.info(
-    `${Colors.value('gcloud.services.API')} last built ${lastUpdate}: skipping`
+    `${Colors.value('gcloud.services.API')} last built ${new Date(lastUpdate)}: skipping`
   );
 }

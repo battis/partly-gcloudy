@@ -1,8 +1,6 @@
 .*
-/babel
+/dist/scripts/
 /examples/
-/tsconfig.json
+/pnpm-workspace.yaml
 /src
-/rollup.*
-/scripts
 /tsconfig.*
