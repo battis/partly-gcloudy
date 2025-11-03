@@ -1,10 +1,10 @@
+import * as lib from '../lib/index.js';
+import * as services from '../services/index.js';
+import * as shell from '../shell/index.js';
 import { AppEngine } from './AppEngine.js';
 import { DeploymentConfig } from './DeploymentConfig.js';
 import * as regions from './regions/index.js';
 import * as versions from './versions/index.js';
-import * as lib from '../lib/index.js';
-import * as services from '../services/index.js';
-import * as shell from '../shell/index.js';
 
 export { AppEngine, DeploymentConfig, regions, versions };
 
@@ -15,8 +15,8 @@ export async function describe() {
 }
 
 /**
- * There can only be one AppEngine instance per project, so if one already exists it will be returned rather than created
- * @param {Partial<CreateOptions>} options
+ * There can only be one AppEngine instance per project, so if one already
+ * exists it will be returned rather than created
  */
 export async function create({ region }: { region?: string } = {}) {
   await services.enable(services.API.AppEngineAdminAPI);
@@ -46,4 +46,30 @@ export async function logs() {
     overrideBaseFlags: true,
     flags: { format: 'text' }
   });
+}
+
+type UpdateOptions = {
+  serviceAccount?: string;
+  splitHealthChecks?: boolean;
+  sslPolicy?: 'TLS_VERSION_1_0' | 'TLS_VERSION_1_2';
+};
+
+export async function update({
+  serviceAccount,
+  splitHealthChecks,
+  sslPolicy
+}: UpdateOptions) {
+  return await shell.gcloud(
+    `app update${
+      serviceAccount !== undefined
+        ? ` --service-account="${serviceAccount}"`
+        : ''
+    }${
+      splitHealthChecks !== undefined
+        ? splitHealthChecks
+          ? ' --split-health-checks'
+          : ' --no-split-health-checks'
+        : ''
+    }${sslPolicy !== undefined ? ` --ssl-policy=${sslPolicy}` : ''}`
+  );
 }

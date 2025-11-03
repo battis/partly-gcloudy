@@ -83,6 +83,7 @@ export async function appEnginePublish({
       });
       await Env.set({ key: urlVar, value: url });
     }
+    await app.update({ sslPolicy: 'TLS_VERSION_1_2' });
 
     if (preBuild) {
       if (!preBuild({ project, appEngine })) {

@@ -132,6 +132,7 @@ export const API = {
     service: "appsmarket.googleapis.com",
     validate: false,
   },
+  AppTopologyAPI: { service: "apptopology.googleapis.com", validate: false },
   ARCoreAPI: { service: "arcore.googleapis.com", validate: false },
   ARCoreCloudAnchorAPILegacy: {
     service: "arcorecloudanchor.googleapis.com",
@@ -241,6 +242,10 @@ export const API = {
     service: "calendar-json.googleapis.com",
     validate: false,
   },
+  CapacityPlannerAPI: {
+    service: "capacityplanner.googleapis.com",
+    validate: false,
+  },
   GoogleContactsCardDAVAPI: {
     service: "carddav.googleapis.com",
     validate: false,
@@ -286,6 +291,10 @@ export const API = {
   CloudChannelAPI: { service: "cloudchannel.googleapis.com", validate: false },
   CloudCommerceConsumerProcurementAPI: {
     service: "cloudcommerceconsumerprocurement.googleapis.com",
+    validate: false,
+  },
+  CloudCommercePartnerProcurementAPI: {
+    service: "cloudcommerceprocurement.googleapis.com",
     validate: false,
   },
   CloudControlsPartnerAPI: {
@@ -424,6 +433,7 @@ export const API = {
   CloudDataFusionAPI: { service: "datafusion.googleapis.com", validate: false },
   DataLabelingAPI: { service: "datalabeling.googleapis.com", validate: false },
   DataLineageAPI: { service: "datalineage.googleapis.com", validate: false },
+  DataManagerAPI: { service: "datamanager.googleapis.com", validate: false },
   DatabaseMigrationAPI: {
     service: "datamigration.googleapis.com",
     validate: false,
@@ -435,6 +445,10 @@ export const API = {
   CloudDataplexAPI: { service: "dataplex.googleapis.com", validate: false },
   DataPortabilityAPI: {
     service: "dataportability.googleapis.com",
+    validate: false,
+  },
+  CloudDataprocControlAPI: {
+    service: "dataproc-control.googleapis.com",
     validate: false,
   },
   CloudDataprocAPI: { service: "dataproc.googleapis.com", validate: false },
@@ -677,6 +691,14 @@ export const API = {
     service: "geminicloudassist.googleapis.com",
     validate: false,
   },
+  GeminiCodeAssistManagementAPI: {
+    service: "geminicodeassistmanagement.googleapis.com",
+    validate: false,
+  },
+  DataAnalyticsAPIwithGemini: {
+    service: "geminidataanalytics.googleapis.com",
+    validate: false,
+  },
   GenerativeLanguageAPI: {
     service: "generativelanguage.googleapis.com",
     validate: false,
@@ -746,6 +768,7 @@ export const API = {
     validate: false,
   },
   CloudTalentSolutionAPI: { service: "jobs.googleapis.com", validate: false },
+  JulesAPI: { service: "jules.googleapis.com", validate: false },
   GoogleKeepAPI: { service: "keep.googleapis.com", validate: false },
   KnowledgeGraphSearchAPI: {
     service: "kgsearch.googleapis.com",
