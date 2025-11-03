@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.0](https://github.com/battis/partly-gcloudy/compare/v1.4.1...v1.5.0) (2025-11-03)
+
+
+### Features
+
+* batch published GAE projects update to TLS 1.2 ([38031f0](https://github.com/battis/partly-gcloudy/commit/38031f07b19e5b8caa637a1b4707bffd42bb0ed3))
+
 ## [1.4.1](https://github.com/battis/partly-gcloudy/compare/v1.4.0...v1.4.1) (2025-08-04)
 
 
