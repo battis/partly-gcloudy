@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import gcloud from '@battis/partly-gcloudy';
 
 (async () => {

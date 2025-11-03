@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "deploy": "node ./scripts/deploy.js"
+    "deploy": "./scripts/deploy.js -v"
   },
   "devDependencies": {
     "@battis/partly-gcloudy": "workspace:*",

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import gcloud from '@battis/partly-gcloudy';
 import { Root } from '@qui-cli/root';
 import path from 'node:path';
