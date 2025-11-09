@@ -348,6 +348,10 @@ export const API = {
     validate: false,
   },
   CloudSearchAPI: { service: "cloudsearch.googleapis.com", validate: false },
+  CloudSecurityComplianceAPI: {
+    service: "cloudsecuritycompliance.googleapis.com",
+    validate: false,
+  },
   CloudShellAPI: { service: "cloudshell.googleapis.com", validate: false },
   GoogleCloudSupportAPI: {
     service: "cloudsupport.googleapis.com",
