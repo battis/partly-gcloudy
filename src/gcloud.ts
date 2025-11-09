@@ -1,4 +1,3 @@
-import { PathString } from '@battis/descriptive-types';
 import { Colors } from '@qui-cli/colors';
 import { Core } from '@qui-cli/core';
 import * as Plugin from '@qui-cli/plugin';
