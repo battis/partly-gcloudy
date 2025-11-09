@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.0](https://github.com/battis/partly-gcloudy/compare/v1.5.0...v2.0.0) (2025-11-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* updated to @qui-cli/plugin@4.x
+
+### Features
+
+* updated API listing ([8cba898](https://github.com/battis/partly-gcloudy/commit/8cba898921d781e0424f5e4ad8b1b2392f4683a3))
+* updated to @qui-cli/plugin@4.x ([9672c33](https://github.com/battis/partly-gcloudy/commit/9672c336b47e09a9db114aa06ae3845ffcfefa84))
+
 ## [1.5.0](https://github.com/battis/partly-gcloudy/compare/v1.4.1...v1.5.0) (2025-11-03)
 
 
