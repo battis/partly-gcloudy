@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^7.10.0",
+    "change-case-all": "^2.1.0",
     "lodash": "^4.17.21",
     "ora": "^8.2.0",
     "rword": "^4.0.0",
