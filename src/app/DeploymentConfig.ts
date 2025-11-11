@@ -1,4 +1,4 @@
-export type File = {
+type File = {
   [fileName: string]: {
     mimeType?: string;
     sha1Sum: string;
@@ -6,7 +6,7 @@ export type File = {
   };
 };
 
-export type Handler = {
+type Handler = {
   authFailAction: string;
   login: string;
   securityLevel?: string;
@@ -21,7 +21,7 @@ export type Handler = {
   urlRegex: string;
 };
 
-export type Version = {
+type Version = {
   environment: string;
   id: string;
   last_deployed_time: string;
@@ -46,7 +46,7 @@ export type Version = {
     id: string;
     instanceClass: string;
     name: string;
-    network: any;
+    network: unknown;
     runtime: string;
     runtimeChannel: string;
     serviceAccount: string;
@@ -57,6 +57,6 @@ export type Version = {
 };
 
 export type DeploymentConfig = {
-  configs: any[];
+  configs: unknown[];
   versions: Version[];
 };
