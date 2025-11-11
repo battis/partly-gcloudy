@@ -1,5 +1,5 @@
 import { EmailString, PathString, URLString } from '@battis/descriptive-types';
-import { ArrayElement } from '@battis/typescript-tricks';
+import { OneOf } from '@battis/typescript-tricks';
 import { pascalCase } from 'change-case-all';
 import * as shell from '../shell/index.js';
 
@@ -38,27 +38,29 @@ function option(
   if (arg === undefined || arg === null) {
     return '';
   }
-  let stringified = ' ';
+  let stringified: string;
   switch (typeof arg) {
     case 'boolean':
       if (arg === true) {
-        stringified += `--${name}`;
+        stringified = `${name}`;
       } else {
-        stringified += `--no-${name}`;
+        stringified = `no-${name}`;
       }
       break;
     case 'string':
-      stringified += `--${name}="${arg}"`;
+      stringified = `${name}="${arg}"`;
       break;
     case 'number':
-      stringified += `--${name}=${arg}`;
+      stringified = `${name}=${arg}`;
       break;
     case 'object':
       // @ts-expect-error 2769: stringify() typing protects us
-      stringified += `--name="${stringify(arg, delimiter)}"`;
+      stringified = `${name}="${stringify(arg, delimiter)}"`;
       break;
+    default:
+      throw Error();
   }
-  return stringified;
+  return ` --${stringified}`;
 }
 
 function flag(name: string, options: Record<string, unknown>): string {
@@ -70,8 +72,6 @@ function flag(name: string, options: Record<string, unknown>): string {
 }
 
 type BaseOptions = {
-  /** ID of the service or fully qualified identifier for the service. */
-  service: string;
   /** Specific to Cloud Run for Anthos: Kubernetes namespace for the service. */
   namespace?: string;
   /**
@@ -278,47 +278,53 @@ type BaseOptions = {
  * as your Cloud Run service; otherwise specify <project>:<region>:<instance>
  * for the instance.
  */
-type CloudSql =
-  | {
+type CloudSql = OneOf<
+  [
+    {
       /** Append the given values to the current Cloud SQL instances. */
       addCloudSqlInstances?: string[];
-    }
-  | {
+    },
+    {
       /** Empty the current Cloud SQL instances. */
-      clearCloudSqlInstances?: true;
-    }
-  | {
+      clearCloudSqlInstances: true;
+    },
+    {
       /** Remove the given values from the current Cloud SQL instances. */
-      removeCloudSqlInstances?: string[];
-    }
-  | {
+      removeCloudSqlInstances: string[];
+    },
+    {
       /**
        * Completely replace the current Cloud SQL instances with the given
        * values.
        */
-      setCloudSqlInstances?: string[];
-    };
+      setCloudSqlInstances: string[];
+    }
+  ]
+>;
 
 /**
  * These flags modify the custom audiences that can be used in the audience
  * field of ID token for authenticated requests.
  */
-type CustomAudience =
-  | {
+type CustomAudience = OneOf<
+  [
+    {
       /** Append the given values to the current custom audiences. */
       addCustomAudiences?: string[];
-    }
-  | {
+    },
+    {
       /** Empty the current custom audiences. */ clearCustomAudiences?: true;
-    }
-  | {
+    },
+    {
       /** Remove the given values from the current custom audiences. */
       removeCustomAudiences?: string[];
-    }
-  | {
+    },
+    {
       /** Completely replace the current custom audiences with the given values. */
       setCustomAudiences?: string[];
-    };
+    }
+  ]
+>;
 
 type Volume = { name: string; type: string };
 
@@ -366,23 +372,28 @@ type NfsVolume = Volume & {
   readonly?: boolean;
 };
 
-type AddVolume =
-  | {
+type AddVolume = OneOf<
+  [
+    {
       /**
        * Adds a volume to the Cloud Run resource. To add more than one volume,*
        * specify this flag multiple times. Volumes must have a name and type
        * key. Only certain values are supported for type.
        */
       addVolume?: (CloudStorageVolume | InMemoryVolume | NfsVolume)[];
-    }
-  | {
+    },
+    {
       /**
        * Remove all existing volumes from the Cloud Run resource, including
        * volumes mounted as secrets
        */
       clearVolumes?: true;
-    }
-  | { removeVolume?: string[] };
+    },
+    { removeVolume?: string[] }
+  ]
+>;
+
+type VolumeMount = { volume: string; mountPath: string };
 
 /**
  * The following flags apply to a single container. If the --container flag is
@@ -397,7 +408,7 @@ type ContainerOptions = {
    *
    * `volume=NAME,mount-path=MOUNT_PATH,...`
    */
-  addVolumeMount?: { volume: string; mountPath: string }[];
+  addVolumeMount?: VolumeMount[];
   /**
    * Comma-separated arguments passed to the command run by the container image.
    * If not specified and no `--command` is provided, the container image's
@@ -501,8 +512,9 @@ type ContainerOptions = {
   useHttp2?: boolean;
 };
 
-type BaseImage =
-  | {
+type BaseImage = OneOf<
+  [
+    {
       /**
        * Specifies the base image to be used for automatic base image updates.
        * When deploying from source using the Google Cloud buildpacks, this flag
@@ -511,13 +523,16 @@ type BaseImage =
        * for more details.
        */
       baseImage?: string;
-    }
-  | {
+    },
+    {
       /** Opts out of automatic base image updates. */ clearBaseImage?: true;
-    };
+    }
+  ]
+>;
 
-type BuildEnvVars =
-  | {
+type BuildEnvVars = OneOf<
+  [
+    {
       /**
        * Path to a local YAML file with definitions for all build environment
        * variables. All existing build environment variables will be removed
@@ -530,39 +545,45 @@ type BuildEnvVars =
        * ```
        */
       buildEnvVarsFile?: PathString;
-    }
-  | {
+    },
+    {
       /** Remove all build environment variables. */ clearBuildEnvVars?: true;
-    }
-  | {
+    },
+    {
       /**
        * List of key-value pairs to set as build environment variables. All
        * existing build environment variables will be removed first.
        */
       setBuildEnvVars: Record<string, string>;
-    }
-  | {
+    },
+    {
       /** List of build environment variables to be removed. */
       removeBuildEnvVars?: string[];
       /** List of key-value pairs to set as build environment variables. */
       updateBuildEnvVars?: Record<string, string>;
-    };
+    }
+  ]
+>;
 
-type BuildServiceAccount =
-  | {
+type BuildServiceAccount = OneOf<
+  [
+    {
       /**
        * Specifies the service account to use to execute the build. Applies only
        * to source deploy builds using the Build API.
        */
       buildServiceAccount?: string;
-    }
-  | {
+    },
+    {
       /** Clears the Cloud Build service account field. */
       clearBuildServiceAccount?: true;
-    };
+    }
+  ]
+>;
 
-type BuildWorkerPool =
-  | {
+type BuildWorkerPool = OneOf<
+  [
+    {
       /**
        * Name of the Cloud Build Custom Worker Pool that should be used to build
        * the function. The format of this field is
@@ -572,17 +593,20 @@ type BuildWorkerPool =
        * of the worker pool.
        */
       buildWorkerPool?: string;
-    }
-  | {
+    },
+    {
       /** Clears the Cloud Build Custom Worker Pool field. */
       clearBuildWorkerPool?: true;
-    };
-
-type EnvVars =
-  | {
-      /** Remove all environment variables. */ clearEnvVars?: true;
     }
-  | {
+  ]
+>;
+
+type EnvVars = OneOf<
+  [
+    {
+      /** Remove all environment variables. */ clearEnvVars?: true;
+    },
+    {
       /**
        * Path to a local YAML or ENV file with definitions for all environment
        * variables. All existing environment variables will be removed before
@@ -603,20 +627,22 @@ type EnvVars =
        * ```
        */
       envVarsFile?: PathString;
-    }
-  | {
+    },
+    {
       /**
        * List of key-value pairs to set as environment variables. All existing
        * environment variables will be removed first.
        */
       setEnvVars?: Record<string, string>;
-    }
-  | {
+    },
+    {
       /** List of environment variables to be removed. */
       removeEnvVars?: string[];
       /** List of key-value pairs to set as environment variables. */
       updateEnvVars?: Record<string, string>;
-    };
+    }
+  ]
+>;
 
 /**
  * Specify secrets to mount or provide as environment variables. Keys starting
@@ -628,40 +654,44 @@ type EnvVars =
  * version of secret 'mysecret'. An environment variable named ENV will also be
  * created whose value is version 1 of secret 'othersecret'.
  */
-type Secrets =
-  | {
+type Secrets = OneOf<
+  [
+    {
       /** Remove all secrets. */ clearSecrets?: true;
-    }
-  | {
+    },
+    {
       /**
        * List of key-value pairs to set as secrets. All existing secrets will be
        * removed first.
        */
       setSecrets?: Record<string, string>;
-    }
-  | {
+    },
+    {
       /** List of secrets to be removed. */ removeSecrets?: string[];
       /** List of key-value pairs to set as secrets. */
       updateSecrets?: Record<string, string>;
-    };
+    }
+  ]
+>;
 
-type Misc =
-  | {
+type Misc = OneOf<
+  [
+    {
       /**
        * Entrypoint for the container image. If not specified, the container
        * image's default Entrypoint is run. To reset this field to its default,*
        * pass an empty string.
        */
       command?: string;
-    }
-  | {
+    },
+    {
       /**
        * Specifies that the deployed object is a function. If a value is
        * provided, that value is used as the entrypoint.
        */
       function?: string;
-    }
-  | {
+    },
+    {
       /**
        * Name of the container image to deploy (e.g.
        * `us-docker.pkg.dev/cloudrun/container/hello:latest`). When used with
@@ -672,8 +702,8 @@ type Misc =
        * name must be the same as the name of the service.
        */
       image?: string;
-    }
-  | {
+    },
+    {
       /**
        * The location of the source to build. If a Dockerfile is present in the
        * source code directory, it will be built using that Dockerfile,*
@@ -691,42 +721,54 @@ type Misc =
        * gcloudignore](https://cloud.google.com/sdk/gcloud/reference/topic/gcloudignore).
        */
       source?: PathString;
-    };
+    }
+  ]
+>;
 
-type BinaryAuthorization =
-  | {
+type BinaryAuthorization = OneOf<
+  [
+    {
       /**
        * Binary Authorization policy to check against. This must be set to
        * "default".
        */
       binaryAuthorzation?: 'default';
-    }
-  | {
+    },
+    {
       /** Remove any previously set Binary Authorization policy. */
       clearBinaryAuthorization?: true;
-    };
+    }
+  ]
+>;
 
-type EncryptionKeyShutdownHours =
-  | {
+type EncryptionKeyShutdownHours = OneOf<
+  [
+    {
       /** Remove any previously set CMEK key shutdown hours setting. */
       clearEncryptionKeyShutdownHours?: true;
-    }
-  | {
+    },
+    {
       /**
        * The number of hours to wait before an automatic shutdown server after
        * CMEK key revocation is detected.
        */
       encryptionKeyShutdownHours?: number;
-    };
+    }
+  ]
+>;
 
-type CmekKey =
-  | { /** Remove any previously set CMEK key reference. */ clearKey?: true }
-  | {
+type CmekKey = OneOf<
+  [
+    { /** Remove any previously set CMEK key reference. */ clearKey?: true },
+    {
       /** CMEK key reference to encrypt the container with. */ key?: string;
-    };
+    }
+  ]
+>;
 
-type Labels = (
-  | {
+type Labels = OneOf<
+  [
+    {
       /**
        * Remove all labels. If `--update-labels` is also specified then
        * `--clear-labels` is applied first.
@@ -745,8 +787,8 @@ type Labels = (
        * ```
        */
       clearLabels?: true;
-    }
-  | {
+    },
+    {
       /**
        * List of label keys to remove. If a label does not exist it is silently
        * ignored. If --update-labels is also specified then --update-labels is
@@ -754,30 +796,34 @@ type Labels = (
        */
       removeLabels?: string[];
     }
-) &
-  (
-    | {
+  ]
+> &
+  OneOf<
+    [
+      {
         /** List of label KEY=VALUE pairs to add. An alias to --update-labels. */
         labels?: Record<string, string>;
-      }
-    | {
+      },
+      {
         /**
          * List of label KEY=VALUE pairs to update. If a label exists, its value
          * is modified. Otherwise, a new label is created.
          */
         updateLabels?: Record<string, string>;
       }
-  );
+    ]
+  >;
 
-type Network =
-  | {
+type Network = OneOf<
+  [
+    {
       /**
        * Disconnect this Cloud Run service from the VPC network it is connected
        * to.
        */
       clearNetwork?: true;
-    }
-  | {
+    },
+    {
       /**
        * The VPC network that the Cloud Run service will be able to send traffic
        * to. If --subnet is also specified, subnet must be a subnetwork of the
@@ -794,27 +840,33 @@ type Network =
        * --clear-network.
        */
       subnet?: string;
-    };
+    }
+  ]
+>;
 
-type NetworkTags =
-  | {
+type NetworkTags = OneOf<
+  [
+    {
       /** Clears all existing network tags from the Cloud Run service. */
       clearNetworkTags?: true;
-    }
-  | {
+    },
+    {
       /**
        * Applies the given network tags (comma separated) to the Cloud Run
        * service. To clear existing tags, use --clear-network-tags.
        */
       networkTags?: string[];
-    };
+    }
+  ]
+>;
 
-type PostKeyRevocationActionType =
-  | {
+type PostKeyRevocationActionType = OneOf<
+  [
+    {
       /** Remove any previously set post CMEK key revocation action type. */
       clearPostKeyRevocationActionType?: true;
-    }
-  | {
+    },
+    {
       /**
        * Action type after CMEK key revocation.
        * `POST_KEY_REVOCATION_ACTION_TYPE` must be one of:
@@ -825,64 +877,89 @@ type PostKeyRevocationActionType =
        *   will be shut down after CMEK key revocation.
        */
       postKeyRevocationActionType?: 'prevent-new' | 'shut-down';
-    };
+    }
+  ]
+>;
 
-// @ts-expect-error 2590
-type Options = BaseOptions &
+type DeployOptions = BaseOptions &
   CloudSql &
   CustomAudience &
-  AddVolume &
   ContainerOptions &
   BaseImage &
-  BuildEnvVars &
-  BuildServiceAccount &
-  BuildWorkerPool &
-  EnvVars &
-  Secrets &
   Misc &
   BinaryAuthorization &
   EncryptionKeyShutdownHours &
   CmekKey &
   Labels &
-  Network &
-  NetworkTags &
   PostKeyRevocationActionType;
 
+type EnvironmentOptions = EnvVars & Secrets;
+type BuildOptions = BuildEnvVars & BuildServiceAccount & BuildWorkerPool;
+type NetworkOptions = Network & NetworkTags;
+
+type Options = {
+  /** ID of the service or fully qualified identifier for the service. */
+  service: string;
+  options?: DeployOptions;
+  env?: EnvironmentOptions;
+  volumes?: AddVolume;
+  build?: BuildOptions;
+  network?: NetworkOptions;
+};
+
 /** Creates or updates a Cloud Run service. */
-export async function deploy({ service, ...options }: Options) {
+export async function deploy({
+  service,
+  options = {},
+  volumes,
+  env = {},
+  build = {},
+  network = {}
+}: Options) {
   await shell.gcloud(
-    `run deploy ${service}${option('namespace', options)}${option('allow-authenticated', options)}${flag('async', options)}${flag('breakglass', options)}${flag('clear-vpc-connector', options)}${option('concurrency', options)}${option('container', options)}${option('cpu-boost', options)}${option('cpu-throttling', options)}${option('default-url', options)}${option('health-check', options)}${option('description', options)}${option('execution-environment', options)}${option('gpu-type', options)}${option('gpu-zonal-redundancy', options)}${option('ingress', options)}${option('invoker-iam-check', options)}${option('max', options)}${option('max-instances', options)}${option('min', options)}${option('min-instances', options)}${option('region', options)}${option('regions', options)}${option('remove-containers', options)}${option('revision-suffix', options)}${option('scaling', options)}${option('service-account', options)}${option('session-affinity', options)}${option('tag', options)}${option('timeout', options)}${flag('no-traffic', options)}${option('vpc-connector', options)}${option('vpc-egress', options)}${option('add-cloud-sql-instances', options)}${flag('clear-cloud-sql-instances', options)}${option('remove-cloud-sql-instances', options)}${option('set-cloud-sql-instances', options)}${option('add-custom-audiences', options)}${flag('clear-custom-audiences', options)}${option('remove-custom-audiences', options)}${option('set-custom-audiences', options)}${
-      options.addVolume
-        ? options.addVolume
-            .map((volume: CloudStorageVolume | InMemoryVolume | NfsVolume) => {
+    `run deploy ${service}${option('namespace', options)}${option(
+      'allow-authenticated',
+      options
+    )}${flag('async', options)}${flag('breakglass', options)}${flag('clear-vpc-connector', options)}${option('concurrency', options)}${option('container', options)}${option('cpu-boost', options)}${option('cpu-throttling', options)}${option('default-url', options)}${option('health-check', options)}${option('description', options)}${option('execution-environment', options)}${option('gpu-type', options)}${option('gpu-zonal-redundancy', options)}${option('ingress', options)}${option('invoker-iam-check', options)}${option('max', options)}${option('max-instances', options)}${option('min', options)}${option('min-instances', options)}${option('region', options)}${option('regions', options)}${option('remove-containers', options)}${option('revision-suffix', options)}${option('scaling', options)}${option('service-account', options)}${option('session-affinity', options)}${option('tag', options)}${option('timeout', options)}${flag('no-traffic', options)}${option('vpc-connector', options)}${option('vpc-egress', options)}${option('add-cloud-sql-instances', options)}${flag('clear-cloud-sql-instances', options)}${option('remove-cloud-sql-instances', options)}${option('set-cloud-sql-instances', options)}${option('add-custom-audiences', options)}${flag('clear-custom-audiences', options)}${option('remove-custom-audiences', options)}${option('set-custom-audiences', options)}${
+      volumes?.addVolume
+        ? volumes.addVolume
+            .map((volume) => {
               switch (volume.type) {
                 case 'cloud-storage':
-                  return ` --add-volume="name=${volume.name},type=${volume.type},bucket=${volume.bucket}${volume.readonly !== undefined ? `,readonly=${volume.readonly}` : ''}${
-                    volume.mountOptions
-                      ? Object.keys(volume.mountOptions)
-                          .map((key) => `${key}=${volume.mountOptions![key]}`)
-                          .join(';')
-                      : ''
-                  }"`;
+                  return option('add-volume', {
+                    addVolume: {
+                      ...volume,
+                      mountOptions: undefined,
+                      'mount-options': volume.mountOptions
+                        ? flatten(volume.mountOptions, ';')
+                        : undefined
+                    }
+                  });
                 case 'in-memory':
-                  return ` --add-volume=name="name=${volume.name},type=${volume.type}${volume.sizeLimit ? `,size-limit=${volume.sizeLimit}` : ''}"`;
+                  return option('add-volume', {
+                    addVolume: {
+                      ...volume,
+                      sizeLimit: undefined,
+                      'size-limit': volume.sizeLimit
+                    }
+                  });
                 case 'nfs':
-                  return ` --add-volume="name=${volume.name},type=${volume.type},location=${volume.location}${volume.readonly !== undefined ? `,readonly=${volume.readonly}` : ''}"`;
+                  return option('add-volume', { addVolume: volume });
               }
               return '';
             })
             .join('')
         : ''
-    }${flag('clear-volumes', options)}${option('remove-volume', options)}${
-      options.addVolumeMount
-        ? ` --add-volume-mount="${options.addVolumeMount
-            .map(
-              (mount: ArrayElement<typeof options.addVolumeMount>) =>
-                `volume=${mount.volume},mount-path=${mount.mountPath}`
+    }${flag('clear-volumes', options)}${option('remove-volume', options)}${option(
+      'add-volume-mount',
+      {
+        addVolumeMount: options.addVolumeMount
+          ? concatenate(
+              options.addVolumeMount.map((mount: VolumeMount) => flatten(mount))
             )
-            .join(',')}"`
-        : ''
-    }${option('args', options)}${option('automatic-updates', options)}${flag(
+          : undefined
+      }
+    )}${option('args', options)}${option('automatic-updates', options)}${flag(
       'clear-volume-mounts',
       options
     )}${option('cpu', options)}${option('depends-on', options)}${option(
@@ -897,31 +974,31 @@ export async function deploy({ service, ...options }: Options) {
     )}${option('use-https', options)}${option('base-image', options)}${flag(
       'clear-base-image',
       options
-    )}${option('build-env-vars-file', options)}${flag(
+    )}${option('build-env-vars-file', build)}${flag(
       'clear-build-env-vars',
-      options
-    )}${option('remove-build-env-vars', options)}${option(
+      build
+    )}${option('remove-build-env-vars', build)}${option(
       'update-build-env-vars',
-      options
-    )}${option('build-service-account', options)}${flag(
+      build
+    )}${option('build-service-account', build)}${flag(
       'clear-build-service-account',
-      options
-    )}${option('build-worker-pool', options)}${flag(
+      build
+    )}${option('build-worker-pool', build)}${flag(
       'clear-build-worker-pool',
-      options
-    )}${flag('clear-env-vars', options)}${option(
+      build
+    )}${flag('clear-env-vars', env)}${option(
       'env-vars-file',
-      options
-    )}${option('set-env-vars', options)}${option(
+      env
+    )}${option('set-env-vars', env)}${option(
       'remove-env-vars',
-      options
-    )}${option('update-env-vars', options)}${flag(
+      env
+    )}${option('update-env-vars', env)}${flag(
       'clear-secrets',
-      options
-    )}${option('set-secrets', options)}${option(
+      env
+    )}${option('set-secrets', env)}${option(
       'remove-secrets',
-      options
-    )}${option('update-secrets', options)}${option('command', options)}${option(
+      env
+    )}${option('update-secrets', env)}${option('command', options)}${option(
       'function',
       options
     )}${option('image', options)}${option('source', options)}${option(
@@ -938,11 +1015,11 @@ export async function deploy({ service, ...options }: Options) {
       options
     )}${option('labels', options)}${option('update-labels', options)}${flag(
       'clear-network',
-      options
-    )}${option('network', options)}${option('subnet', options)}${flag(
+      network
+    )}${option('network', network)}${option('subnet', network)}${flag(
       'clear-network-tags',
-      options
-    )}${option('network-tags', options)}${flag(
+      network
+    )}${option('network-tags', network)}${flag(
       'clear-post-key-revocation-action-type',
       options
     )}${option('post-key-revocation-action-type', options)}`
