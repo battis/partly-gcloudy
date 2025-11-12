@@ -72,7 +72,7 @@ export async function createMySqlInstance(
   ) {
     region = appEngine.locationId;
   } else {
-    region = await app.regions.selectIdentifier({ region });
+    region = await app.regions.select({ region });
   }
 
   // create Cloud SQL MySQL instance with App Engine access

@@ -60,7 +60,7 @@ export async function enable({
   projectId?: string;
   brand?: string;
   client?: string;
-} & Partial<Parameters<typeof projects.selectProject>[0]> &
+} & Partial<Parameters<typeof projects.factory>[0]> &
   Partial<Parameters<typeof oauthBrands.select>[0]> &
   Partial<Parameters<typeof oauthClients.factory>[0]> &
   Partial<Parameters<typeof projects.addIamPolicyBinding>[0]> = {}) {
@@ -68,7 +68,7 @@ export async function enable({
   projectId =
     projectId ||
     (
-      await projects.selectProject({
+      await projects.factory({
         project,
         id: projectId,
         purpose: 'for which set up IAP access',

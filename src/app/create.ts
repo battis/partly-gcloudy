@@ -13,7 +13,7 @@ export async function create({ region }: { region?: string } = {}) {
   let instance = await describe();
   if (!instance) {
     instance = await shell.gcloud<AppEngine>(
-      `app create --region=${await regions.selectIdentifier({
+      `app create --region=${await regions.select({
         region,
         purpose: 'to create App Engine instance'
       })}`

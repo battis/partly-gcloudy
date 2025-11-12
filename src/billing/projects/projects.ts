@@ -15,7 +15,7 @@ export async function enable({
   if (account) {
     projectId =
       projectId ||
-      (await rootProjects.selectIdentifier({
+      (await rootProjects.select({
         projectId,
         purpose: `to link to billing account ${Colors.value(account)}`
       }));

@@ -49,7 +49,7 @@ export async function create({
   project?: projects.Project;
   activate?: boolean;
 } = {}) {
-  project = await projects.selectProject({ project });
+  project = await projects.factory({ project });
 
   applicationTitle = await inputApplicationTitle({
     applicationTitle,
