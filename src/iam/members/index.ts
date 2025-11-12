@@ -1,41 +1,12 @@
-import { Validators } from '@qui-cli/validators';
-import type { Email } from '../../lib/index.js';
-import * as lib from '../../lib/index.js';
-import { UserType } from './UserType.js';
+import { input } from './input.js';
+import UserType from './UserType/index.js';
 
-export { UserType };
+export * from './input.js';
+export { default as UserType } from './UserType/index.js';
 
-export async function selectUserType({
-  userType,
-  ...rest
-}: Partial<lib.prompts.select.Parameters> & {
-  userType?: UserType;
-} = {}) {
-  return (await lib.prompts.select({
-    arg: userType,
-    message: `IAM user type`,
-    choices: [
-      { value: 'user' },
-      { value: 'serviceAccount' },
-      { value: 'group' }
-    ],
-    ...rest
-  })) as unknown as UserType;
-}
+/** @deprecated Use UserType.select() */
+export const selectUserType = UserType.select;
 
-export async function inputMember({
-  member,
-  validate,
-  ...rest
-}: Partial<Parameters<typeof lib.prompts.input<Email>>[0]> & {
-  member?: string;
-} = {}) {
-  return await lib.prompts.input({
-    arg: member,
-    message: `IAM Member`,
-    validate: Validators.combine(validate || (() => true), Validators.email()),
-    ...rest
-  });
-}
-
-export const inputIdentifier = inputMember;
+/** @deprecated Use input() */
+export const inputMember = input;
+export const inputIdentifier = input;

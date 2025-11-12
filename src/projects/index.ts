@@ -1,8 +1,10 @@
 import { Validators } from '@qui-cli/validators';
 import * as lib from '../lib/index.js';
+import * as shell from '../shell/index.js';
 import { Project } from './Project.js';
 import { active } from './active.js';
-import * as shell from '../shell/index.js';
+
+export * from './addIamPolicyBinding.js';
 
 export type ProjectId = string;
 
@@ -168,7 +170,7 @@ export async function selectProject({
 
 export { active };
 
-/** @deprecated use {@link active} */
+/** @deprecated Use {@link active} */
 export const id = active;
 
 export async function create({
@@ -178,7 +180,7 @@ export async function create({
   reuseIfExists
 }: {
   name?: string;
-  /** @deprecated use `projectId` */
+  /** @deprecated Use `projectId` */
   id?: string;
   projectId?: string;
   reuseIfExists?: boolean;
