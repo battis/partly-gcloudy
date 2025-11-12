@@ -15,7 +15,6 @@ export * as projects from './projects/index.js';
 export * as scheduler from './scheduler/index.js';
 export * as secrets from './secrets/index.js';
 export * as services from './services/index.js';
-export * as sql from './sql/index.js';
 
 export type Configuration = Plugin.Configuration & {
   verbose?: boolean;
