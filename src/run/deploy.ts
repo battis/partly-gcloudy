@@ -1,75 +1,7 @@
 import { EmailString, PathString, URLString } from '@battis/descriptive-types';
 import { OneOf } from '@battis/typescript-tricks';
-import { pascalCase } from 'change-case-all';
+import { kebabCase } from 'change-case-all';
 import * as shell from '../shell/index.js';
-
-function concatenate(arg: string[], delimiter = ',') {
-  return arg.join(delimiter);
-}
-
-function flatten(arg: Record<string, string>, delimiter = ',') {
-  return Object.keys(arg)
-    .map((key) => `${key}=${arg[key]}`)
-    .join(delimiter);
-}
-
-function stringify(arg: string[], delimiter?: string): string;
-function stringify(arg: Record<string, string>, delimiter?: string): string;
-function stringify(
-  arg: string[] | Record<string, string>,
-  delimiter = ','
-): string {
-  if (Array.isArray(arg)) {
-    return concatenate(arg, delimiter);
-  }
-  return flatten(arg, delimiter);
-}
-
-function getArg(name: string, options: Record<string, unknown>): unknown {
-  return options[pascalCase(name)];
-}
-
-function option(
-  name: string,
-  options: Record<string, unknown>,
-  delimiter = ','
-): string {
-  const arg = getArg(name, options);
-  if (arg === undefined || arg === null) {
-    return '';
-  }
-  let stringified: string;
-  switch (typeof arg) {
-    case 'boolean':
-      if (arg === true) {
-        stringified = `${name}`;
-      } else {
-        stringified = `no-${name}`;
-      }
-      break;
-    case 'string':
-      stringified = `${name}="${arg}"`;
-      break;
-    case 'number':
-      stringified = `${name}=${arg}`;
-      break;
-    case 'object':
-      // @ts-expect-error 2769: stringify() typing protects us
-      stringified = `${name}="${stringify(arg, delimiter)}"`;
-      break;
-    default:
-      throw Error();
-  }
-  return ` --${stringified}`;
-}
-
-function flag(name: string, options: Record<string, unknown>): string {
-  const arg = getArg(name, options);
-  if (arg === true) {
-    return ` --${name}`;
-  }
-  return '';
-}
 
 type BaseOptions = {
   /** Specific to Cloud Run for Anthos: Kubernetes namespace for the service. */
@@ -372,7 +304,7 @@ type NfsVolume = Volume & {
   readonly?: boolean;
 };
 
-type AddVolume = OneOf<
+type VolumeOptions = OneOf<
   [
     {
       /**
@@ -902,7 +834,7 @@ type Options = {
   service: string;
   options?: DeployOptions;
   env?: EnvironmentOptions;
-  volumes?: AddVolume;
+  volumes?: VolumeOptions;
   build?: BuildOptions;
   network?: NetworkOptions;
 };
@@ -916,17 +848,41 @@ export async function deploy({
   build = {},
   network = {}
 }: Options) {
+  // @ts-expect-error 2339: addVolume _may_ exist
+  const { addVolume = undefined, ...editVolumes } = volumes;
   await shell.gcloud(
-    `run deploy ${service}${option('namespace', options)}${option(
-      'allow-authenticated',
-      options
-    )}${flag('async', options)}${flag('breakglass', options)}${flag('clear-vpc-connector', options)}${option('concurrency', options)}${option('container', options)}${option('cpu-boost', options)}${option('cpu-throttling', options)}${option('default-url', options)}${option('health-check', options)}${option('description', options)}${option('execution-environment', options)}${option('gpu-type', options)}${option('gpu-zonal-redundancy', options)}${option('ingress', options)}${option('invoker-iam-check', options)}${option('max', options)}${option('max-instances', options)}${option('min', options)}${option('min-instances', options)}${option('region', options)}${option('regions', options)}${option('remove-containers', options)}${option('revision-suffix', options)}${option('scaling', options)}${option('service-account', options)}${option('session-affinity', options)}${option('tag', options)}${option('timeout', options)}${flag('no-traffic', options)}${option('vpc-connector', options)}${option('vpc-egress', options)}${option('add-cloud-sql-instances', options)}${flag('clear-cloud-sql-instances', options)}${option('remove-cloud-sql-instances', options)}${option('set-cloud-sql-instances', options)}${option('add-custom-audiences', options)}${flag('clear-custom-audiences', options)}${option('remove-custom-audiences', options)}${option('set-custom-audiences', options)}${
-      volumes?.addVolume
-        ? volumes.addVolume
+    `run deploy ${service} ${[
+      asArgs(options, [
+        'async',
+        'breakglass',
+        'clearVpcConnector',
+        'noTraffic',
+        'clearCloudSqlInstances',
+        'clearCustomAudiences',
+        'clearVolumeMounts',
+        'clearBaseImage',
+        'clearBinaryAuthorization',
+        'clearEncryptionKeyShutdownHours',
+        'clearPostKeyRevocationActionType'
+      ]),
+      asArgs(build, [
+        'clearBuildEnvVars',
+        'clearBuildServiceAccount',
+        'clearBuildWorkerPool'
+      ]),
+      asArgs(env, ['clearEnvVars', 'clearSecrets']),
+      asArgs(network, ['clearNetwork', 'clearNetworkTags']),
+      asArgs(editVolumes, ['clearVolumes'])
+    ]
+      .filter((arg) => arg.length)
+      .join(' ')} ${
+      addVolume
+        ? // @ts-expect-error 2532: it kinda has to be defined...
+          (addVolume as VolumeOptions['addVolume'])
             .map((volume) => {
               switch (volume.type) {
                 case 'cloud-storage':
-                  return option('add-volume', {
+                  return asOption('addVolume', {
                     addVolume: {
                       ...volume,
                       mountOptions: undefined,
@@ -936,7 +892,7 @@ export async function deploy({
                     }
                   });
                 case 'in-memory':
-                  return option('add-volume', {
+                  return asOption('addVolume', {
                     addVolume: {
                       ...volume,
                       sizeLimit: undefined,
@@ -944,84 +900,101 @@ export async function deploy({
                     }
                   });
                 case 'nfs':
-                  return option('add-volume', { addVolume: volume });
+                  return asOption('addVolume', { addVolume: volume });
               }
               return '';
             })
-            .join('')
+            .filter((arg) => arg !== undefined)
+            .join(' ')
         : ''
-    }${flag('clear-volumes', options)}${option('remove-volume', options)}${option(
-      'add-volume-mount',
-      {
-        addVolumeMount: options.addVolumeMount
-          ? concatenate(
-              options.addVolumeMount.map((mount: VolumeMount) => flatten(mount))
-            )
-          : undefined
-      }
-    )}${option('args', options)}${option('automatic-updates', options)}${flag(
-      'clear-volume-mounts',
-      options
-    )}${option('cpu', options)}${option('depends-on', options)}${option(
-      'gpu',
-      options
-    )}${option('liveness-probe', options)}${option('memory', options)}${option(
-      'port',
-      options
-    )}${option('remove-volume-mount', options)}${option(
-      'startup-probe',
-      options
-    )}${option('use-https', options)}${option('base-image', options)}${flag(
-      'clear-base-image',
-      options
-    )}${option('build-env-vars-file', build)}${flag(
-      'clear-build-env-vars',
-      build
-    )}${option('remove-build-env-vars', build)}${option(
-      'update-build-env-vars',
-      build
-    )}${option('build-service-account', build)}${flag(
-      'clear-build-service-account',
-      build
-    )}${option('build-worker-pool', build)}${flag(
-      'clear-build-worker-pool',
-      build
-    )}${flag('clear-env-vars', env)}${option(
-      'env-vars-file',
-      env
-    )}${option('set-env-vars', env)}${option(
-      'remove-env-vars',
-      env
-    )}${option('update-env-vars', env)}${flag(
-      'clear-secrets',
-      env
-    )}${option('set-secrets', env)}${option(
-      'remove-secrets',
-      env
-    )}${option('update-secrets', env)}${option('command', options)}${option(
-      'function',
-      options
-    )}${option('image', options)}${option('source', options)}${option(
-      'binary-authorization',
-      options
-    )}${flag('clear-binary-authorization', options)}${flag(
-      'clear-encryption-key-shutdown-hours',
-      options
-    )}${option('encryption-key-shutdown-hours', options)}${flag(
-      'clear-key',
-      options
-    )}${option('key', options)}${flag('clear-labels', options)}${option(
-      'remove-labels',
-      options
-    )}${option('labels', options)}${option('update-labels', options)}${flag(
-      'clear-network',
-      network
-    )}${option('network', network)}${option('subnet', network)}${flag(
-      'clear-network-tags',
-      network
-    )}${option('network-tags', network)}${flag(
-      'clear-post-key-revocation-action-type',
-      options
-    )}${option('post-key-revocation-action-type', options)}`
+    }${asOption('addVolumeMount', {
+      addVolumeMount: options.addVolumeMount
+        ? concatenate(
+            options.addVolumeMount.map((mount: VolumeMount) => flatten(mount))
+          )
+        : undefined
+    })}`
   );
+}
+
+function concatenate(arg: string[], delimiter = ',') {
+  return arg.join(delimiter);
+}
+
+function flatten(arg: Record<string, string>, delimiter = ',') {
+  return Object.keys(arg)
+    .map((key) => `${key}=${arg[key]}`)
+    .join(delimiter);
+}
+
+function stringify(arg: string[], delimiter?: string): string;
+function stringify(arg: Record<string, string>, delimiter?: string): string;
+function stringify(
+  arg: string[] | Record<string, string>,
+  delimiter = ','
+): string {
+  if (Array.isArray(arg)) {
+    return concatenate(arg, delimiter);
+  }
+  return flatten(arg, delimiter);
+}
+
+function asOption<T extends Record<string, unknown>>(
+  key: keyof T,
+  options: T,
+  delimiter = ','
+) {
+  if (options[key] === undefined || options[key] === null) {
+    return undefined;
+  }
+  const name = kebabCase(key as string);
+  let stringified: string;
+  switch (typeof options[key]) {
+    case 'boolean':
+      if (options[key] === true) {
+        stringified = `${name}`;
+      } else {
+        stringified = `no-${name}`;
+      }
+      break;
+    case 'string':
+      stringified = `${name}="${options[key]}"`;
+      break;
+    case 'number':
+      stringified = `${name}=${options[key]}`;
+      break;
+    case 'object':
+      // @ts-expect-error 2769: stringify() typing protects us
+      stringified = `${name}="${stringify(arg, delimiter)}"`;
+      break;
+    default:
+      throw Error();
+  }
+  return `--${stringified}`;
+}
+
+function asFlag<T extends Record<string, unknown>>(
+  key: keyof T,
+  options: T
+): string {
+  if (options[key] === true) {
+    return ` --${kebabCase(key as string)}`;
+  }
+  return '';
+}
+
+function asArgs<T extends Record<string, unknown>>(
+  options: T,
+  flags: (keyof T)[] = []
+) {
+  return (Object.keys(options) as (keyof typeof options)[])
+    .map((key) => {
+      if (flags.includes(key)) {
+        return asFlag(key, options);
+      } else {
+        return asOption(key, options);
+      }
+    })
+    .filter((arg) => arg !== undefined)
+    .join(' ');
 }
