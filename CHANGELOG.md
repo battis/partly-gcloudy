@@ -4,174 +4,154 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [2.0.0](https://github.com/battis/partly-gcloudy/compare/v1.5.0...v2.0.0) (2025-11-09)
 
-
 ### ⚠ BREAKING CHANGES
 
-* updated to @qui-cli/plugin@4.x
+- updated to @qui-cli/plugin@4.x
+- abandon sql
 
 ### Features
 
-* updated API listing ([8cba898](https://github.com/battis/partly-gcloudy/commit/8cba898921d781e0424f5e4ad8b1b2392f4683a3))
-* updated to @qui-cli/plugin@4.x ([9672c33](https://github.com/battis/partly-gcloudy/commit/9672c336b47e09a9db114aa06ae3845ffcfefa84))
+- updated API listing ([8cba898](https://github.com/battis/partly-gcloudy/commit/8cba898921d781e0424f5e4ad8b1b2392f4683a3))
+- updated to @qui-cli/plugin@4.x ([9672c33](https://github.com/battis/partly-gcloudy/commit/9672c336b47e09a9db114aa06ae3845ffcfefa84))
+- abandon sql ([2727f42](https://github.com/battis/partly-gcloudy/commit/2727f42beded208bc9a5f8a86e2f7f91e7085ed8))
 
 ## [1.5.0](https://github.com/battis/partly-gcloudy/compare/v1.4.1...v1.5.0) (2025-11-03)
 
-
 ### Features
 
-* batch published GAE projects update to TLS 1.2 ([38031f0](https://github.com/battis/partly-gcloudy/commit/38031f07b19e5b8caa637a1b4707bffd42bb0ed3))
+- batch published GAE projects update to TLS 1.2 ([38031f0](https://github.com/battis/partly-gcloudy/commit/38031f07b19e5b8caa637a1b4707bffd42bb0ed3))
 
 ## [1.4.1](https://github.com/battis/partly-gcloudy/compare/v1.4.0...v1.4.1) (2025-08-04)
 
-
 ### Bug Fixes
 
-* fall back to default @qui-cli/env implementation ([6bf0bef](https://github.com/battis/partly-gcloudy/commit/6bf0befb0acb3d84ae334187da45eab99e0bc749))
+- fall back to default @qui-cli/env implementation ([6bf0bef](https://github.com/battis/partly-gcloudy/commit/6bf0befb0acb3d84ae334187da45eab99e0bc749))
 
 ## [1.4.0](https://github.com/battis/partly-gcloudy/compare/v1.3.0...v1.4.0) (2025-08-04)
 
-
 ### Features
 
-* gcloud.prepare() as alternative to CLI.run() or Core.run() ([ef39802](https://github.com/battis/partly-gcloudy/commit/ef398025d4f2388ac99d946685bdfb99440bf7ff))
-* store secrets in 1Password ([70ccb0a](https://github.com/battis/partly-gcloudy/commit/70ccb0af8f707e8127a797b611f98978020349bd))
-* update Services definitions ([6a0db76](https://github.com/battis/partly-gcloudy/commit/6a0db763fd15387c0e8cce5eb4a99d0fe801304a))
-
+- gcloud.prepare() as alternative to CLI.run() or Core.run() ([ef39802](https://github.com/battis/partly-gcloudy/commit/ef398025d4f2388ac99d946685bdfb99440bf7ff))
+- store secrets in 1Password ([70ccb0a](https://github.com/battis/partly-gcloudy/commit/70ccb0af8f707e8127a797b611f98978020349bd))
+- update Services definitions ([6a0db76](https://github.com/battis/partly-gcloudy/commit/6a0db763fd15387c0e8cce5eb4a99d0fe801304a))
 
 ### Bug Fixes
 
-* bump dependencies (including @battis/qui-cli/* --> @qui-cli/*) ([4f25683](https://github.com/battis/partly-gcloudy/commit/4f25683c552163ee5c180b3d2bdcfc88a1a14a1d))
-* gcloud.prepare() == CLI.init() (NOT CLI.run()) ([5e788b4](https://github.com/battis/partly-gcloudy/commit/5e788b4bcf58be8d370c3b651b23f5e89a16c62a))
+- bump dependencies (including @battis/qui-cli/_ --> @qui-cli/_) ([4f25683](https://github.com/battis/partly-gcloudy/commit/4f25683c552163ee5c180b3d2bdcfc88a1a14a1d))
+- gcloud.prepare() == CLI.init() (NOT CLI.run()) ([5e788b4](https://github.com/battis/partly-gcloudy/commit/5e788b4bcf58be8d370c3b651b23f5e89a16c62a))
 
 ## [1.3.0](https://github.com/battis/partly-gcloudy/compare/v1.2.1...v1.3.0) (2025-07-09)
 
-
 ### Features
 
-* bump to @qui-cli/env to support 1Password integration ([63da81d](https://github.com/battis/partly-gcloudy/commit/63da81d78a7deab33060fefc81c20dbe4db16b17))
+- bump to @qui-cli/env to support 1Password integration ([63da81d](https://github.com/battis/partly-gcloudy/commit/63da81d78a7deab33060fefc81c20dbe4db16b17))
 
 ## [1.2.1](https://github.com/battis/partly-gcloudy/compare/v1.2.0...v1.2.1) (2025-06-30)
 
 ## [1.2.0](https://github.com/battis/partly-gcloudy/compare/v1.1.5...v1.2.0) (2025-06-18)
 
-
 ### Features
 
-* simplified plugin use ([5688c76](https://github.com/battis/partly-gcloudy/commit/5688c76c4d54017c135ece147d150640e6e1f21f))
-* update service list ([8e362b9](https://github.com/battis/partly-gcloudy/commit/8e362b9e57c4a868477e9de9d677b6001baabd41))
-* update to rword@4 ([3392588](https://github.com/battis/partly-gcloudy/commit/3392588b35d250f5ddeaebbb678ccf5a6f410000))
-
+- simplified plugin use ([5688c76](https://github.com/battis/partly-gcloudy/commit/5688c76c4d54017c135ece147d150640e6e1f21f))
+- update service list ([8e362b9](https://github.com/battis/partly-gcloudy/commit/8e362b9e57c4a868477e9de9d677b6001baabd41))
+- update to rword@4 ([3392588](https://github.com/battis/partly-gcloudy/commit/3392588b35d250f5ddeaebbb678ccf5a6f410000))
 
 ### Bug Fixes
 
-* remove extraneous output from gcloud.batch.appEnginePublish ([53191de](https://github.com/battis/partly-gcloudy/commit/53191de4231f3d23e99694ae664d10a8f60d1fef))
+- remove extraneous output from gcloud.batch.appEnginePublish ([53191de](https://github.com/battis/partly-gcloudy/commit/53191de4231f3d23e99694ae664d10a8f60d1fef))
 
 ## [1.1.5](https://github.com/battis/partly-gcloudy/compare/v1.1.4...v1.1.5) (2025-04-19)
 
 ## [1.1.4](https://github.com/battis/partly-gcloudy/compare/v1.1.3...v1.1.4) (2025-04-18)
 
-
 ### Bug Fixes
 
-* ensure that gcloud is ready before being invoked ([4b9273d](https://github.com/battis/partly-gcloudy/commit/4b9273d1601c3a45c7fd43e506f750c418f9661b))
-* remove redundant tests for readiness ([af4ff13](https://github.com/battis/partly-gcloudy/commit/af4ff13e40a5441a89ed3b8cdbdb7d5d8a1b4ce4))
+- ensure that gcloud is ready before being invoked ([4b9273d](https://github.com/battis/partly-gcloudy/commit/4b9273d1601c3a45c7fd43e506f750c418f9661b))
+- remove redundant tests for readiness ([af4ff13](https://github.com/battis/partly-gcloudy/commit/af4ff13e40a5441a89ed3b8cdbdb7d5d8a1b4ce4))
 
 ## [1.1.3](https://github.com/battis/partly-gcloudy/compare/v1.1.1...v1.1.3) (2025-04-18)
 
-
 ### Bug Fixes
 
-* return project, appEngine, deployment from appEngineDeployAndCleanup() as expected ([b9eb10e](https://github.com/battis/partly-gcloudy/commit/b9eb10ea6dd1eaef0fc0dbe6e63d95d36b521261))
+- return project, appEngine, deployment from appEngineDeployAndCleanup() as expected ([b9eb10e](https://github.com/battis/partly-gcloudy/commit/b9eb10ea6dd1eaef0fc0dbe6e63d95d36b521261))
 
 ## [1.1.2](https://github.com/battis/partly-gcloudy/compare/v1.1.1...v1.1.2) (2025-04-18)
 
 ## [1.1.1](https://github.com/battis/partly-gcloudy/compare/v1.1.0...v1.1.1) (2025-04-17)
 
-
 ### Bug Fixes
 
-* appEngineDeployAndCleanUp() and appEnginePublish() should succeed on first attempt ([be15c74](https://github.com/battis/partly-gcloudy/commit/be15c74384acea10b792a9fd10918bbaeaf99488)), closes [#42](https://github.com/battis/partly-gcloudy/issues/42)
-* update API names ([26fd87a](https://github.com/battis/partly-gcloudy/commit/26fd87a2991786bb5d64a6979c6906011d7a8ed1))
+- appEngineDeployAndCleanUp() and appEnginePublish() should succeed on first attempt ([be15c74](https://github.com/battis/partly-gcloudy/commit/be15c74384acea10b792a9fd10918bbaeaf99488)), closes [#42](https://github.com/battis/partly-gcloudy/issues/42)
+- update API names ([26fd87a](https://github.com/battis/partly-gcloudy/commit/26fd87a2991786bb5d64a6979c6906011d7a8ed1))
 
 ## [1.1.0](https://github.com/battis/partly-gcloudy/compare/v1.0.2...v1.1.0) (2025-02-27)
 
-
 ### Features
 
-* add active `deployment` to result of `batch.appEnginePublish()` ([7962de8](https://github.com/battis/partly-gcloudy/commit/7962de875e3b99d1efb6028258ef32feca2c710a))
-* publish on `batch.appEngineDeployAndCleanup()` if no active project ([a012993](https://github.com/battis/partly-gcloudy/commit/a01299373308912d6f2b3898484a4182f5cb2d07))
+- add active `deployment` to result of `batch.appEnginePublish()` ([7962de8](https://github.com/battis/partly-gcloudy/commit/7962de875e3b99d1efb6028258ef32feca2c710a))
+- publish on `batch.appEngineDeployAndCleanup()` if no active project ([a012993](https://github.com/battis/partly-gcloudy/commit/a01299373308912d6f2b3898484a4182f5cb2d07))
 
 ## [1.0.2](https://github.com/battis/partly-gcloudy/compare/v1.0.1...v1.0.2) (2025-02-23)
 
-
 ### Bug Fixes
 
-* bump qui-cli to 2.x ([52cdd48](https://github.com/battis/partly-gcloudy/commit/52cdd48c353ff8b2c30e97f658c49236063137dd))
-* need to await qui-cli register ([97e0393](https://github.com/battis/partly-gcloudy/commit/97e03935ebab6120e1b4edbd5232e8f13c884915))
+- bump qui-cli to 2.x ([52cdd48](https://github.com/battis/partly-gcloudy/commit/52cdd48c353ff8b2c30e97f658c49236063137dd))
+- need to await qui-cli register ([97e0393](https://github.com/battis/partly-gcloudy/commit/97e03935ebab6120e1b4edbd5232e8f13c884915))
 
 ## [1.0.1](https://github.com/battis/partly-gcloudy/compare/v1.0.0...v1.0.1) (2025-02-22)
 
-
 ### Bug Fixes
 
-* mop up missed direct qui-cli dependency ([2f6aad2](https://github.com/battis/partly-gcloudy/commit/2f6aad2ac1cd828c554eeeba4249d8169e6f4623))
+- mop up missed direct qui-cli dependency ([2f6aad2](https://github.com/battis/partly-gcloudy/commit/2f6aad2ac1cd828c554eeeba4249d8169e6f4623))
 
 ## [1.0.0](https://github.com/battis/partly-gcloudy/compare/v0.6.9...v1.0.0) (2025-02-22)
 
-
 ### Bug Fixes
 
-* export gcloud as default ([3b09ba1](https://github.com/battis/partly-gcloudy/commit/3b09ba1457997996bebfec7c0099ef5ec546fcb2))
-* qui-cli plugins as peers ([af030a8](https://github.com/battis/partly-gcloudy/commit/af030a884dfdc2a2dfb0c7c93f03a4e3d56a376e))
+- export gcloud as default ([3b09ba1](https://github.com/battis/partly-gcloudy/commit/3b09ba1457997996bebfec7c0099ef5ec546fcb2))
+- qui-cli plugins as peers ([af030a8](https://github.com/battis/partly-gcloudy/commit/af030a884dfdc2a2dfb0c7c93f03a4e3d56a376e))
 
 ## [0.6.9](https://github.com/battis/partly-gcloudy/compare/v0.6.8...v0.6.9) (2025-02-09)
 
-
 ### Bug Fixes
 
-* bump qui-cli to finally resolve .env loading issues ([d0df2b0](https://github.com/battis/partly-gcloudy/commit/d0df2b03ab66aacb4b4fdb3d168c13d4e59fe1d4))
+- bump qui-cli to finally resolve .env loading issues ([d0df2b0](https://github.com/battis/partly-gcloudy/commit/d0df2b03ab66aacb4b4fdb3d168c13d4e59fe1d4))
 
 ## [0.6.8](https://github.com/battis/partly-gcloudy/compare/v0.6.7...v0.6.8) (2025-02-09)
 
-
 ### Bug Fixes
 
-* bump qui-cli to re-re-re-fix appRoot() ([8e4293d](https://github.com/battis/partly-gcloudy/commit/8e4293daa8c26fbabec28d06d06384be808ede4f))
+- bump qui-cli to re-re-re-fix appRoot() ([8e4293d](https://github.com/battis/partly-gcloudy/commit/8e4293daa8c26fbabec28d06d06384be808ede4f))
 
 ## [0.6.7](https://github.com/battis/partly-gcloudy/compare/v0.6.6...v0.6.7) (2025-02-09)
 
-
 ### Bug Fixes
 
-* bump qui-cli peer to fix env appRoot caching ([e4cb67d](https://github.com/battis/partly-gcloudy/commit/e4cb67d42b9a486f2ccde92d6e59840bbb772399))
+- bump qui-cli peer to fix env appRoot caching ([e4cb67d](https://github.com/battis/partly-gcloudy/commit/e4cb67d42b9a486f2ccde92d6e59840bbb772399))
 
 ## [0.6.6](https://github.com/battis/partly-gcloudy/compare/v0.6.5...v0.6.6) (2025-02-09)
 
-
 ### Bug Fixes
 
-* keep up qui-cli appRoot() changes ([5d7a480](https://github.com/battis/partly-gcloudy/commit/5d7a48055ced95f0c4f736b19ab299485a765fe2))
+- keep up qui-cli appRoot() changes ([5d7a480](https://github.com/battis/partly-gcloudy/commit/5d7a48055ced95f0c4f736b19ab299485a765fe2))
 
 ## [0.6.5](https://github.com/battis/partly-gcloudy/compare/v0.6.4...v0.6.5) (2025-02-09)
 
-
 ### Bug Fixes
 
-* bump qui-cli to allow setting app root ([6ea63e3](https://github.com/battis/partly-gcloudy/commit/6ea63e34f3cd54e1922bdcf272d7f53df38b7838))
+- bump qui-cli to allow setting app root ([6ea63e3](https://github.com/battis/partly-gcloudy/commit/6ea63e34f3cd54e1922bdcf272d7f53df38b7838))
 
 ## [0.6.4](https://github.com/battis/partly-gcloudy/compare/v0.6.3...v0.6.4) (2025-02-09)
 
-
 ### Features
 
-* restructure as qui-cli plugin ([dddb374](https://github.com/battis/partly-gcloudy/commit/dddb374e480dfd87d5f91650bbe7cca12d37b43e))
+- restructure as qui-cli plugin ([dddb374](https://github.com/battis/partly-gcloudy/commit/dddb374e480dfd87d5f91650bbe7cca12d37b43e))
 
 ## [0.6.3](https://github.com/battis/partly-gcloudy/compare/v0.6.2...v0.6.3) (2025-02-04)
 
-
 ### Bug Fixes
 
-* restore default export ([6415f71](https://github.com/battis/partly-gcloudy/commit/6415f718706b5dcc335382ff5bdc585b16f0a84a))
+- restore default export ([6415f71](https://github.com/battis/partly-gcloudy/commit/6415f718706b5dcc335382ff5bdc585b16f0a84a))
 
 ## [0.6.2](https://github.com/battis/partly-gcloudy/compare/v0.6.1...v0.6.2) (2025-02-04)
 
