@@ -1,4 +1,5 @@
 import * as shell from '../../shell/index.js';
+import { isEnabled } from '../enable.js';
 import { Region } from './Region.js';
 
 export type Options = {
@@ -49,6 +50,7 @@ export async function list({
   sortBy,
   uri
 }: Options = {}): Promise<Region[]> {
+  await isEnabled();
   if (typeof limit === 'number' && limit < 1) {
     limit = 'unlimited';
   }

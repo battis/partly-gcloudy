@@ -1,7 +1,9 @@
 import { EmailString, PathString, URLString } from '@battis/descriptive-types';
 import { OneOf } from '@battis/typescript-tricks';
 import { kebabCase } from 'change-case-all';
+import * as services from '../services/index.js';
 import * as shell from '../shell/index.js';
+import { isEnabled } from './enable.js';
 
 type BaseOptions = {
   /** Specific to Cloud Run for Anthos: Kubernetes namespace for the service. */
@@ -839,6 +841,8 @@ type Options = {
   network?: NetworkOptions;
 };
 
+let artifactRegistryEnabled = false;
+
 /** Creates or updates a Cloud Run service. */
 export async function deploy({
   service,
@@ -848,6 +852,11 @@ export async function deploy({
   build = {},
   network = {}
 }: Options) {
+  await isEnabled();
+  if (!artifactRegistryEnabled) {
+    await services.enable(services.API.ArtifactRegistryAPI);
+    artifactRegistryEnabled = true;
+  }
   // @ts-expect-error 2339: addVolume _may_ exist
   const { addVolume = undefined, ...editVolumes } = volumes;
   await shell.gcloud(
