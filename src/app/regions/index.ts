@@ -5,6 +5,6 @@ export * from './list.js';
 export * from './Region.js';
 export * from './select.js';
 
-/** @deprecated Use select() */
+/** @deprecated Use {@link select} */
 export const selectRegion = select;
 export const selectIdentifier = select;

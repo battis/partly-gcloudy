@@ -8,6 +8,6 @@ export * from './list.js';
 export * from './select.js';
 export * from './ServiceAccount.js';
 
-/** @deprecated Use select() */
+/** @deprecated Use {@link select} */
 export const selectEmail = select;
 export const selectIdentifier = select;

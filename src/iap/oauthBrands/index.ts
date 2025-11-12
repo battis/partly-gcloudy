@@ -7,6 +7,6 @@ export * from './describe.js';
 export * from './list.js';
 export * from './select.js';
 
-/** @deprecated Use select() */
+/** @deprecated Use {@link select} */
 export const selectBrand = select;
 export const selectIdentifier = select;

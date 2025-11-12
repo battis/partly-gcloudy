@@ -8,9 +8,9 @@ export * from './factory.js';
 export * from './list.js';
 export * from './select.js';
 
-/** @deprecated Use factory() */
+/** @deprecated Use {@link factory} */
 export const selectClient = factory;
 
-/** @deprecated Use select() */
+/** @deprecated Use {@link select} */
 export const selectName = select;
 export const selectIdentifier = select;
