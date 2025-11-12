@@ -12,7 +12,6 @@ export * as billing from './billing/index.js';
 export * as iam from './iam/index.js';
 export * as iap from './iap/index.js';
 export * as projects from './projects/index.js';
-export * as scheduler from './scheduler/index.js';
 export * as secrets from './secrets/index.js';
 export * as services from './services/index.js';
 
