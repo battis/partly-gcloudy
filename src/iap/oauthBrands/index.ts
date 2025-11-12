@@ -9,4 +9,6 @@ export * from './select.js';
 
 /** @deprecated Use {@link select} */
 export const selectBrand = select;
+
+/** @deprecated Use {@link select} */
 export const selectIdentifier = select;

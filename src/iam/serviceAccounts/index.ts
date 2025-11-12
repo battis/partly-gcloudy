@@ -10,4 +10,6 @@ export * from './ServiceAccount.js';
 
 /** @deprecated Use {@link select} */
 export const selectEmail = select;
+
+/** @deprecated Use {@link select} */
 export const selectIdentifier = select;

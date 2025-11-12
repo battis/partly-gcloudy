@@ -7,4 +7,6 @@ export * from './select.js';
 
 /** @deprecated Use {@link select} */
 export const selectRegion = select;
+
+/** @deprecated Use {@link select} */
 export const selectIdentifier = select;

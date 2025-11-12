@@ -13,4 +13,6 @@ export const selectClient = factory;
 
 /** @deprecated Use {@link select} */
 export const selectName = select;
+
+/** @deprecated Use {@link select} */
 export const selectIdentifier = select;
