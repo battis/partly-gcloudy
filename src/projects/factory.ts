@@ -7,7 +7,6 @@ import { list } from './list.js';
 export async function factory({
   project = active.get(),
   activate,
-  // TODO implement create option
   ...rest
 }: Partial<lib.prompts.select.Parameters<Project, Project>> &
   Partial<Parameters<typeof create>[0]> & {
@@ -29,6 +28,7 @@ export async function factory({
         description: p.projectId,
         value: p
       })),
-    active: activate ? active : undefined
+    active: activate ? active : undefined,
+    create: async (projectId?: string) => await create({ projectId, ...rest })
   });
 }
