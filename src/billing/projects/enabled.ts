@@ -1,7 +1,7 @@
 import { Colors } from '@qui-cli/colors';
-import * as rootProjects from '../projects/index.js';
-import * as shell from '../shell/index.js';
-import * as accounts from './accounts/index.js';
+import * as rootProjects from '../../projects/index.js';
+import * as shell from '../../shell/index.js';
+import * as accounts from '../accounts/index.js';
 
 export async function enable({
   account,

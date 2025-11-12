@@ -1,2 +1,2 @@
 export * as accounts from './accounts/index.js';
-export * as projects from './projects.js';
+export * as projects from './projects/index.js';
