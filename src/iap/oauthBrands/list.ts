@@ -9,7 +9,21 @@ export async function list({
   projectNumber =
     project?.projectNumber ||
     projectNumber ||
-    (await projects.selectProjectNumber({ projectNumber }));
+    (await projects.select({
+      arg: projectNumber?.toString(),
+      argTransform: async (projectNumber: string) => {
+        if (projectNumber === projects.active.get()?.projectNumber) {
+          return projects.active.get();
+        } else {
+          return (
+            await shell.gcloud<projects.Project[]>(
+              `projects list --filter=projectNumber=${projectNumber}`
+            )
+          ).shift();
+        }
+      },
+      transform: (p: projects.Project) => p.projectNumber
+    }));
   return await shell.gcloud<Brand[]>(
     `iap oauth-brands list --filter=name=projects/${projectNumber}/brands/${projectNumber}`
   );
