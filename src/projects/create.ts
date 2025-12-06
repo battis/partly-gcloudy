@@ -48,16 +48,18 @@ export async function inputName({
 export async function create({
   id,
   name,
+  defaultName,
   projectId,
   reuseIfExists
 }: {
   name?: string;
+  defaultName?: string;
   /** @deprecated Use `projectId` */
   id?: string;
   projectId?: string;
   reuseIfExists?: boolean;
 } = {}) {
-  name = await inputName({ name });
+  name = await inputName({ name, default: defaultName });
   projectId = await inputProjectId({ projectId: projectId || id });
   let project: Project | undefined;
   if (projectId) {
