@@ -29,6 +29,8 @@ export type PreBuildCallback = (args: {
 export async function appEnginePublish({
   name,
   id = projects.active.get()?.projectId,
+  defaultName,
+  /** @deprecated Use defaultName */
   suggestedName,
   billingAccountId,
   region,
@@ -38,6 +40,7 @@ export async function appEnginePublish({
   deploy = true
 }: {
   name?: string;
+  defaultName?: string;
   suggestedName?: string;
   id?: string;
   billingAccountId?: string;
@@ -54,12 +57,9 @@ export async function appEnginePublish({
   } = typeof env === 'boolean' || typeof env === 'string' ? {} : env.keys;
 
   if (gcloud.ready()) {
-    // create new project (or reuse existing)
-    if (!name && suggestedName) {
-      name = await projects.inputName({ default: suggestedName });
-    }
     const project = await projects.create({
       name,
+      defaultName: defaultName || suggestedName,
       id
     });
     id = project.projectId;
