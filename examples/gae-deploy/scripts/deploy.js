@@ -21,16 +21,15 @@ import gcloud from '@battis/partly-gcloudy';
 
   // publish or deploy the app (depending on its current state)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- example only!
-  const { project, app, deployment } =
-    await gcloud.batch.appEngineDeployAndCleanup({
-      retainVersions: 2
-    });
+  const { project, app, deployment } = await gcloud.batch.app.deploy({
+    secretsAccess: gcloud.batch.iam.AccessLevel.readOnly,
+    retainVersions: 2
+  });
 
   // one-time configuration (e.g. enabling services, creating secrets, etc.)
   if (configure) {
     await gcloud.services.enable(gcloud.services.API.CloudFirestoreAPI);
-    await gcloud.secrets.enableAppEngineAccess();
-    await gcloud.batch.secretsSetAndCleanUp({
+    await gcloud.batch.secrets.set({
       key: 'my-secret',
       // no passed value property will result in interactive value entry
       retainVersions: 1

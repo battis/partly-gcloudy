@@ -10,5 +10,5 @@ import path from 'node:path';
 
   // continue as normal
   await gcloud.prepare();
-  await gcloud.batch.appEngineDeployAndCleanup({ retainVersions: 2 });
+  await gcloud.batch.app.deploy({ retainVersions: 2 });
 })();
