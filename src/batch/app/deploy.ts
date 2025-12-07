@@ -1,28 +1,18 @@
-import * as DefaultEnv from '@qui-cli/env/dist/Env.js';
-import * as Plugin from '@qui-cli/plugin';
-import * as app from '../app/index.js';
-import * as projects from '../projects/index.js';
-import { appEnginePublish } from './appEnginePublish.js';
+import * as app from '../../app/index.js';
+import * as projects from '../../projects/index.js';
+import { initialize } from './initialize.js';
 
-let Env = Plugin.Registrar.registered().find(
-  (plugin) => plugin.name === DefaultEnv.name
-) as typeof DefaultEnv;
-if (!Env) {
-  Env = DefaultEnv;
-  Plugin.register(DefaultEnv);
-}
-
-export async function appEngineDeployAndCleanup({
+export async function deploy({
   retainVersions,
   ...options
-}: Partial<Parameters<typeof appEnginePublish>>[0] & {
+}: Partial<Parameters<typeof initialize>>[0] & {
   retainVersions?: number;
 } = {}) {
   let appEngine: app.AppEngine | undefined = undefined;
   let project: projects.Project | undefined = undefined;
   let deployment: app.DeploymentConfig | undefined = undefined;
   if (!projects.active.get()) {
-    const result = await appEnginePublish(options);
+    const result = await initialize(options);
     if (result) {
       project = result.project;
       appEngine = result.appEngine;

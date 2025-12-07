@@ -1,32 +1,31 @@
-import * as DefaultEnv from '@qui-cli/env/dist/Env.js';
-import * as Plugin from '@qui-cli/plugin';
+import { PathString } from '@battis/descriptive-types';
+import { Env } from '@qui-cli/env-1password';
 import { Shell } from '@qui-cli/shell';
-import * as app from '../app/index.js';
-import * as billing from '../billing/index.js';
-import * as gcloud from '../gcloud.js';
-import * as projects from '../projects/index.js';
-import ConditionalEnvFile from './ConditionalEnvFile.js';
-
-let Env = Plugin.Registrar.registered().find(
-  (plugin) => plugin.name === DefaultEnv.name
-) as typeof DefaultEnv;
-if (!Env) {
-  Env = DefaultEnv;
-  Plugin.register(DefaultEnv);
-}
-
-type EnvFile =
-  | ConditionalEnvFile
-  | {
-      keys: { idVar?: string; urlVar?: string };
-    };
+import * as app from '../../app/index.js';
+import * as billing from '../../billing/index.js';
+import * as gcloud from '../../gcloud.js';
+import * as projects from '../../projects/index.js';
+import { filePathFrom } from '../lib/filePathFrom.js';
 
 export type PreBuildCallback = (args: {
   project: projects.Project;
   appEngine: app.AppEngine;
 }) => boolean;
 
-export async function appEnginePublish({
+type Options = {
+  name?: string;
+  defaultName?: string;
+  suggestedName?: string;
+  id?: string;
+  billingAccountId?: string;
+  region?: string;
+  env?: true | PathString;
+  preBuild?: PreBuildCallback;
+  build?: string;
+  deploy?: boolean;
+};
+
+export async function initialize({
   name,
   id = projects.active.get()?.projectId,
   defaultName,
@@ -38,23 +37,10 @@ export async function appEnginePublish({
   preBuild,
   build,
   deploy = true
-}: {
-  name?: string;
-  defaultName?: string;
-  suggestedName?: string;
-  id?: string;
-  billingAccountId?: string;
-  region?: string;
-  env?: EnvFile;
-  preBuild?: PreBuildCallback;
-  build?: string;
-  deploy?: boolean;
-} = {}) {
+}: Options = {}) {
   const args = gcloud.args();
-  const {
-    idVar = args.values.projectEnvVar,
-    urlVar = `${args.values.projectEnvVar}_URL`
-  } = typeof env === 'boolean' || typeof env === 'string' ? {} : env.keys;
+  const projectEnvVar = args.values.projectEnvVar;
+  const urlEnvVar = `${projectEnvVar}_URL`;
 
   if (gcloud.ready()) {
     const project = await projects.create({
@@ -74,14 +60,18 @@ export async function appEnginePublish({
     const appEngine = await app.create({ region });
     const url = `https://${appEngine.defaultHostname}`;
     if (env) {
+      if (typeof env === 'string') {
+        Env.parse(env);
+      }
       await Env.set({
-        key: idVar,
+        key: projectEnvVar,
         value: project.projectId,
-        comment: (await Env.exists({ key: idVar }))
+        comment: (await Env.get({ key: projectEnvVar, ...filePathFrom(env) }))
           ? undefined
-          : 'Google Cloud Project'
+          : 'Google Cloud Project',
+        ...filePathFrom(env)
       });
-      await Env.set({ key: urlVar, value: url });
+      await Env.set({ key: urlEnvVar, value: url, ...filePathFrom(env) });
     }
     await app.update({ sslPolicy: 'TLS_VERSION_1_2' });
 
