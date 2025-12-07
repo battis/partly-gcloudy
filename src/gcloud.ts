@@ -1,5 +1,6 @@
 import { Colors } from '@qui-cli/colors';
 import { Core } from '@qui-cli/core';
+import { Env } from '@qui-cli/env-1password';
 import * as Plugin from '@qui-cli/plugin';
 import { ExpectedArguments } from '@qui-cli/plugin';
 import { Shell } from '@qui-cli/shell';
@@ -60,39 +61,32 @@ export function options(): Plugin.Options {
 
 export async function init(args: ExpectedArguments<typeof plugin.options>) {
   cachedArgs = args;
+  let projectId: string | undefined = undefined;
+  if (cachedArgs.values.project || cachedArgs.values.projectEnvVar) {
+    projectId =
+      cachedArgs.values.project ||
+      (await Env.get({ key: cachedArgs.values.projectEnvVar }));
+  }
 
   Shell.configure({
     showCommands: !!cachedArgs.values.verbose,
     silent: !cachedArgs.values.verbose
   });
 
-  if (
-    ready() &&
-    (cachedArgs.values.project ||
-      (cachedArgs.values.projectEnvVar &&
-        process.env[cachedArgs.values.projectEnvVar]))
-  ) {
-    const cachedProject = await projects.describe({
-      projectId:
-        cachedArgs.values.project ||
-        (cachedArgs.values.projectEnvVar &&
-          process.env[cachedArgs.values.projectEnvVar])
-    });
+  if (ready() && !!projectId) {
+    const cachedProject = await projects.describe({ projectId });
     if (cachedProject) {
       projects.active.activate(cachedProject);
     } else {
       if (cachedArgs.values.project) {
         throw new Error(
-          `Project ID argument ${cachedArgs.values.project} unknown`
+          `${Colors.optionArg('--project')} argument ${Colors.quotedValue(`"${cachedArgs.values.project}"`)} unknown`
         );
-      } else if (
-        cachedArgs.values.projectEnvVar &&
-        process.env[cachedArgs.values.projectEnvVar]
-      ) {
+      } else if (cachedArgs.values.projectEnvVar) {
         throw new Error(
-          `Project ID in .env ${cachedArgs.values.projectEnvVar} = ${
-            process.env[cachedArgs.values.projectEnvVar]
-          } unknown`
+          `Project ID in .env variable ${Colors.varName(cachedArgs.values.projectEnvVar)} = ${Colors.quotedValue(
+            `"${await Env.get({ key: cachedArgs.values.projectEnvVar })}"`
+          )} unknown`
         );
       } else {
         throw new Error('Project ID unknown in unexpected manner');
