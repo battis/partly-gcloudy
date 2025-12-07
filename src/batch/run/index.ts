@@ -1,2 +1,2 @@
-export * from './deploy.js';
+export * from './deployService.js';
 export * from './initialize.js';

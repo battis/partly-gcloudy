@@ -1,6 +1,6 @@
 import { Colors } from '@qui-cli/colors';
 import { Core } from '@qui-cli/core';
-import { Env } from '@qui-cli/env';
+import { Env } from '@qui-cli/env-1password';
 import { Log } from '@qui-cli/log';
 import { Shell } from '@qui-cli/shell';
 import fs from 'fs';
