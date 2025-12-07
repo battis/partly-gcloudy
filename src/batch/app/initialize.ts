@@ -25,6 +25,12 @@ type Options = {
   deploy?: boolean;
 };
 
+/**
+ * Initialize a new instance of Google App Engine
+ *
+ * @returns Descriptors of the project, appEngine instance, and most recent
+ *   deployment
+ */
 export async function initialize({
   name,
   id = projects.active.get()?.projectId,

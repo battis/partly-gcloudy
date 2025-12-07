@@ -6,7 +6,18 @@ type Options = {
   appEngine?: app.AppEngine;
 };
 
-/** @deprecated Use {@link iam.enableServiceAccountSecretsAccess()} */
+/**
+ * Enable access to the Google Cloud Secrets Manager from Google App Engine
+ *
+ * This assigns the SecretAccessor role to the App Engine service account.
+ *
+ * This is now more easily accomplished use {@link batch.app.initialize()} and
+ * setting the `secretsAccess` parameter to `true`. After the fact,
+ * batch.{@link iam.enableServiceAccountSecretsAccess()} can also be used.
+ *
+ * @deprecated Use {@link app.initialize()} or
+ *   {@link iam.enableServiceAccountSecretsAccess()}
+ */
 export async function enableSecretsAccess({ appEngine }: Options = {}) {
   appEngine = appEngine || (await app.describe());
   if (!appEngine) {
