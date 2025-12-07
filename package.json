@@ -15,7 +15,7 @@
     "build": "run-s build:*",
     "build:clean": "run-s clean",
     "build:scripts": "tsc -p ./tsconfig.scripts.json",
-    "build:google-services": "op run --env-file ./.env -- node ./dist/scripts/services.js -- -v",
+    "build:google-services": "source .env; ./scripts/services -v --serviceAccountToken \"$(op item get --account $OP_ACCOUNT --reveal --fields credential $OP_TOKEN)\"",
     "build:compile": "tsc",
     "release": "run-s release:*",
     "release:build": "run-s build",

@@ -284,6 +284,10 @@ export const API = {
     service: "cloudaicompanion.googleapis.com",
     validate: false,
   },
+  CloudAPIRegistryAPI: {
+    service: "cloudapiregistry.googleapis.com",
+    validate: false,
+  },
   GoogleCloudAPIs: { service: "cloudapis.googleapis.com", validate: false },
   CloudAssetAPI: { service: "cloudasset.googleapis.com", validate: false },
   CloudBillingAPI: { service: "cloudbilling.googleapis.com", validate: false },
@@ -880,6 +884,10 @@ export const API = {
     service: "mapsplatformdatasets.googleapis.com",
     validate: false,
   },
+  MapsGroundingLiteAPI: {
+    service: "mapstools.googleapis.com",
+    validate: false,
+  },
   GoogleMarketingPlatformAdminAPI: {
     service: "marketingplatformadmin.googleapis.com",
     validate: false,
@@ -1409,6 +1417,7 @@ export const API = {
   },
   AwarenessAPI: { service: "usercontext.googleapis.com", validate: false },
   GoogleVaultAPI: { service: "vault.googleapis.com", validate: false },
+  VectorSearchAPI: { service: "vectorsearch.googleapis.com", validate: false },
   ChromeVerifiedAccessAPI: {
     service: "verifiedaccess.googleapis.com",
     validate: false,
