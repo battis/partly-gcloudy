@@ -5,6 +5,7 @@ import * as app from '../../app/index.js';
 import * as billing from '../../billing/index.js';
 import * as gcloud from '../../gcloud.js';
 import * as projects from '../../projects/index.js';
+import * as iam from '../iam/index.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
 
 export type PreBuildCallback = (args: {
@@ -19,6 +20,7 @@ type Options = {
   id?: string;
   billingAccountId?: string;
   region?: string;
+  secretsAccess?: iam.AccessLevel;
   env?: true | PathString;
   preBuild?: PreBuildCallback;
   build?: string;
@@ -39,6 +41,7 @@ export async function initialize({
   suggestedName,
   billingAccountId,
   region,
+  secretsAccess,
   env = true,
   preBuild,
   build,
@@ -96,6 +99,13 @@ export async function initialize({
     let deployment;
     if (deploy) {
       deployment = await app.deploy();
+    }
+
+    if (secretsAccess) {
+      iam.enableServiceAccountSecretsAccess({
+        serviceAccount: appEngine.serviceAccount,
+        accessLevel: secretsAccess
+      });
     }
     return { project, appEngine, deployment };
   }
