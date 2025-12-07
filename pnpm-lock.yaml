@@ -63,9 +63,9 @@ importers:
       '@qui-cli/validators':
         specifier: ^3.0.2
         version: 3.0.2(@qui-cli/root@3.0.4(@qui-cli/plugin@4.0.0))
-      '@tsconfig/node20':
-        specifier: ^20.1.8
-        version: 20.1.8
+      '@tsconfig/node22':
+        specifier: ^22.0.5
+        version: 22.0.5
       '@types/lodash':
         specifier: ^4.17.21
         version: 4.17.21
@@ -510,8 +510,8 @@ packages:
       svelte:
         optional: true
 
-  '@tsconfig/node20@20.1.8':
-    resolution: {integrity: sha512-Em+IdPfByIzWRRpqWL4Z7ArLHZGxmc36BxE3jCz9nBFSm+5aLaPMZyjwu4yetvyKXeogWcxik4L1jB5JTWfw7A==}
+  '@tsconfig/node22@22.0.5':
+    resolution: {integrity: sha512-hLf2ld+sYN/BtOJjHUWOk568dvjFQkHnLNa6zce25GIH+vxKfvTgm3qpaH6ToF5tu/NN0IH66s+Bb5wElHrLcw==}
 
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
@@ -2636,8 +2636,8 @@ packages:
     resolution: {integrity: sha512-8drMJ4rkgaPo1Me4zD/3WLfI/zPdA9o2IipKODunnGDcuqbHwjsbB79ylv04LCGGzU0xQ6vTznOMpQGaLhhm6A==}
     engines: {node: '>= 12.0.0'}
 
-  winston@3.18.3:
-    resolution: {integrity: sha512-NoBZauFNNWENgsnC9YpgyYwOVrl2m58PpQ8lNHjV3kosGs7KJ7Npk9pCUE+WJlawVSe8mykWDKWFSVfs3QO9ww==}
+  winston@3.19.0:
+    resolution: {integrity: sha512-LZNJgPzfKR+/J3cHkxcpHKpKKvGfDZVPS4hfJCc4cCG0CgYzvlD6yE/S3CIL/Yt91ak327YCpiF/0MyeZHEHKA==}
     engines: {node: '>= 12.0.0'}
 
   word-wrap@1.2.5:
@@ -3088,7 +3088,7 @@ snapshots:
       '@qui-cli/root': 3.0.4(@qui-cli/plugin@4.0.0)
       ora: 8.2.0
       strip-ansi: 7.1.2
-      winston: 3.18.3
+      winston: 3.19.0
 
   '@qui-cli/plugin@4.0.0':
     dependencies:
@@ -3141,7 +3141,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@tsconfig/node20@20.1.8': {}
+  '@tsconfig/node22@22.0.5': {}
 
   '@types/debug@4.1.12':
     dependencies:
@@ -5602,7 +5602,7 @@ snapshots:
       readable-stream: 3.6.2
       triple-beam: 1.4.1
 
-  winston@3.18.3:
+  winston@3.19.0:
     dependencies:
       '@colors/colors': 1.6.0
       '@dabh/diagnostics': 2.0.8
