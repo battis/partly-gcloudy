@@ -1,5 +1,7 @@
 import { input } from '@inquirer/prompts';
+import { Colors } from '@qui-cli/colors';
 import { Env } from '@qui-cli/env-1password';
+import { Log } from '@qui-cli/log';
 import { Shell } from '@qui-cli/shell';
 import { Validators } from '@qui-cli/validators';
 import * as gcloud from '../../gcloud.js';
@@ -58,7 +60,7 @@ export async function deployService({
   serviceName =
     serviceName ||
     (await input({
-      message: 'Google Cloud Run Service name',
+      message: 'Google Cloud Run service name',
       validate: Validators.notEmpty
     }));
 
@@ -92,18 +94,19 @@ export async function deployService({
         .join(' ')} --project="${projectId}" --format=json --quiet`
     ).stdout
   ) as gcloud.run_.deploy.DeploymentConfig;
+
+  Log.info(
+    `Cloud Run ${service.kind} ${Colors.value(
+      service.metadata.name
+    )} in project ${Colors.value(
+      gcloud.projects.active.getIdentifier()
+    )} deployed to:\n\n${(
+      JSON.parse(
+        service.metadata.annotations['run.googleapis.com/urls']
+      ) as string[]
     )
-      .map((key) => {
-        switch (typeof args[key]) {
-          case 'boolean':
-            return `--${key}`;
-          case 'number':
-            return `--${key}=${args[key]}`;
-          default:
-            return `--${key}="${args[key]}"`;
-        }
-      })
-      .join(' ')} --project="${projectId}" --format=json --quiet`
+      .map((url) => `  ${Colors.url(url)}`)
+      .join('\n')}\n`
   );
 
   return { service };

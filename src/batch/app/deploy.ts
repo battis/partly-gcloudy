@@ -1,4 +1,7 @@
+import { Colors } from '@qui-cli/colors';
+import { Log } from '@qui-cli/log';
 import * as app from '../../app/index.js';
+import * as gcloud from '../../gcloud.js';
 import * as projects from '../../projects/index.js';
 import { initialize } from './initialize.js';
 
@@ -44,6 +47,9 @@ export async function deploy({
           app.versions.delete_({ version: versions[i].id });
       }
     }
+    Log.info(
+      `App in project ${Colors.value(gcloud.projects.active.getIdentifier())} deployed to:\n\n  ${Colors.url(`https://${appEngine?.defaultHostname}`)}\n`
+    );
   }
   return { project, appEngine, deployment };
 }
