@@ -1,8 +1,5 @@
 import { Env } from '@qui-cli/env-1password';
-import * as billing from '../../billing/index.js';
-import * as gcloud from '../../gcloud.js';
 import * as iam from '../../iam/index.js';
-import * as projects from '../../projects/index.js';
 import * as run from '../../run/index.js';
 import * as services from '../../services/index.js';
 import {
@@ -10,6 +7,7 @@ import {
   enableServiceAccountSecretsAccess
 } from '../iam/enableServiceAccountSecretsAccess.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
+import * as projects from '../projects/index.js';
 
 type Options = {
   name?: string;
@@ -22,35 +20,21 @@ type Options = {
   env?: true | string;
   regionEnvVar?: string;
   serviceAccountEnvVar?: string;
-};
+} & Parameters<typeof projects.initialize>[0];
 
 export const REGION_ENV_VAR = 'REGION';
 export const SERVICE_ACCOUNT_ENV_VAR = 'SERVICE_ACCOUNT';
 
 export async function initialize({
-  name,
-  defaultName,
-  projectId,
-  billingAccountId,
   region,
   secretsAccess,
   serviceAccount: _serviceAccount,
   env,
   regionEnvVar = REGION_ENV_VAR,
-  serviceAccountEnvVar = SERVICE_ACCOUNT_ENV_VAR
+  serviceAccountEnvVar = SERVICE_ACCOUNT_ENV_VAR,
+  ...options
 }: Options = {}) {
-  const projectEnvVar = gcloud.args().values.projectEnvVar;
-  const project = await projects.create({ name, defaultName, projectId });
-  projectId = project.projectId;
-  if (env) {
-    Env.set({
-      key: projectEnvVar,
-      value: projectId,
-      ...filePathFrom(env)
-    });
-  }
-
-  await billing.projects.enable({ account: billingAccountId, projectId });
+  const { project } = await projects.initialize(options);
 
   await services.enable(services.API.CloudRunAdminAPI);
   await services.enable(services.API.CloudBuildAPI);

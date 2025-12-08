@@ -3,6 +3,7 @@ import * as secrets from './secrets/index.js';
 
 export * as app from './app/index.js';
 export * as iam from './iam/index.js';
+export * as projects from './projects/index.js';
 export * as run from './run/index.js';
 export * as secrets from './secrets/index.js';
 
