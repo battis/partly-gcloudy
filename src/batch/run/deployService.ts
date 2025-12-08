@@ -74,9 +74,24 @@ export async function deployService({
     serviceAccount ||
     (await Env.get({ key: serviceAccountEnvVar, ...filePathFrom(env) }));
 
-  Shell.exec(
-    `gcloud run deploy ${serviceName} --region=${region} ${serviceAccount ? `--serviceAccount="${serviceAccount}" ` : ''}${Object.keys(
-      args
+  const service = JSON.parse(
+    Shell.exec(
+      `gcloud run deploy ${serviceName} --region=${region} ${serviceAccount ? `--service-account="${serviceAccount}" ` : ''}${Object.keys(
+        args
+      )
+        .map((key) => {
+          switch (typeof args[key]) {
+            case 'boolean':
+              return `--${key}`;
+            case 'number':
+              return `--${key}=${args[key]}`;
+            default:
+              return `--${key}="${args[key]}"`;
+          }
+        })
+        .join(' ')} --project="${projectId}" --format=json --quiet`
+    ).stdout
+  ) as gcloud.run_.deploy.DeploymentConfig;
     )
       .map((key) => {
         switch (typeof args[key]) {
@@ -90,4 +105,6 @@ export async function deployService({
       })
       .join(' ')} --project="${projectId}" --format=json --quiet`
   );
+
+  return { service };
 }
