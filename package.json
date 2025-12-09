@@ -1,6 +1,6 @@
 {
   "name": "@battis/partly-gcloudy",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Idiosyncratic collection of interactions with `gcloud` CLI tool",
   "license": "GPL-3.0",
   "author": {

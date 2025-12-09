@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.0](https://github.com/battis/partly-gcloudy/compare/v2.0.0...v3.0.0) (2025-12-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* build for Node.js v22
+* remove deprecated iam.enableAppEngineAccess()
+* reorganized batch scripts for consistency/DRY-ness
+* abandon scheduler
+* abandon sql
+
+### Features
+
+* abandon scheduler ([e09104d](https://github.com/battis/partly-gcloudy/commit/e09104d1161aaace8aadf8e2644770a48fbd631a))
+* abandon sql ([e5359db](https://github.com/battis/partly-gcloudy/commit/e5359db6eba753f7e26f1e04ca41851291d0bb82))
+* abstract project creation into its own batch ([c316477](https://github.com/battis/partly-gcloudy/commit/c316477994165fd84ce0734364879789c21ad258))
+* add support for Cloud Run service deployment ([8ee819f](https://github.com/battis/partly-gcloudy/commit/8ee819f49aa701f919c0b3d63cee44cb6261d7ec))
+* build for Node.js v22 ([0443dde](https://github.com/battis/partly-gcloudy/commit/0443dde8d1060dd6be09c2478d855abf84620a72))
+* gcloud iam serviceAccounts create now has defaultName and defaultDisplayName params ([ca74534](https://github.com/battis/partly-gcloudy/commit/ca74534be37466d7d129dc3ee0d4b5b64218eca1))
+* gcloud projects create now has defaultName param for convenience ([6e79647](https://github.com/battis/partly-gcloudy/commit/6e7964741dcda2195e61a493a8b79577e741c82f))
+* implementing a subset of Cloud Run commands ([5427bbf](https://github.com/battis/partly-gcloudy/commit/5427bbff8059b50df4c086b93eac2aadda0297f9))
+* rename gcloud.batch.appEngingPublish suggestedName to defaultName for consistency ([216f925](https://github.com/battis/partly-gcloudy/commit/216f925bfb5f888bacca2da8675bdb742b66434b))
+* reorganized batch scripts for consistency/DRY-ness ([154d6e3](https://github.com/battis/partly-gcloudy/commit/154d6e3bde71fd669b63acdaa51056aa319fe58f))
+* write deploy URL to log ([dd4496f](https://github.com/battis/partly-gcloudy/commit/dd4496f1feb5703f2849087c610c3b056341d23f))
+
+
+### Bug Fixes
+
+* implement create in projects.factory() ([54c1345](https://github.com/battis/partly-gcloudy/commit/54c13457431ecd764edc8294ca25d819a722db71))
+* remove deprecated iam.enableAppEngineAccess() ([e7b1fa4](https://github.com/battis/partly-gcloudy/commit/e7b1fa4de9c94eb764776131aa1994a1b307c29b))
+
 ## [2.0.0](https://github.com/battis/partly-gcloudy/compare/v1.5.0...v2.0.0) (2025-11-09)
 
 
