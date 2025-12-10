@@ -17,6 +17,7 @@ import {
 type Options = {
   projectId?: string;
   serviceName?: string;
+  serviceNameEnvVar?: string;
   region?: string;
   serviceAccount?: string | iam.serviceAccounts.ServiceAccount;
   args?: Record<string, unknown>;
@@ -29,6 +30,8 @@ export const DEFAULT_ARGS = {
   'automatic-updates': true
 };
 
+export const SERVICE_NAME_ENV_VAR = 'SERVICE_NAME';
+
 export async function deployService({
   projectId,
   serviceName,
@@ -36,6 +39,7 @@ export async function deployService({
   serviceAccount,
   args = DEFAULT_ARGS,
   env,
+  serviceNameEnvVar = SERVICE_NAME_ENV_VAR,
   regionEnvVar = REGION_ENV_VAR,
   serviceAccountEnvVar = SERVICE_ACCOUNT_ENV_VAR,
   ...options
@@ -59,10 +63,18 @@ export async function deployService({
   }
   serviceName =
     serviceName ||
+    (await Env.get({ key: serviceNameEnvVar, ...filePathFrom(env) })) ||
     (await input({
       message: 'Google Cloud Run service name',
       validate: Validators.notEmpty
     }));
+  if (env && !process.env[serviceNameEnvVar]) {
+    await Env.set({
+      key: serviceNameEnvVar,
+      value: serviceName,
+      ...filePathFrom(env)
+    });
+  }
 
   region =
     region ||
