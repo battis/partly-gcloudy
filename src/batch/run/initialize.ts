@@ -1,4 +1,5 @@
 import { Env } from '@qui-cli/env-1password';
+import * as gcloud from '../../gcloud.js';
 import * as iam from '../../iam/index.js';
 import * as run from '../../run/index.js';
 import * as services from '../../services/index.js';
@@ -36,7 +37,7 @@ export async function initialize({
 }: Options = {}) {
   const { project } = await projects.initialize(options);
 
-  await services.enable(services.API.CloudRunAdminAPI);
+  await gcloud.run_.isEnabled();
   await services.enable(services.API.CloudBuildAPI);
   await services.enable(services.API.ArtifactRegistryAPI);
 
