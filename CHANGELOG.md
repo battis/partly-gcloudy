@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.1.0](https://github.com/battis/partly-gcloudy/compare/v3.0.0...v3.1.0) (2025-12-10)
+
+
+### Features
+
+* store Cloud Run service name in env ([8506bb8](https://github.com/battis/partly-gcloudy/commit/8506bb845ec9c2b06a88fc96df2a8b769d382bc7))
+
+
+### Bug Fixes
+
+* export gcloud.run.isEnabled() ([be279f0](https://github.com/battis/partly-gcloudy/commit/be279f00ed4633835b97ded3bdcf3b23b8271332))
+
 ## [3.0.0](https://github.com/battis/partly-gcloudy/compare/v2.0.0...v3.0.0) (2025-12-09)
 
 
