@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.2.0](https://github.com/battis/partly-gcloudy/compare/v3.1.0...v3.2.0) (2026-01-06)
+
+
+### Features
+
+* bump to currently active Node.js v24 ([7306579](https://github.com/battis/partly-gcloudy/commit/730657991105f1f4d4cf2cc40563d292537996e0))
+* update gcloud.services.API list as of 2025-01-06 ([ca70b30](https://github.com/battis/partly-gcloudy/commit/ca70b3017713459ffc803b38901a31f6a01c4755))
+
+
+### Bug Fixes
+
+* enable billing before enabling Cloud Run in batch initialize ([0e17567](https://github.com/battis/partly-gcloudy/commit/0e175673928f92f61ff431b25292abc89070ccb5))
+
 ## [3.1.0](https://github.com/battis/partly-gcloudy/compare/v3.0.0...v3.1.0) (2025-12-10)
 
 
