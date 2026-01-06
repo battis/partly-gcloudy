@@ -117,7 +117,7 @@ export const API = {
     validate: false,
   },
   AppEngineAdminAPI: { service: "appengine.googleapis.com", validate: false },
-  GoogleAppEngineFlexibleEnvironment: {
+  AppEngineFlexibleEnvironment: {
     service: "appengineflex.googleapis.com",
     validate: false,
   },
@@ -753,6 +753,10 @@ export const API = {
   CloudHealthcareAPI: { service: "healthcare.googleapis.com", validate: false },
   HomeAPI: { service: "home.googleapis.com", validate: false },
   HomeGraphAPI: { service: "homegraph.googleapis.com", validate: false },
+  ClusterDirectorAPI: {
+    service: "hypercomputecluster.googleapis.com",
+    validate: false,
+  },
   IdentityandAccessManagementIAMAPI: {
     service: "iam.googleapis.com",
     validate: false,
@@ -1327,6 +1331,7 @@ export const API = {
     service: "static-maps-backend.googleapis.com",
     validate: false,
   },
+  StitchAPI: { service: "stitch.googleapis.com", validate: false },
   GoogleCloudStorageJSONAPI: {
     service: "storage-api.googleapis.com",
     validate: false,
