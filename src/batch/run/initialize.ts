@@ -37,6 +37,8 @@ export async function initialize({
 }: Options = {}) {
   const { project } = await projects.initialize(options);
 
+  
+  await gcloud.billing.projects.enable(options)
   await gcloud.run_.isEnabled();
   await services.enable(services.API.CloudBuildAPI);
   await services.enable(services.API.ArtifactRegistryAPI);
