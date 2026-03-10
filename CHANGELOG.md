@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.2.1](https://github.com/battis/partly-gcloudy/compare/v3.2.0...v3.2.1) (2026-03-10)
+
+
+### Bug Fixes
+
+* update gcloud.service.API ([67690aa](https://github.com/battis/partly-gcloudy/commit/67690aa31149fbfecc582db142a3dddcf403ff94))
+
 ## [3.2.0](https://github.com/battis/partly-gcloudy/compare/v3.1.0...v3.2.0) (2026-01-06)
 
 
