@@ -24,6 +24,9 @@
     "release:npm": "pnpm login",
     "release:publish": "pnpm publish --access=public"
   },
+  "resolutions": {
+    "fast-xml-parser": "5.4.x||>5.5.0"
+  },
   "dependencies": {
     "change-case-all": "^2.1.0",
     "lodash": "^4.17.23",
@@ -32,7 +35,7 @@
     "rword-english-extended": "^1.0.0"
   },
   "devDependencies": {
-    "@1password/sdk": "0.3.x",
+    "@1password/sdk": "0.3.1",
     "@battis/descriptive-types": "^0.2.6",
     "@battis/eslint-config": "^2.1.0",
     "@battis/prettier-config": "^1.7.3",
@@ -47,7 +50,7 @@
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@inquirer/prompts": "8.x",
+    "@inquirer/prompts": ">=6",
     "@qui-cli/colors": ">=3.2",
     "@qui-cli/core": ">=4",
     "@qui-cli/env": ">=5",
@@ -57,6 +60,6 @@
     "@qui-cli/shell": ">=3",
     "@qui-cli/validators": ">=3"
   },
-  "packageManager": "pnpm@10.12.4",
+  "packageManager": "pnpm@10.32.0+sha512.9b2634bb3fed5601c33633f2d92593f506270a3963b8c51d2b2d6a828da615ce4e9deebef9614ccebbc13ac8d3c0f9c9ccceb583c69c8578436fa477dbb20d70",
   "target": "node"
 }

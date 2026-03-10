@@ -1,5 +1,7 @@
 .*
+/assets/
 /dist/scripts/
+/eslint.config.js
 /examples/
 /pnpm-workspace.yaml
 /src
