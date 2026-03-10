@@ -17,8 +17,8 @@
     "build:scripts": "tsc -p ./tsconfig.scripts.json",
     "build:google-services": "./scripts/services -v",
     "build:compile": "tsc",
+    "prepack": "run-s build",
     "release": "run-s release:*",
-    "release:build": "run-s build",
     "release:commit-and-tag-version": "commit-and-tag-version",
     "release:main": "git push --follow-tags",
     "release:npm": "pnpm login",
@@ -32,6 +32,7 @@
     "rword-english-extended": "^1.0.0"
   },
   "devDependencies": {
+    "@1password/sdk": "0.3.x",
     "@battis/descriptive-types": "^0.2.6",
     "@battis/eslint-config": "^2.1.0",
     "@battis/prettier-config": "^1.7.3",

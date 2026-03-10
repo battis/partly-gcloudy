@@ -37,7 +37,6 @@ export const API = {
   AdMobAPI: { service: "admob.googleapis.com", validate: false },
   AdsDataHubAPI: { service: "adsdatahub.googleapis.com", validate: false },
   AdSenseManagementAPI: { service: "adsense.googleapis.com", validate: false },
-  AdSenseHostAPI: { service: "adsensehost.googleapis.com", validate: false },
   AdSensePlatformAPI: {
     service: "adsenseplatform.googleapis.com",
     validate: false,
@@ -233,6 +232,10 @@ export const API = {
   },
   BloggerAPI: { service: "blogger.googleapis.com", validate: false },
   BooksAPI: { service: "books.googleapis.com", validate: false },
+  BusinessAICodeAPI: {
+    service: "businessaicode.googleapis.com",
+    validate: false,
+  },
   BusinessProfilePerformanceAPI: {
     service: "businessprofileperformance.googleapis.com",
     validate: false,
@@ -252,6 +255,10 @@ export const API = {
   },
   CertificateManagerAPI: {
     service: "certificatemanager.googleapis.com",
+    validate: false,
+  },
+  GeminiEnterpriseforCustomerExperienceAPI: {
+    service: "ces.googleapis.com",
     validate: false,
   },
   GoogleChatAPI: { service: "chat.googleapis.com", validate: false },
@@ -336,6 +343,10 @@ export const API = {
   },
   CloudPrivateCatalogAPI: {
     service: "cloudprivatecatalog.googleapis.com",
+    validate: false,
+  },
+  CloudProductRegistryAPI: {
+    service: "cloudproductregistry.googleapis.com",
     validate: false,
   },
   CloudProfilerAPI: {
@@ -428,6 +439,10 @@ export const API = {
   NearbyMessagesAPI: { service: "copresence.googleapis.com", validate: false },
   CSSAPI: { service: "css.googleapis.com", validate: false },
   CustomSearchAPI: { service: "customsearch.googleapis.com", validate: false },
+  DatabaseCenterAPI: {
+    service: "databasecenter.googleapis.com",
+    validate: false,
+  },
   GoogleCloudDataCatalogAPI: {
     service: "datacatalog.googleapis.com",
     validate: false,
@@ -474,6 +489,10 @@ export const API = {
   DesignCenterAPI: { service: "designcenter.googleapis.com", validate: false },
   DeveloperConnectAPI: {
     service: "developerconnect.googleapis.com",
+    validate: false,
+  },
+  DeveloperKnowledgeAPI: {
+    service: "developerknowledge.googleapis.com",
     validate: false,
   },
   DeviceStreamingAPI: {
@@ -675,6 +694,10 @@ export const API = {
   },
   FitnessAPI: { service: "fitness.googleapis.com", validate: false },
   GoogleFormsAPI: { service: "forms.googleapis.com", validate: false },
+  FirebasePhoneNumberVerificationAPI: {
+    service: "fpnv.googleapis.com",
+    validate: false,
+  },
   GooglePlayGamesServicesAPI: {
     service: "games.googleapis.com",
     validate: false,
@@ -806,10 +829,6 @@ export const API = {
   },
   EnterpriseLicenseManagerAPI: {
     service: "licensing.googleapis.com",
-    validate: false,
-  },
-  CloudLifeSciencesAPI: {
-    service: "lifesciences.googleapis.com",
     validate: false,
   },
   ListAllowedKidsAPI: {
@@ -1077,6 +1096,10 @@ export const API = {
     service: "performanceparameters.googleapis.com",
     validate: false,
   },
+  GooglePhotosAmbientAPI: {
+    service: "photosambient.googleapis.com",
+    validate: false,
+  },
   PhotosLibraryAPI: {
     service: "photoslibrary.googleapis.com",
     validate: false,
@@ -1270,7 +1293,7 @@ export const API = {
     service: "securitycenter.googleapis.com",
     validate: false,
   },
-  SecurityCommandCenterManagementAPI: {
+  SecurityCenterManagementAPI: {
     service: "securitycentermanagement.googleapis.com",
     validate: false,
   },
@@ -1377,10 +1400,13 @@ export const API = {
   TagManagerAPI: { service: "tagmanager.googleapis.com", validate: false },
   GoogleTasksAPI: { service: "tasks.googleapis.com", validate: false },
   TelemetryAPI: { service: "telemetry.googleapis.com", validate: false },
-  TenorAPI: { service: "tenor.googleapis.com", validate: false },
   CloudTestingAPI: { service: "testing.googleapis.com", validate: false },
   CloudTexttoSpeechAPI: {
     service: "texttospeech.googleapis.com",
+    validate: false,
+  },
+  ThreatIntelligenceAPI: {
+    service: "threatintelligence.googleapis.com",
     validate: false,
   },
   MapTilesAPI: { service: "tile.googleapis.com", validate: false },

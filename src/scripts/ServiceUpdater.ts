@@ -30,6 +30,7 @@ export function configure(config: Configuration = {}) {
 
 export function options(): Plugin.Options {
   return {
+    man: [{ level: 1, text: 'Service update options' }],
     flag: {
       verbose: {
         short: 'v',
@@ -58,7 +59,7 @@ export async function run() {
     let spinner = ora('Loading Google API services...');
     const services = JSON.parse(
       Shell.exec(
-        `gcloud services list --available  --filter=name:googleapis.com --format=json --project=${process.env.PROJECT} --quiet`
+        `gcloud services list --available  --filter=name:googleapis.com --format=json --project=${await Env.get({ key: 'PROJECT' })} --quiet`
       ).stdout
     );
     spinner.succeed('Google API services loaded');

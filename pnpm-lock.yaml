@@ -51,6 +51,9 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
     devDependencies:
+      '@1password/sdk':
+        specifier: ^0.4.0
+        version: 0.4.0
       '@battis/descriptive-types':
         specifier: ^0.2.6
         version: 0.2.6
@@ -104,6 +107,12 @@ importers:
         version: 3.1.1(@qui-cli/plugin@4.1.1(@qui-cli/colors@3.2.4))
 
 packages:
+
+  '@1password/sdk-core@0.4.0':
+    resolution: {integrity: sha512-vjeI1o4wiONY+t1naA4dtUp6HktdLH1D2S+tN1Lh4l41S9XIUHxrljov9B5u6G+VHr7f2MUoxmzXA9zT3aokQQ==}
+
+  '@1password/sdk@0.4.0':
+    resolution: {integrity: sha512-RIypujc9R/UeUaobjyClTYokqRFpcaIkHq+EO/X9XoHId98Vg+SbjwGV+yygRC4MyHwYNo1KP1iEbZcqJ4ZTdw==}
 
   '@babel/code-frame@7.29.0':
     resolution: {integrity: sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw==}
@@ -2666,6 +2675,12 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
+
+  '@1password/sdk-core@0.4.0': {}
+
+  '@1password/sdk@0.4.0':
+    dependencies:
+      '@1password/sdk-core': 0.4.0
 
   '@babel/code-frame@7.29.0':
     dependencies:
