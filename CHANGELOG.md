@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.2.3](https://github.com/battis/partly-gcloudy/compare/v3.2.2...v3.2.3) (2026-03-10)
+
+
+### Bug Fixes
+
+* removed temporary fast-xml-parser resolution ([5cedd44](https://github.com/battis/partly-gcloudy/commit/5cedd44694a476583baf3a6a4437c737947162c1))
+
 ## [3.2.2](https://github.com/battis/partly-gcloudy/compare/v3.2.1...v3.2.2) (2026-03-10)
 
 
