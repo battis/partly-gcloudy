@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  fast-xml-parser: 5.4.x||>5.5.0
-
 importers:
 
   .:
@@ -1172,8 +1169,8 @@ packages:
   fast-xml-builder@1.1.0:
     resolution: {integrity: sha512-7mtITW/we2/wTUZqMyBOR2F8xP4CRxMiSEcQxPIqdRWdO2L/HZSOlzoNyghmyDwNB8BDxePooV1ZTJpkOUhdRg==}
 
-  fast-xml-parser@5.4.2:
-    resolution: {integrity: sha512-pw/6pIl4k0CSpElPEJhDppLzaixDEuWui2CUQQBH/ECDf7+y6YwA4Gf7Tyb0Rfe4DIMuZipYj4AEL0nACKglvQ==}
+  fast-xml-parser@5.5.1:
+    resolution: {integrity: sha512-JTpMz8P5mDoNYzXTmTT/xzWjFiCWi0U+UQTJtrFH9muXsr2RqtXZPbnCW5h2mKsOd4u3XcPWCvDSrnaBPlUcMQ==}
     hasBin: true
 
   fastq@1.20.1:
@@ -3409,7 +3406,7 @@ snapshots:
       detect-indent: 6.1.0
       detect-newline: 3.1.0
       dotgitignore: 2.1.0
-      fast-xml-parser: 5.4.2
+      fast-xml-parser: 5.5.1
       figures: 3.2.0
       find-up: 5.0.0
       git-semver-tags: 5.0.1
@@ -3874,9 +3871,10 @@ snapshots:
     dependencies:
       path-expression-matcher: 1.1.2
 
-  fast-xml-parser@5.4.2:
+  fast-xml-parser@5.5.1:
     dependencies:
       fast-xml-builder: 1.1.0
+      path-expression-matcher: 1.1.2
       strnum: 2.2.0
 
   fastq@1.20.1:

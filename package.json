@@ -24,9 +24,6 @@
     "release:npm": "pnpm login",
     "release:publish": "pnpm publish --access=public"
   },
-  "resolutions": {
-    "fast-xml-parser": "5.4.x||>5.5.0"
-  },
   "dependencies": {
     "change-case-all": "^2.1.0",
     "lodash": "^4.17.23",
