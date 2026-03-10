@@ -1,5 +1,5 @@
 import { Colors } from '@qui-cli/colors';
-import { Env } from '@qui-cli/env-1password';
+import { Env } from '@qui-cli/env';
 import { Log } from '@qui-cli/log';
 import * as Plugin from '@qui-cli/plugin';
 import { Shell } from '@qui-cli/shell';

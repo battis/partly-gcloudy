@@ -1,5 +1,5 @@
 import { Colors } from '@qui-cli/colors';
-import { Env } from '@qui-cli/env-1password';
+import { Env } from '@qui-cli/env';
 import * as gcloud from '../../gcloud.js';
 import * as lib from '../lib/index.js';
 

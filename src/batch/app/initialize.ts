@@ -1,5 +1,5 @@
 import { PathString } from '@battis/descriptive-types';
-import { Env } from '@qui-cli/env-1password';
+import { Env } from '@qui-cli/env';
 import { Shell } from '@qui-cli/shell';
 import * as app from '../../app/index.js';
 import * as gcloud from '../../gcloud.js';

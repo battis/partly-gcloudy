@@ -1,4 +1,4 @@
-import { Env } from '@qui-cli/env-1password';
+import { Env } from '@qui-cli/env';
 import * as gcloud from '../../gcloud.js';
 import * as iam from '../../iam/index.js';
 import * as run from '../../run/index.js';

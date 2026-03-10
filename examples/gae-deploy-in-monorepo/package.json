@@ -5,6 +5,6 @@
   },
   "devDependencies": {
     "@battis/partly-gcloudy": "workspace:*",
-    "@qui-cli/root": "^3.0.6"
+    "@qui-cli/root": "^3.1.1"
   }
 }

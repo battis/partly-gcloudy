@@ -1,6 +1,6 @@
 import { input } from '@inquirer/prompts';
 import { Colors } from '@qui-cli/colors';
-import { Env } from '@qui-cli/env-1password';
+import { Env } from '@qui-cli/env';
 import { Log } from '@qui-cli/log';
 import { Shell } from '@qui-cli/shell';
 import { Validators } from '@qui-cli/validators';

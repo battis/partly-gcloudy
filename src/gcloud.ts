@@ -1,6 +1,6 @@
 import { Colors } from '@qui-cli/colors';
 import { Core } from '@qui-cli/core';
-import { Env } from '@qui-cli/env-1password';
+import { Env } from '@qui-cli/env';
 import * as Plugin from '@qui-cli/plugin';
 import { ExpectedArguments } from '@qui-cli/plugin';
 import { Shell } from '@qui-cli/shell';
