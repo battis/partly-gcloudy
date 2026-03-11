@@ -1,11 +1,9 @@
 import { Colors } from '@qui-cli/colors';
 import { Env } from '@qui-cli/env';
 import { Log } from '@qui-cli/log';
-import { Shell } from '@qui-cli/shell';
-import * as gcloud from '../../gcloud.js';
-import * as iam from '../../iam/index.js';
+import * as core from '../../gcloud.js';
 import { input } from '../../lib/prompts/input.js';
-import * as run from '../../run/index.js';
+import { gcloud } from '../../shell/index.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
 import {
   initialize,
@@ -18,7 +16,7 @@ type Options = {
   serviceName?: string;
   serviceNameEnvVar?: string;
   region?: string;
-  serviceAccount?: string | iam.serviceAccounts.ServiceAccount;
+  serviceAccount?: string | core.iam.serviceAccounts.ServiceAccount;
   args?: Record<string, unknown>;
   env?: true | string;
 } & Parameters<typeof initialize>[0];
@@ -50,7 +48,7 @@ export async function deployService({
   serviceAccountEnvVar = SERVICE_ACCOUNT_ENV_VAR,
   ...options
 }: Options = {}) {
-  const projectEnvVar = gcloud.args().values.projectEnvVar;
+  const projectEnvVar = core.args().values.projectEnvVar;
 
   projectId =
     projectId || (await Env.get({ key: projectEnvVar, ...filePathFrom(env) }));
@@ -85,7 +83,7 @@ export async function deployService({
   region =
     region ||
     (await Env.get({ key: regionEnvVar, ...filePathFrom(env) })) ||
-    (await run.regions.select({ region }));
+    (await core.run_.regions.select({ region }));
 
   if (serviceAccount && typeof serviceAccount !== 'string') {
     serviceAccount = serviceAccount.email;
@@ -94,30 +92,28 @@ export async function deployService({
     serviceAccount ||
     (await Env.get({ key: serviceAccountEnvVar, ...filePathFrom(env) }));
 
-  const service = JSON.parse(
-    Shell.exec(
-      `gcloud run deploy ${serviceName} --region=${region} ${serviceAccount ? `--service-account="${serviceAccount}" ` : ''}${Object.keys(
-        args
-      )
-        .map((key) => {
-          switch (typeof args[key]) {
-            case 'boolean':
-              return `--${args[key] ? '' : 'no-'}${key}`;
-            case 'number':
-              return `--${key}=${args[key]}`;
-            default:
-              return `--${key}="${args[key]}"`;
-          }
-        })
-        .join(' ')} --project="${projectId}" --format=json --quiet`
-    ).stdout
-  ) as gcloud.run_.deploy.DeploymentConfig;
+  const service = await gcloud<core.run_.deploy.DeploymentConfig>(
+    `deploy ${serviceName} --region=${region} ${serviceAccount ? `--service-account="${serviceAccount}" ` : ''}${Object.keys(
+      args
+    )
+      .map((key) => {
+        switch (typeof args[key]) {
+          case 'boolean':
+            return `--${args[key] ? '' : 'no-'}${key}`;
+          case 'number':
+            return `--${key}=${args[key]}`;
+          default:
+            return `--${key}="${args[key]}"`;
+        }
+      })
+      .join(' ')}`
+  );
 
   Log.info(
     `Cloud Run ${service.kind} ${Colors.value(
       service.metadata.name
     )} in project ${Colors.value(
-      gcloud.projects.active.getIdentifier()
+      core.projects.active.getIdentifier()
     )} deployed to:\n\n${(
       JSON.parse(
         service.metadata.annotations['run.googleapis.com/urls']

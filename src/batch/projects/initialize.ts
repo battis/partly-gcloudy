@@ -1,6 +1,6 @@
 import { Colors } from '@qui-cli/colors';
 import { Env } from '@qui-cli/env';
-import * as gcloud from '../../gcloud.js';
+import * as core from '../../gcloud.js';
 import * as lib from '../lib/index.js';
 
 type Options = {
@@ -21,10 +21,10 @@ export async function initialize({
   env = true,
   billingAccountId
 }: Options = {}) {
-  if (gcloud.ready()) {
-    const args = gcloud.args();
+  if (core.ready()) {
+    const args = core.args();
 
-    const project = await gcloud.projects.create({
+    const project = await core.projects.create({
       name,
       defaultName: defaultName || suggestedName,
       id: args.values.project
@@ -39,7 +39,7 @@ export async function initialize({
     }
 
     if (billingAccountId) {
-      await gcloud.billing.projects.enable({
+      await core.billing.projects.enable({
         account: billingAccountId === true ? undefined : billingAccountId,
         projectId
       });

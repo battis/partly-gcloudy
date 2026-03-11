@@ -1,8 +1,5 @@
 import { Env } from '@qui-cli/env';
-import * as gcloud from '../../gcloud.js';
-import * as iam from '../../iam/index.js';
-import * as run from '../../run/index.js';
-import * as services from '../../services/index.js';
+import * as core from '../../gcloud.js';
 import {
   AccessLevel,
   enableServiceAccountSecretsAccess
@@ -17,7 +14,7 @@ type Options = {
   billingAccountId?: string;
   region?: string;
   secretsAccess?: AccessLevel | true;
-  serviceAccount?: boolean | string | iam.serviceAccounts.ServiceAccount;
+  serviceAccount?: boolean | string | core.iam.serviceAccounts.ServiceAccount;
   env?: true | string;
   regionEnvVar?: string;
   serviceAccountEnvVar?: string;
@@ -37,13 +34,12 @@ export async function initialize({
 }: Options = {}) {
   const { project } = await projects.initialize(options);
 
-  
-  await gcloud.billing.projects.enable(options)
-  await gcloud.run_.isEnabled();
-  await services.enable(services.API.CloudBuildAPI);
-  await services.enable(services.API.ArtifactRegistryAPI);
+  await core.billing.projects.enable(options);
+  await core.run_.isEnabled();
+  await core.services.enable(core.services.API.CloudBuildAPI);
+  await core.services.enable(core.services.API.ArtifactRegistryAPI);
 
-  region = await run.regions.select({ region });
+  region = await core.run_.regions.select({ region });
   if (env) {
     Env.set({
       key: regionEnvVar,
@@ -52,15 +48,15 @@ export async function initialize({
     });
   }
 
-  let serviceAccount: iam.serviceAccounts.ServiceAccount | undefined =
+  let serviceAccount: core.iam.serviceAccounts.ServiceAccount | undefined =
     undefined;
   if (_serviceAccount || secretsAccess) {
     if (typeof _serviceAccount === 'string') {
-      serviceAccount = await iam.serviceAccounts.describe({
+      serviceAccount = await core.iam.serviceAccounts.describe({
         email: _serviceAccount
       });
     } else if (serviceAccount === true) {
-      serviceAccount = await iam.serviceAccounts.create({
+      serviceAccount = await core.iam.serviceAccounts.create({
         defaultDisplayName: 'Cloud Run Service Identity'
       });
     }
