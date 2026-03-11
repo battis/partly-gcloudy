@@ -1,11 +1,10 @@
-import { input } from '@inquirer/prompts';
 import { Colors } from '@qui-cli/colors';
 import { Env } from '@qui-cli/env';
 import { Log } from '@qui-cli/log';
 import { Shell } from '@qui-cli/shell';
-import { Validators } from '@qui-cli/validators';
 import * as gcloud from '../../gcloud.js';
 import * as iam from '../../iam/index.js';
+import { input } from '../../lib/prompts/input.js';
 import * as run from '../../run/index.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
 import {
@@ -31,6 +30,13 @@ export const DEFAULT_ARGS = {
 };
 
 export const SERVICE_NAME_ENV_VAR = 'SERVICE_NAME';
+
+function validServiceName(value?: string) {
+  return (
+    (!!value && /^[a-z][a-z0-9-]{0,62}/.test(value)) ||
+    'Valid service names must be no more than 63 characters, and contain only letters, numbers and hyphens'
+  );
+}
 
 export async function deployService({
   projectId,
@@ -61,13 +67,13 @@ export async function deployService({
     region = result.region;
     serviceAccount = result.serviceAccount?.email;
   }
-  serviceName =
-    serviceName ||
-    (await Env.get({ key: serviceNameEnvVar, ...filePathFrom(env) })) ||
-    (await input({
-      message: 'Google Cloud Run service name',
-      validate: Validators.notEmpty
-    }));
+  serviceName = await input({
+    arg:
+      serviceName ||
+      (await Env.get({ key: serviceNameEnvVar, ...filePathFrom(env) })),
+    message: 'Google Cloud Run service name',
+    validate: validServiceName
+  });
   if (env && !process.env[serviceNameEnvVar]) {
     await Env.set({
       key: serviceNameEnvVar,
@@ -96,7 +102,7 @@ export async function deployService({
         .map((key) => {
           switch (typeof args[key]) {
             case 'boolean':
-              return `--${key}`;
+              return `--${args[key] ? '' : 'no-'}${key}`;
             case 'number':
               return `--${key}=${args[key]}`;
             default:
