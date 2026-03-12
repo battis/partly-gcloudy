@@ -73,7 +73,7 @@ export async function deployService({
       serviceName ||
       (await Env.get({ key: serviceNameEnvVar, ...filePathFrom(env) })),
     message: 'Google Cloud Run service name',
-    default: serviceName
+    default: (serviceName || projects.active.get()?.name)
       ?.toLowerCase()
       .replaceAll(/[^a-z0-9-]+/gm, '-')
       .replaceAll(/-+/, '-')
@@ -101,7 +101,7 @@ export async function deployService({
     (await Env.get({ key: serviceAccountEnvVar, ...filePathFrom(env) }));
 
   const service = await gcloud<run.deploy.DeploymentConfig>(
-    `deploy ${serviceName} --region=${region} ${serviceAccount ? `--service-account="${serviceAccount}" ` : ''}${Object.keys(
+    `run deploy ${serviceName} --region=${region} ${serviceAccount ? `--service-account="${serviceAccount}" ` : ''}${Object.keys(
       args
     )
       .map((key) => {
