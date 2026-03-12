@@ -75,8 +75,8 @@ export async function deployService({
     message: 'Google Cloud Run service name',
     default: (serviceName || projects.active.get()?.name)
       ?.toLowerCase()
-      .replaceAll(/[^a-z0-9-]+/gm, '-')
-      .replaceAll(/-+/, '-')
+      .replaceAll(/[^a-z0-9-]+/g, '-')
+      .replaceAll(/-+/g, '-')
       .substring(0, 63),
     validate: validServiceName
   });
