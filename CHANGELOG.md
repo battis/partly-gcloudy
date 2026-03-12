@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.3.2](https://github.com/battis/partly-gcloudy/compare/v3.3.1...v3.3.2) (2026-03-12)
+
+
+### Bug Fixes
+
+* another attempt at fixing billing setup ([e21b109](https://github.com/battis/partly-gcloudy/commit/e21b109046edb56f6d64bd207424c08d95641f5d))
+
 ## [3.3.1](https://github.com/battis/partly-gcloudy/compare/v3.3.0...v3.3.1) (2026-03-12)
 
 
