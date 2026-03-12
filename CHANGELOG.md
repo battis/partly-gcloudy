@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.3.3](https://github.com/battis/partly-gcloudy/compare/v3.3.2...v3.3.3) (2026-03-12)
+
+
+### Bug Fixes
+
+* regex typo(s) ([36b1db7](https://github.com/battis/partly-gcloudy/commit/36b1db79fe67f9bd44ad87ea1b4502d1b5cfd17c))
+
 ## [3.3.2](https://github.com/battis/partly-gcloudy/compare/v3.3.1...v3.3.2) (2026-03-12)
 
 
