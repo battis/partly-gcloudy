@@ -38,8 +38,8 @@ export async function initialize({
   const { project } = await batchProjects.initialize(options);
 
   await billing.projects.enable({
-    projectId: project.projectId,
-    ...options
+    ...options,
+    projectId: project.projectId
   });
   await run.isEnabled();
   await services.enable(services.API.CloudBuildAPI);
