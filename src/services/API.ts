@@ -956,6 +956,7 @@ export const API = {
     validate: false,
   },
   MLKitAPI: { service: "mlkit.googleapis.com", validate: false },
+  MMMDataAPI: { service: "mmmdata.googleapis.com", validate: false },
   MobileCrashReportingAPI: {
     service: "mobilecrashreporting.googleapis.com",
     validate: false,
