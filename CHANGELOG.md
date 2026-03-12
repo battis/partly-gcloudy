@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.3.0](https://github.com/battis/partly-gcloudy/compare/v3.2.3...v3.3.0) (2026-03-12)
+
+
+### Features
+
+* export (deprecated) lib and shell namespaces for convenience ([cfbe782](https://github.com/battis/partly-gcloudy/commit/cfbe7827556a6646e3cfb680d98e1f34815a58f2))
+
+
+### Bug Fixes
+
+* pass project ID from batch.run.initialize() to billing ([b902129](https://github.com/battis/partly-gcloudy/commit/b902129be67aae5fc3f46c37fef93348c9088008))
+* suggest viable alternativ service name based on project name ([5c0bc87](https://github.com/battis/partly-gcloudy/commit/5c0bc870c81622d23c61aadb850f0edbfbc76511))
+* update services.API list ([8a9c2a1](https://github.com/battis/partly-gcloudy/commit/8a9c2a12c146faf1e3e6686588555073876d7441))
+* validate serviceName (and prompt for alternative if invalid) ([19417b2](https://github.com/battis/partly-gcloudy/commit/19417b2dd98f66b2275259eb06aab12cd9d103a6))
+
 ## [3.2.3](https://github.com/battis/partly-gcloudy/compare/v3.2.2...v3.2.3) (2026-03-10)
 
 
