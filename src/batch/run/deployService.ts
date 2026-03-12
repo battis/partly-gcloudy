@@ -73,6 +73,11 @@ export async function deployService({
       serviceName ||
       (await Env.get({ key: serviceNameEnvVar, ...filePathFrom(env) })),
     message: 'Google Cloud Run service name',
+    default: serviceName
+      ?.toLowerCase()
+      .replaceAll(/[^a-z0-9-]+/gm, '-')
+      .replaceAll(/-+/, '-')
+      .substring(0, 63),
     validate: validServiceName
   });
   if (env && !process.env[serviceNameEnvVar]) {
