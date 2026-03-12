@@ -34,7 +34,10 @@ export async function initialize({
 }: Options = {}) {
   const { project } = await projects.initialize(options);
 
-  await core.billing.projects.enable(options);
+  await core.billing.projects.enable({
+    projectId: project.projectId,
+    ...options
+  });
   await core.run_.isEnabled();
   await core.services.enable(core.services.API.CloudBuildAPI);
   await core.services.enable(core.services.API.ArtifactRegistryAPI);
