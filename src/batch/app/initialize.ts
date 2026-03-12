@@ -2,13 +2,14 @@ import { PathString } from '@battis/descriptive-types';
 import { Env } from '@qui-cli/env';
 import { Shell } from '@qui-cli/shell';
 import * as app from '../../app/index.js';
-import * as gcloud from '../../gcloud.js';
+import * as core from '../../core.js';
+import * as projects from '../../projects/index.js';
 import * as iam from '../iam/index.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
-import * as projects from '../projects/index.js';
+import * as batchProjects from '../projects/index.js';
 
 export type PreBuildCallback = (args: {
-  project: gcloud.projects.Project;
+  project: projects.Project;
   appEngine: app.AppEngine;
 }) => boolean;
 
@@ -19,7 +20,7 @@ type Options = {
   preBuild?: PreBuildCallback;
   build?: string;
   deploy?: boolean;
-} & Parameters<typeof projects.initialize>[0];
+} & Parameters<typeof batchProjects.initialize>[0];
 
 /**
  * Initialize a new instance of Google App Engine
@@ -36,9 +37,9 @@ export async function initialize({
   deploy = true,
   ...options
 }: Options = {}) {
-  const urlEnvVar = `${gcloud.args().values.projectEnvVar}_URL`;
+  const urlEnvVar = `${core.args().values.projectEnvVar}_URL`;
 
-  const { project } = await projects.initialize(options);
+  const { project } = await batchProjects.initialize(options);
 
   // enable App Engine for the project and update .env
   const appEngine = await app.create({ region });

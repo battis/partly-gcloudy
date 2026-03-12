@@ -1,11 +1,14 @@
 import { Env } from '@qui-cli/env';
-import * as core from '../../gcloud.js';
+import * as billing from '../../billing/index.js';
+import * as iam from '../../iam/index.js';
+import * as run from '../../run/index.js';
+import * as services from '../../services/index.js';
 import {
   AccessLevel,
   enableServiceAccountSecretsAccess
 } from '../iam/enableServiceAccountSecretsAccess.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
-import * as projects from '../projects/index.js';
+import * as batchProjects from '../projects/index.js';
 
 type Options = {
   name?: string;
@@ -14,11 +17,11 @@ type Options = {
   billingAccountId?: string;
   region?: string;
   secretsAccess?: AccessLevel | true;
-  serviceAccount?: boolean | string | core.iam.serviceAccounts.ServiceAccount;
+  serviceAccount?: boolean | string | iam.serviceAccounts.ServiceAccount;
   env?: true | string;
   regionEnvVar?: string;
   serviceAccountEnvVar?: string;
-} & Parameters<typeof projects.initialize>[0];
+} & Parameters<typeof batchProjects.initialize>[0];
 
 export const REGION_ENV_VAR = 'REGION';
 export const SERVICE_ACCOUNT_ENV_VAR = 'SERVICE_ACCOUNT';
@@ -32,17 +35,17 @@ export async function initialize({
   serviceAccountEnvVar = SERVICE_ACCOUNT_ENV_VAR,
   ...options
 }: Options = {}) {
-  const { project } = await projects.initialize(options);
+  const { project } = await batchProjects.initialize(options);
 
-  await core.billing.projects.enable({
+  await billing.projects.enable({
     projectId: project.projectId,
     ...options
   });
-  await core.run_.isEnabled();
-  await core.services.enable(core.services.API.CloudBuildAPI);
-  await core.services.enable(core.services.API.ArtifactRegistryAPI);
+  await run.isEnabled();
+  await services.enable(services.API.CloudBuildAPI);
+  await services.enable(services.API.ArtifactRegistryAPI);
 
-  region = await core.run_.regions.select({ region });
+  region = await run.regions.select({ region });
   if (env) {
     Env.set({
       key: regionEnvVar,
@@ -51,15 +54,15 @@ export async function initialize({
     });
   }
 
-  let serviceAccount: core.iam.serviceAccounts.ServiceAccount | undefined =
+  let serviceAccount: iam.serviceAccounts.ServiceAccount | undefined =
     undefined;
   if (_serviceAccount || secretsAccess) {
     if (typeof _serviceAccount === 'string') {
-      serviceAccount = await core.iam.serviceAccounts.describe({
+      serviceAccount = await iam.serviceAccounts.describe({
         email: _serviceAccount
       });
     } else if (serviceAccount === true) {
-      serviceAccount = await core.iam.serviceAccounts.create({
+      serviceAccount = await iam.serviceAccounts.create({
         defaultDisplayName: 'Cloud Run Service Identity'
       });
     }

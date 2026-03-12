@@ -1,8 +1,11 @@
 import { Colors } from '@qui-cli/colors';
 import { Env } from '@qui-cli/env';
 import { Log } from '@qui-cli/log';
-import * as core from '../../gcloud.js';
+import * as core from '../../core.js';
+import * as iam from '../../iam/index.js';
 import { input } from '../../lib/prompts/input.js';
+import * as projects from '../../projects/index.js';
+import * as run from '../../run/index.js';
 import { gcloud } from '../../shell/index.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
 import {
@@ -16,7 +19,7 @@ type Options = {
   serviceName?: string;
   serviceNameEnvVar?: string;
   region?: string;
-  serviceAccount?: string | core.iam.serviceAccounts.ServiceAccount;
+  serviceAccount?: string | iam.serviceAccounts.ServiceAccount;
   args?: Record<string, unknown>;
   env?: true | string;
 } & Parameters<typeof initialize>[0];
@@ -83,7 +86,7 @@ export async function deployService({
   region =
     region ||
     (await Env.get({ key: regionEnvVar, ...filePathFrom(env) })) ||
-    (await core.run_.regions.select({ region }));
+    (await run.regions.select({ region }));
 
   if (serviceAccount && typeof serviceAccount !== 'string') {
     serviceAccount = serviceAccount.email;
@@ -92,7 +95,7 @@ export async function deployService({
     serviceAccount ||
     (await Env.get({ key: serviceAccountEnvVar, ...filePathFrom(env) }));
 
-  const service = await gcloud<core.run_.deploy.DeploymentConfig>(
+  const service = await gcloud<run.deploy.DeploymentConfig>(
     `deploy ${serviceName} --region=${region} ${serviceAccount ? `--service-account="${serviceAccount}" ` : ''}${Object.keys(
       args
     )
@@ -113,7 +116,7 @@ export async function deployService({
     `Cloud Run ${service.kind} ${Colors.value(
       service.metadata.name
     )} in project ${Colors.value(
-      core.projects.active.getIdentifier()
+      projects.active.getIdentifier()
     )} deployed to:\n\n${(
       JSON.parse(
         service.metadata.annotations['run.googleapis.com/urls']
