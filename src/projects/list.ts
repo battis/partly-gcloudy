@@ -1,8 +1,8 @@
-import * as shell from '../shell/index.js';
+import { gcloud } from '#shell';
 import { Project } from './Project.js';
 
 export async function list() {
-  return await shell.gcloud<Project[]>('projects list', {
+  return await gcloud<Project[]>('projects list', {
     includeProjectIdFlag: false
   });
 }

@@ -1,4 +1,4 @@
-import * as lib from '../../lib/index.js';
+import * as lib from '#lib';
 import { Client } from './Client.js';
 import { describe } from './describe.js';
 import { list } from './list.js';

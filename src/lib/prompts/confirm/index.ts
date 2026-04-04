@@ -1,6 +1,6 @@
 import { confirm as pConfirm } from '@inquirer/prompts';
-import { reuse as FReuse } from './reuse.js';
 import * as core from '../core/index.js';
+import { reuse as FReuse } from './reuse.js';
 
 export async function confirm({
   arg,
@@ -20,6 +20,7 @@ export async function confirm({
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace confirm {
   export const reuse = FReuse;
 }

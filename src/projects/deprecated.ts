@@ -1,5 +1,5 @@
-import * as lib from '../lib/index.js';
-import * as shell from '../shell/index.js';
+import * as lib from '#lib';
+import { gcloud } from '#shell';
 import { Project } from './Project.js';
 import { active } from './active.js';
 import { create } from './create.js';
@@ -37,7 +37,7 @@ export async function selectProjectNumber({
         return active.get();
       } else {
         return (
-          await shell.gcloud<Project[]>(
+          await gcloud<Project[]>(
             `projects list --filter=projectNumber=${projectNumber}`
           )
         ).shift();

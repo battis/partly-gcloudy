@@ -1,9 +1,9 @@
+import * as app from '#app';
+import * as core from '#core';
+import * as projects from '#projects';
 import { PathString } from '@battis/descriptive-types';
 import { Env } from '@qui-cli/env';
 import { Shell } from '@qui-cli/shell';
-import * as app from '../../app/index.js';
-import * as core from '../../core.js';
-import * as projects from '../../projects/index.js';
 import * as iam from '../iam/index.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
 import * as batchProjects from '../projects/index.js';

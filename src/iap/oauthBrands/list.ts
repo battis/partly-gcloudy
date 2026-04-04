@@ -1,5 +1,5 @@
-import * as projects from '../../projects/index.js';
-import * as shell from '../../shell/index.js';
+import * as projects from '#projects';
+import { gcloud } from '#shell';
 import { Brand } from './Brand.js';
 
 export async function list({
@@ -16,7 +16,7 @@ export async function list({
           return projects.active.get();
         } else {
           return (
-            await shell.gcloud<projects.Project[]>(
+            await gcloud<projects.Project[]>(
               `projects list --filter=projectNumber=${projectNumber}`
             )
           ).shift();
@@ -24,7 +24,7 @@ export async function list({
       },
       transform: (p: projects.Project) => p.projectNumber
     }));
-  return await shell.gcloud<Brand[]>(
+  return await gcloud<Brand[]>(
     `iap oauth-brands list --filter=name=projects/${projectNumber}/brands/${projectNumber}`
   );
 }

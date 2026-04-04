@@ -1,4 +1,4 @@
-import * as shell from '../../shell/index.js';
+import { gcloud } from '#shell';
 import { Version } from './Version.js';
 
 export async function destroy({
@@ -8,7 +8,7 @@ export async function destroy({
   secret: string;
   version: string;
 }) {
-  await shell.gcloud<Version>(
+  await gcloud<Version>(
     `secrets versions destroy ${version} --secret="${secret}"`
   );
 }

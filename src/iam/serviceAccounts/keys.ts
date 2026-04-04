@@ -1,8 +1,7 @@
+import * as lib from '#lib';
+import { gcloud } from '#shell';
 import { confirm } from '@inquirer/prompts';
 import { Validators } from '@qui-cli/validators';
-import type { Email } from '../../lib/index.js';
-import * as lib from '../../lib/index.js';
-import * as shell from '../../shell/index.js';
 import { Key } from './Key.js';
 import { select } from './select.js';
 
@@ -22,7 +21,7 @@ export async function keys({
   cautiouslyDeleteExpiredKeysIfNecessary,
   dangerouslyDeleteAllKeysIfNecessary
 }: {
-  email?: Email;
+  email?: lib.Email;
   path?: string;
   cautiouslyDeleteExpiredKeysIfNecessary?: boolean;
   dangerouslyDeleteAllKeysIfNecessary?: boolean;
@@ -34,7 +33,7 @@ export async function keys({
     validate: Validators.pathExists()
   });
   let keys =
-    (await shell.gcloud<Key[]>(
+    (await gcloud<Key[]>(
       `iam service-accounts keys list --iam-account=${email}`
     )) || [];
   if (keys.length === MAX_KEYS) {
@@ -49,7 +48,7 @@ export async function keys({
       keys.forEach(async (key) => {
         const expiry = new Date(key.validBeforeTime);
         if (expiry < now) {
-          await shell.gcloud(
+          await gcloud(
             `iam service-accounts keys delete ${key.name} --iam-account=${email}`
           );
         } else {
@@ -68,14 +67,14 @@ export async function keys({
     }
     if (keys.length === MAX_KEYS && dangerouslyDeleteAllKeysIfNecessary) {
       keys.forEach(async (key) => {
-        await shell.gcloud(
+        await gcloud(
           `iam service-accounts keys delete ${key.name} --iam-account=${email}`
         );
       });
       keys = [];
     }
   }
-  const key = await shell.gcloud<Key>(
+  const key = await gcloud<Key>(
     `iam service-accounts keys create ${path} --iam-account=${email}`
   );
   if (!key) {

@@ -1,5 +1,5 @@
+import * as lib from '#lib';
 import { Validators } from '@qui-cli/validators';
-import * as lib from '../lib/index.js';
 
 export const Owner = 'roles/owner';
 export const CloudSQL = {

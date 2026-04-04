@@ -1,6 +1,6 @@
+import * as lib from '#lib';
+import { gcloud } from '#shell';
 import { Validators } from '@qui-cli/validators';
-import * as lib from '../../lib/index.js';
-import * as shell from '../../shell/index.js';
 import * as oauthBrands from '../oauthBrands/index.js';
 import { Client } from './Client.js';
 
@@ -31,7 +31,7 @@ export async function create({
 } = {}) {
   brand = await oauthBrands.select({ brand, ...rest });
   displayName = await inputDisplayName({ displayName, ...rest });
-  return await shell.gcloud<Client>(
+  return await gcloud<Client>(
     `iap oauth-clients create ${brand} --display_name="${displayName}"`
   );
 }

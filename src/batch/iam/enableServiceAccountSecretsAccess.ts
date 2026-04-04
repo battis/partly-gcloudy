@@ -1,5 +1,5 @@
-import * as iam from '../../iam/index.js';
-import * as projects from '../../projects/index.js';
+import * as iam from '#iam';
+import * as projects from '#projects';
 
 export enum AccessLevel {
   readOnly,

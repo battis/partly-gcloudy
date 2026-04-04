@@ -1,12 +1,11 @@
+import * as lib from '#lib';
 import { Validators } from '@qui-cli/validators';
-import type { Email } from '../../lib/index.js';
-import * as lib from '../../lib/index.js';
 
 export async function input({
   member,
   validate,
   ...rest
-}: Partial<Parameters<typeof lib.prompts.input<Email>>[0]> & {
+}: Partial<Parameters<typeof lib.prompts.input<lib.Email>>[0]> & {
   member?: string;
 } = {}) {
   return await lib.prompts.input({

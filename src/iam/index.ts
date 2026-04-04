@@ -1,4 +1,4 @@
-import { addIamPolicyBinding } from '../projects/index.js';
+import { addIamPolicyBinding } from '../projects/addIamPolicyBinding.js';
 
 export * as members from './members/index.js';
 export * from './Policy.js';

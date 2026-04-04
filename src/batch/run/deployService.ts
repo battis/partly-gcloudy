@@ -1,12 +1,12 @@
+import * as core from '#core';
+import * as iam from '#iam';
+import * as lib from '#lib';
+import * as projects from '#projects';
+import * as run from '#run';
+import { gcloud } from '#shell';
 import { Colors } from '@qui-cli/colors';
 import { Env } from '@qui-cli/env';
 import { Log } from '@qui-cli/log';
-import * as core from '../../core.js';
-import * as iam from '../../iam/index.js';
-import { input } from '../../lib/prompts/input.js';
-import * as projects from '../../projects/index.js';
-import * as run from '../../run/index.js';
-import { gcloud } from '../../shell/index.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
 import {
   initialize,
@@ -68,7 +68,7 @@ export async function deployService({
     region = result.region;
     serviceAccount = result.serviceAccount?.email;
   }
-  serviceName = await input({
+  serviceName = await lib.prompts.input({
     arg:
       serviceName ||
       (await Env.get({ key: serviceNameEnvVar, ...filePathFrom(env) })),

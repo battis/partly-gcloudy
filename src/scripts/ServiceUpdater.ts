@@ -1,3 +1,4 @@
+import { Service } from '#services';
 import { Colors } from '@qui-cli/colors';
 import { Env } from '@qui-cli/env';
 import { Log } from '@qui-cli/log';
@@ -7,7 +8,6 @@ import fs from 'fs';
 import ora from 'ora';
 import path from 'path';
 import * as prettier from 'prettier';
-import { Service } from '../services/index.js';
 
 export type Configuration = Plugin.Configuration & {
   verbose?: boolean;

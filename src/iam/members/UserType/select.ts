@@ -1,4 +1,4 @@
-import * as lib from '../../../lib/index.js';
+import * as lib from '#lib';
 import { UserType } from './UserType.js';
 
 export async function select({

@@ -1,6 +1,6 @@
+import * as lib from '#lib';
+import * as projects from '#projects';
 import { Shell } from '@qui-cli/shell';
-import * as lib from '../lib/index.js';
-import * as projects from '../projects/index.js';
 import * as flags from './flags.js';
 
 export type Flags = flags.Flags;

@@ -1,4 +1,4 @@
-import * as lib from '../../lib/index.js';
+import * as lib from '#lib';
 import { Region } from './Region.js';
 import * as List from './list.js';
 

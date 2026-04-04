@@ -1,7 +1,7 @@
+import * as iam from '#iam';
+import { gcloud } from '#shell';
 import { Colors } from '@qui-cli/colors';
-import * as iam from '../iam/index.js';
-import * as projects from '../projects/index.js';
-import * as shell from '../shell/index.js';
+import { select } from './select.js';
 
 export async function addIamPolicyBinding({
   user,
@@ -20,13 +20,13 @@ export async function addIamPolicyBinding({
 } & Partial<Parameters<typeof iam.members.inputIdentifier>[0]> &
   Partial<Parameters<typeof iam.members.UserType.select>[0]> &
   Partial<Parameters<typeof iam.Role.inputIdentifier>[0]> &
-  Partial<Parameters<typeof projects.select>[0]> = {}) {
+  Partial<Parameters<typeof select>[0]> = {}) {
   member = await iam.members.inputIdentifier({
     member: member || user,
     purpose: 'to whom to add policy binding',
     ...rest
   });
-  userType = await iam.members.selectUserType({
+  userType = await iam.members.UserType.select({
     userType,
     ...rest
   });
@@ -35,8 +35,8 @@ export async function addIamPolicyBinding({
     purpose: `bind to ${Colors.value(member)}`,
     ...rest
   });
-  projectId = await projects.select({ projectId, ...rest });
-  return await shell.gcloud<iam.Policy>(
+  projectId = await select({ projectId, ...rest });
+  return await gcloud<iam.Policy>(
     `projects add-iam-policy-binding ${projectId} --member=${userType}:${member} --role=${role}`
   );
 }

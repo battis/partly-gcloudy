@@ -1,4 +1,4 @@
-import * as lib from '../../lib/index.js';
+import * as lib from '#lib';
 import { active } from './active.js';
 import { Brand } from './Brand.js';
 import { create } from './create.js';

@@ -1,8 +1,8 @@
+import * as billing from '#billing';
+import * as core from '#core';
+import * as projects from '#projects';
 import { Colors } from '@qui-cli/colors';
 import { Env } from '@qui-cli/env';
-import * as billing from '../../billing/index.js';
-import * as core from '../../core.js';
-import * as projects from '../../projects/index.js';
 import * as lib from '../lib/index.js';
 
 type Options = {

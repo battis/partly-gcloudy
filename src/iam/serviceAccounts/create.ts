@@ -1,7 +1,7 @@
+import * as lib from '#lib';
+import * as projects from '#projects';
+import { gcloud } from '#shell';
 import { Validators } from '@qui-cli/validators';
-import * as lib from '../../lib/index.js';
-import * as projects from '../../projects/index.js';
-import * as shell from '../../shell/index.js';
 import { ServiceAccount } from './ServiceAccount.js';
 
 type Identifier = string;
@@ -61,12 +61,12 @@ export async function create({
     displayName,
     default: defaultDisplayName || name
   });
-  let [serviceAccount] = await shell.gcloud<ServiceAccount[]>(
+  let [serviceAccount] = await gcloud<ServiceAccount[]>(
     `iam service-accounts list --filter=email=${name}@${projects.active.get()?.projectId}.iam.gserviceaccount.com`,
     { includeProjectIdFlag: true }
   );
   if (!serviceAccount) {
-    serviceAccount = await shell.gcloud<ServiceAccount>(
+    serviceAccount = await gcloud<ServiceAccount>(
       `iam service-accounts create ${name} --display-name=${lib.prompts.escape(
         displayName || name
       )}`

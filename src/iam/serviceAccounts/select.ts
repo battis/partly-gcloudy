@@ -1,5 +1,4 @@
-import type { Email } from '../../lib/index.js';
-import * as lib from '../../lib/index.js';
+import * as lib from '#lib';
 import { ServiceAccount } from './ServiceAccount.js';
 import { create } from './create.js';
 import { describe } from './describe.js';
@@ -10,7 +9,7 @@ export async function select({
   ...rest
 }: Partial<lib.prompts.select.Parameters<ServiceAccount>> &
   Partial<Parameters<typeof create>[0]> & {
-    email?: Email;
+    email?: lib.Email;
   } = {}) {
   return lib.prompts.select({
     arg: email,

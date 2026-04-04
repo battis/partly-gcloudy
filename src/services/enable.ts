@@ -1,5 +1,5 @@
-import * as lib from '../lib/index.js';
-import * as shell from '../shell/index.js';
+import * as lib from '#lib';
+import { gcloud } from '#shell';
 import { describe, ServiceIdentifier } from './describe.js';
 import { list } from './list.js';
 import { Service } from './Service.js';
@@ -25,5 +25,5 @@ export async function enable({
       transform: (s: Service) => s.config.name,
       ...rest
     }));
-  return await shell.gcloud(`services enable ${service}`);
+  return await gcloud(`services enable ${service}`);
 }

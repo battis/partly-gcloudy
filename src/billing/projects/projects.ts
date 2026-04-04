@@ -1,6 +1,6 @@
+import * as projects from '#projects';
+import { gcloudBeta } from '#shell';
 import { Colors } from '@qui-cli/colors';
-import * as projects from '../../projects/index.js';
-import * as shell from '../../shell/index.js';
 import * as accounts from '../accounts/index.js';
 
 export async function enable({
@@ -17,7 +17,7 @@ export async function enable({
       projectId,
       purpose: `to link to billing account ${Colors.value(account)}`
     });
-    await shell.gcloudBeta(
+    await gcloudBeta(
       `billing projects link ${projectId} --billing-account=${account}`,
       { includeProjectIdFlag: false }
     );

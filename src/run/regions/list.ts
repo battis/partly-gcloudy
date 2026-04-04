@@ -1,4 +1,4 @@
-import * as shell from '../../shell/index.js';
+import { gcloud } from '#shell';
 import { isEnabled } from '../enable.js';
 import { Region } from './Region.js';
 
@@ -57,7 +57,7 @@ export async function list({
   if (typeof pageSize === 'number' && pageSize < 1) {
     pageSize = 'unlimited';
   }
-  return await shell.gcloud(
+  return await gcloud(
     `run regions list${filter ? `--filter="${filter}"` : ''}${
       limit ? ` --limit=${limit}` : ''
     }${pageSize ? `--page-size=${pageSize}` : ''}${

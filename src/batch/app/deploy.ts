@@ -1,7 +1,7 @@
+import * as app from '#app';
+import * as projects from '#projects';
 import { Colors } from '@qui-cli/colors';
 import { Log } from '@qui-cli/log';
-import * as app from '../../app/index.js';
-import * as projects from '../../projects/index.js';
 import { initialize } from './initialize.js';
 
 /**

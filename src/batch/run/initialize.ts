@@ -1,14 +1,14 @@
+import * as billing from '#billing';
+import * as iam from '#iam';
+import * as run from '#run';
+import * as services from '#services';
 import { Env } from '@qui-cli/env';
-import * as billing from '../../billing/index.js';
-import * as iam from '../../iam/index.js';
-import * as run from '../../run/index.js';
-import * as services from '../../services/index.js';
 import {
   AccessLevel,
   enableServiceAccountSecretsAccess
 } from '../iam/enableServiceAccountSecretsAccess.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
-import * as batchProjects from '../projects/index.js';
+import { initialize as initializeProject } from '../projects/initialize.js';
 
 type Options = {
   name?: string;
@@ -21,7 +21,7 @@ type Options = {
   env?: true | string;
   regionEnvVar?: string;
   serviceAccountEnvVar?: string;
-} & Parameters<typeof batchProjects.initialize>[0];
+} & Parameters<typeof initializeProject>[0];
 
 export const REGION_ENV_VAR = 'REGION';
 export const SERVICE_ACCOUNT_ENV_VAR = 'SERVICE_ACCOUNT';
@@ -35,7 +35,7 @@ export async function initialize({
   serviceAccountEnvVar = SERVICE_ACCOUNT_ENV_VAR,
   ...options
 }: Options = {}) {
-  const { project } = await batchProjects.initialize(options);
+  const { project } = await initializeProject(options);
 
   await billing.projects.enable({
     ...options,

@@ -14,12 +14,10 @@ export async function input<T extends string>({
   default?: string;
   validate: (value?: string) => boolean | string;
 }) {
-  return (
-    (validate && validate(arg) === true && arg) ||
+  return ((validate && validate(arg) === true && arg) ||
     (!validate && arg) ||
     (await pInput({
       message: `${message}${core.pad(purpose)}`,
       ...rest
-    }))
-  );
+    }))) as T;
 }

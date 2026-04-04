@@ -1,9 +1,9 @@
+import * as lib from '#lib';
+import * as services from '#services';
+import { gcloud } from '#shell';
 import { RequireOnlyOne } from '@battis/typescript-tricks';
 import { confirm, input } from '@inquirer/prompts';
 import { Validators } from '@qui-cli/validators';
-import * as lib from '../lib/index.js';
-import * as services from '../services/index.js';
-import * as shell from '../shell/index.js';
 import { Secret } from './Secret.js';
 
 let apiEnabled = false;
@@ -43,11 +43,9 @@ export async function set({
     await services.enable(services.API.SecretManagerAPI);
     apiEnabled = true;
   }
-  let [secret] = await shell.gcloud<Secret[]>(
-    `secrets list --filter=name:${name}`
-  );
+  let [secret] = await gcloud<Secret[]>(`secrets list --filter=name:${name}`);
   if (secret) {
-    await shell.gcloud(
+    await gcloud(
       `secrets versions add ${secret.name} --data-file=${
         path !== undefined ? `${path}` : '-'
       }`,
@@ -61,7 +59,7 @@ export async function set({
       }
     );
   } else {
-    secret = await shell.gcloud<Secret>(
+    secret = await gcloud<Secret>(
       `secrets create ${name} --data-file=${
         path !== undefined ? `${path}` : '-'
       }`,

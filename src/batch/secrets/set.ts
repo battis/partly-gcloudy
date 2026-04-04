@@ -1,4 +1,4 @@
-import * as secrets from '../../secrets/index.js';
+import * as secrets from '#secrets';
 
 type Options = { retainVersions: number } & Parameters<typeof secrets.set>[0];
 

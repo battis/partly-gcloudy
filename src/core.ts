@@ -1,11 +1,10 @@
+import * as projects from '#projects';
 import { Colors } from '@qui-cli/colors';
 import { Core } from '@qui-cli/core';
 import { Env } from '@qui-cli/env';
 import * as Plugin from '@qui-cli/plugin';
 import { ExpectedArguments } from '@qui-cli/plugin';
 import { Shell } from '@qui-cli/shell';
-import * as plugin from './core.js';
-import * as projects from './projects/index.js';
 
 export type Configuration = Plugin.Configuration & {
   verbose?: boolean;
@@ -18,7 +17,7 @@ export const name = 'gcloud';
 let verbose = false;
 let project: string | undefined = undefined;
 let projectEnvVar = 'PROJECT';
-let cachedArgs: ExpectedArguments<typeof plugin.options>;
+let cachedArgs: ExpectedArguments<typeof options>;
 let cachedReady: true | string;
 
 export function configure(config: Configuration = {}) {
@@ -49,7 +48,7 @@ export function options(): Plugin.Options {
   };
 }
 
-export async function init(args: ExpectedArguments<typeof plugin.options>) {
+export async function init(args: ExpectedArguments<typeof options>) {
   cachedArgs = args;
   let projectId: string | undefined = undefined;
   if (cachedArgs.values.project || cachedArgs.values.projectEnvVar) {

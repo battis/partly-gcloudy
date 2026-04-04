@@ -1,8 +1,6 @@
-import * as shell from '../../shell/index.js';
+import { gcloud } from '#shell';
 import { Account } from './Account.js';
 
 export async function list() {
-  return await shell.gcloud<Account[]>(
-    'billing accounts list --filter=open=true'
-  );
+  return await gcloud<Account[]>('billing accounts list --filter=open=true');
 }

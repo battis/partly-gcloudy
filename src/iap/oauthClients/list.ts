@@ -1,4 +1,4 @@
-import * as shell from '../../shell/index.js';
+import { gcloud } from '#shell';
 import * as oauthBrands from '../oauthBrands/index.js';
 import { Client } from './Client.js';
 
@@ -13,5 +13,5 @@ export async function list({
     purpose: 'for which to list clients',
     ...rest
   });
-  return await shell.gcloud<Client[]>(`iap oauth-clients list ${brand}`);
+  return await gcloud<Client[]>(`iap oauth-clients list ${brand}`);
 }

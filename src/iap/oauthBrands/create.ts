@@ -1,7 +1,7 @@
+import * as lib from '#lib';
+import * as projects from '#projects';
+import { gcloud } from '#shell';
 import { Validators } from '@qui-cli/validators';
-import * as lib from '../../lib/index.js';
-import * as projects from '../../projects/index.js';
-import * as shell from '../../shell/index.js';
 import { Brand } from './Brand.js';
 import { active } from './active.js';
 
@@ -57,7 +57,7 @@ export async function create({
   });
   supportEmail = await inputSupportEmail({ supportEmail });
 
-  const brand = await shell.gcloud<Brand>(
+  const brand = await gcloud<Brand>(
     `iap oauth-brands create --application_title=${lib.prompts.escape(
       applicationTitle
     )} --support_email=${supportEmail}`

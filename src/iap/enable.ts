@@ -1,10 +1,10 @@
+import * as iam from '#iam';
+import * as lib from '#lib';
+import * as projects from '#projects';
+import * as services from '#services';
+import { gcloud } from '#shell';
 import { Validators } from '@qui-cli/validators';
 import path from 'node:path';
-import * as iam from '../iam/index.js';
-import * as lib from '../lib/index.js';
-import * as projects from '../projects/index.js';
-import * as services from '../services/index.js';
-import * as shell from '../shell/index.js';
 import * as oauthBrands from './oauthBrands/index.js';
 import * as oauthClients from './oauthClients/index.js';
 
@@ -91,7 +91,7 @@ export async function enable({
     project,
     ...rest
   });
-  await shell.gcloud(
+  await gcloud(
     `iap web enable --resource-type=app-engine --oauth2-client-id=${path.basename(
       client.name
     )} --oauth2-client-secret=${client.secret}`

@@ -1,4 +1,4 @@
-import * as shell from '../../shell/index.js';
+import { gcloud } from '#shell';
 import { Version } from './Version.js';
 
 export async function describe({
@@ -8,7 +8,7 @@ export async function describe({
   secret: string;
   version: string;
 }) {
-  return await shell.gcloud<Version>(
+  return await gcloud<Version>(
     `secrets versions ${version} --secret="${secret}"`
   );
 }

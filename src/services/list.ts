@@ -1,6 +1,6 @@
-import * as shell from '../shell/index.js';
+import { gcloud } from '#shell';
 import { Service } from './Service.js';
 
 export async function list() {
-  return await shell.gcloud<Service[]>('services list --available');
+  return await gcloud<Service[]>('services list --available');
 }

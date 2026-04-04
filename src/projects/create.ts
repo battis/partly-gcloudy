@@ -1,6 +1,6 @@
+import * as lib from '#lib';
+import { gcloud } from '#shell';
 import { Validators } from '@qui-cli/validators';
-import * as lib from '../lib/index.js';
-import * as shell from '../shell/index.js';
 import { Project } from './Project.js';
 import { active } from './active.js';
 import { describe } from './describe.js';
@@ -77,7 +77,7 @@ export async function create({
     }
   }
   if (!project || reuseIfExists === false) {
-    project = await shell.gcloud<Project>(
+    project = await gcloud<Project>(
       `projects create --name=${lib.prompts.escape(
         name
       )} ${await inputProjectId({

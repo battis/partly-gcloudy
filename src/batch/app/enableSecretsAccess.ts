@@ -1,5 +1,5 @@
-import * as app from '../../app/index.js';
-import * as lib from '../../lib/index.js';
+import * as app from '#app';
+import * as lib from '#lib';
 import * as iam from '../iam/index.js';
 
 type Options = {

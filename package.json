@@ -8,6 +8,20 @@
     "url": "https://github.com/battis"
   },
   "type": "module",
+  "imports": {
+    "#app": "./dist/app/index.js",
+    "#batch": "./dist/batch/index.js",
+    "#billing": "./dist/billing/index.js",
+    "#core": "./dist/core.js",
+    "#iam": "./dist/iam/index.js",
+    "#iap": "./dist/iap/index.js",
+    "#lib": "./dist/lib/index.js",
+    "#projects": "./dist/projects/index.js",
+    "#run": "./dist/run/index.js",
+    "#secrets": "./dist/secrets/index.js",
+    "#services": "./dist/services/index.js",
+    "#shell": "./dist/shell/index.js"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
