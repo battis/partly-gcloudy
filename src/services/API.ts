@@ -46,7 +46,11 @@ export const API = {
     validate: false,
   },
   AerialViewAPI: { service: "aerialview.googleapis.com", validate: false },
-  VertexAIAPI: { service: "aiplatform.googleapis.com", validate: false },
+  AgentRegistryAPI: {
+    service: "agentregistry.googleapis.com",
+    validate: false,
+  },
+  AgentPlatformAPI: { service: "aiplatform.googleapis.com", validate: false },
   AirQualityAPI: { service: "airquality.googleapis.com", validate: false },
   GoogleWorkspaceAlertCenterAPI: {
     service: "alertcenter.googleapis.com",
@@ -160,10 +164,6 @@ export const API = {
     validate: false,
   },
   CloudAutoMLAPI: { service: "automl.googleapis.com", validate: false },
-  AutomotiveMapsAPI: {
-    service: "automotivemaps.googleapis.com",
-    validate: false,
-  },
   CloudAutoscalingAPI: {
     service: "autoscaling.googleapis.com",
     validate: false,
@@ -245,6 +245,7 @@ export const API = {
     service: "calendar-json.googleapis.com",
     validate: false,
   },
+  CalendarMCPAPI: { service: "calendarmcp.googleapis.com", validate: false },
   CapacityPlannerAPI: {
     service: "capacityplanner.googleapis.com",
     validate: false,
@@ -262,6 +263,7 @@ export const API = {
     validate: false,
   },
   GoogleChatAPI: { service: "chat.googleapis.com", validate: false },
+  ChatMCPAPI: { service: "chatmcp.googleapis.com", validate: false },
   ChecksAPI: { service: "checks.googleapis.com", validate: false },
   ChromeDeviceTokenAPI: {
     service: "chromedevicetoken.googleapis.com",
@@ -335,6 +337,10 @@ export const API = {
   },
   CloudLocationFinderAPI: {
     service: "cloudlocationfinder.googleapis.com",
+    validate: false,
+  },
+  CloudNumberRegistryAPI: {
+    service: "cloudnumberregistry.googleapis.com",
     validate: false,
   },
   CloudOptimizationAPI: {
@@ -443,6 +449,10 @@ export const API = {
     service: "databasecenter.googleapis.com",
     validate: false,
   },
+  DatabaseInsightsAPI: {
+    service: "databaseinsights.googleapis.com",
+    validate: false,
+  },
   GoogleCloudDataCatalogAPI: {
     service: "datacatalog.googleapis.com",
     validate: false,
@@ -481,7 +491,7 @@ export const API = {
   },
   CloudDatastoreAPI: { service: "datastore.googleapis.com", validate: false },
   DatastreamAPI: { service: "datastream.googleapis.com", validate: false },
-  LookerStudioAPI: { service: "datastudio.googleapis.com", validate: false },
+  DataStudioAPI: { service: "datastudio.googleapis.com", validate: false },
   CloudDeploymentManagerV2API: {
     service: "deploymentmanager.googleapis.com",
     validate: false,
@@ -547,6 +557,7 @@ export const API = {
     validate: false,
   },
   DriveLabelsAPI: { service: "drivelabels.googleapis.com", validate: false },
+  DriveMCPAPI: { service: "drivemcp.googleapis.com", validate: false },
   GoogleEarthEngineAPI: {
     service: "earthengine.googleapis.com",
     validate: false,
@@ -730,10 +741,7 @@ export const API = {
     service: "geminidataanalytics.googleapis.com",
     validate: false,
   },
-  GenerativeLanguageAPI: {
-    service: "generativelanguage.googleapis.com",
-    validate: false,
-  },
+  GeminiAPI: { service: "generativelanguage.googleapis.com", validate: false },
   GeocodingAPI: {
     service: "geocoding-backend.googleapis.com",
     validate: false,
@@ -756,6 +764,7 @@ export const API = {
     validate: false,
   },
   GmailAPI: { service: "gmail.googleapis.com", validate: false },
+  GmailMCPAPI: { service: "gmailmcp.googleapis.com", validate: false },
   GmailPostmasterToolsAPI: {
     service: "gmailpostmastertools.googleapis.com",
     validate: false,
@@ -773,6 +782,7 @@ export const API = {
     service: "gsuiteaddons.googleapis.com",
     validate: false,
   },
+  GoogleHealthAPI: { service: "health.googleapis.com", validate: false },
   CloudHealthcareAPI: { service: "healthcare.googleapis.com", validate: false },
   HomeAPI: { service: "home.googleapis.com", validate: false },
   HomeGraphAPI: { service: "homegraph.googleapis.com", validate: false },
@@ -782,6 +792,14 @@ export const API = {
   },
   IdentityandAccessManagementIAMAPI: {
     service: "iam.googleapis.com",
+    validate: false,
+  },
+  IAMConnectorCredentialsAPI: {
+    service: "iamconnectorcredentials.googleapis.com",
+    validate: false,
+  },
+  IAMConnectorsAPI: {
+    service: "iamconnectors.googleapis.com",
     validate: false,
   },
   IAMServiceAccountCredentialsAPI: {
@@ -1088,6 +1106,10 @@ export const API = {
     service: "partners-json.googleapis.com",
     validate: false,
   },
+  GooglePayWalletDeveloperMCPserverAPI: {
+    service: "paydeveloper.googleapis.com",
+    validate: false,
+  },
   PaymentsResellerSubscriptionAPI: {
     service: "paymentsresellersubscription.googleapis.com",
     validate: false,
@@ -1254,7 +1276,7 @@ export const API = {
     service: "runtimeconfig.googleapis.com",
     validate: false,
   },
-  SaaSRuntimeAPI: {
+  AppLifecycleManagerAPI: {
     service: "saasservicemgmt.googleapis.com",
     validate: false,
   },
