@@ -37,7 +37,7 @@ export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
         : options?.includeProjectIdFlag === true
           ? true
           : activeProjectId !== undefined &&
-            !new RegExp(activeProjectId).test(command),
+            !new RegExp(`--project=${activeProjectId}`).test(command),
     pipe: {
       in: options?.pipe?.in || undefined,
       out: options?.pipe?.out || undefined
