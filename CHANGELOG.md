@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.3.4](https://github.com/battis/partly-gcloudy/compare/v3.3.3...v3.3.4) (2026-05-12)
+
+
+### Bug Fixes
+
+* more specifically test for duplicate --project flags ([3f88bad](https://github.com/battis/partly-gcloudy/commit/3f88bad3d2fbf229bbb26f9b9fab47c2f9f527b6))
+* update service API names ([86f6b09](https://github.com/battis/partly-gcloudy/commit/86f6b099d917e158eb373d583753e40d8e27ec6b))
+
 ## [3.3.3](https://github.com/battis/partly-gcloudy/compare/v3.3.2...v3.3.3) (2026-03-12)
 
 
