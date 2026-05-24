@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.4.0](https://github.com/battis/partly-gcloudy/compare/v3.3.4...v3.4.0) (2026-05-24)
+
+
+### Features
+
+* gcloud.batch.run.deployService() can now delete old revisions ([fcdf909](https://github.com/battis/partly-gcloudy/commit/fcdf9090233b47d5bfec8d563fb870726703d271))
+
 ## [3.3.4](https://github.com/battis/partly-gcloudy/compare/v3.3.3...v3.3.4) (2026-05-12)
 
 
