@@ -50,6 +50,8 @@ export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
   if (opt.includeProjectIdFlag) {
     opt.flags.project = activeProjectId;
   }
+
+  // TODO automatically convert flag names from camelCase to kebab-case
   const exec = `${
     opt.pipe.in ? `${opt.pipe.in} | ` : ''
   }gcloud ${command} ${flags.stringify(opt.flags)}${
@@ -58,11 +60,13 @@ export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
   const result = Shell.exec(exec);
   try {
     return JSON.parse(result.stdout) as Value;
-  } catch (e) {
+  } catch (error) {
     if (opt.error) {
       return opt.error(result);
     } else {
-      throw e;
+      throw new Error(`Could not pase JSON from stdout`, {
+        cause: { result, error }
+      });
     }
   }
 }

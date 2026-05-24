@@ -22,6 +22,7 @@ type Options = {
   serviceAccount?: string | iam.serviceAccounts.ServiceAccount;
   args?: Record<string, unknown>;
   env?: true | string;
+  retainRevisions?: number;
 } & Parameters<typeof initialize>[0];
 
 export const DEFAULT_ARGS = {
@@ -49,6 +50,7 @@ export async function deployService({
   serviceNameEnvVar = SERVICE_NAME_ENV_VAR,
   regionEnvVar = REGION_ENV_VAR,
   serviceAccountEnvVar = SERVICE_ACCOUNT_ENV_VAR,
+  retainRevisions,
   ...options
 }: Options = {}) {
   const projectEnvVar = core.args().values.projectEnvVar;
@@ -116,6 +118,29 @@ export async function deployService({
       })
       .join(' ')}`
   );
+
+  Log.info({ retainRevisions, service });
+
+  if (retainRevisions !== undefined && retainRevisions > 0) {
+    region = service.metadata.labels['cloud.googleapis.com/location'];
+    const revisions = (
+      await run.revisions.list({
+        region,
+        service: service.metadata.name
+      })
+    ).sort(
+      (a, b) =>
+        new Date(b.metadata.creationTimestamp).getTime() -
+        new Date(a.metadata.creationTimestamp).getTime()
+    );
+    for (let i = retainRevisions; i < revisions.length; i++) {
+      if (revisions[i].metadata.name !== service.metadata.name)
+        await run.revisions.delete_({
+          revision: revisions[i].metadata.name,
+          region
+        });
+    }
+  }
 
   Log.info(
     `Cloud Run ${service.kind} ${Colors.value(

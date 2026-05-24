@@ -1,4 +1,4 @@
-import { gcloud } from '#shell';
+import { Flags, gcloud } from '#shell';
 import { isEnabled } from '../enable.js';
 import { Region } from './Region.js';
 
@@ -39,17 +39,16 @@ export type Options = {
    * formatting is applied on this URI list. To display URIs alongside other
    * keys instead, use the `uri()` transform.
    */
-  uri?: boolean;
+  uri?: true;
 };
 
 /** List available Cloud Run (fully managed) regions. */
 export async function list({
-  filter,
   limit,
   pageSize,
   sortBy,
-  uri
-}: Options = {}): Promise<Region[]> {
+  ...options
+}: Options = {}) {
   await isEnabled();
   if (typeof limit === 'number' && limit < 1) {
     limit = 'unlimited';
@@ -57,11 +56,13 @@ export async function list({
   if (typeof pageSize === 'number' && pageSize < 1) {
     pageSize = 'unlimited';
   }
-  return await gcloud(
-    `run regions list${filter ? `--filter="${filter}"` : ''}${
-      limit ? ` --limit=${limit}` : ''
-    }${pageSize ? `--page-size=${pageSize}` : ''}${
-      sortBy ? ` --sort-by="${sortBy.join(',')}"` : ''
-    }${uri ? ` --uri` : ''}`
-  );
+
+  const flags: Flags = {
+    limit: limit ? limit.toString() : undefined,
+    'page-size': pageSize ? pageSize.toString() : undefined,
+    'sort-by': sortBy?.join(','),
+    ...options
+  };
+
+  return await gcloud<Region[]>('run regions list', { flags });
 }

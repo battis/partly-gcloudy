@@ -5,7 +5,7 @@ import * as List from './list.js';
 type Options = { region?: Region['locationId'] } & List.Options &
   Partial<lib.prompts.select.Parameters<Region, string>>;
 
-export async function select({ region, ...rest }: Options) {
+export async function select({ region, ...rest }: Options = {}) {
   return await lib.prompts.select<Region>({
     arg: region,
     argTransform: async (region: string) =>
