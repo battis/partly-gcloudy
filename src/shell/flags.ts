@@ -17,6 +17,7 @@ export function setBase(flags: Partial<Flags>) {
 
 export function stringify(flags: Flags) {
   return Object.keys(flags)
+    .filter((f) => flags[f] !== undefined)
     .map((f) =>
       f.length > 1
         ? `--${f}${flags[f] === true ? '' : `=${flags[f]}`}`
