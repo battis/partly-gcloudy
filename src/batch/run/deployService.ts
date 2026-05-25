@@ -119,8 +119,6 @@ export async function deployService({
       .join(' ')}`
   );
 
-  Log.info({ retainRevisions, service });
-
   if (retainRevisions !== undefined && retainRevisions > 0) {
     region = service.metadata.labels['cloud.googleapis.com/location'];
     const revisions = (
