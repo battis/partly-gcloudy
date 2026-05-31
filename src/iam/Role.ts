@@ -6,6 +6,8 @@ export const CloudSQL = {
   Client: 'roles/cloudsql.client'
 };
 export const IAP = {
+  httpsResourceAccessor: 'roles/iap.httpsResourceAccessor',
+  /** @deprecated Use {@link httpsResourceAccessor} */
   WebUser: 'roles/iap.httpsResourceAccessor'
 };
 export const SecretManager = {

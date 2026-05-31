@@ -103,7 +103,7 @@ export async function enable({
   users.forEach(async (user: string) =>
     projects.addIamPolicyBinding({
       member: user,
-      role: iam.Role.IAP.WebUser,
+      role: iam.Role.IAP.httpsResourceAccessor,
       projectId,
       ...rest
     })
