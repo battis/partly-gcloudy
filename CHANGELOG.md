@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.4.3](https://github.com/battis/partly-gcloudy/compare/v3.4.2...v3.4.3) (2026-05-31)
+
+
+### Bug Fixes
+
+* deprecate inconsistent `WebUser` constant ([195cc9c](https://github.com/battis/partly-gcloudy/commit/195cc9c0668b3dbdd73919f3b64803a77205a70c))
+* make string interpolation consistent ([70a7433](https://github.com/battis/partly-gcloudy/commit/70a7433b100b4bf680416998095161423b489217))
+* update API list 2026-05-31 ([e1d9588](https://github.com/battis/partly-gcloudy/commit/e1d95886c184291032e32816dae135bba7a8f167))
+
 ## [3.4.2](https://github.com/battis/partly-gcloudy/compare/v3.4.1...v3.4.2) (2026-05-25)
 
 
