@@ -820,6 +820,7 @@ export const API = {
     service: "integrations.googleapis.com",
     validate: false,
   },
+  IsochronesAPI: { service: "isochrones.googleapis.com", validate: false },
   CloudTalentSolutionAPI: { service: "jobs.googleapis.com", validate: false },
   JulesAPI: { service: "jules.googleapis.com", validate: false },
   GoogleKeepAPI: { service: "keep.googleapis.com", validate: false },
@@ -1494,6 +1495,10 @@ export const API = {
   },
   GoogleWalletAPI: { service: "walletobjects.googleapis.com", validate: false },
   WeatherAPI: { service: "weather.googleapis.com", validate: false },
+  WebContentPublisherAPI: {
+    service: "webcontentpublisher.googleapis.com",
+    validate: false,
+  },
   WebFontsDeveloperAPI: { service: "webfonts.googleapis.com", validate: false },
   WebRiskAPI: { service: "webrisk.googleapis.com", validate: false },
   WebSecurityScannerAPI: {
