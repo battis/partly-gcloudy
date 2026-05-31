@@ -8,5 +8,5 @@ export function pad(s?: string) {
 
 export function escape(s: string) {
   const quoted = /\s/g.test(s);
-  return `${quoted ? '"' : ''}}${s.replace(/(["\n\r])/g, '\\$1')}${quoted ? '"' : ''}`;
+  return `${quoted ? '"' : ''}${s.replace(/(["\n\r])/g, '\\$1')}${quoted ? '"' : ''}`;
 }
