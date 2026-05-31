@@ -47,7 +47,8 @@ export async function deploy({
       }
     }
     Log.info(
-      `App in project ${Colors.value(projects.active.getIdentifier())} deployed to:\n\n  ${Colors.url(`https://${appEngine?.defaultHostname}`)}\n`
+      `App in project ${Colors.value(projects.active.getIdentifier())} ` +
+        `deployed to:\n\n  ${Colors.url(`https://${appEngine?.defaultHostname}`)}\n`
     );
   }
   return { project, appEngine, deployment };

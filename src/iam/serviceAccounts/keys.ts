@@ -33,9 +33,9 @@ export async function keys({
     validate: Validators.pathExists()
   });
   let keys =
-    (await gcloud<Key[]>(
-      `iam service-accounts keys list --iam-account=${email}`
-    )) || [];
+    (await gcloud<Key[]>('iam service-accounts keys list', {
+      flags: { 'iam-account': email }
+    })) || [];
   if (keys.length === MAX_KEYS) {
     if (cautiouslyDeleteExpiredKeysIfNecessary === undefined) {
       cautiouslyDeleteExpiredKeysIfNecessary = !!(await confirm({
@@ -48,9 +48,9 @@ export async function keys({
       keys.forEach(async (key) => {
         const expiry = new Date(key.validBeforeTime);
         if (expiry < now) {
-          await gcloud(
-            `iam service-accounts keys delete ${key.name} --iam-account=${email}`
-          );
+          await gcloud(`iam service-accounts keys delete ${key.name}`, {
+            flags: { 'iam-account': email }
+          });
         } else {
           retainedKeys.push(key);
         }
@@ -67,16 +67,16 @@ export async function keys({
     }
     if (keys.length === MAX_KEYS && dangerouslyDeleteAllKeysIfNecessary) {
       keys.forEach(async (key) => {
-        await gcloud(
-          `iam service-accounts keys delete ${key.name} --iam-account=${email}`
-        );
+        await gcloud(`iam service-accounts keys delete ${key.name}`, {
+          flags: { 'iam-account': email }
+        });
       });
       keys = [];
     }
   }
-  const key = await gcloud<Key>(
-    `iam service-accounts keys create ${path} --iam-account=${email}`
-  );
+  const key = await gcloud<Key>(`iam service-accounts keys create ${path}`, {
+    flags: { 'iam-account': email }
+  });
   if (!key) {
     throw new Error(
       `Key creation failed (${keys.length} keys already created)`

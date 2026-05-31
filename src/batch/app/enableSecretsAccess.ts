@@ -12,7 +12,7 @@ type Options = {
  * This assigns the SecretAccessor role to the App Engine service account.
  *
  * This is now more easily accomplished use {@link batch.app.initialize()} and
- * setting the `secretsAccess` parameter to `true`. After the fact,
+ * setting the 'secretsAccess`parameter to`true'. After the fact,
  * batch.{@link iam.enableServiceAccountSecretsAccess()} can also be used.
  *
  * @deprecated Use {@link app.initialize()} or

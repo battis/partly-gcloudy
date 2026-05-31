@@ -37,9 +37,9 @@ export async function selectProjectNumber({
         return active.get();
       } else {
         return (
-          await gcloud<Project[]>(
-            `projects list --filter=projectNumber=${projectNumber}`
-          )
+          await gcloud<Project[]>('projects list', {
+            flags: { filter: `projectNumber=${projectNumber}` }
+          })
         ).shift();
       }
     },

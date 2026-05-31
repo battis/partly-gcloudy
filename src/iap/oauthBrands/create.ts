@@ -57,11 +57,12 @@ export async function create({
   });
   supportEmail = await inputSupportEmail({ supportEmail });
 
-  const brand = await gcloud<Brand>(
-    `iap oauth-brands create --application_title=${lib.prompts.escape(
-      applicationTitle
-    )} --support_email=${supportEmail}`
-  );
+  const brand = await gcloud<Brand>('iap oauth-brands create', {
+    flags: {
+      application_title: applicationTitle,
+      support_email: supportEmail
+    }
+  });
   if (activate) active.activate(brand);
   return brand;
 }

@@ -54,7 +54,7 @@ export async function create({
 }: {
   name?: string;
   defaultName?: string;
-  /** @deprecated Use `projectId` */
+  /** @deprecated Use 'projectId' */
   id?: string;
   projectId?: string;
   reuseIfExists?: boolean;
@@ -78,20 +78,19 @@ export async function create({
   }
   if (!project || reuseIfExists === false) {
     project = await gcloud<Project>(
-      `projects create --name=${lib.prompts.escape(
-        name
-      )} ${await inputProjectId({
+      `projects create ${await inputProjectId({
         projectId,
         validate:
           project &&
           lib.validators.exclude({ exclude: project, property: 'name' })
       })}`,
       {
+        flags: { name },
         includeProjectIdFlag: false
       }
     );
     if (project == null) {
-      throw new Error(`Failed to create project`);
+      throw new Error('Failed to create project');
     }
   }
   active.activate(project);

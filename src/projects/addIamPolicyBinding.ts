@@ -8,7 +8,6 @@ export async function addIamPolicyBinding({
   member,
   userType = 'user',
   role,
-  projectId,
   ...rest
 }: {
   role?: string;
@@ -35,8 +34,7 @@ export async function addIamPolicyBinding({
     purpose: `bind to ${Colors.value(member)}`,
     ...rest
   });
-  projectId = await select({ projectId, ...rest });
-  return await gcloud<iam.Policy>(
-    `projects add-iam-policy-binding ${projectId} --member=${userType}:${member} --role=${role}`
-  );
+  return await gcloud<iam.Policy>('projects add-iam-policy-binding', {
+    flags: { member: `${userType}:${member}`, role }
+  });
 }

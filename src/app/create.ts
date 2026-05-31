@@ -12,12 +12,14 @@ export async function create({ region }: { region?: string } = {}) {
   await services.enable(services.API.AppEngineAdminAPI);
   let instance = await describe();
   if (!instance) {
-    instance = await shell.gcloud<AppEngine>(
-      `app create --region=${await regions.select({
-        region,
-        purpose: 'to create App Engine instance'
-      })}`
-    );
+    instance = await shell.gcloud<AppEngine>('app create', {
+      flags: {
+        region: await regions.select({
+          region,
+          purpose: 'to create App Engine instance'
+        })
+      }
+    });
   }
   return instance;
 }

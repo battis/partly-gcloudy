@@ -9,7 +9,7 @@ export async function select({
 } = {}) {
   return (await lib.prompts.select({
     arg: userType,
-    message: `IAM user type`,
+    message: 'IAM user type',
     choices: [
       { value: 'user' },
       { value: 'serviceAccount' },

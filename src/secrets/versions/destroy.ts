@@ -8,7 +8,7 @@ export async function destroy({
   secret: string;
   version: string;
 }) {
-  await gcloud<Version>(
-    `secrets versions destroy ${version} --secret="${secret}"`
-  );
+  await gcloud<Version>(`secrets versions destroy ${version}`, {
+    flags: { secret }
+  });
 }

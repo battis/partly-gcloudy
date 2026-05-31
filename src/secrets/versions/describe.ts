@@ -8,7 +8,7 @@ export async function describe({
   secret: string;
   version: string;
 }) {
-  return await gcloud<Version>(
-    `secrets versions ${version} --secret="${secret}"`
-  );
+  return await gcloud<Version>(`secrets versions ${version}`, {
+    flags: { secret }
+  });
 }

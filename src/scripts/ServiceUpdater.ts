@@ -34,7 +34,7 @@ export function options(): Plugin.Options {
     flag: {
       verbose: {
         short: 'v',
-        description: `Verbose output`
+        description: 'Verbose output'
       },
       force: {
         short: 'f',

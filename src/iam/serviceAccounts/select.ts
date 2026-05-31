@@ -14,7 +14,7 @@ export async function select({
   return lib.prompts.select({
     arg: email,
     argTransform: async (email: string) => await describe({ email }),
-    message: `Service account`,
+    message: 'Service account',
     choices: async () =>
       (await list()).map((s) => ({
         name: s.displayName,

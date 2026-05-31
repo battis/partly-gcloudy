@@ -6,9 +6,12 @@ export type ServiceIdentifier = string;
 
 export async function describe({ service }: { service: ServiceIdentifier }) {
   return (
-    await gcloud<Service[], lib.Undefined.Value>(
-      `services list --available --filter=config.name=${service}`,
-      { error: lib.Undefined.callback }
-    )
+    await gcloud<Service[], lib.Undefined.Value>('services list', {
+      flags: {
+        available: true,
+        filter: `config.name=${service}`
+      },
+      error: lib.Undefined.callback
+    })
   )?.shift();
 }

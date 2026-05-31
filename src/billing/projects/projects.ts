@@ -17,10 +17,10 @@ export async function enable({
       projectId,
       purpose: `to link to billing account ${Colors.value(account)}`
     });
-    await gcloudBeta(
-      `billing projects link ${projectId} --billing-account=${account}`,
-      { includeProjectIdFlag: false }
-    );
+    await gcloudBeta(`billing projects link ${projectId}`, {
+      flags: { 'billing-account': account },
+      includeProjectIdFlag: false
+    });
   } else {
     throw new Error(
       `Billing accounts must be created interactively at ${Colors.url(

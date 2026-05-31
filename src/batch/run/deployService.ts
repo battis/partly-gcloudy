@@ -103,20 +103,8 @@ export async function deployService({
     (await Env.get({ key: serviceAccountEnvVar, ...filePathFrom(env) }));
 
   const service = await gcloud<run.deploy.DeploymentConfig>(
-    `run deploy ${serviceName} --region=${region} ${serviceAccount ? `--service-account="${serviceAccount}" ` : ''}${Object.keys(
-      args
-    )
-      .map((key) => {
-        switch (typeof args[key]) {
-          case 'boolean':
-            return `--${args[key] ? '' : 'no-'}${key}`;
-          case 'number':
-            return `--${key}=${args[key]}`;
-          default:
-            return `--${key}="${args[key]}"`;
-        }
-      })
-      .join(' ')}`
+    `run deploy ${serviceName}`,
+    { flags: { region, 'service-account': serviceAccount, ...args } }
   );
 
   if (retainRevisions !== undefined && retainRevisions > 0) {

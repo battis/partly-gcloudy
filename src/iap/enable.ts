@@ -91,11 +91,13 @@ export async function enable({
     project,
     ...rest
   });
-  await gcloud(
-    `iap web enable --resource-type=app-engine --oauth2-client-id=${path.basename(
-      client.name
-    )} --oauth2-client-secret=${client.secret}`
-  );
+  await gcloud('iap web enable', {
+    flags: {
+      'resource-type': 'app-engine',
+      'oauth2-client-id': path.basename(client.name),
+      'oauth2-client-secret': client.secret
+    }
+  });
 
   users = await inputUsers({ users });
   users.forEach(async (user: string) =>

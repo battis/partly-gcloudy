@@ -62,14 +62,18 @@ export async function create({
     default: defaultDisplayName || name
   });
   let [serviceAccount] = await gcloud<ServiceAccount[]>(
-    `iam service-accounts list --filter=email=${name}@${projects.active.get()?.projectId}.iam.gserviceaccount.com`,
-    { includeProjectIdFlag: true }
+    'iam service-accounts list',
+    {
+      flags: {
+        filter: `email=${name}@${projects.active.get()?.projectId}.iam.gserviceaccount.com`
+      },
+      includeProjectIdFlag: true
+    }
   );
   if (!serviceAccount) {
     serviceAccount = await gcloud<ServiceAccount>(
-      `iam service-accounts create ${name} --display-name=${lib.prompts.escape(
-        displayName || name
-      )}`
+      `iam service-accounts create ${name}`,
+      { flags: { 'display-name': displayName || name } }
     );
   }
   return serviceAccount;

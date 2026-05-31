@@ -12,7 +12,7 @@ export async function select({
   return await lib.prompts.select<Region>({
     arg: region,
     argTransform: async (region: string) => await describe({ region }),
-    message: `Google Cloud region`,
+    message: 'Google Cloud region',
     choices: async () =>
       (await list()).map((r) => ({ name: r.region, value: r })),
     transform: (r: Region) => r.region,

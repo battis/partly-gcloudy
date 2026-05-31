@@ -43,35 +43,29 @@ export async function set({
     await services.enable(services.API.SecretManagerAPI);
     apiEnabled = true;
   }
-  let [secret] = await gcloud<Secret[]>(`secrets list --filter=name:${name}`);
+  let [secret] = await gcloud<Secret[]>('secrets list', {
+    flags: { filter: `name:${name}` }
+  });
   if (secret) {
-    await gcloud(
-      `secrets versions add ${secret.name} --data-file=${
-        path !== undefined ? `${path}` : '-'
-      }`,
-      {
-        pipe: {
-          in:
-            value !== undefined
-              ? `printf ${lib.prompts.escape(value)}`
-              : undefined
-        }
+    await gcloud(`secrets versions add ${secret.name}`, {
+      flags: { 'data-file': path !== undefined ? `${path}` : '-' },
+      pipe: {
+        in:
+          value !== undefined
+            ? `printf ${lib.prompts.escape(value)}`
+            : undefined
       }
-    );
+    });
   } else {
-    secret = await gcloud<Secret>(
-      `secrets create ${name} --data-file=${
-        path !== undefined ? `${path}` : '-'
-      }`,
-      {
-        pipe: {
-          in:
-            value !== undefined
-              ? `printf ${lib.prompts.escape(value)}`
-              : undefined
-        }
+    secret = await gcloud<Secret>(`secrets create ${name}`, {
+      flags: { 'data-file': path !== undefined ? `${path}` : '-' },
+      pipe: {
+        in:
+          value !== undefined
+            ? `printf ${lib.prompts.escape(value)}`
+            : undefined
       }
-    );
+    });
   }
 
   return secret;

@@ -8,10 +8,10 @@ import { words as english } from 'rword-english-extended';
  * Two random words hyphenated with a 6-digit suffix, max 30 characters:
  * owl-phlegmatic-522355
  *
- * @param length (Optional, default `30`) maximum total characters
- * @param words (Optional, default `2`) number of words to generate
- * @param digits (Optional, default `6`) number of digits in suffix
- * @param separator (Optional, default `-`) separator between words
+ * @param length (Optional, default '30') maximum total characters
+ * @param words (Optional, default '2') number of words to generate
+ * @param digits (Optional, default '6') number of digits in suffix
+ * @param separator (Optional, default '-') separator between words
  */
 export function projectId(length = 30, words = 2, digits = 6, separator = '-') {
   const word: string[] = [];
@@ -40,7 +40,7 @@ export function projectId(length = 30, words = 2, digits = 6, separator = '-') {
  * Randomly generated password
  *
  * @param length Number of characters
- * @param encoding (Optional, default `base64`) encoding for random bytes
+ * @param encoding (Optional, default 'base64') encoding for random bytes
  */
 export function password(length = 15, encoding: BufferEncoding = 'base64') {
   return crypto.randomBytes(length).toString(encoding).substring(0, length);

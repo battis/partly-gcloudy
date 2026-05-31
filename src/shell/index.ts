@@ -64,7 +64,7 @@ export async function gcloud<Value extends lib.Descriptor, AltValue = Value>(
     if (opt.error) {
       return opt.error(result);
     } else {
-      throw new Error(`Could not parse JSON from stdout`, {
+      throw new Error('Could not parse JSON from stdout', {
         cause: { result, error }
       });
     }

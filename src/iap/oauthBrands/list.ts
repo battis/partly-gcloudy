@@ -16,15 +16,15 @@ export async function list({
           return projects.active.get();
         } else {
           return (
-            await gcloud<projects.Project[]>(
-              `projects list --filter=projectNumber=${projectNumber}`
-            )
+            await gcloud<projects.Project[]>('projects list', {
+              flags: { filter: `projectNumber=${projectNumber}` }
+            })
           ).shift();
         }
       },
       transform: (p: projects.Project) => p.projectNumber
     }));
-  return await gcloud<Brand[]>(
-    `iap oauth-brands list --filter=name=projects/${projectNumber}/brands/${projectNumber}`
-  );
+  return await gcloud<Brand[]>('iap oauth-brands list', {
+    flags: { filter: `name=projects/${projectNumber}/brands/${projectNumber}` }
+  });
 }

@@ -31,7 +31,7 @@ export async function create({
 } = {}) {
   brand = await oauthBrands.select({ brand, ...rest });
   displayName = await inputDisplayName({ displayName, ...rest });
-  return await gcloud<Client>(
-    `iap oauth-clients create ${brand} --display_name="${displayName}"`
-  );
+  return await gcloud<Client>(`iap oauth-clients create ${brand}`, {
+    flags: { display_name: displayName }
+  });
 }

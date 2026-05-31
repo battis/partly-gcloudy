@@ -1,3 +1,5 @@
+import { prompts } from '#lib';
+
 export type Flags = {
   [flag: string]: string | true | undefined;
   project?: string;
@@ -20,7 +22,7 @@ export function stringify(flags: Flags) {
     .filter((f) => flags[f] !== undefined)
     .map((f) =>
       f.length > 1
-        ? `--${f}${flags[f] === true ? '' : `=${flags[f]}`}`
+        ? `--${f}${flags[f] === true ? '' : `=${prompts.escape(flags[f]!)}`}`
         : `-${f}${flags[f] === true ? '' : flags[f]}`
     )
     .join(' ');

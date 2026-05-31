@@ -7,5 +7,6 @@ export function pad(s?: string) {
 }
 
 export function escape(s: string) {
-  return `"${s.replace(/(["\n\r])/g, '\\$1')}"`;
+  const quoted = /\s/g.test(s);
+  return `${quoted ? '"' : ''}}${s.replace(/(["\n\r])/g, '\\$1')}${quoted ? '"' : ''}`;
 }

@@ -10,7 +10,7 @@ export async function input({
 } = {}) {
   return await lib.prompts.input({
     arg: member,
-    message: `IAM Member`,
+    message: 'IAM Member',
     validate: Validators.combine(validate || (() => true), Validators.email()),
     ...rest
   });
