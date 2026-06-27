@@ -1,4 +1,9 @@
+publicHoistPattern:
+  - '*prettier*'
+  - '*eslint*'
+
+allowBuilds:
+  esbuild: true
+
 packages:
   - 'examples/*'
-onlyBuiltDependencies:
-  - esbuild
