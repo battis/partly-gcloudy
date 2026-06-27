@@ -178,7 +178,7 @@ export const API = {
   },
   BatchAPI: { service: "batch.googleapis.com", validate: false },
   BeyondCorpAPI: { service: "beyondcorp.googleapis.com", validate: false },
-  BigLakeAPI: { service: "biglake.googleapis.com", validate: false },
+  LakehouseAPI: { service: "biglake.googleapis.com", validate: false },
   BigQueryAPI: { service: "bigquery.googleapis.com", validate: false },
   BigQueryConnectionAPI: {
     service: "bigqueryconnection.googleapis.com",
@@ -645,7 +645,7 @@ export const API = {
     service: "firebasedatabase.googleapis.com",
     validate: false,
   },
-  FirebaseDataConnectAPI: {
+  FirebaseSQLConnectAPI: {
     service: "firebasedataconnect.googleapis.com",
     validate: false,
   },
@@ -785,6 +785,10 @@ export const API = {
   GoogleHealthAPI: { service: "health.googleapis.com", validate: false },
   CloudHealthcareAPI: { service: "healthcare.googleapis.com", validate: false },
   HomeAPI: { service: "home.googleapis.com", validate: false },
+  HomeDevelopersAPI: {
+    service: "homedevelopers.googleapis.com",
+    validate: false,
+  },
   HomeGraphAPI: { service: "homegraph.googleapis.com", validate: false },
   ClusterDirectorAPI: {
     service: "hypercomputecluster.googleapis.com",
@@ -1024,6 +1028,10 @@ export const API = {
   },
   MyBusinessVerificationsAPI: {
     service: "mybusinessverifications.googleapis.com",
+    validate: false,
+  },
+  NavigationConnectAPI: {
+    service: "navigationconnect.googleapis.com",
     validate: false,
   },
   NavigationSDK: { service: "navigationsdk.googleapis.com", validate: false },
@@ -1514,6 +1522,10 @@ export const API = {
     service: "workloadcertificate.googleapis.com",
     validate: false,
   },
+  WorkloadIdentityAPI: {
+    service: "workloadidentity.googleapis.com",
+    validate: false,
+  },
   WorkloadManagerAPI: {
     service: "workloadmanager.googleapis.com",
     validate: false,
@@ -1522,6 +1534,7 @@ export const API = {
     service: "workspaceevents.googleapis.com",
     validate: false,
   },
+  WorkspaceMCPAPI: { service: "workspacemcp.googleapis.com", validate: false },
   CloudWorkstationsAPI: {
     service: "workstations.googleapis.com",
     validate: false,
