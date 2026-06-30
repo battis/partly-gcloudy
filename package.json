@@ -28,6 +28,7 @@
     "clean": "del ./dist ./tmp",
     "build": "run-s build:*",
     "build:clean": "run-s clean",
+    "build:setup": "run-s setup",
     "build:scripts": "tsc -p ./tsconfig.scripts.json",
     "build:google-services": "./scripts/services -v",
     "build:compile": "tsc",
@@ -36,28 +37,34 @@
     "release:commit-and-tag-version": "commit-and-tag-version",
     "release:main": "git push --follow-tags",
     "release:npm": "pnpm login",
-    "release:publish": "pnpm publish --access=public"
+    "release:publish": "pnpm publish --access=public",
+    "postinstall": "run-s setup",
+    "setup": "run-s setup:*",
+    "setup:prettier": "setup-prettier -f",
+    "setup:eslint": "setup-eslint -f",
+    "setup:commit": "setup-commit -f"
   },
   "dependencies": {
     "change-case-all": "^2.1.0",
-    "lodash": "^4.17.23",
+    "lodash": "^4.18.1",
     "ora": "^8.2.0",
     "rword": "^4.0.0",
     "rword-english-extended": "^1.0.0"
   },
   "devDependencies": {
     "@1password/sdk": "0.3.1",
+    "@battis/commit": "^0.0.1",
     "@battis/descriptive-types": "^0.2.6",
-    "@battis/eslint-config": "^2.1.0",
-    "@battis/prettier-config": "^1.7.3",
+    "@battis/eslint": "^3.0.0",
+    "@battis/monorepo": "^0.0.1",
+    "@battis/prettier": "^2.0.1",
     "@battis/typescript-tricks": "^0.7.9",
-    "@tsconfig/node24": "^24.0.4",
+    "@tsconfig/node-lts": "^24.0.0",
     "@types/lodash": "^4.17.24",
-    "@types/node": "^24.12.0",
-    "commit-and-tag-version": "^12.6.1",
+    "@types/node": "^24.13.2",
     "del-cli": "^6.0.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.8.1",
+    "prettier": "^3.9.1",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
@@ -71,6 +78,6 @@
     "@qui-cli/shell": ">=3",
     "@qui-cli/validators": ">=3"
   },
-  "packageManager": "pnpm@11.9.0",
+  "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
   "target": "node"
 }

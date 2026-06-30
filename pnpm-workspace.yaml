@@ -1,9 +1,21 @@
 publicHoistPattern:
-  - '*prettier*'
-  - '*eslint*'
-
+  - "*prettier*"
+  - "*eslint*"
+  - "@commitlint/*"
+  - commit-and-tag-version
+  - lerna
+  - monorepo-package-paths
+  - npm-run-all
 allowBuilds:
   esbuild: true
-
+  nx: true
 packages:
-  - 'examples/*'
+  - examples/*
+minimumReleaseAgeExclude:
+  - "@battis/commit@0.0.1"
+  - "@battis/eslint@3.0.0"
+  - "@battis/import-package-json@0.1.8"
+  - "@battis/monorepo@0.0.1"
+  - "@battis/pkg-setup@0.0.1"
+  - "@battis/prettier@2.0.0 || 2.0.1"
+  - monorepo-package-paths@0.4.5
