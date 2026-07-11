@@ -46,6 +46,14 @@ export const API = {
     validate: false,
   },
   AerialViewAPI: { service: "aerialview.googleapis.com", validate: false },
+  AgentIdentityAPI: {
+    service: "agentidentity.googleapis.com",
+    validate: false,
+  },
+  AgentIdentityCredentialsAPI: {
+    service: "agentidentitycredentials.googleapis.com",
+    validate: false,
+  },
   AgentRegistryAPI: {
     service: "agentregistry.googleapis.com",
     validate: false,
@@ -327,6 +335,10 @@ export const API = {
     service: "cloudidentity.googleapis.com",
     validate: false,
   },
+  CloudIdentitySCIMAPI: {
+    service: "cloudidentityscim.googleapis.com",
+    validate: false,
+  },
   CloudKeyManagementServiceKMSAPI: {
     service: "cloudkms.googleapis.com",
     validate: false,
@@ -541,6 +553,7 @@ export const API = {
   },
   CloudDNSAPI: { service: "dns.googleapis.com", validate: false },
   GoogleDocsAPI: { service: "docs.googleapis.com", validate: false },
+  DocsMCPAPI: { service: "docsmcp.googleapis.com", validate: false },
   CloudDocumentAIAPI: { service: "documentai.googleapis.com", validate: false },
   CloudDomainsAPI: { service: "domains.googleapis.com", validate: false },
   DoubleClickBidManagerAPI: {
@@ -1359,6 +1372,7 @@ export const API = {
   },
   ServiceUsageAPI: { service: "serviceusage.googleapis.com", validate: false },
   GoogleSheetsAPI: { service: "sheets.googleapis.com", validate: false },
+  SheetsMCPAPI: { service: "sheetsmcp.googleapis.com", validate: false },
   ContentAPIforShopping: {
     service: "shoppingcontent.googleapis.com",
     validate: false,
@@ -1368,6 +1382,7 @@ export const API = {
     validate: false,
   },
   GoogleSlidesAPI: { service: "slides.googleapis.com", validate: false },
+  SlidesMCPAPI: { service: "slidesmcp.googleapis.com", validate: false },
   SmartDeviceManagementAPI: {
     service: "smartdevicemanagement.googleapis.com",
     validate: false,
