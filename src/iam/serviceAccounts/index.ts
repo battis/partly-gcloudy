@@ -1,6 +1,6 @@
 import { select } from './select.js';
 
-export * from './create.js';
+export * from './create/index.js';
 export * from './describe.js';
 export * from './Key.js';
 export * from './keys.js';

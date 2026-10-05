@@ -1,16 +1,14 @@
 import * as lib from '#lib';
 import { ServiceAccount } from './ServiceAccount.js';
-import { create } from './create.js';
 import { describe } from './describe.js';
 import { list } from './list.js';
 
-export async function select({
-  email,
-  ...rest
-}: Partial<lib.prompts.select.Parameters<ServiceAccount>> &
-  Partial<Parameters<typeof create>[0]> & {
-    email?: lib.Email;
-  } = {}) {
+type Options = {
+  email?: lib.Email;
+  purpose?: string;
+};
+
+export async function select({ email, ...options }: Options = {}) {
   return lib.prompts.select({
     arg: email,
     argTransform: async (email: string) => await describe({ email }),
@@ -22,6 +20,6 @@ export async function select({
         description: s.email
       })),
     transform: (s: ServiceAccount) => s.email,
-    ...rest
+    ...options
   });
 }

@@ -1,13 +1,12 @@
 import { gcloud } from '#shell';
 import { Version } from './Version.js';
 
-export async function describe({
-  secret,
-  version = 'latest'
-}: {
+type Options = {
   secret: string;
   version: string;
-}) {
+};
+
+export async function describe({ secret, version = 'latest' }: Options) {
   return await gcloud<Version>(`secrets versions ${version}`, {
     flags: { secret }
   });

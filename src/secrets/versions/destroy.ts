@@ -1,13 +1,12 @@
 import { gcloud } from '#shell';
 import { Version } from './Version.js';
 
-export async function destroy({
-  secret,
-  version = 'latest'
-}: {
+type Options = {
   secret: string;
   version: string;
-}) {
+};
+
+export async function destroy({ secret, version = 'latest' }: Options) {
   await gcloud<Version>(`secrets versions destroy ${version}`, {
     flags: { secret }
   });

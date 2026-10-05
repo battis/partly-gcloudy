@@ -1,4 +1,3 @@
-import * as core from '#core';
 import * as iam from '#iam';
 import * as lib from '#lib';
 import * as projects from '#projects';
@@ -13,17 +12,6 @@ import {
   REGION_ENV_VAR,
   SERVICE_ACCOUNT_ENV_VAR
 } from './initialize.js';
-
-type Options = {
-  projectId?: string;
-  serviceName?: string;
-  serviceNameEnvVar?: string;
-  region?: string;
-  serviceAccount?: string | iam.serviceAccounts.ServiceAccount;
-  args?: Record<string, unknown>;
-  env?: true | string;
-  retainRevisions?: number;
-} & Parameters<typeof initialize>[0];
 
 export const DEFAULT_ARGS = {
   source: '.',
@@ -41,7 +29,7 @@ function validServiceName(value?: string) {
 }
 
 export async function deployService({
-  projectId,
+  projectId = projects.active.get()?.projectId,
   serviceName,
   region,
   serviceAccount,
@@ -52,12 +40,7 @@ export async function deployService({
   serviceAccountEnvVar = SERVICE_ACCOUNT_ENV_VAR,
   retainRevisions,
   ...options
-}: Options = {}) {
-  const projectEnvVar = core.args().values.projectEnvVar;
-
-  projectId =
-    projectId || (await Env.get({ key: projectEnvVar, ...filePathFrom(env) }));
-
+}: deployService.Options = {}) {
   if (!projectId) {
     const result = await initialize({
       region,
@@ -66,7 +49,6 @@ export async function deployService({
       serviceAccountEnvVar,
       ...options
     });
-    projectId = result.project.projectId;
     region = result.region;
     serviceAccount = result.serviceAccount?.email;
   }
@@ -143,4 +125,17 @@ export async function deployService({
   );
 
   return { service };
+}
+
+export namespace deployService {
+  export type Options = {
+    projectId?: string;
+    serviceName?: string;
+    serviceNameEnvVar?: string;
+    region?: string;
+    serviceAccount?: string | iam.serviceAccounts.ServiceAccount;
+    args?: Record<string, unknown>;
+    env?: true | string;
+    retainRevisions?: number;
+  } & lib.PartialOptions<typeof initialize>;
 }

@@ -2,7 +2,7 @@ import { select } from './select.js';
 
 export * from './active.js';
 export * from './Brand.js';
-export * from './create.js';
+export * from './create/index.js';
 export * from './describe.js';
 export * from './list.js';
 export * from './select.js';

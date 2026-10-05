@@ -1,5 +1,5 @@
-import * as lib from '../lib/index.js';
-import * as shell from '../shell/index.js';
+import * as lib from '#lib';
+import * as shell from '#shell';
 import { AppEngine } from './AppEngine.js';
 
 export async function describe() {

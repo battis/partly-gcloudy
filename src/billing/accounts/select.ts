@@ -3,12 +3,7 @@ import { Account } from './Account.js';
 import { describe } from './describe.js';
 import { list } from './list.js';
 
-export async function select({
-  name,
-  ...rest
-}: {
-  name?: string;
-} & Partial<lib.prompts.select.Parameters<Account>> = {}) {
+export async function select({ name, ...options }: select.Options = {}) {
   return await lib.prompts.select<Account>({
     arg: name,
     argTransform: async (accountId: string) => await describe({ accountId }),
@@ -21,6 +16,13 @@ export async function select({
         disabled: !a.open
       })),
     transform: (a: Account) => a.name,
-    ...rest
+    ...options
   });
+}
+
+export namespace select {
+  export type Options = {
+    name?: string;
+    purpose?: string;
+  } & Partial<lib.prompts.select.Options<Account>>;
 }

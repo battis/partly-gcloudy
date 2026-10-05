@@ -1,18 +1,20 @@
 import * as lib from '#lib';
 import { Project } from './Project.js';
 import { active } from './active.js';
-import { create } from './create.js';
+import { create } from './create/create.js';
 import { list } from './list.js';
+
+type Options = {
+  project?: Project;
+  activate?: boolean;
+} & lib.PartialOptions<typeof lib.prompts.select<Project, Project>> &
+  lib.PartialOptions<typeof create>;
 
 export async function factory({
   project = active.get(),
   activate,
-  ...rest
-}: Partial<lib.prompts.select.Parameters<Project, Project>> &
-  Partial<Parameters<typeof create>[0]> & {
-    project?: Project;
-    activate?: boolean;
-  } = {}) {
+  ...options
+}: Options = {}) {
   if (project) {
     if (activate) {
       active.activate(project);
@@ -29,6 +31,7 @@ export async function factory({
         value: p
       })),
     active: activate ? active : undefined,
-    create: async (projectId?: string) => await create({ projectId, ...rest })
+    create: async (projectId?: string) =>
+      await create({ projectId, ...options })
   });
 }

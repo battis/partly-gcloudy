@@ -13,3 +13,4 @@ packages:
   - examples/*
 minimumReleaseAgeExclude:
   - '@battis/*'
+  - '@qui-cli/*'

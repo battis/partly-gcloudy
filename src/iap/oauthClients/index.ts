@@ -2,7 +2,7 @@ import { factory } from './factory.js';
 import { select } from './select.js';
 
 export * from './Client.js';
-export * from './create.js';
+export * from './create/index.js';
 export * from './describe.js';
 export * from './factory.js';
 export * from './list.js';

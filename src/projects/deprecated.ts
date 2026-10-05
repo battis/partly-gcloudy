@@ -2,7 +2,7 @@ import * as lib from '#lib';
 import { gcloud } from '#shell';
 import { Project } from './Project.js';
 import { active } from './active.js';
-import { create } from './create.js';
+import { create } from './create/create.js';
 import { factory } from './factory.js';
 import { select } from './select.js';
 
@@ -25,8 +25,8 @@ export const id = active;
 export async function selectProjectNumber({
   projectNumber,
   ...rest
-}: Partial<lib.prompts.select.Parameters<Project, string>> &
-  Partial<Parameters<typeof create>[0]> & {
+}: lib.PartialOptions<typeof lib.prompts.select<Project, string>> &
+  lib.PartialOptions<typeof create> & {
     projectNumber?: string | number;
     activate?: boolean;
   } = {}) {

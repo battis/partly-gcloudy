@@ -1,35 +1,38 @@
 import * as iam from '#iam';
 import * as projects from '#projects';
 
-export enum AccessLevel {
-  readOnly,
-  readWrite
-}
-
-type Options = {
-  serviceAccount: string | iam.serviceAccounts.ServiceAccount;
-  accessLevel?: AccessLevel;
-};
-
 export async function enableServiceAccountSecretsAccess({
   serviceAccount,
-  accessLevel = AccessLevel.readOnly
-}: Options) {
+  accessLevel = enableServiceAccountSecretsAccess.AccessLevel.readOnly
+}: enableServiceAccountSecretsAccess.Options) {
   if (typeof serviceAccount !== 'string') {
     serviceAccount = serviceAccount.email;
   }
 
   await projects.addIamPolicyBinding({
-    member: serviceAccount,
-    userType: 'serviceAccount',
+    userType: iam.members.UserType.ServiceAccount,
+    user: serviceAccount,
     role: iam.Role.SecretManager.SecretAccessor
   });
 
-  if (accessLevel === AccessLevel.readWrite) {
+  if (accessLevel === enableServiceAccountSecretsAccess.AccessLevel.readWrite) {
     await projects.addIamPolicyBinding({
-      member: serviceAccount,
-      userType: 'serviceAccount',
-      role: 'roles/secretmanager.secretVersionManager'
+      userType: iam.members.UserType.ServiceAccount,
+      user: serviceAccount,
+      role: iam.Role.SecretManager.SecretVersionManager
     });
   }
+}
+
+export namespace enableServiceAccountSecretsAccess {
+  /** Simplified presentation of {@link iam.Role.SecretManager} roles */
+  export enum AccessLevel {
+    readOnly,
+    readWrite
+  }
+
+  export type Options = {
+    serviceAccount: string | iam.serviceAccounts.ServiceAccount;
+    accessLevel?: AccessLevel;
+  } & Partial<projects.addIamPolicyBinding.Options>;
 }

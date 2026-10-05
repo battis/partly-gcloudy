@@ -1,12 +1,7 @@
 import * as secrets from '#secrets';
 
-type Options = { retainVersions: number } & Parameters<typeof secrets.set>[0];
-
-export async function set({
-  retainVersions = 1,
-  ...secretsSetParams
-}: Options) {
-  const secret = await secrets.set({ ...secretsSetParams });
+export async function set({ retainVersions = 1, ...options }: set.Options) {
+  const secret = await secrets.set({ ...options });
   const v = (await secrets.versions.list({ secret: secret.name }))
     .filter((secret) => secret.state != 'DESTROYED')
     .sort(
@@ -22,4 +17,10 @@ export async function set({
       });
     }
   }
+}
+
+export namespace set {
+  export type Options = {
+    retainVersions: number;
+  } & secrets.set.Options;
 }

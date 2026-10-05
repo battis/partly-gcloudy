@@ -2,10 +2,6 @@ import * as app from '#app';
 import * as lib from '#lib';
 import * as iam from '../iam/index.js';
 
-type Options = {
-  appEngine?: app.AppEngine;
-};
-
 /**
  * Enable access to the Google Cloud Secrets Manager from Google App Engine
  *
@@ -18,15 +14,19 @@ type Options = {
  * @deprecated Use {@link app.initialize()} or
  *   {@link iam.enableServiceAccountSecretsAccess()}
  */
-export async function enableSecretsAccess({ appEngine }: Options = {}) {
+export async function enableSecretsAccess({
+  appEngine,
+  ...options
+}: enableSecretsAccess.Options = {}) {
   appEngine = appEngine || (await app.describe());
   if (!appEngine) {
     if (
       await lib.prompts.confirm({
-        message: 'App Engine is not enabled. Enable?'
+        message: 'App Engine is not enabled. Enable?',
+        ...options
       })
     ) {
-      appEngine = await app.create();
+      appEngine = await app.create({ ...options });
       await app.deploy();
     } else {
       throw new Error(
@@ -37,4 +37,11 @@ export async function enableSecretsAccess({ appEngine }: Options = {}) {
   await iam.enableServiceAccountSecretsAccess({
     serviceAccount: appEngine.serviceAccount
   });
+}
+
+export namespace enableSecretsAccess {
+  export type Options = {
+    appEngine?: app.AppEngine;
+  } & Partial<lib.prompts.confirm.Options> &
+    Partial<app.create.Options>;
 }

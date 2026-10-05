@@ -1,19 +1,21 @@
 import * as lib from '#lib';
 import { Project } from './Project.js';
 import { active } from './active.js';
-import { create } from './create.js';
+import { create } from './create/create.js';
 import { describe } from './describe.js';
 import { list } from './list.js';
+
+type Options = {
+  projectId?: string;
+  activate?: boolean;
+} & lib.PartialOptions<typeof lib.prompts.select<Project>> &
+  lib.PartialOptions<typeof create>;
 
 export async function select({
   projectId,
   activate = true,
-  ...rest
-}: Partial<lib.prompts.select.Parameters<Project>> &
-  Partial<Parameters<typeof create>[0]> & {
-    projectId?: string;
-    activate?: boolean;
-  } = {}) {
+  ...options
+}: Options = {}) {
   return await lib.prompts.select<Project>({
     arg: projectId || active.get()?.projectId,
     argTransform: async (projectId?: string) => {
@@ -36,7 +38,8 @@ export async function select({
       })),
     transform: (p: Project) => p.projectId,
     active: activate ? active : undefined,
-    create: async (projectId?: string) => await create({ projectId, ...rest }),
-    ...rest
+    create: async (projectId?: string) =>
+      await create({ projectId, ...options }),
+    ...options
   });
 }

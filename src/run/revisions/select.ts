@@ -3,13 +3,13 @@ import { Revision } from './Revision.js';
 import * as List from './list.js';
 
 type Options = { revision?: Revision['metadata']['name'] } & List.Options &
-  Partial<lib.prompts.select.Parameters<Revision, string>>;
+  lib.PartialOptions<typeof lib.prompts.select<Revision, string>>;
 
-export async function select({ revision, ...rest }: Options = {}) {
+export async function select({ revision, ...options }: Options = {}) {
   return await lib.prompts.select<Revision>({
     arg: revision,
     argTransform: async (revision: string) =>
-      (await List.list({ ...rest }))
+      (await List.list({ ...options }))
         .filter((r) => r.metadata.name === revision)
         .shift(),
     message: 'Google Cloud Run revision',
@@ -19,6 +19,6 @@ export async function select({ revision, ...rest }: Options = {}) {
         value: r
       })),
     transform: (r: Revision) => r.metadata.name,
-    ...rest
+    ...options
   });
 }

@@ -1,6 +1,5 @@
 import * as projects from '#projects';
 import { Colors } from '@qui-cli/colors';
-import { Core } from '@qui-cli/core';
 import { Env } from '@qui-cli/env';
 import * as Plugin from '@qui-cli/plugin';
 import { ExpectedArguments } from '@qui-cli/plugin';
@@ -14,99 +13,84 @@ export type Configuration = Plugin.Configuration & {
 
 export const name = 'gcloud';
 
-let verbose = false;
-let project: string | undefined = undefined;
-let projectEnvVar = 'PROJECT';
-let cachedArgs: ExpectedArguments<typeof options>;
-let cachedReady: true | string;
+const config: Configuration = {
+  verbose: false,
+  projectjectEnvVar: 'PROJECT'
+};
+let _initialized = false;
 
-export function configure(config: Configuration = {}) {
-  verbose = Plugin.hydrate(config.verbose, verbose);
-  project = Plugin.hydrate(config.project, project);
-  projectEnvVar = Plugin.hydrate(config.projectEnvVar, projectEnvVar);
+export function configure(proposal: Configuration = {}) {
+  for (const key in proposal) {
+    if (proposal[key] !== undefined) {
+      config[key] = proposal[key];
+    }
+  }
+  Shell.configure({
+    showCommands: !!config.verbose,
+    silent: !config.verbose
+  });
 }
 
-export function options(): Plugin.Options {
+export function options() {
   return {
+    man: [{ level: 1, text: 'gcloud Options' }],
     flag: {
       verbose: {
         short: 'v',
         description: 'Show verbose output (commands and results)',
-        default: verbose
+        default: config.verbose
       }
     },
     opt: {
       project: {
         short: 'p',
+        env: config.projectEnvVar,
         description: 'Google Cloud project ID'
       },
       projectEnvVar: {
         description: 'Environment variable that stores Google Cloud project ID',
-        default: projectEnvVar
+        default: config.projectEnvVar
       }
     }
   };
 }
 
-export async function init(args: ExpectedArguments<typeof options>) {
-  cachedArgs = args;
-  let projectId: string | undefined = undefined;
-  if (cachedArgs.values.project || cachedArgs.values.projectEnvVar) {
-    projectId =
-      cachedArgs.values.project ||
-      (await Env.get({ key: cachedArgs.values.projectEnvVar }));
+export async function init({ values }: ExpectedArguments<typeof options>) {
+  configure(values);
+  // @qui-cli/env may have used an _old_ projectEnvVar value, need to re-check
+  if (config.projectEnvVar && !config.project) {
+    configure({ project: await Env.get({ key: config.projectEnvVar }) });
   }
-
-  Shell.configure({
-    showCommands: !!cachedArgs.values.verbose,
-    silent: !cachedArgs.values.verbose
-  });
-
-  if (ready() && !!projectId) {
-    const cachedProject = await projects.describe({ projectId });
-    if (cachedProject) {
-      projects.active.activate(cachedProject);
-    } else {
-      if (cachedArgs.values.project) {
-        throw new Error(
-          `${Colors.optionArg('--project')} argument ${Colors.quotedValue(`"${cachedArgs.values.project}"`)} unknown`
-        );
-      } else if (cachedArgs.values.projectEnvVar) {
-        throw new Error(
-          `Project ID in .env variable ${Colors.varName(cachedArgs.values.projectEnvVar)} = ${Colors.quotedValue(
-            `"${await Env.get({ key: cachedArgs.values.projectEnvVar })}"`
-          )} unknown`
-        );
-      } else {
-        throw new Error('Project ID unknown in unexpected manner');
-      }
+  if (config.project) {
+    const project = await projects.describe({ projectId: config.project });
+    if (project) {
+      projects.active.activate(project);
     }
   }
+  _initialized = true;
 }
 
-export function ready({ fail = true }: { fail?: boolean } = {}) {
-  if (cachedReady === undefined) {
-    cachedReady =
-      /\d+\.\d/.test(Shell.exec('gcloud --version').stdout) ||
-      `gcloud is required. Install from ${Colors.url(
-        'https://cloud.google.com/sdk/docs/install'
-      )}`;
-  }
-  if (cachedReady !== true) {
-    // TODO just install and authorize gcloud interactively
-    if (fail) {
-      throw new Error(cachedReady);
+export function initialized() {
+  return _initialized;
+}
+
+/** @deprecated Use {@link initialized()} */
+export const ready = initialized;
+
+export async function writeEnv({
+  projectId,
+  ...values
+}: Record<string, unknown> & { projectId: string | undefined }) {
+  if (projectId) {
+    if (config.projectEnvVar) {
+      await Env.set({ key: config.projectEnvVar, value: projectId });
     } else {
-      throw new Error(`${cachedReady} (ready did not expect to fail)`);
+      throw new Error(`${Colors.optionArg('--projectEnvVar')} not defined`);
     }
   }
-  return cachedReady;
-}
-
-export function args() {
-  return cachedArgs;
-}
-
-export async function prepare(options: Parameters<(typeof Core)['init']>[0]) {
-  return await Core.init(options);
+  for (const key in values) {
+    if (values[key] !== undefined && values[key] !== null) {
+      await Env.set({ key, value: values[key].toString() });
+    }
+  }
 }

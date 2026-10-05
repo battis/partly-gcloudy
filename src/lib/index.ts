@@ -5,3 +5,4 @@ export * as Undefined from './Undefined.js';
 export * as generate from './generate.js';
 export * as prompts from './prompts/index.js';
 export * as validators from './validators.js';
+export * from './PartialOptions.js';

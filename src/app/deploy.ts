@@ -1,4 +1,4 @@
-import * as shell from '../shell/index.js';
+import * as shell from '#shell';
 import { DeploymentConfig } from './DeploymentConfig.js';
 
 export async function deploy() {

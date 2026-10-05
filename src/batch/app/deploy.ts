@@ -20,9 +20,7 @@ import { initialize } from './initialize.js';
 export async function deploy({
   retainVersions,
   ...options
-}: Partial<Parameters<typeof initialize>>[0] & {
-  retainVersions?: number;
-} = {}) {
+}: deploy.Options = {}) {
   let appEngine: app.AppEngine | undefined = undefined;
   let project: projects.Project | undefined = undefined;
   let deployment: app.DeploymentConfig | undefined = undefined;
@@ -34,7 +32,7 @@ export async function deploy({
       deployment = result.deployment;
     }
   } else {
-    project = await projects.active.get();
+    project = projects.active.get();
     appEngine = await app.describe();
     deployment = await app.deploy();
   }
@@ -52,4 +50,10 @@ export async function deploy({
     );
   }
   return { project, appEngine, deployment };
+}
+
+export namespace deploy {
+  export type Options = {
+    retainVersions?: number;
+  } & Partial<initialize.Options>;
 }

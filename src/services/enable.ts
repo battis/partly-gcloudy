@@ -4,12 +4,11 @@ import { describe, ServiceIdentifier } from './describe.js';
 import { list } from './list.js';
 import { Service } from './Service.js';
 
-export async function enable({
-  service,
-  ...rest
-}: Partial<lib.prompts.select.Parameters<Service>> & {
+type Options = {
   service?: ServiceIdentifier;
-} = {}) {
+} & lib.PartialOptions<typeof lib.prompts.select<Service>>;
+
+export async function enable({ service, ...options }: Options = {}) {
   service =
     service ||
     (await lib.prompts.select<Service>({
@@ -23,7 +22,7 @@ export async function enable({
           description: s.config.name
         })),
       transform: (s: Service) => s.config.name,
-      ...rest
+      ...options
     }));
   return await gcloud(`services enable ${service}`);
 }

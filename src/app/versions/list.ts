@@ -1,14 +1,14 @@
-import * as shell from '../../shell/index.js';
+import * as shell from '#shell';
 import { Version } from './Version.js';
-
-export { Version };
 
 export async function list({
   sortBy = '~version.createTime'
-}: {
-  sortBy?: string;
-} = {}) {
+}: list.Options = {}) {
   return await shell.gcloud<Version[]>('app versions list', {
     flags: { 'sort-by': sortBy }
   });
+}
+
+export namespace list {
+  export type Options = { sortBy?: string };
 }

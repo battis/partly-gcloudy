@@ -1,6 +1,6 @@
 export * from './active.js';
 export * from './addIamPolicyBinding.js';
-export * from './create.js';
+export * from './create/index.js';
 export * from './describe.js';
 export * from './factory.js';
 export * from './list.js';

@@ -4,7 +4,11 @@ import { Service } from './Service.js';
 
 export type ServiceIdentifier = string;
 
-export async function describe({ service }: { service: ServiceIdentifier }) {
+type Options = {
+  service: ServiceIdentifier;
+};
+
+export async function describe({ service }: Options) {
   return (
     await gcloud<Service[], lib.Undefined.Value>('services list', {
       flags: {

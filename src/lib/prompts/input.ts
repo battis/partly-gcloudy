@@ -6,18 +6,22 @@ export async function input<T extends string>({
   message,
   purpose,
   validate,
-  ...rest
-}: {
-  arg?: string;
-  message: string;
-  purpose?: string;
-  default?: string;
-  validate: (value?: string) => boolean | string;
-}) {
+  ...options
+}: input.Options) {
   return ((validate && validate(arg) === true && arg) ||
     (!validate && arg) ||
     (await pInput({
       message: `${message}${core.pad(purpose)}`,
-      ...rest
+      ...options
     }))) as T;
+}
+
+export namespace input {
+  export type Options = {
+    arg?: string;
+    message: string;
+    purpose?: string;
+    default?: string;
+    validate: (value?: string) => boolean | string;
+  };
 }

@@ -1,4 +1,4 @@
-import * as shell from '../shell/index.js';
+import * as shell from '#shell';
 
 export async function logs() {
   // TODO app logs should be configurable

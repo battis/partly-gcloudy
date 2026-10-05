@@ -1,16 +1,10 @@
-import * as shell from '../shell/index.js';
-
-type Options = {
-  serviceAccount?: string;
-  splitHealthChecks?: true;
-  sslPolicy?: 'TLS_VERSION_1_0' | 'TLS_VERSION_1_2';
-};
+import * as shell from '#shell';
 
 export async function update({
   serviceAccount,
   splitHealthChecks,
   sslPolicy
-}: Options) {
+}: update.Options) {
   return await shell.gcloud('app update', {
     flags: {
       'service-account': serviceAccount,
@@ -18,4 +12,12 @@ export async function update({
       'ssl-policy': sslPolicy
     }
   });
+}
+
+export namespace update {
+  export type Options = {
+    serviceAccount?: string;
+    splitHealthChecks?: true;
+    sslPolicy?: 'TLS_VERSION_1_0' | 'TLS_VERSION_1_2';
+  };
 }

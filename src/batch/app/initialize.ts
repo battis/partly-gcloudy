@@ -7,20 +7,7 @@ import { Shell } from '@qui-cli/shell';
 import * as iam from '../iam/index.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
 import * as batchProjects from '../projects/index.js';
-
-export type PreBuildCallback = (args: {
-  project: projects.Project;
-  appEngine: app.AppEngine;
-}) => boolean;
-
-type Options = {
-  region?: string;
-  secretsAccess?: iam.AccessLevel;
-  env?: true | PathString;
-  preBuild?: PreBuildCallback;
-  build?: string;
-  deploy?: boolean;
-} & Parameters<typeof batchProjects.initialize>[0];
+import * as lib from '#lib';
 
 /**
  * Initialize a new instance of Google App Engine
@@ -36,7 +23,7 @@ export async function initialize({
   build,
   deploy = true,
   ...options
-}: Options = {}) {
+}: initialize.Options = {}) {
   const urlEnvVar = `${core.args().values.projectEnvVar}_URL`;
 
   const { project } = await batchProjects.initialize(options);
@@ -74,4 +61,20 @@ export async function initialize({
     });
   }
   return { project, appEngine, deployment };
+}
+
+export namespace initialize {
+  export type PreBuildCallback = (args: {
+    project: projects.Project;
+    appEngine: app.AppEngine;
+  }) => boolean;
+
+  export type Options = {
+    region?: string;
+    secretsAccess?: iam.enableServiceAccountSecretsAccess.AccessLevel;
+    env?: true | PathString;
+    preBuild?: PreBuildCallback;
+    build?: string;
+    deploy?: boolean;
+  } & Partial<batchProjects.initialize.Options>;
 }

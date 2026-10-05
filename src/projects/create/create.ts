@@ -1,49 +1,19 @@
 import * as lib from '#lib';
 import { gcloud } from '#shell';
-import { Validators } from '@qui-cli/validators';
-import { Project } from './Project.js';
-import { active } from './active.js';
-import { describe } from './describe.js';
+import { active } from '../active.js';
+import { describe } from '../describe.js';
+import { Project } from '../Project.js';
+import { inputName } from './inputName.js';
+import { inputProjectId } from './inputProjectId.js';
 
-type ProjectId = string;
-type Name = string;
-
-export async function inputProjectId({
-  projectId,
-  validate,
-  ...rest
-}: Partial<Parameters<typeof lib.prompts.input<ProjectId>>[0]> & {
-  projectId?: string;
-} = {}) {
-  return await lib.prompts.input<ProjectId>({
-    arg: projectId,
-    message: 'Google Cloud project unique identifier',
-    validate: Validators.combine(
-      validate || (() => true),
-      Validators.lengthBetween(6, 30)
-    ),
-    default: lib.generate.projectId(),
-    ...rest
-  });
-}
-
-export async function inputName({
-  name,
-  validate,
-  ...rest
-}: Partial<Parameters<typeof lib.prompts.input<Name>>[0]> & {
+type Options = {
   name?: string;
-} = {}) {
-  return await lib.prompts.input<Name>({
-    arg: name,
-    message: 'Google Cloud project name',
-    validate: Validators.combine(
-      validate || (() => true),
-      Validators.lengthBetween(6, 30)
-    ),
-    ...rest
-  });
-}
+  defaultName?: string;
+  /** @deprecated Use 'projectId' */
+  id?: string;
+  projectId?: string;
+  reuseIfExists?: boolean;
+};
 
 export async function create({
   id,
@@ -51,14 +21,7 @@ export async function create({
   defaultName,
   projectId,
   reuseIfExists
-}: {
-  name?: string;
-  defaultName?: string;
-  /** @deprecated Use 'projectId' */
-  id?: string;
-  projectId?: string;
-  reuseIfExists?: boolean;
-} = {}) {
+}: Options = {}) {
   name = await inputName({ name, default: defaultName });
   projectId = await inputProjectId({ projectId: projectId || id });
   let project: Project | undefined;

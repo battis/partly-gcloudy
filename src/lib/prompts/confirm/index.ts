@@ -6,21 +6,22 @@ export async function confirm({
   arg,
   message,
   purpose,
-  ...rest
-}: Parameters<typeof pConfirm>[0] & {
-  arg?: boolean;
-  purpose?: string;
-}) {
+  ...options
+}: confirm.Options) {
   return (
     (arg !== undefined && arg) ||
     (await pConfirm({
       message: `${message}${core.pad(purpose)}`,
-      ...rest
+      ...options
     }))
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace confirm {
+  export type Options = {
+    arg?: boolean;
+    purpose?: string;
+  } & Parameters<typeof pConfirm>[0];
+
   export const reuse = FReuse;
 }

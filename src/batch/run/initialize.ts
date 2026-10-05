@@ -3,25 +3,11 @@ import * as iam from '#iam';
 import * as run from '#run';
 import * as services from '#services';
 import { Env } from '@qui-cli/env';
-import {
-  AccessLevel,
-  enableServiceAccountSecretsAccess
-} from '../iam/enableServiceAccountSecretsAccess.js';
+import { enableServiceAccountSecretsAccess } from '../iam/enableServiceAccountSecretsAccess.js';
 import { filePathFrom } from '../lib/filePathFrom.js';
 import { initialize as initializeProject } from '../projects/initialize.js';
-
-type Options = {
-  name?: string;
-  defaultName?: string;
-  projectId?: string;
-  billingAccountId?: string;
-  region?: string;
-  secretsAccess?: AccessLevel | true;
-  serviceAccount?: boolean | string | iam.serviceAccounts.ServiceAccount;
-  env?: true | string;
-  regionEnvVar?: string;
-  serviceAccountEnvVar?: string;
-} & Parameters<typeof initializeProject>[0];
+import * as lib from '#lib';
+import { init } from '#core';
 
 export const REGION_ENV_VAR = 'REGION';
 export const SERVICE_ACCOUNT_ENV_VAR = 'SERVICE_ACCOUNT';
@@ -34,7 +20,7 @@ export async function initialize({
   regionEnvVar = REGION_ENV_VAR,
   serviceAccountEnvVar = SERVICE_ACCOUNT_ENV_VAR,
   ...options
-}: Options = {}) {
+}: initialize.Options = {}) {
   const { project } = await initializeProject(options);
 
   await billing.projects.enable({
@@ -82,4 +68,19 @@ export async function initialize({
   }
 
   return { project, region, serviceAccount };
+}
+
+export namespace initialize {
+  export type Options = {
+    name?: string;
+    defaultName?: string;
+    projectId?: string;
+    billingAccountId?: string;
+    region?: string;
+    secretsAccess?: enableServiceAccountSecretsAccess.AccessLevel | true;
+    serviceAccount?: boolean | string | iam.serviceAccounts.ServiceAccount;
+    env?: true | string;
+    regionEnvVar?: string;
+    serviceAccountEnvVar?: string;
+  } & lib.PartialOptions<typeof initializeProject>;
 }

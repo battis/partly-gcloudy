@@ -8,14 +8,7 @@ import { Secret } from './Secret.js';
 
 let apiEnabled = false;
 
-export async function set({
-  name,
-  value,
-  path
-}: RequireOnlyOne<
-  { name: string; value: string; path: string },
-  'value' | 'path'
->) {
+export async function set({ name, value, path }: set.Options) {
   name =
     name ||
     (await input({
@@ -69,4 +62,15 @@ export async function set({
   }
 
   return secret;
+}
+
+export namespace set {
+  export type Options = RequireOnlyOne<
+    {
+      name: string;
+      value: string;
+      path: string;
+    },
+    'value' | 'path'
+  >;
 }

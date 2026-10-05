@@ -2,7 +2,6 @@ export interface Descriptor {
   [key: string]: any;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Descriptor {
   /**
    * "A Descriptor is not a Choice"

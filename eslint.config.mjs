@@ -1,1 +1,3 @@
-export { default as default } from '@battis/eslint';
+import config from '@battis/eslint';
+
+export default { ...config, ignores: ['@typescript-eslint/no-namespace'] };

@@ -19,7 +19,7 @@ export async function select<ChoiceType = string, ReturnType = string>({
   create,
   activateIfCreated,
   ...rest
-}: select.Parameters<ChoiceType, ReturnType>): Promise<ReturnType> {
+}: select.Options<ChoiceType, ReturnType>): Promise<ReturnType> {
   let selection: ChoiceType | undefined;
 
   // convert argument to valid selection, if possible
@@ -75,7 +75,14 @@ export async function select<ChoiceType = string, ReturnType = string>({
     } else {
       // create a new selection
       selection = await create(arg);
+      if (activateIfCreated) {
+        active?.activate(selection);
+      }
     }
+  }
+
+  if (choices.length === 0) {
+    throw new Error('No choices available');
   }
 
   // interactively make selection if not yet made
@@ -102,7 +109,7 @@ export async function select<ChoiceType = string, ReturnType = string>({
 }
 
 export namespace select {
-  export type Parameters<
+  export type Options<
     ChoiceType = string,
     ReturnType = string
   > = core.Parameters &

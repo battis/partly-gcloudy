@@ -6,6 +6,10 @@ export * from './describe.js';
 export * from './list.js';
 export * from './select.js';
 
-/** @deprecated Use {@link select} */
+export const selectIdentifier = select;
+
+/** @deprecated Use {@link select()} */
 export const selectName = select;
-export const selectidentifier = select;
+
+/** @deprecated Use {@link selectIdentifier()} */
+export const selectidentifier = selectIdentifier;
