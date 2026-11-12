@@ -12,7 +12,7 @@ export async function addIamPolicyBinding({
   role,
   projectId,
   ...options
-}: Options = {}) {
+}: addIamPolicyBinding.Options = {}) {
   if (member) {
     if (
       member !== 'AllUsers' &&
@@ -64,8 +64,8 @@ export namespace addIamPolicyBinding {
      *
      * - `AllUsers` - Special identifier that represents anyone who is on the
      *   internet, with or without a Google account.
-     * - `AllAuthenticatedUsers` - Special identifier that represents anyone who is
-     *   authenticated with a Google account or a service account.
+     * - `AllAuthenticatedUsers` - Special identifier that represents anyone who
+     *   is authenticated with a Google account or a service account.
      *
      * A complete `member` definition takes precedence over {@link userType} and
      * {@link user}. A `member` without a usertype: prefix will be treated as
@@ -73,9 +73,9 @@ export namespace addIamPolicyBinding {
      */
     member?: string;
     /**
-     * Role name to assign to the principal. The role name is the complete path of
-     * a predefined role, such as `roles/logging.viewer`, or the role ID for a
-     * custom role, such as
+     * Role name to assign to the principal. The role name is the complete path
+     * of a predefined role, such as `roles/logging.viewer`, or the role ID for
+     * a custom role, such as
      * `organizations/{ORGANIZATION_ID}/roles/logging.viewer`.
      */
     role?: string;
