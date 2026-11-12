@@ -45,26 +45,26 @@
     "setup:commit": "setup-commit -f"
   },
   "dependencies": {
-    "change-case-all": "^2.1.0",
+    "change-case-all": "^2.2.0",
     "lodash": "^4.18.1",
     "ora": "^8.2.0",
     "rword": "^4.0.0",
     "rword-english-extended": "^1.0.0"
   },
   "devDependencies": {
-    "@1password/sdk": "^0.4.0",
+    "@1password/sdk": "^0.4.1",
     "@battis/commit": "^0.0.9",
     "@battis/descriptive-types": "^0.2.6",
-    "@battis/eslint": "^3.0.6",
+    "@battis/eslint": "^3.0.8",
     "@battis/monorepo": "^0.0.7",
-    "@battis/prettier": "^2.0.10",
-    "@battis/typescript-tricks": "^0.8.5",
-    "@tsconfig/node-lts": "^24.0.0",
-    "@types/lodash": "^4.17.24",
-    "@types/node": "^24.13.3",
+    "@battis/prettier": "^2.0.11",
+    "@battis/typescript-tricks": "^0.8.7",
+    "@tsconfig/node-lts": "^24.0.1",
+    "@types/lodash": "^4.17.27",
+    "@types/node": "^24.19.2",
     "del-cli": "^6.0.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.9.5",
+    "prettier": "^3.10.0",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
