@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.5.0](https://github.com/battis/partly-gcloudy/compare/v3.4.5...v3.5.0) (2026-11-12)
+
+
+### Features
+
+* turbo prune and deploy multiple services from the same monorepo ([6e5e18f](https://github.com/battis/partly-gcloudy/commit/6e5e18f1b977e7b80580b039814f79c0e866a209))
+
+
+### Bug Fixes
+
+* 2026-06-27 APIs ([f956dea](https://github.com/battis/partly-gcloudy/commit/f956deada3e1a2e1e6baa24d41ea1f4fc34a62ac))
+* bump dependencies ([1eda73c](https://github.com/battis/partly-gcloudy/commit/1eda73c71bdf69c1ea73c27f06f99b70a9958cb1))
+* remove broken dependency on projectEnvVar ([920273c](https://github.com/battis/partly-gcloudy/commit/920273c125fa64ecf5ae94a46fa0dd9ec0b771b2))
+* restore missing (?) PartialOptions helper ([da2c80d](https://github.com/battis/partly-gcloudy/commit/da2c80d5864b2f881130a322a3b2496f33619ff5))
+* unlock peers from prerelease versions ([5f124e4](https://github.com/battis/partly-gcloudy/commit/5f124e47ae887c4747c973aa895fcb48fa2a7216))
+* update services to 2026-07-11 definition ([1618b4e](https://github.com/battis/partly-gcloudy/commit/1618b4e3284c3b0dc04a106ddac9cda99125d1e9))
+* update to 2026-11-12 version of APIs ([011572b](https://github.com/battis/partly-gcloudy/commit/011572b050fa37a2ea06ed59e64b24b40458d89d))
+* use correct namespace reference ([2cb4520](https://github.com/battis/partly-gcloudy/commit/2cb45201c83653d28d507ee654e87daf1816d50a))
+
 ## [3.4.5](https://github.com/battis/partly-gcloudy/compare/v3.4.4...v3.4.5) (2026-05-31)
 
 
