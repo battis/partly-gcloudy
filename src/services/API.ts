@@ -46,6 +46,10 @@ export const API = {
     validate: false
   },
   AerialViewAPI: { service: 'aerialview.googleapis.com', validate: false },
+  AgenciesandBrandsAPI: {
+    service: 'agenciesandbrands.googleapis.com',
+    validate: false
+  },
   AgentIdentityAPI: {
     service: 'agentidentity.googleapis.com',
     validate: false
@@ -56,6 +60,10 @@ export const API = {
   },
   AgentRegistryAPI: {
     service: 'agentregistry.googleapis.com',
+    validate: false
+  },
+  AgriculturalUnderstandingAPI: {
+    service: 'agriculturalunderstanding.googleapis.com',
     validate: false
   },
   AgentPlatformAPI: { service: 'aiplatform.googleapis.com', validate: false },
@@ -75,6 +83,14 @@ export const API = {
     validate: false
   },
   AnalyticsHubAPI: { service: 'analyticshub.googleapis.com', validate: false },
+  AndroidDeveloperConsoleAPI: {
+    service: 'androiddeveloperconsole.googleapis.com',
+    validate: false
+  },
+  AndroidDeveloperIDStatusAPI: {
+    service: 'androiddeveloperidstatus.googleapis.com',
+    validate: false
+  },
   AndroidDeviceProvisioningPartnerAPI: {
     service: 'androiddeviceprovisioning.googleapis.com',
     validate: false
@@ -116,10 +132,6 @@ export const API = {
     service: 'apigeeconnect.googleapis.com',
     validate: false
   },
-  ApigeeRegistryAPI: {
-    service: 'apigeeregistry.googleapis.com',
-    validate: false
-  },
   APIhubAPI: { service: 'apihub.googleapis.com', validate: false },
   APIKeysAPI: { service: 'apikeys.googleapis.com', validate: false },
   APIManagementAPI: { service: 'apim.googleapis.com', validate: false },
@@ -134,6 +146,10 @@ export const API = {
   },
   AppEngine: { service: 'appenginereporting.googleapis.com', validate: false },
   AppHubAPI: { service: 'apphub.googleapis.com', validate: false },
+  AppHubEndpointAPI: {
+    service: 'apphubendpoint.googleapis.com',
+    validate: false
+  },
   AppOptimizeAPI: { service: 'appoptimize.googleapis.com', validate: false },
   GoogleWorkspaceMarketplaceSDK: {
     service: 'appsmarket-component.googleapis.com',
@@ -147,10 +163,6 @@ export const API = {
   ARCoreAPI: { service: 'arcore.googleapis.com', validate: false },
   ARCoreCloudAnchorAPILegacy: {
     service: 'arcorecloudanchor.googleapis.com',
-    validate: false
-  },
-  Area120TablesAPI: {
-    service: 'area120tables.googleapis.com',
     validate: false
   },
   PlacesAggregateAPI: {
@@ -171,7 +183,6 @@ export const API = {
     service: 'authorizedbuyersmarketplace.googleapis.com',
     validate: false
   },
-  CloudAutoMLAPI: { service: 'automl.googleapis.com', validate: false },
   CloudAutoscalingAPI: {
     service: 'autoscaling.googleapis.com',
     validate: false
@@ -296,6 +307,18 @@ export const API = {
     validate: false
   },
   GoogleClassroomAPI: { service: 'classroom.googleapis.com', validate: false },
+  GoogleClassroomMCPAPI: {
+    service: 'classroommcp.googleapis.com',
+    validate: false
+  },
+  AnthropicmanagedClaudeAPI: {
+    service: 'claude.googleapis.com',
+    validate: false
+  },
+  ClientTelemetryAPI: {
+    service: 'clienttelemetry.googleapis.com',
+    validate: false
+  },
   ServiceMetadataAPI: { service: 'cloud.googleapis.com', validate: false },
   GeminiforGoogleCloudAPI: {
     service: 'cloudaicompanion.googleapis.com',
@@ -310,6 +333,7 @@ export const API = {
   CloudBillingAPI: { service: 'cloudbilling.googleapis.com', validate: false },
   CloudBuildAPI: { service: 'cloudbuild.googleapis.com', validate: false },
   CloudChannelAPI: { service: 'cloudchannel.googleapis.com', validate: false },
+  CloudCLIExecutionAPI: { service: 'cloudcli.googleapis.com', validate: false },
   CloudCommerceConsumerProcurementAPI: {
     service: 'cloudcommerceconsumerprocurement.googleapis.com',
     validate: false
@@ -355,8 +379,8 @@ export const API = {
     service: 'cloudnumberregistry.googleapis.com',
     validate: false
   },
-  CloudOptimizationAPI: {
-    service: 'cloudoptimization.googleapis.com',
+  CloudOAuthServiceAPI: {
+    service: 'cloudoauth.googleapis.com',
     validate: false
   },
   CloudPrivateCatalogAPI: {
@@ -396,6 +420,7 @@ export const API = {
     service: 'cloudvideosearch.googleapis.com',
     validate: false
   },
+  ColabAPI: { service: 'colaboratory.googleapis.com', validate: false },
   CloudComposerAPI: { service: 'composer.googleapis.com', validate: false },
   ComputeEngineAPI: { service: 'compute.googleapis.com', validate: false },
   ConfidentialComputingAPI: {
@@ -456,6 +481,10 @@ export const API = {
   ContrailsAPI: { service: 'contrails.googleapis.com', validate: false },
   NearbyMessagesAPI: { service: 'copresence.googleapis.com', validate: false },
   CSSAPI: { service: 'css.googleapis.com', validate: false },
+  CurationPartnersAPI: {
+    service: 'curationpartners.googleapis.com',
+    validate: false
+  },
   CustomSearchAPI: { service: 'customsearch.googleapis.com', validate: false },
   DatabaseCenterAPI: {
     service: 'databasecenter.googleapis.com',
@@ -504,6 +533,7 @@ export const API = {
   CloudDatastoreAPI: { service: 'datastore.googleapis.com', validate: false },
   DatastreamAPI: { service: 'datastream.googleapis.com', validate: false },
   DataStudioAPI: { service: 'datastudio.googleapis.com', validate: false },
+  DeepReviewAPI: { service: 'deepreview.googleapis.com', validate: false },
   CloudDeploymentManagerV2API: {
     service: 'deploymentmanager.googleapis.com',
     validate: false
@@ -517,6 +547,7 @@ export const API = {
     service: 'developerknowledge.googleapis.com',
     validate: false
   },
+  DeviceRunAPI: { service: 'devicerun.googleapis.com', validate: false },
   DeviceStreamingAPI: {
     service: 'devicestreaming.googleapis.com',
     validate: false
@@ -703,6 +734,14 @@ export const API = {
     service: 'firebasestorage.googleapis.com',
     validate: false
   },
+  FirebaseTelemetryAPI: {
+    service: 'firebasetelemetry.googleapis.com',
+    validate: false
+  },
+  FirebaseTelemetryAdminAPI: {
+    service: 'firebasetelemetryadmin.googleapis.com',
+    validate: false
+  },
   FirebaseAILogicAPI: {
     service: 'firebasevertexai.googleapis.com',
     validate: false
@@ -722,6 +761,7 @@ export const API = {
     service: 'fpnv.googleapis.com',
     validate: false
   },
+  CloudFTPAPI: { service: 'ftp.googleapis.com', validate: false },
   GooglePlayGamesServicesAPI: {
     service: 'games.googleapis.com',
     validate: false
@@ -791,7 +831,7 @@ export const API = {
     service: 'groupssettings.googleapis.com',
     validate: false
   },
-  GoogleWorkspaceaddonsAPI: {
+  GoogleWorkspaceAddonsAPI: {
     service: 'gsuiteaddons.googleapis.com',
     validate: false
   },
@@ -809,14 +849,6 @@ export const API = {
   },
   IdentityandAccessManagementIAMAPI: {
     service: 'iam.googleapis.com',
-    validate: false
-  },
-  IAMConnectorCredentialsAPI: {
-    service: 'iamconnectorcredentials.googleapis.com',
-    validate: false
-  },
-  IAMConnectorsAPI: {
-    service: 'iamconnectors.googleapis.com',
     validate: false
   },
   IAMServiceAccountCredentialsAPI: {
@@ -943,7 +975,7 @@ export const API = {
     service: 'mapsplatformdatasets.googleapis.com',
     validate: false
   },
-  MapsGroundingLiteAPI: {
+  MapsExperienceagenttools: {
     service: 'mapstools.googleapis.com',
     validate: false
   },
@@ -1077,6 +1109,7 @@ export const API = {
     service: 'networktopology.googleapis.com',
     validate: false
   },
+  GeminiNotebookAPI: { service: 'notebook.googleapis.com', validate: false },
   NotebooksAPI: { service: 'notebooks.googleapis.com', validate: false },
   NotebookSecurityScannerAPI: {
     service: 'notebooksecurityscanner.googleapis.com',
@@ -1183,6 +1216,7 @@ export const API = {
     service: 'policyanalyzer.googleapis.com',
     validate: false
   },
+  PolicyAssistAPI: { service: 'policyassist.googleapis.com', validate: false },
   PolicyRemediatorAPI: {
     service: 'policyremediator.googleapis.com',
     validate: false
@@ -1278,10 +1312,7 @@ export const API = {
     service: 'resourceviews.googleapis.com',
     validate: false
   },
-  VertexAISearchforcommerceAPI: {
-    service: 'retail.googleapis.com',
-    validate: false
-  },
+  AICommerceSearchAPI: { service: 'retail.googleapis.com', validate: false },
   RISCAPI: { service: 'risc.googleapis.com', validate: false },
   RoadsAPI: { service: 'roads.googleapis.com', validate: false },
   RouteOptimizationAPI: {
@@ -1307,10 +1338,6 @@ export const API = {
     validate: false
   },
   SafeBrowsingAPI: { service: 'safebrowsing.googleapis.com', validate: false },
-  GoogleShoppingforSalesforceAPI: {
-    service: 'salesforceshopping.googleapis.com',
-    validate: false
-  },
   SASPortalAPI: { service: 'sasportal.googleapis.com', validate: false },
   AppsScriptAPI: { service: 'script.googleapis.com', validate: false },
   SearchAds360ReportingAPI: {
@@ -1358,6 +1385,10 @@ export const API = {
     service: 'servicedirectory.googleapis.com',
     validate: false
   },
+  ServiceExtensionsAPI: {
+    service: 'serviceextensions.googleapis.com',
+    validate: false
+  },
   ServiceHealthAPI: {
     service: 'servicehealth.googleapis.com',
     validate: false
@@ -1373,10 +1404,6 @@ export const API = {
   ServiceUsageAPI: { service: 'serviceusage.googleapis.com', validate: false },
   GoogleSheetsAPI: { service: 'sheets.googleapis.com', validate: false },
   SheetsMCPAPI: { service: 'sheetsmcp.googleapis.com', validate: false },
-  ContentAPIforShopping: {
-    service: 'shoppingcontent.googleapis.com',
-    validate: false
-  },
   SiteVerificationAPI: {
     service: 'siteverification.googleapis.com',
     validate: false
@@ -1493,11 +1520,19 @@ export const API = {
     service: 'travelpartnerprices.googleapis.com',
     validate: false
   },
+  UniversalLedgerAPI: {
+    service: 'universalledger.googleapis.com',
+    validate: false
+  },
   AwarenessAPI: { service: 'usercontext.googleapis.com', validate: false },
   GoogleVaultAPI: { service: 'vault.googleapis.com', validate: false },
   VectorSearchAPI: { service: 'vectorsearch.googleapis.com', validate: false },
   ChromeVerifiedAccessAPI: {
     service: 'verifiedaccess.googleapis.com',
+    validate: false
+  },
+  VerifyRCSForBusinessAPI: {
+    service: 'verifyrcsforbusiness.googleapis.com',
     validate: false
   },
   versionhistorygoogleapiscomAPI: {
@@ -1506,6 +1541,73 @@ export const API = {
   },
   CloudVideoIntelligenceAPI: {
     service: 'videointelligence.googleapis.com',
+    validate: false
+  },
+  CloudVisionAPI: { service: 'vision.googleapis.com', validate: false },
+  VisionAIAPI: { service: 'visionai.googleapis.com', validate: false },
+  VMMigrationAPI: { service: 'vmmigration.googleapis.com', validate: false },
+  VMwareEngineAPI: { service: 'vmwareengine.googleapis.com', validate: false },
+  ServerlessVPCAccessAPI: {
+    service: 'vpcaccess.googleapis.com',
+    validate: false
+  },
+  GoogleWalletAPI: { service: 'walletobjects.googleapis.com', validate: false },
+  WeatherAPI: { service: 'weather.googleapis.com', validate: false },
+  WebContentPublisherAPI: {
+    service: 'webcontentpublisher.googleapis.com',
+    validate: false
+  },
+  WebFontsDeveloperAPI: { service: 'webfonts.googleapis.com', validate: false },
+  WebRiskAPI: { service: 'webrisk.googleapis.com', validate: false },
+  WebSecurityScannerAPI: {
+    service: 'websecurityscanner.googleapis.com',
+    validate: false
+  },
+  WorkflowExecutionsAPI: {
+    service: 'workflowexecutions.googleapis.com',
+    validate: false
+  },
+  WorkflowsAPI: { service: 'workflows.googleapis.com', validate: false },
+  WorkloadCertificateAPI: {
+    service: 'workloadcertificate.googleapis.com',
+    validate: false
+  },
+  WorkloadIdentityAPI: {
+    service: 'workloadidentity.googleapis.com',
+    validate: false
+  },
+  WorkloadManagerAPI: {
+    service: 'workloadmanager.googleapis.com',
+    validate: false
+  },
+  GoogleWorkspaceEventsAPI: {
+    service: 'workspaceevents.googleapis.com',
+    validate: false
+  },
+  WorkspaceMCPAPI: { service: 'workspacemcp.googleapis.com', validate: false },
+  GoogleWorkspaceStudioAPI: {
+    service: 'workspacestudio.googleapis.com',
+    validate: false
+  },
+  CloudWorkstationsAPI: {
+    service: 'workstations.googleapis.com',
+    validate: false
+  },
+  YouTubeDataAPIv3: { service: 'youtube.googleapis.com', validate: false },
+  YouTubeAnalyticsAPI: {
+    service: 'youtubeanalytics.googleapis.com',
+    validate: false
+  },
+  YouTubeEmbeddedPlayerAPI: {
+    service: 'youtubeembeddedplayer.googleapis.com',
+    validate: false
+  },
+  YouTubeoEmbedAPI: {
+    service: 'youtubeoembed.googleapis.com',
+    validate: false
+  },
+  YouTubeReportingAPI: {
+    service: 'youtubereporting.googleapis.com',
     validate: false
   }
 };
