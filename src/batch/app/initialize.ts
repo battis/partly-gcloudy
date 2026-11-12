@@ -24,7 +24,7 @@ export async function initialize({
   deploy = true,
   ...options
 }: initialize.Options = {}) {
-  const urlEnvVar = `${core.args().values.projectEnvVar}_URL`;
+  const urlEnvVar = `PROJECT_URL`;
 
   const { project } = await batchProjects.initialize(options);
 
