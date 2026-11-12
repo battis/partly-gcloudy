@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.5.1](https://github.com/battis/partly-gcloudy/compare/v3.5.0...v3.5.1) (2026-11-12)
+
+
+### Bug Fixes
+
+* _export_ TurboDeploy [@qui-cli](https://github.com/qui-cli) plugin ([f03ea07](https://github.com/battis/partly-gcloudy/commit/f03ea07cb5d856fdb5a695e6d53f5e79ff2d45dc))
+
 ## [3.5.0](https://github.com/battis/partly-gcloudy/compare/v3.4.5...v3.5.0) (2026-11-12)
 
 
