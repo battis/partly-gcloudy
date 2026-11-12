@@ -52,31 +52,31 @@
     "rword-english-extended": "^1.0.0"
   },
   "devDependencies": {
-    "@1password/sdk": "^0.4.1",
-    "@battis/commit": "^0.0.9",
-    "@battis/descriptive-types": "^0.2.6",
+    "@1password/sdk": "^0.5.0",
+    "@battis/commit": "^0.0.11",
+    "@battis/descriptive-types": "^0.3.1",
     "@battis/eslint": "^3.0.8",
-    "@battis/monorepo": "^0.0.7",
+    "@battis/monorepo": "^1.0.0",
     "@battis/prettier": "^2.0.11",
     "@battis/typescript-tricks": "^0.8.7",
     "@tsconfig/node-lts": "^24.0.1",
     "@types/lodash": "^4.17.27",
     "@types/node": "^24.19.2",
-    "del-cli": "^6.0.0",
+    "del-cli": "^8.0.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.10.0",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
     "@inquirer/prompts": ">=6",
-    "@qui-cli/colors": "3.2.5-0",
-    "@qui-cli/core": "7.1.0-0",
-    "@qui-cli/env": "5.3.0-0",
-    "@qui-cli/log": "4.0.5-0",
-    "@qui-cli/plugin": "4.2.0-0",
-    "@qui-cli/root": "3.1.2-0",
-    "@qui-cli/shell": "3.1.5-0",
-    "@qui-cli/validators": "3.0.5"
+    "@qui-cli/colors": "3.x",
+    "@qui-cli/core": "7.x",
+    "@qui-cli/env": "5.x",
+    "@qui-cli/log": "4.x",
+    "@qui-cli/plugin": "4.x",
+    "@qui-cli/root": "3.x",
+    "@qui-cli/shell": "3.x",
+    "@qui-cli/validators": "3.x"
   },
   "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
   "target": "node"

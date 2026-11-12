@@ -12,29 +12,29 @@ importers:
         specifier: '>=6'
         version: 8.8.0(@types/node@24.19.2)
       '@qui-cli/colors':
-        specifier: 3.2.5-0
-        version: 3.2.5-0
+        specifier: 3.x
+        version: 3.2.5
       '@qui-cli/core':
-        specifier: 7.1.0-0
-        version: 7.1.0-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
+        specifier: 7.x
+        version: 7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
       '@qui-cli/env':
-        specifier: 5.3.0-0
-        version: 5.3.0-0(@1password/sdk@0.4.1)(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))(@qui-cli/shell@3.1.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))
+        specifier: 5.x
+        version: 5.3.0(@1password/sdk@0.5.0)(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))(@qui-cli/shell@3.1.5(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))
       '@qui-cli/log':
-        specifier: 4.0.5-0
-        version: 4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))
+        specifier: 4.x
+        version: 4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))
       '@qui-cli/plugin':
-        specifier: 4.2.0-0
-        version: 4.2.0-0(@qui-cli/colors@3.2.5-0)
+        specifier: 4.x
+        version: 4.2.0(@qui-cli/colors@3.2.5)
       '@qui-cli/root':
-        specifier: 3.1.2-0
-        version: 3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
+        specifier: 3.x
+        version: 3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
       '@qui-cli/shell':
-        specifier: 3.1.5-0
-        version: 3.1.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
+        specifier: 3.x
+        version: 3.1.5(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
       '@qui-cli/validators':
-        specifier: 3.0.5
-        version: 3.0.5(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))
+        specifier: 3.x
+        version: 3.0.6(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))
       change-case-all:
         specifier: ^2.2.0
         version: 2.2.0
@@ -52,23 +52,23 @@ importers:
         version: 1.0.0
     devDependencies:
       '@1password/sdk':
-        specifier: ^0.4.1
-        version: 0.4.1
+        specifier: ^0.5.0
+        version: 0.5.0
       '@battis/commit':
-        specifier: ^0.0.9
-        version: 0.0.9(@commitlint/config-conventional@21.2.0)(@commitlint/config-pnpm-scopes@21.2.0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)(commit-and-tag-version@12.7.3)
+        specifier: ^0.0.11
+        version: 0.0.11(@commitlint/config-conventional@21.2.0)(@commitlint/config-pnpm-scopes@21.2.0)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(commit-and-tag-version@12.7.3)(typescript@7.0.2)
       '@battis/descriptive-types':
-        specifier: ^0.2.6
-        version: 0.2.6
+        specifier: ^0.3.1
+        version: 0.3.1
       '@battis/eslint':
         specifier: ^3.0.8
-        version: 3.0.8(@eslint/js@10.0.1(eslint@10.7.0))(@eslint/markdown@8.0.3)(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)(eslint-config-prettier@10.1.8(eslint@10.7.0))(eslint-plugin-html@8.1.4)(eslint@10.7.0)(globals@17.7.0)(typescript-eslint@8.63.0(eslint@10.7.0)(typescript@5.9.3))(typescript@5.9.3)
+        version: 3.0.8(@eslint/js@10.0.1(eslint@10.7.0))(@eslint/markdown@8.0.3)(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(eslint-config-prettier@10.1.8(eslint@10.7.0))(eslint-plugin-html@8.1.4)(eslint@10.7.0)(globals@17.7.0)(typescript-eslint@8.63.0(eslint@10.7.0)(typescript@7.0.2))(typescript@7.0.2)
       '@battis/monorepo':
-        specifier: ^0.0.7
-        version: 0.0.7(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@types/node@24.19.2)(lerna@9.0.7(@types/node@24.19.2))(monorepo-package-paths@0.4.6(@types/node@24.19.2)(prettier@3.10.0))(npm-run-all@4.1.5)
+        specifier: ^1.0.0
+        version: 1.0.0(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@types/node@24.19.2)(lerna@9.0.7(@types/node@24.19.2))(monorepo-package-paths@1.0.0(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@types/node@24.19.2)(prettier@3.10.0)(typescript@7.0.2))(npm-run-all@4.1.5)(typescript@7.0.2)
       '@battis/prettier':
         specifier: ^2.0.11
-        version: 2.0.11(@ianvs/prettier-plugin-sort-imports@4.7.1(prettier@3.10.0))(@prettier/plugin-xml@3.4.2(prettier@3.10.0))(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)(prettier-plugin-ejs@1.0.3(prettier@3.10.0))(prettier-plugin-jsdoc@1.8.1(prettier@3.10.0))(prettier-plugin-packagejson@3.1.0(prettier@3.10.0))(prettier@3.10.0)(typescript@5.9.3)
+        version: 2.0.11(@ianvs/prettier-plugin-sort-imports@4.7.1(prettier@3.10.0))(@prettier/plugin-xml@3.4.2(prettier@3.10.0))(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(prettier-plugin-ejs@1.0.3(prettier@3.10.0))(prettier-plugin-jsdoc@1.8.1(prettier@3.10.0))(prettier-plugin-packagejson@3.1.0(prettier@3.10.0))(prettier@3.10.0)(typescript@7.0.2)
       '@battis/typescript-tricks':
         specifier: ^0.8.7
         version: 0.8.7
@@ -82,8 +82,8 @@ importers:
         specifier: ^24.19.2
         version: 24.19.2
       del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^8.0.1
+        version: 8.0.1
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -91,8 +91,8 @@ importers:
         specifier: ^3.10.0
         version: 3.10.0
       typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
+        specifier: ^7.0.2
+        version: 7.0.2
 
   examples/gae-deploy:
     devDependencies:
@@ -107,15 +107,15 @@ importers:
         version: link:../..
       '@qui-cli/root':
         specifier: ^3.1.2
-        version: 3.1.2(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
+        version: 3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
 
 packages:
 
-  '@1password/sdk-core@0.4.1':
-    resolution: {integrity: sha512-7yGBbzcwje+BQ+BO+RVCEo0qZq97pz93+T3ouF6L2hskCD+dvtXF39s0MBr1yVEMTZ8y5gqMruFEexQqbkiDhA==}
+  '@1password/sdk-core@0.5.0':
+    resolution: {integrity: sha512-9g7LWOKRKdePZ85evVgE9xEom3DAg3hRIyQdOwLPvpL/F7KpDXmUHMi72rsqJxKaDbWApXmrYjDExMSPqUg7xw==}
 
-  '@1password/sdk@0.4.1':
-    resolution: {integrity: sha512-wsa2XozG5O2aKGmxEMT+A8kUvhk68FnGIP1r9qlY139SMVSuptH74ulTo1DR5wBlL+iBg3hsW+IpYOXO3EKQwA==}
+  '@1password/sdk@0.5.0':
+    resolution: {integrity: sha512-k6kov3pcA7PRg2tev9CgTfEf/3JSyAp11BPQNCEsqAD32QbqM032OXC1rfjyC8Ba0sfH+NHYZxcifUZToyGyYA==}
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -154,16 +154,13 @@ packages:
     resolution: {integrity: sha512-UjI/dKmwJwT9pOszJitq2G6EObZPnsZUfdCr92z2TlF3EZK9J3EdfOKUrCzHl6wFthbzwhzl1Soc/UIwxRiq6w==}
     engines: {node: '>=6.9.0'}
 
-  '@battis/commit@0.0.9':
-    resolution: {integrity: sha512-HcVGFkAlOZg7WyXCwt6EM8oZpS6V9s/o6ECJFfdEyvSFYexU4/kMWxSCnuj+Zayyj0q3DGW/fhqaZO+KzfE/nA==}
+  '@battis/commit@0.0.11':
+    resolution: {integrity: sha512-aMFAJDqElEukZBXyoKM5mwKA3C2Pl/WtnWEbc03yIiIr19ZfWXUeqGAIOnREUs1qlBPv7/eOBuYZK2ndlzq6aQ==}
     hasBin: true
     peerDependencies:
-      '@commitlint/config-conventional': ^21.1.0
-      '@commitlint/config-pnpm-scopes': ^21.0.2
-      commit-and-tag-version: 12.7.3
-
-  '@battis/descriptive-types@0.2.6':
-    resolution: {integrity: sha512-tgJ1OoOVlshBRdDrwhy5+cQM4s8xKVRlBDYDos7VuOh+1dF11+F6y/KZnBIhPeHitGiI3BRUXHW7sCF8zMvBsg==}
+      '@commitlint/config-conventional': 21.x
+      '@commitlint/config-pnpm-scopes': 21.x
+      commit-and-tag-version: 13.x
 
   '@battis/descriptive-types@0.3.1':
     resolution: {integrity: sha512-j+sMqSriKyX8VyLikUPPcvk6jw4yUY6MhNe6n3wUITXPtaT+voqplNV6NT4Buhn1jStC95V6RDAEK5pB46xP3Q==}
@@ -180,19 +177,19 @@ packages:
       globals: 17.x
       typescript-eslint: 8.x
 
+  '@battis/import-package-json@0.1.11':
+    resolution: {integrity: sha512-/wjUj0aRs92Z2u+FFg4S2DpdRs8YKkN8lVKGanbr17c7glQ71VKbEf3gXV41Xn0he93j54PHoPB7qXdu8TwAew==}
+
   '@battis/import-package-json@0.1.12':
     resolution: {integrity: sha512-AJxHVPW0ONWUbHyV6MkeA3bLxO8fh4qvb1LY5GNWEvnPQtO7bty0+H1lBzQqHVMSE5PuH6qUfACtfjopsYb8yQ==}
 
-  '@battis/import-package-json@0.1.9':
-    resolution: {integrity: sha512-Y1iYOp7nLlPJLKzR+kL4NxyueyNEr07/1mMdhsVfP5j1cEB8OSdP7zwOc6QssJYgitc1b78AjLU3VP3pc8KrXA==}
-
-  '@battis/monorepo@0.0.7':
-    resolution: {integrity: sha512-KbkdriYy8ZmxT3zVl8Q9WWrAhYd8sOoOKm8D95ixNBobcnxGoykSfQCcbjrJHE1AFcOQLFApbeHL6WGTbeECUg==}
+  '@battis/monorepo@1.0.0':
+    resolution: {integrity: sha512-VHP7GH+Dmg5c9wVqetbWUQgAbQqY320Sedv0W0ktwzkcihXLMU6mdG4toHU1IJbmJFEYhykqrq//862XzG7eSA==}
     hasBin: true
     peerDependencies:
-      lerna: ^9.0.7
-      monorepo-package-paths: 0.4.6
-      npm-run-all: 4.1.5
+      lerna: 9.x
+      monorepo-package-paths: 1.0.0
+      npm-run-all: 4.x
 
   '@battis/prettier@2.0.11':
     resolution: {integrity: sha512-RfB8hEx7aja4rGflOI8CNQOsF4+SojrjWNdC8TXPYJNn2cGTjp67zPePdm+6xemZYAjUW+Wi4wT+7lm9b3a5jQ==}
@@ -903,29 +900,14 @@ packages:
   '@qui-cli/colors@3.2.5':
     resolution: {integrity: sha512-DL1kv6JI5nH2EniAmPbPoj1dsiesE4xTgqCFkKtUNmyk8Bxd5YmJ2RIRobtF3Dfs+tYl3GNMWYzQ1aruho0P6Q==}
 
-  '@qui-cli/colors@3.2.5-0':
-    resolution: {integrity: sha512-bnXyNchI13685GXJlzdAqzMg/fO9chmSowdayvlaj/OtP8mcCjowhILLyNfNxLL0jPzmHPKr1o7LqXbjuWH6sA==}
-
-  '@qui-cli/core@7.0.0':
-    resolution: {integrity: sha512-fjmCpAhYkCcXCDE5cqT5zySnnfNTi851y7UuGjz0n67Hzw04Pd76dWXmBxCuBi4grfvHiYtOfUwOI46Oa8Ax0w==}
-    peerDependencies:
-      '@qui-cli/colors': '>=3.2'
-      '@qui-cli/plugin': '>=3'
-
   '@qui-cli/core@7.1.0':
     resolution: {integrity: sha512-5eB+AHivsggXdYFww+Kfaxhcnzz2pK/qo7jwEpFpGE5fRnYKjs5QpET9i1Ff3nHk2XR1NLD3KyHsvHJsYH/dtw==}
     peerDependencies:
       '@qui-cli/colors': '>=3.2'
       '@qui-cli/plugin': '>=3'
 
-  '@qui-cli/core@7.1.0-0':
-    resolution: {integrity: sha512-vLCmSqcS75J632i0M5+Mc59n+k3oOT/T8az6TDnrMD4Hvb/xNKM8VRdGhxg/1XEIf4T2VnyxaOFO4tmJCXDxSw==}
-    peerDependencies:
-      '@qui-cli/colors': '>=3.2'
-      '@qui-cli/plugin': '>=3'
-
-  '@qui-cli/env@5.3.0-0':
-    resolution: {integrity: sha512-p5Nz1y5/KSTsneeg7CqJ2tA3LneaJKQogwq6e5aXKc3F3NC26wp7Z29yoIygwBzuITVN+Gs5EWqm5hqOmLdazg==}
+  '@qui-cli/env@5.3.0':
+    resolution: {integrity: sha512-VMp3bCERL+Kx/TV+FzubnHAkKww9YzMV3tnRXDSo0R4GpSGKS3fub5t6XgpwQ0tvYGCuxNURcmQ+tPc03s78cQ==}
     peerDependencies:
       '@1password/sdk': '>=0.3'
       '@qui-cli/colors': '>=3.2'
@@ -936,14 +918,6 @@ packages:
     peerDependenciesMeta:
       '@1password/sdk':
         optional: true
-
-  '@qui-cli/init@1.1.1':
-    resolution: {integrity: sha512-zcccF22JXFStDmoPEAt94yoyqa49Rvj/M1bwp1558XTB7Qmy74EGc+KHs0ek0RKNN6yyHIv0xodl3JWm4PwGuA==}
-    peerDependencies:
-      '@qui-cli/colors': 3.2.4
-      '@qui-cli/core': 7.0.0
-      '@qui-cli/log': 4.0.4
-      '@qui-cli/plugin': 4.1.2
 
   '@qui-cli/init@2.0.1':
     resolution: {integrity: sha512-EUBxvU0XBs5zZRrkDIRZPfxAK3Wd4IDqSpS657ezbTOOD7XF/e3fkAGrPB3/Be0hea29RFISPbivhnyuSL9fuw==}
@@ -960,20 +934,8 @@ packages:
       '@qui-cli/plugin': '>=3'
       '@qui-cli/root': '>=3'
 
-  '@qui-cli/log@4.0.5-0':
-    resolution: {integrity: sha512-zALEPSWAP/QzxDOxp9Z7Jc6D1I/eyQdJvXmfdEnc+6jfQZshGJ1zki17GoNmvbYe53JkLr/GDpP7LAARG8q0ZQ==}
-    peerDependencies:
-      '@qui-cli/colors': '>=3.2'
-      '@qui-cli/plugin': '>=3'
-      '@qui-cli/root': '>=3'
-
   '@qui-cli/plugin@4.2.0':
     resolution: {integrity: sha512-DP0zH//4toyQQCmJ5BsT9j9B6xHrgePilRmkD4k8uYv1OOWgPfDv/nUbMD4+dcpYIcNamfgt42elcvk0kDGe+A==}
-    peerDependencies:
-      '@qui-cli/colors': '>=3.2'
-
-  '@qui-cli/plugin@4.2.0-0':
-    resolution: {integrity: sha512-U4xHtiN+OK3LTSla/QvgOImy7iRUpllip+oAMzoyoA4szaLsUZyFoki2iWlaQyAP9dAPkfTIETZN0bGYCUdS1w==}
     peerDependencies:
       '@qui-cli/colors': '>=3.2'
 
@@ -982,30 +944,12 @@ packages:
     peerDependencies:
       '@qui-cli/plugin': '>=3'
 
-  '@qui-cli/root@3.1.2-0':
-    resolution: {integrity: sha512-oTj7oSiA0AOyN8s2vdxNpq2Wanhbxw8svJ1QB1wrrU2H8ozKe2fdkh5CxqUxS8vvKsSOtQpcyK5ku9VPx5xiFg==}
-    peerDependencies:
-      '@qui-cli/plugin': '>=3'
-
-  '@qui-cli/shell@3.1.4':
-    resolution: {integrity: sha512-3CPMvxiasBTLLBKQC96319XgIYbYr8SUr1DKHCjnLBa7ZQo8hiQ6XQpxRbCYjkHP9O5r/sUIusNN0pMT2LvK8A==}
+  '@qui-cli/shell@3.1.5':
+    resolution: {integrity: sha512-ABs7enWTuwO3TNOK+ku6F+fHQKTJa8Ap7sbGdhXFrbJpeuIFmTuxZxCkI+1dcyWU6/HRc38SL+CsWyaz6dC99w==}
     peerDependencies:
       '@qui-cli/colors': '>=3.2'
       '@qui-cli/log': '>=3'
       '@qui-cli/plugin': '>=3'
-
-  '@qui-cli/shell@3.1.5-0':
-    resolution: {integrity: sha512-BVhU3yTFtnfuqZ03Wv24UJndcKJg1Aw0iu9qRUXz5qoE4/8JwCaEXhtyjkp7S+BNEpen6KSa0ON0QFg6Ze6Ygw==}
-    peerDependencies:
-      '@qui-cli/colors': '>=3.2'
-      '@qui-cli/log': '>=3'
-      '@qui-cli/plugin': '>=3'
-
-  '@qui-cli/validators@3.0.5':
-    resolution: {integrity: sha512-5rB+1upioiQcfZIyGPyZhmuJNV8AQR/2WBb4bb1w513Au9y3e+tP+3QG0D7E6qHG8tfkf0WkmFlwJZ+OaTLw3A==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-    peerDependencies:
-      '@qui-cli/root': '>=3'
 
   '@qui-cli/validators@3.0.6':
     resolution: {integrity: sha512-kxr4yWbQrg7ffilp1NRhCG7OjIx47FY8TkXGvZixZ3HclVpVvDTCzsRk/xCdHoWjzEIxyE6Jq16VPZk8Xm2hcQ==}
@@ -1044,8 +988,8 @@ packages:
   '@sinclair/typebox@0.34.52':
     resolution: {integrity: sha512-XiMQh7qqVlxZzcVD+kkGMNGMzcTrDMLWI7S4x7z1MkCkbDPrekpZXEUK0eZqZFMuHQg2a2DZOcDIh9o5v3Gonw==}
 
-  '@sindresorhus/merge-streams@2.3.0':
-    resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
+  '@sindresorhus/merge-streams@4.0.0':
+    resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
     engines: {node: '>=18'}
 
   '@so-ric/colorspace@1.1.6':
@@ -1175,6 +1119,126 @@ packages:
   '@typescript-eslint/visitor-keys@8.63.0':
     resolution: {integrity: sha512-UexrHGnGTpbuQHct2ExOc2ZcFbGUS9FOesCxxqdBGcpI1BxYu/LZ6U8Aq6/72XtF/qRBk9nhuGHFJIXXMhPMdw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@typescript/typescript-aix-ppc64@7.0.2':
+    resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [ppc64]
+    os: [aix]
+
+  '@typescript/typescript-darwin-arm64@7.0.2':
+    resolution: {integrity: sha512-gowzar9MwS/aRWp6f3a4KUqzRjAZjOsmGNCM6LcTgXum+dBfgsBVMN+AgvOCCbguXyick6LJhpBszxMebJ8syA==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@typescript/typescript-darwin-x64@7.0.2':
+    resolution: {integrity: sha512-SZ9xZInqApNlNGc9s0W1VSsktYSOe9cFqNOIqmN1Gs8SmkjKZYFt017G4VwPxASInODuAdbTW7sXiFUf893RgA==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@typescript/typescript-freebsd-arm64@7.0.2':
+    resolution: {integrity: sha512-W5NH4y/J0plIIS5b2xvTEkU7JFxyqdMAOgf+Ilhl0vHQXKO5dZoxd+C/jEtq56c4F3wk71RB4BMRQ2XdI+bwYQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [freebsd]
+
+  '@typescript/typescript-freebsd-x64@7.0.2':
+    resolution: {integrity: sha512-UMGDx5sTpzNw3WiPebH7l90IWfJggEd+egHt/q6p7/Cm3zqoV7VxkGXt+3DxPIw8CcmvAB0j3sVVfbhX+M4Tpw==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@typescript/typescript-linux-arm64@7.0.2':
+    resolution: {integrity: sha512-Qh4eU4/y3yDjnfjjyPYihMj5/ODIlmt+Bzu17OI+fiSRDW57QmU5SiN63exPRNJPKUzcc1INa1NXdrJ+MqHjUQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@typescript/typescript-linux-arm@7.0.2':
+    resolution: {integrity: sha512-gffT3xPz9sR7j/YJExkyPntrI0P2EP9XbOyWzth2/Gs0RstK+90RBcO0ncXoXy/beYll1SXw846Nf2zdnEz0QQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm]
+    os: [linux]
+
+  '@typescript/typescript-linux-loong64@7.0.2':
+    resolution: {integrity: sha512-uEHck9i8hoAzXPiYRib1O7miOnz23SxIeVl6F4LXox+qov1K35jHcEW6VHKvZI+pyvl7fZEP4MCU5LYvIq1GuQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [loong64]
+    os: [linux]
+
+  '@typescript/typescript-linux-mips64el@7.0.2':
+    resolution: {integrity: sha512-R4KvAMnE43W5Qeqb0Ly56O3mWMWIAgsMyz36DCaycd5nbg/9kzm0liw3JocfRqyJY0KPmzFjbswozXyW0DnIYA==}
+    engines: {node: '>=16.20.0'}
+    cpu: [mips64el]
+    os: [linux]
+
+  '@typescript/typescript-linux-ppc64@7.0.2':
+    resolution: {integrity: sha512-DORx5b3sd/4S7eayxm4FQv+A7CrkUIGRaHiwI8oiHTAI1fAPWhF4J0vAlkC8biAlHSVVwxMQ3tjZ2/DVbnQiiA==}
+    engines: {node: '>=16.20.0'}
+    cpu: [ppc64]
+    os: [linux]
+
+  '@typescript/typescript-linux-riscv64@7.0.2':
+    resolution: {integrity: sha512-wf0jqEDOjrPRnKwYRyyJDRo11KMbvMFrU+q4zqKyChODBzvlkbhNQfKvLxQCcwTpdDaXSHZTVuh0JoCrKCUMHQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [riscv64]
+    os: [linux]
+
+  '@typescript/typescript-linux-s390x@7.0.2':
+    resolution: {integrity: sha512-IkwJc3L7yhytWd/ewjyxNDfOmswCm9GWMJT/ue/dU4aZNbwZeYAetq42VyLmsmSjvoX7z74X6ZaYCtzAr0EuGw==}
+    engines: {node: '>=16.20.0'}
+    cpu: [s390x]
+    os: [linux]
+
+  '@typescript/typescript-linux-x64@7.0.2':
+    resolution: {integrity: sha512-EYdf2cNg7rgCWJnxCdJ+F3V39O8ihb37eHAu1LK8oAFizgTQbPOK7zHHXbPt8rX24COqODXeI3sIf0fCXG7H/A==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [linux]
+
+  '@typescript/typescript-netbsd-arm64@7.0.2':
+    resolution: {integrity: sha512-+polYF4MF04aPpO5FTkHran9yUQDSXqy5GiSDKpsll5jy3l3+g9QLhpf39T+ePtefhXLOGrLl0QIjkQP6VnelA==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [netbsd]
+
+  '@typescript/typescript-netbsd-x64@7.0.2':
+    resolution: {integrity: sha512-8YIT0EHM/3dq10ZOVF/A7pc/YSMtbcecct4rWtexrnSCHOPcpC2KTLXfTCR6vDpnSiY12heNb1GiN/wu+T/FyA==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [netbsd]
+
+  '@typescript/typescript-openbsd-arm64@7.0.2':
+    resolution: {integrity: sha512-APT8+ClYnuYm1u9+kgGXoMj2VzWzcymwh2gNSQVySHfkRDGOTVkoWLjCmOQSaO+PoqQ57B0flRp9SA+7GnnkzQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [openbsd]
+
+  '@typescript/typescript-openbsd-x64@7.0.2':
+    resolution: {integrity: sha512-yX7s+Q0Dln0Dt9tEzZsAjXXR/+ytBM7AlglaqyeMPxQszJ1JhlJdZ6jLA+IzldHtflX81em7lDao1xXu+aRRkg==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [openbsd]
+
+  '@typescript/typescript-sunos-x64@7.0.2':
+    resolution: {integrity: sha512-dLJDGaLZ1D4HPQn62u1n8mBDkJREwMsAkCdkwd4Ieqw+x3TUyTsqY0YiBCtE6H6OzzgGk3iuZ3vFWRS+E8/d1g==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [sunos]
+
+  '@typescript/typescript-win32-arm64@7.0.2':
+    resolution: {integrity: sha512-Gyl1Vy6OsWesLzmq+EP0Fb7b4Nid5232AvcA2SFcdYreldpNtYFFofPjnt62y9hQy7VTaZp65ICJjuAQRaVcIQ==}
+    engines: {node: '>=16.20.0'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@typescript/typescript-win32-x64@7.0.2':
+    resolution: {integrity: sha512-0BQ3HkAHHlKLSp1qRvf3SUhGpGsDuhB/jgFw75guyqbxJqEaS0Cw/VFO8i2nHglJUzQCRtMMR/IBAKE3ETMC4g==}
+    engines: {node: '>=16.20.0'}
+    cpu: [x64]
+    os: [win32]
 
   '@vvo/tzdb@6.204.0':
     resolution: {integrity: sha512-GC7i3D4rCs6l5jnf6NofoRRumZwVHS1cBNhgbenDLLyJNqJOrTo/8zrWovIrJl5BujiFurqn0Ayj10wysmOKrQ==}
@@ -1741,14 +1805,14 @@ packages:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
 
-  del-cli@6.0.0:
-    resolution: {integrity: sha512-9nitGV2W6KLFyya4qYt4+9AKQFL+c0Ehj5K7V7IwlxTc6RMCfQUGY9E9pLG6e8TQjtwXpuiWIGGZb3mfVxyZkw==}
-    engines: {node: '>=18'}
+  del-cli@8.0.1:
+    resolution: {integrity: sha512-Z4+xLjVJs9dMN4gDMRfY/7b7WItNOB5EOKu9BenbJD63olx9YM5SU/DEuDFWvN0B1BdGIzejCJFgPt2vIGwj1A==}
+    engines: {node: '>=22'}
     hasBin: true
 
-  del@8.0.1:
-    resolution: {integrity: sha512-gPqh0mKTPvaUZGAuHbrBUYKZWBNAeHG7TU3QH5EhVwPMyKvmfJaNXhcD2jTcXsJRRcffuho4vaYweu80dRrMGA==}
-    engines: {node: '>=18'}
+  del@9.0.1:
+    resolution: {integrity: sha512-1B11d2d8AJcTcbvXtF5a9NWVoE7G12eJPcadRGdLik38WxgsAyDQO5ZdjHoeIlAIhAhbgnD/AZVBWf9xQze+0w==}
+    engines: {node: '>=22'}
 
   delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
@@ -2220,9 +2284,9 @@ packages:
     resolution: {integrity: sha512-DpLKbNU4WylpxJykQujfCcwYWiV/Jhm50Goo0wrVILAv5jOr9d+H+UR3PhSCD2rCCEIg0uc+G+muBTwD54JhDQ==}
     engines: {node: '>= 0.4'}
 
-  globby@14.1.0:
-    resolution: {integrity: sha512-0Ia46fDOaT7k4og1PDW4YbodWWr3scS2vAr2lTbsplOt2WkKp0vQbkI9wKis/T5LV/dqPjO3bpS/z6GTJB82LA==}
-    engines: {node: '>=18'}
+  globby@16.2.4:
+    resolution: {integrity: sha512-c8B/VNLmxRcmqqenRA9t+9IyOjf9+V6lTxPaUJLqOCONdQkWZ0ETYgX0qbtJqPsgCNusT9MZ5Jeidw8Eb9tn2g==}
+    engines: {node: '>=20'}
 
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
@@ -2494,9 +2558,9 @@ packages:
     resolution: {integrity: sha512-drqDG3cbczxxEJRoOXcOjtdp1J/lyp1mNn0xaznRs8+muBhgQcrnbspox5X5fOw0HnMnbfDzvnEMEtqDEJEo8w==}
     engines: {node: '>=8'}
 
-  is-path-cwd@3.0.0:
-    resolution: {integrity: sha512-kyiNFFLU0Ampr6SDZitD/DwUo4Zs1nSdnygUBqsu3LooL00Qvb5j+UnvApUn/TTj1J3OuE6BTdQ5rudKmU2ZaA==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+  is-path-cwd@4.0.1:
+    resolution: {integrity: sha512-w3upMc5m1LfTkA4VvUcMo764hWF1uuo2NPHtLkLrlhw/tiCLxD5gIhvl72oZIY8oFVpZ/xG2JnqbibZAfSQ3Ww==}
+    engines: {node: '>=20'}
 
   is-path-inside@4.0.0:
     resolution: {integrity: sha512-lJJV/5dYS+RcL8uQdBDW9c9uWFLLBNRyFhnAKXw5tVqLlKZ4RMGZKv+YQ/IA3OhD+RpbJa1LLFM1FQPGyIXvOA==}
@@ -2849,9 +2913,9 @@ packages:
     resolution: {integrity: sha512-S3UwM3yj5mtUSEfP41UZmt/0SCoVYUcU1rkXv+BQ5Ig8ndL4sPoJNBUJERafdPb5jjHJGuMgytgKvKIf58XNBw==}
     engines: {node: '>= 0.10.0'}
 
-  meow@13.2.0:
-    resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
-    engines: {node: '>=18'}
+  meow@14.1.0:
+    resolution: {integrity: sha512-EDYo6VlmtnumlcBCbh1gLJ//9jvM/ndXHfVXIFrZVr6fGcwTUyCTFNTLCKuY3ffbK8L/+3Mzqnd58RojiZqHVw==}
+    engines: {node: '>=20'}
 
   meow@8.1.2:
     resolution: {integrity: sha512-r85E3NdZ+mpYk1C6RjPFEMSE+s1iZMuHtsHAqY0DT3jZczl0diWUZ8g6oU7h0M9cD2EL+PzaYghhCLzR0ZNn5Q==}
@@ -3046,11 +3110,11 @@ packages:
     resolution: {integrity: sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==}
     engines: {node: '>=0.10.0'}
 
-  monorepo-package-paths@0.4.6:
-    resolution: {integrity: sha512-MERkecdWSyHeJzOt1FjZ6IezGovtbj5dzm2oFhdaaidzdskj5mfnnB9DOISXWpzb8ZtvILZAiP/k/HeQUQtENg==}
+  monorepo-package-paths@1.0.0:
+    resolution: {integrity: sha512-jYpbGZsxRlW1gb1jTs7EBw/xBek5cgLaGa+WrkN6DuNK5un0MFF5OzHKNfiMEmnYyz20JjLgl412UBm0o/qR/Q==}
     hasBin: true
     peerDependencies:
-      prettier: ^3.0
+      prettier: ^3.9.6
     peerDependenciesMeta:
       prettier:
         optional: true
@@ -3369,10 +3433,6 @@ packages:
   path-type@3.0.0:
     resolution: {integrity: sha512-T2ZUsdZFHgA3u4e5PfPbjd7HDDpxPnQb5jN0SrDsjNSuVXHJqtwTnWqG0B1jZrgmJ/7lj1EmVIByWt1gxGkWvg==}
     engines: {node: '>=4'}
-
-  path-type@6.0.0:
-    resolution: {integrity: sha512-Vj7sf++t5pBD637NSfkxpHSMfWaeig5+DKWLhcqIYx6mWQz5hdJTGDVMQiJcw1ZYkhs7AazKDGpRVji1LJCZUQ==}
-    engines: {node: '>=18'}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -4036,6 +4096,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@7.0.2:
+    resolution: {integrity: sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==}
+    engines: {node: '>=16.20.0'}
+    hasBin: true
+
   uglify-js@3.19.3:
     resolution: {integrity: sha512-v3Xu+yuwBXisp6QYTcH4UbH+xYJXqnq2m/LtQVWKWzYc1iehYnLixoQDN9FH6/j9/oybfd6W9Ghwkl8+UMKTKQ==}
     engines: {node: '>=0.8.0'}
@@ -4052,9 +4117,9 @@ packages:
     resolution: {integrity: sha512-EvRlUt/QqAEvXdQeRMYUfwOQsfzpDztykrG2owGEE/rBOBoYv9uF39ZzsNDh4lTFHhTr2XOZjKkYgueD12ZmGA==}
     engines: {node: '>=18.17'}
 
-  unicorn-magic@0.3.0:
-    resolution: {integrity: sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA==}
-    engines: {node: '>=18'}
+  unicorn-magic@0.4.1:
+    resolution: {integrity: sha512-lzlXPoVB0Uy/FvTaUgX39RbixYiSKoc3JSoSf01+0c2B6FR3qdYIPN7Qjo/AV7n6sqLCk0509cT3LRj1oSZ1+A==}
+    engines: {node: '>=20'}
 
   unist-util-is@6.0.1:
     resolution: {integrity: sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==}
@@ -4255,11 +4320,11 @@ packages:
 
 snapshots:
 
-  '@1password/sdk-core@0.4.1': {}
+  '@1password/sdk-core@0.5.0': {}
 
-  '@1password/sdk@0.4.1':
+  '@1password/sdk@0.5.0':
     dependencies:
-      '@1password/sdk-core': 0.4.1
+      '@1password/sdk-core': 0.5.0
 
   '@babel/code-frame@7.29.7':
     dependencies:
@@ -4308,22 +4373,23 @@ snapshots:
       '@babel/helper-string-parser': 7.29.14
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@battis/commit@0.0.9(@commitlint/config-conventional@21.2.0)(@commitlint/config-pnpm-scopes@21.2.0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)(commit-and-tag-version@12.7.3)':
+  '@battis/commit@0.0.11(@commitlint/config-conventional@21.2.0)(@commitlint/config-pnpm-scopes@21.2.0)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(commit-and-tag-version@12.7.3)(typescript@7.0.2)':
     dependencies:
       '@commitlint/config-conventional': 21.2.0
       '@commitlint/config-pnpm-scopes': 21.2.0
       '@qui-cli/colors': 3.2.5
-      '@qui-cli/core': 7.0.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
-      '@qui-cli/init': 1.1.1(@qui-cli/colors@3.2.5)(@qui-cli/core@7.0.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)
-      '@qui-cli/shell': 3.1.4(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
+      '@qui-cli/core': 7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
+      '@qui-cli/init': 2.0.1(@qui-cli/colors@3.2.5)(@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(typescript@7.0.2)
+      '@qui-cli/shell': 3.1.5(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
       commit-and-tag-version: 12.7.3
       ora: 9.4.1
     transitivePeerDependencies:
       - '@qui-cli/log'
       - '@qui-cli/plugin'
       - '@types/node'
-
-  '@battis/descriptive-types@0.2.6': {}
+      - supports-color
+      - typescript
+      - vue-tsc
 
   '@battis/descriptive-types@0.3.1':
     dependencies:
@@ -4332,17 +4398,17 @@ snapshots:
       is-timezone: 1.0.1
       is-valid-path: 0.1.1
 
-  '@battis/eslint@3.0.8(@eslint/js@10.0.1(eslint@10.7.0))(@eslint/markdown@8.0.3)(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)(eslint-config-prettier@10.1.8(eslint@10.7.0))(eslint-plugin-html@8.1.4)(eslint@10.7.0)(globals@17.7.0)(typescript-eslint@8.63.0(eslint@10.7.0)(typescript@5.9.3))(typescript@5.9.3)':
+  '@battis/eslint@3.0.8(@eslint/js@10.0.1(eslint@10.7.0))(@eslint/markdown@8.0.3)(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(eslint-config-prettier@10.1.8(eslint@10.7.0))(eslint-plugin-html@8.1.4)(eslint@10.7.0)(globals@17.7.0)(typescript-eslint@8.63.0(eslint@10.7.0)(typescript@7.0.2))(typescript@7.0.2)':
     dependencies:
       '@eslint/js': 10.0.1(eslint@10.7.0)
       '@eslint/markdown': 8.0.3
-      '@qui-cli/core': 7.1.0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
-      '@qui-cli/init': 2.0.1(@qui-cli/colors@3.2.5-0)(@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)(typescript@5.9.3)
+      '@qui-cli/core': 7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
+      '@qui-cli/init': 2.0.1(@qui-cli/colors@3.2.5)(@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(typescript@7.0.2)
       eslint: 10.7.0
       eslint-config-prettier: 10.1.8(eslint@10.7.0)
       eslint-plugin-html: 8.1.4
       globals: 17.7.0
-      typescript-eslint: 8.63.0(eslint@10.7.0)(typescript@5.9.3)
+      typescript-eslint: 8.63.0(eslint@10.7.0)(typescript@7.0.2)
     transitivePeerDependencies:
       - '@qui-cli/colors'
       - '@qui-cli/log'
@@ -4352,6 +4418,13 @@ snapshots:
       - typescript
       - vue-tsc
 
+  '@battis/import-package-json@0.1.11':
+    dependencies:
+      '@types/semver': 7.8.0
+      node-fetch: 3.3.2
+      package-json-type: 1.1.2
+      semver: 7.8.6
+
   '@battis/import-package-json@0.1.12':
     dependencies:
       '@types/semver': 7.8.0
@@ -4359,32 +4432,30 @@ snapshots:
       package-json-type: 1.1.2
       semver: 7.8.6
 
-  '@battis/import-package-json@0.1.9':
-    dependencies:
-      node-fetch: 3.3.2
-      semver: 7.8.6
-
-  '@battis/monorepo@0.0.7(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@types/node@24.19.2)(lerna@9.0.7(@types/node@24.19.2))(monorepo-package-paths@0.4.6(@types/node@24.19.2)(prettier@3.10.0))(npm-run-all@4.1.5)':
+  '@battis/monorepo@1.0.0(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@types/node@24.19.2)(lerna@9.0.7(@types/node@24.19.2))(monorepo-package-paths@1.0.0(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@types/node@24.19.2)(prettier@3.10.0)(typescript@7.0.2))(npm-run-all@4.1.5)(typescript@7.0.2)':
     dependencies:
       '@qui-cli/colors': 3.2.5
-      '@qui-cli/core': 7.0.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
-      '@qui-cli/init': 1.1.1(@qui-cli/colors@3.2.5)(@qui-cli/core@7.0.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)
+      '@qui-cli/core': 7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
+      '@qui-cli/init': 2.0.1(@qui-cli/colors@3.2.5)(@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(typescript@7.0.2)
       '@qui-cli/plugin': 4.2.0(@qui-cli/colors@3.2.5)
-      '@qui-cli/shell': 3.1.4(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
+      '@qui-cli/shell': 3.1.5(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
       lerna: 9.0.7(@types/node@24.19.2)
-      monorepo-package-paths: 0.4.6(@types/node@24.19.2)(prettier@3.10.0)
+      monorepo-package-paths: 1.0.0(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@types/node@24.19.2)(prettier@3.10.0)(typescript@7.0.2)
       npm-run-all: 4.1.5
       ora: 9.4.1
     transitivePeerDependencies:
       - '@qui-cli/log'
       - '@types/node'
+      - supports-color
+      - typescript
+      - vue-tsc
 
-  '@battis/prettier@2.0.11(@ianvs/prettier-plugin-sort-imports@4.7.1(prettier@3.10.0))(@prettier/plugin-xml@3.4.2(prettier@3.10.0))(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)(prettier-plugin-ejs@1.0.3(prettier@3.10.0))(prettier-plugin-jsdoc@1.8.1(prettier@3.10.0))(prettier-plugin-packagejson@3.1.0(prettier@3.10.0))(prettier@3.10.0)(typescript@5.9.3)':
+  '@battis/prettier@2.0.11(@ianvs/prettier-plugin-sort-imports@4.7.1(prettier@3.10.0))(@prettier/plugin-xml@3.4.2(prettier@3.10.0))(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(prettier-plugin-ejs@1.0.3(prettier@3.10.0))(prettier-plugin-jsdoc@1.8.1(prettier@3.10.0))(prettier-plugin-packagejson@3.1.0(prettier@3.10.0))(prettier@3.10.0)(typescript@7.0.2)':
     dependencies:
       '@ianvs/prettier-plugin-sort-imports': 4.7.1(prettier@3.10.0)
       '@prettier/plugin-xml': 3.4.2(prettier@3.10.0)
-      '@qui-cli/core': 7.1.0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
-      '@qui-cli/init': 2.0.1(@qui-cli/colors@3.2.5-0)(@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)(typescript@5.9.3)
+      '@qui-cli/core': 7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
+      '@qui-cli/init': 2.0.1(@qui-cli/colors@3.2.5)(@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(typescript@7.0.2)
       prettier: 3.10.0
       prettier-plugin-ejs: 1.0.3(prettier@3.10.0)
       prettier-plugin-jsdoc: 1.8.1(prettier@3.10.0)
@@ -5125,24 +5196,6 @@ snapshots:
     dependencies:
       chalk: 5.6.2
 
-  '@qui-cli/colors@3.2.5-0':
-    dependencies:
-      chalk: 5.6.2
-
-  '@qui-cli/core@7.0.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))':
-    dependencies:
-      '@qui-cli/colors': 3.2.5
-      '@qui-cli/plugin': 4.2.0(@qui-cli/colors@3.2.5)
-      jackspeak: 4.2.3
-      wrap-ansi: 10.0.2
-
-  '@qui-cli/core@7.0.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))':
-    dependencies:
-      '@qui-cli/colors': 3.2.5
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
-      jackspeak: 4.2.3
-      wrap-ansi: 10.0.2
-
   '@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))':
     dependencies:
       '@qui-cli/colors': 3.2.5
@@ -5150,83 +5203,35 @@ snapshots:
       jackspeak: 4.2.3
       wrap-ansi: 10.0.2
 
-  '@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))':
-    dependencies:
-      '@qui-cli/colors': 3.2.5-0
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
-      jackspeak: 4.2.3
-      wrap-ansi: 10.0.2
-
-  '@qui-cli/core@7.1.0-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))':
-    dependencies:
-      '@qui-cli/colors': 3.2.5-0
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
-      jackspeak: 4.2.3
-      wrap-ansi: 10.0.2
-
-  '@qui-cli/env@5.3.0-0(@1password/sdk@0.4.1)(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))(@qui-cli/shell@3.1.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))':
+  '@qui-cli/env@5.3.0(@1password/sdk@0.5.0)(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))(@qui-cli/shell@3.1.5(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))':
     dependencies:
       '@battis/import-package-json': 0.1.12
-      '@qui-cli/colors': 3.2.5-0
-      '@qui-cli/log': 4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
-      '@qui-cli/root': 3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
-      '@qui-cli/shell': 3.1.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
+      '@qui-cli/colors': 3.2.5
+      '@qui-cli/log': 4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))
+      '@qui-cli/plugin': 4.2.0(@qui-cli/colors@3.2.5)
+      '@qui-cli/root': 3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
+      '@qui-cli/shell': 3.1.5(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
       dotenv: 17.4.2
       ora: 9.4.1
     optionalDependencies:
-      '@1password/sdk': 0.4.1
+      '@1password/sdk': 0.5.0
 
-  '@qui-cli/init@1.1.1(@qui-cli/colors@3.2.5)(@qui-cli/core@7.0.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)':
+  '@qui-cli/init@2.0.1(@qui-cli/colors@3.2.5)(@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(typescript@7.0.2)':
     dependencies:
       '@battis/descriptive-types': 0.3.1
       '@inquirer/confirm': 6.4.0(@types/node@24.19.2)
       '@inquirer/input': 5.2.0(@types/node@24.19.2)
       '@qui-cli/colors': 3.2.5
-      '@qui-cli/core': 7.0.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
-      '@qui-cli/log': 4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))
+      '@qui-cli/core': 7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
+      '@qui-cli/log': 4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))
       '@qui-cli/plugin': 4.2.0(@qui-cli/colors@3.2.5)
-      app-root-path: 3.1.0
-      change-case: 5.4.4
-      ora: 9.4.1
-      package-json-type: 1.1.2
-      yaml: 2.9.1
-    transitivePeerDependencies:
-      - '@types/node'
-
-  '@qui-cli/init@1.1.1(@qui-cli/colors@3.2.5)(@qui-cli/core@7.0.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)':
-    dependencies:
-      '@battis/descriptive-types': 0.3.1
-      '@inquirer/confirm': 6.4.0(@types/node@24.19.2)
-      '@inquirer/input': 5.2.0(@types/node@24.19.2)
-      '@qui-cli/colors': 3.2.5
-      '@qui-cli/core': 7.0.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
-      '@qui-cli/log': 4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
-      app-root-path: 3.1.0
-      change-case: 5.4.4
-      ora: 9.4.1
-      package-json-type: 1.1.2
-      yaml: 2.9.1
-    transitivePeerDependencies:
-      - '@types/node'
-
-  '@qui-cli/init@2.0.1(@qui-cli/colors@3.2.5-0)(@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@types/node@24.19.2)(typescript@5.9.3)':
-    dependencies:
-      '@battis/descriptive-types': 0.3.1
-      '@inquirer/confirm': 6.4.0(@types/node@24.19.2)
-      '@inquirer/input': 5.2.0(@types/node@24.19.2)
-      '@qui-cli/colors': 3.2.5-0
-      '@qui-cli/core': 7.1.0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
-      '@qui-cli/log': 4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
       app-root-path: 3.1.0
       change-case: 5.4.4
       ora: 9.4.1
       package-json-type: 1.1.2
       prettier: 3.10.0
       prettier-plugin-jsdoc: 1.8.1(prettier@3.10.0)
-      prettier-plugin-organize-imports: 4.3.0(prettier@3.10.0)(typescript@5.9.3)
+      prettier-plugin-organize-imports: 4.3.0(prettier@3.10.0)(typescript@7.0.2)
       prettier-plugin-packagejson: 3.1.0(prettier@3.10.0)
       yaml: 2.9.1
     transitivePeerDependencies:
@@ -5244,23 +5249,9 @@ snapshots:
       strip-ansi: 7.2.0
       winston: 3.19.0
 
-  '@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))':
-    dependencies:
-      '@qui-cli/colors': 3.2.5-0
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
-      '@qui-cli/root': 3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
-      ora: 9.4.1
-      strip-ansi: 7.2.0
-      winston: 3.19.0
-
   '@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)':
     dependencies:
       '@qui-cli/colors': 3.2.5
-      jackspeak: 4.2.3
-
-  '@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)':
-    dependencies:
-      '@qui-cli/colors': 3.2.5-0
       jackspeak: 4.2.3
 
   '@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))':
@@ -5268,47 +5259,13 @@ snapshots:
       '@qui-cli/plugin': 4.2.0(@qui-cli/colors@3.2.5)
       app-root-path: 3.1.0
 
-  '@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))':
-    dependencies:
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
-      app-root-path: 3.1.0
-
-  '@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))':
-    dependencies:
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
-      app-root-path: 3.1.0
-
-  '@qui-cli/shell@3.1.4(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))':
+  '@qui-cli/shell@3.1.5(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))':
     dependencies:
       '@qui-cli/colors': 3.2.5
-      '@qui-cli/log': 4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))
+      '@qui-cli/log': 4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))
       '@qui-cli/plugin': 4.2.0(@qui-cli/colors@3.2.5)
       ora: 9.4.1
       shelljs: 0.10.0
-
-  '@qui-cli/shell@3.1.4(@qui-cli/colors@3.2.5)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))':
-    dependencies:
-      '@qui-cli/colors': 3.2.5
-      '@qui-cli/log': 4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
-      ora: 9.4.1
-      shelljs: 0.10.0
-
-  '@qui-cli/shell@3.1.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/log@4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))))(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))':
-    dependencies:
-      '@qui-cli/colors': 3.2.5-0
-      '@qui-cli/log': 4.0.5-0(@qui-cli/colors@3.2.5-0)(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))
-      '@qui-cli/plugin': 4.2.0-0(@qui-cli/colors@3.2.5-0)
-      ora: 9.4.1
-      shelljs: 0.10.0
-
-  '@qui-cli/validators@3.0.5(@qui-cli/root@3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0)))':
-    dependencies:
-      '@qui-cli/root': 3.1.2-0(@qui-cli/plugin@4.2.0-0(@qui-cli/colors@3.2.5-0))
-      '@tahul/is-valid-domain': 1.0.5
-      cron-validate: 1.5.3
-      email-validator: 2.0.4
-      is-valid-path: 0.1.1
 
   '@qui-cli/validators@3.0.6(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))':
     dependencies:
@@ -5354,7 +5311,7 @@ snapshots:
 
   '@sinclair/typebox@0.34.52': {}
 
-  '@sindresorhus/merge-streams@2.3.0': {}
+  '@sindresorhus/merge-streams@4.0.0': {}
 
   '@so-ric/colorspace@1.1.6':
     dependencies:
@@ -5418,40 +5375,40 @@ snapshots:
 
   '@types/unist@3.0.3': {}
 
-  '@typescript-eslint/eslint-plugin@8.63.0(@typescript-eslint/parser@8.63.0(eslint@10.7.0)(typescript@5.9.3))(eslint@10.7.0)(typescript@5.9.3)':
+  '@typescript-eslint/eslint-plugin@8.63.0(@typescript-eslint/parser@8.63.0(eslint@10.7.0)(typescript@7.0.2))(eslint@10.7.0)(typescript@7.0.2)':
     dependencies:
       '@eslint-community/regexpp': 4.12.3
-      '@typescript-eslint/parser': 8.63.0(eslint@10.7.0)(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.63.0(eslint@10.7.0)(typescript@7.0.2)
       '@typescript-eslint/scope-manager': 8.63.0
-      '@typescript-eslint/type-utils': 8.63.0(eslint@10.7.0)(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.63.0(eslint@10.7.0)(typescript@5.9.3)
+      '@typescript-eslint/type-utils': 8.63.0(eslint@10.7.0)(typescript@7.0.2)
+      '@typescript-eslint/utils': 8.63.0(eslint@10.7.0)(typescript@7.0.2)
       '@typescript-eslint/visitor-keys': 8.63.0
       eslint: 10.7.0
       ignore: 7.0.14
       natural-compare: 1.4.0
-      ts-api-utils: 2.5.0(typescript@5.9.3)
-      typescript: 5.9.3
+      ts-api-utils: 2.5.0(typescript@7.0.2)
+      typescript: 7.0.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.63.0(eslint@10.7.0)(typescript@5.9.3)':
+  '@typescript-eslint/parser@8.63.0(eslint@10.7.0)(typescript@7.0.2)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.63.0
       '@typescript-eslint/types': 8.63.0
-      '@typescript-eslint/typescript-estree': 8.63.0(typescript@5.9.3)
+      '@typescript-eslint/typescript-estree': 8.63.0(typescript@7.0.2)
       '@typescript-eslint/visitor-keys': 8.63.0
       debug: 4.4.3(supports-color@7.2.0)
       eslint: 10.7.0
-      typescript: 5.9.3
+      typescript: 7.0.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/project-service@8.63.0(typescript@5.9.3)':
+  '@typescript-eslint/project-service@8.63.0(typescript@7.0.2)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.63.0(typescript@5.9.3)
+      '@typescript-eslint/tsconfig-utils': 8.63.0(typescript@7.0.2)
       '@typescript-eslint/types': 8.63.0
       debug: 4.4.3(supports-color@7.2.0)
-      typescript: 5.9.3
+      typescript: 7.0.2
     transitivePeerDependencies:
       - supports-color
 
@@ -5460,47 +5417,47 @@ snapshots:
       '@typescript-eslint/types': 8.63.0
       '@typescript-eslint/visitor-keys': 8.63.0
 
-  '@typescript-eslint/tsconfig-utils@8.63.0(typescript@5.9.3)':
+  '@typescript-eslint/tsconfig-utils@8.63.0(typescript@7.0.2)':
     dependencies:
-      typescript: 5.9.3
+      typescript: 7.0.2
 
-  '@typescript-eslint/type-utils@8.63.0(eslint@10.7.0)(typescript@5.9.3)':
+  '@typescript-eslint/type-utils@8.63.0(eslint@10.7.0)(typescript@7.0.2)':
     dependencies:
       '@typescript-eslint/types': 8.63.0
-      '@typescript-eslint/typescript-estree': 8.63.0(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.63.0(eslint@10.7.0)(typescript@5.9.3)
+      '@typescript-eslint/typescript-estree': 8.63.0(typescript@7.0.2)
+      '@typescript-eslint/utils': 8.63.0(eslint@10.7.0)(typescript@7.0.2)
       debug: 4.4.3(supports-color@7.2.0)
       eslint: 10.7.0
-      ts-api-utils: 2.5.0(typescript@5.9.3)
-      typescript: 5.9.3
+      ts-api-utils: 2.5.0(typescript@7.0.2)
+      typescript: 7.0.2
     transitivePeerDependencies:
       - supports-color
 
   '@typescript-eslint/types@8.63.0': {}
 
-  '@typescript-eslint/typescript-estree@8.63.0(typescript@5.9.3)':
+  '@typescript-eslint/typescript-estree@8.63.0(typescript@7.0.2)':
     dependencies:
-      '@typescript-eslint/project-service': 8.63.0(typescript@5.9.3)
-      '@typescript-eslint/tsconfig-utils': 8.63.0(typescript@5.9.3)
+      '@typescript-eslint/project-service': 8.63.0(typescript@7.0.2)
+      '@typescript-eslint/tsconfig-utils': 8.63.0(typescript@7.0.2)
       '@typescript-eslint/types': 8.63.0
       '@typescript-eslint/visitor-keys': 8.63.0
       debug: 4.4.3(supports-color@7.2.0)
       minimatch: 10.2.6
       semver: 7.8.6
       tinyglobby: 0.2.17
-      ts-api-utils: 2.5.0(typescript@5.9.3)
-      typescript: 5.9.3
+      ts-api-utils: 2.5.0(typescript@7.0.2)
+      typescript: 7.0.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.63.0(eslint@10.7.0)(typescript@5.9.3)':
+  '@typescript-eslint/utils@8.63.0(eslint@10.7.0)(typescript@7.0.2)':
     dependencies:
       '@eslint-community/eslint-utils': 4.10.1(eslint@10.7.0)
       '@typescript-eslint/scope-manager': 8.63.0
       '@typescript-eslint/types': 8.63.0
-      '@typescript-eslint/typescript-estree': 8.63.0(typescript@5.9.3)
+      '@typescript-eslint/typescript-estree': 8.63.0(typescript@7.0.2)
       eslint: 10.7.0
-      typescript: 5.9.3
+      typescript: 7.0.2
     transitivePeerDependencies:
       - supports-color
 
@@ -5508,6 +5465,66 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.63.0
       eslint-visitor-keys: 5.0.1
+
+  '@typescript/typescript-aix-ppc64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-darwin-arm64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-darwin-x64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-freebsd-arm64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-freebsd-x64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-linux-arm64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-linux-arm@7.0.2':
+    optional: true
+
+  '@typescript/typescript-linux-loong64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-linux-mips64el@7.0.2':
+    optional: true
+
+  '@typescript/typescript-linux-ppc64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-linux-riscv64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-linux-s390x@7.0.2':
+    optional: true
+
+  '@typescript/typescript-linux-x64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-netbsd-arm64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-netbsd-x64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-openbsd-arm64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-openbsd-x64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-sunos-x64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-win32-arm64@7.0.2':
+    optional: true
+
+  '@typescript/typescript-win32-x64@7.0.2':
+    optional: true
 
   '@vvo/tzdb@6.204.0': {}
 
@@ -6083,16 +6100,17 @@ snapshots:
       has-property-descriptors: 1.0.2
       object-keys: 1.1.1
 
-  del-cli@6.0.0:
+  del-cli@8.0.1:
     dependencies:
-      del: 8.0.1
-      meow: 13.2.0
+      del: 9.0.1
+      meow: 14.1.0
+      presentable-error: 0.0.1
 
-  del@8.0.1:
+  del@9.0.1:
     dependencies:
-      globby: 14.1.0
+      globby: 16.2.4
       is-glob: 4.0.3
-      is-path-cwd: 3.0.0
+      is-path-cwd: 4.0.1
       is-path-inside: 4.0.0
       p-map: 7.1.1
       presentable-error: 0.0.1
@@ -6651,14 +6669,15 @@ snapshots:
       define-properties: 1.2.1
       gopd: 1.2.0
 
-  globby@14.1.0:
+  globby@16.2.4:
     dependencies:
-      '@sindresorhus/merge-streams': 2.3.0
+      '@sindresorhus/merge-streams': 4.0.0
       fast-glob: 3.3.3
       ignore: 7.0.14
-      path-type: 6.0.0
+      is-path-inside: 4.0.0
+      micromatch: 4.0.8
       slash: 5.1.0
-      unicorn-magic: 0.3.0
+      unicorn-magic: 0.4.1
 
   gopd@1.2.0: {}
 
@@ -6914,7 +6933,7 @@ snapshots:
 
   is-obj@2.0.0: {}
 
-  is-path-cwd@3.0.0: {}
+  is-path-cwd@4.0.1: {}
 
   is-path-inside@4.0.0: {}
 
@@ -7422,7 +7441,7 @@ snapshots:
 
   memorystream@0.3.1: {}
 
-  meow@13.2.0: {}
+  meow@14.1.0: {}
 
   meow@8.1.2:
     dependencies:
@@ -7745,13 +7764,13 @@ snapshots:
 
   modify-values@1.0.1: {}
 
-  monorepo-package-paths@0.4.6(@types/node@24.19.2)(prettier@3.10.0):
+  monorepo-package-paths@1.0.0(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@types/node@24.19.2)(prettier@3.10.0)(typescript@7.0.2):
     dependencies:
-      '@battis/import-package-json': 0.1.9
+      '@battis/import-package-json': 0.1.11
       '@inquirer/input': 5.2.0(@types/node@24.19.2)
       '@qui-cli/colors': 3.2.5
       '@qui-cli/core': 7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
-      '@qui-cli/log': 4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))
+      '@qui-cli/init': 2.0.1(@qui-cli/colors@3.2.5)(@qui-cli/core@7.1.0(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))(@qui-cli/log@4.0.5(@qui-cli/colors@3.2.5)(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))))(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))(@types/node@24.19.2)(typescript@7.0.2)
       '@qui-cli/plugin': 4.2.0(@qui-cli/colors@3.2.5)
       '@qui-cli/root': 3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5))
       '@qui-cli/validators': 3.0.6(@qui-cli/root@3.1.2(@qui-cli/plugin@4.2.0(@qui-cli/colors@3.2.5)))
@@ -7762,7 +7781,11 @@ snapshots:
     optionalDependencies:
       prettier: 3.10.0
     transitivePeerDependencies:
+      - '@qui-cli/log'
       - '@types/node'
+      - supports-color
+      - typescript
+      - vue-tsc
 
   ms@2.1.3: {}
 
@@ -8276,8 +8299,6 @@ snapshots:
     dependencies:
       pify: 3.0.0
 
-  path-type@6.0.0: {}
-
   picocolors@1.1.1: {}
 
   picomatch@2.3.2: {}
@@ -8317,10 +8338,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  prettier-plugin-organize-imports@4.3.0(prettier@3.10.0)(typescript@5.9.3):
+  prettier-plugin-organize-imports@4.3.0(prettier@3.10.0)(typescript@7.0.2):
     dependencies:
       prettier: 3.10.0
-      typescript: 5.9.3
+      typescript: 7.0.2
 
   prettier-plugin-packagejson@3.1.0(prettier@3.10.0):
     dependencies:
@@ -8860,9 +8881,9 @@ snapshots:
 
   triple-beam@1.4.1: {}
 
-  ts-api-utils@2.5.0(typescript@5.9.3):
+  ts-api-utils@2.5.0(typescript@7.0.2):
     dependencies:
-      typescript: 5.9.3
+      typescript: 7.0.2
 
   tsconfig-paths@4.2.0:
     dependencies:
@@ -8928,18 +8949,41 @@ snapshots:
 
   typedarray@0.0.6: {}
 
-  typescript-eslint@8.63.0(eslint@10.7.0)(typescript@5.9.3):
+  typescript-eslint@8.63.0(eslint@10.7.0)(typescript@7.0.2):
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.63.0(@typescript-eslint/parser@8.63.0(eslint@10.7.0)(typescript@5.9.3))(eslint@10.7.0)(typescript@5.9.3)
-      '@typescript-eslint/parser': 8.63.0(eslint@10.7.0)(typescript@5.9.3)
-      '@typescript-eslint/typescript-estree': 8.63.0(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.63.0(eslint@10.7.0)(typescript@5.9.3)
+      '@typescript-eslint/eslint-plugin': 8.63.0(@typescript-eslint/parser@8.63.0(eslint@10.7.0)(typescript@7.0.2))(eslint@10.7.0)(typescript@7.0.2)
+      '@typescript-eslint/parser': 8.63.0(eslint@10.7.0)(typescript@7.0.2)
+      '@typescript-eslint/typescript-estree': 8.63.0(typescript@7.0.2)
+      '@typescript-eslint/utils': 8.63.0(eslint@10.7.0)(typescript@7.0.2)
       eslint: 10.7.0
-      typescript: 5.9.3
+      typescript: 7.0.2
     transitivePeerDependencies:
       - supports-color
 
   typescript@5.9.3: {}
+
+  typescript@7.0.2:
+    optionalDependencies:
+      '@typescript/typescript-aix-ppc64': 7.0.2
+      '@typescript/typescript-darwin-arm64': 7.0.2
+      '@typescript/typescript-darwin-x64': 7.0.2
+      '@typescript/typescript-freebsd-arm64': 7.0.2
+      '@typescript/typescript-freebsd-x64': 7.0.2
+      '@typescript/typescript-linux-arm': 7.0.2
+      '@typescript/typescript-linux-arm64': 7.0.2
+      '@typescript/typescript-linux-loong64': 7.0.2
+      '@typescript/typescript-linux-mips64el': 7.0.2
+      '@typescript/typescript-linux-ppc64': 7.0.2
+      '@typescript/typescript-linux-riscv64': 7.0.2
+      '@typescript/typescript-linux-s390x': 7.0.2
+      '@typescript/typescript-linux-x64': 7.0.2
+      '@typescript/typescript-netbsd-arm64': 7.0.2
+      '@typescript/typescript-netbsd-x64': 7.0.2
+      '@typescript/typescript-openbsd-arm64': 7.0.2
+      '@typescript/typescript-openbsd-x64': 7.0.2
+      '@typescript/typescript-sunos-x64': 7.0.2
+      '@typescript/typescript-win32-arm64': 7.0.2
+      '@typescript/typescript-win32-x64': 7.0.2
 
   uglify-js@3.19.3:
     optional: true
@@ -8955,7 +8999,7 @@ snapshots:
 
   undici@6.29.1: {}
 
-  unicorn-magic@0.3.0: {}
+  unicorn-magic@0.4.1: {}
 
   unist-util-is@6.0.1:
     dependencies:
